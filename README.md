@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+[<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -288,3 +288,4 @@ Hi Glenn, here is this week's list of at-risk partners needing your direct inter
   </script>
 </body>
 </html>
+](https://github.com/andrah94/WISE.git)
