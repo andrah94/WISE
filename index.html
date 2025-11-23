@@ -1798,7 +1798,7 @@
                         </p>
                     </div>
 
-                    <form id="newsletterForm" class="flex flex-col md:flex-row gap-4 max-w-2xl mx-auto" action="https://formspree.io/f/xeoqdqpr" method="POST">
+                    <form id="newsletterForm" class="flex flex-col md:flex-row gap-4 max-w-2xl mx-auto">
                         <input
                             type="email"
                             name="email"
@@ -1807,8 +1807,7 @@
                             class="newsletter-input flex-1"
                             required
                         >
-                        <input type="hidden" name="_subject" value="New WISE Newsletter Subscriber">
-                        <button type="submit" class="btn-premium whitespace-nowrap">
+                        <button type="submit" class="btn-premium whitespace-nowrap" id="subscribeBtn">
                             Subscribe Now
                         </button>
                     </form>
@@ -2081,16 +2080,57 @@
         // Newsletter form
         const newsletterForm = document.getElementById('newsletterForm');
         const newsletterMessage = document.getElementById('newsletterMessage');
+        const emailInput = document.getElementById('emailInput');
+        const subscribeBtn = document.getElementById('subscribeBtn');
 
-        newsletterForm.addEventListener('submit', function(e) {
-            newsletterMessage.textContent = 'Subscribing...';
+        newsletterForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const email = emailInput.value.trim();
+
+            if (!email) {
+                newsletterMessage.textContent = 'Please enter a valid email address.';
+                newsletterMessage.style.color = '#ff6b6b';
+                newsletterMessage.classList.remove('hidden');
+                return;
+            }
+
+            // Show loading state
+            subscribeBtn.disabled = true;
+            subscribeBtn.textContent = 'Subscribing...';
+            newsletterMessage.textContent = 'Processing your subscription...';
             newsletterMessage.style.color = 'var(--gold)';
             newsletterMessage.classList.remove('hidden');
             newsletterMessage.classList.add('success-message');
 
-            setTimeout(() => {
-                newsletterMessage.textContent = 'Thank you for subscribing! Check your email for confirmation.';
-            }, 1000);
+            try {
+                const formData = new FormData();
+                formData.append('email', email);
+
+                const response = await fetch('https://script.google.com/macros/s/AKfycbwbI0yQQoAkw7OywIvSb_ZAdaP70UmXxgOvK3aocQ7Ak60_xR78Sc994sA9_m0fRj6q/exec', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.status === 'success') {
+                    newsletterMessage.textContent = result.message || 'Thank you for subscribing! 🎉';
+                    newsletterMessage.style.color = 'var(--gold)';
+                    emailInput.value = '';
+                } else {
+                    newsletterMessage.textContent = result.message || 'Something went wrong. Please try again.';
+                    newsletterMessage.style.color = '#ff6b6b';
+                }
+            } catch (error) {
+                console.error('Newsletter signup error:', error);
+                newsletterMessage.textContent = 'Unable to subscribe. Please try again later.';
+                newsletterMessage.style.color = '#ff6b6b';
+            } finally {
+                // Reset button
+                subscribeBtn.disabled = false;
+                subscribeBtn.textContent = 'Subscribe Now';
+            }
         });
     </script>
 </body>
