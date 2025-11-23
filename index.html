@@ -1,0 +1,2097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WISE Financial Partners - Transform Your Financial Future</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #E5C158;
+            --gold-dark: #B39429;
+            --black: #000000;
+            --dark-gray: #0a0a0a;
+            --accent-blue: #1e40af;
+            --accent-purple: #7c3aed;
+            --accent-teal: #14b8a6;
+            --light-bg: #f7f6f2;
+            --dark-text: #2d2d2d;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #000000 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(-45deg, #000000, #1a1a1a, #0a0a0a, #141414);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* SCROLL PROGRESS INDICATORS */
+        .scroll-indicators {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .scroll-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .scroll-indicator:hover {
+            background: rgba(212, 175, 55, 0.5);
+            transform: scale(1.3);
+        }
+
+        .scroll-indicator.active {
+            background: var(--gold);
+            transform: scale(1.5);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
+        }
+
+        .scroll-indicator::after {
+            content: attr(data-section);
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            border: 1px solid var(--gold);
+        }
+
+        .scroll-indicator:hover::after {
+            opacity: 1;
+        }
+
+        /* STICKY NAVIGATION */
+        .enhanced-header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 50;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 1rem 0;
+        }
+
+        .enhanced-header.scrolled {
+            background: rgba(212, 175, 55, 0.25);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(212, 175, 55, 0.4);
+            box-shadow: 0 10px 50px rgba(212, 175, 55, 0.2);
+            padding: 0.5rem 0;
+        }
+
+        .enhanced-header.scrolled .nav-link {
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .enhanced-header.scrolled .nav-link:hover {
+            color: var(--gold);
+        }
+
+        .enhanced-header.scrolled .btn-premium {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--black);
+            border: none;
+        }
+
+        .enhanced-header.scrolled .btn-premium:hover {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            transform: translateY(-4px) scale(1.05);
+        }
+
+        /* Light Section Style */
+        .light-section {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .light-section .gold-accent:after {
+            background: linear-gradient(90deg, transparent, var(--gold-dark), transparent);
+            box-shadow: none;
+        }
+
+        .light-section blockquote {
+            color: var(--dark-text);
+        }
+
+        .light-card {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .enhanced-header.header-on-light {
+            background: rgba(247, 246, 242, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+        .enhanced-header.header-on-light .nav-link {
+            color: var(--dark-text);
+        }
+        .enhanced-header.header-on-light .nav-link:hover {
+            color: var(--gold);
+        }
+        .enhanced-header.header-on-light .btn-premium {
+             background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+             color: var(--black);
+             border: none;
+        }
+
+        /* CURVED SECTION TRANSITIONS */
+        .curve-top {
+            position: absolute;
+            top: -1px;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+        }
+
+        .curve-top svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 80px;
+        }
+
+        .curve-bottom {
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            transform: rotate(180deg);
+        }
+
+        .curve-bottom svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 80px;
+        }
+
+        /* Glass morphism effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* Premium Button Styles */
+        .btn-premium {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            color: var(--black);
+            font-weight: 700;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-premium:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-premium:hover:before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-premium:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.6);
+        }
+
+        .btn-outline-premium {
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            font-weight: 700;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            background: transparent;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-outline-premium:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: var(--gold);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+            z-index: -1;
+        }
+
+        .btn-outline-premium:hover:before {
+            width: 400px;
+            height: 400px;
+        }
+
+        .btn-outline-premium:hover {
+            color: var(--black);
+            border-color: var(--gold);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.4);
+        }
+
+        /* ALTERNATING LAYOUTS */
+        .content-left {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .content-right {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .content-right .text-content {
+            order: 2;
+        }
+
+        .content-right .image-content {
+            order: 1;
+        }
+
+        /* IMAGE + TEXT OVERLAYS */
+        .image-overlay-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+
+        .image-overlay-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .image-overlay-container:hover img {
+            transform: scale(1.1);
+        }
+
+        .overlay-gradient {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.7) 0%, rgba(0, 0, 0, 0.8) 100%);
+            mix-blend-mode: multiply;
+            opacity: 0.8;
+            transition: opacity 0.6s;
+        }
+
+        .image-overlay-container:hover .overlay-gradient {
+            opacity: 0.5;
+        }
+
+        .overlay-text {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent);
+            transform: translateY(100%);
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .image-overlay-container:hover .overlay-text {
+            transform: translateY(0);
+        }
+
+        /* Service Cards */
+        .service-card {
+            background: linear-gradient(145deg, rgba(30, 64, 175, 0.1), rgba(0, 0, 0, 0.8));
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:nth-child(1) {
+            background: linear-gradient(145deg, rgba(30, 64, 175, 0.15), rgba(0, 0, 0, 0.9));
+        }
+
+        .service-card:nth-child(2) {
+            background: linear-gradient(145deg, rgba(124, 58, 237, 0.15), rgba(0, 0, 0, 0.9));
+        }
+
+        .service-card:nth-child(3) {
+            background: linear-gradient(145deg, rgba(20, 184, 166, 0.15), rgba(0, 0, 0, 0.9));
+        }
+
+        .service-card:nth-child(4) {
+            background: linear-gradient(145deg, rgba(212, 175, 55, 0.15), rgba(0, 0, 0, 0.9));
+        }
+
+        .service-card:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .service-card:hover:before {
+            transform: scale(1) rotate(180deg);
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 30px 60px rgba(212, 175, 55, 0.4);
+            border: 1px solid var(--gold);
+        }
+
+        .icon-gradient {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .service-card:hover .icon-gradient {
+            transform: scale(1.3) rotateY(360deg);
+            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.8));
+        }
+
+        /* Team Cards */
+        .team-card {
+            background: linear-gradient(145deg, rgba(26, 26, 26, 0.9), rgba(10, 10, 10, 0.9));
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .team-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+            transition: left 0.8s;
+        }
+
+        .team-card:hover:before {
+            left: 100%;
+        }
+
+        .team-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(212, 175, 55, 0.3);
+            border-color: var(--gold);
+        }
+
+        .team-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--gold);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            margin: 0 auto;
+            object-position: center 30%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .team-card:hover .team-image {
+            transform: scale(1.12) rotate(5deg);
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.8);
+            border-color: var(--gold-light);
+        }
+
+        .partner-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--gold);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            margin: 0 auto;
+            object-position: center 30%;
+        }
+
+        .team-card:hover .partner-image {
+            transform: scale(1.12);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.7);
+        }
+
+        .admin-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--gold);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            margin: 0 auto;
+            object-position: center 30%;
+        }
+
+        .team-card:hover .admin-image {
+            transform: scale(1.12);
+            box-shadow: 0 0 35px rgba(212, 175, 55, 0.7);
+        }
+
+        .founder-image {
+            max-width: 100%;
+            border-radius: 20px;
+            border: 4px solid var(--gold);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+        }
+
+        .founder-image:hover {
+            transform: scale(1.05) translateY(-10px);
+            box-shadow: 0 30px 80px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Premium Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1),
+                        transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-80px);
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1),
+                        transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slide-in-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(80px);
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1),
+                        transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slide-in-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.7);
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1),
+                        transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .scale-in.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Logo Animation */
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            margin-right: 15px;
+            object-fit: cover;
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.8));
+            animation: float 3s ease-in-out infinite, glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.8)); }
+            to { filter: drop-shadow(0 0 25px rgba(212, 175, 55, 1)); }
+        }
+
+        .nav-link {
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 600;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -6px;
+            left: 50%;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--gold);
+            transform: translateY(-3px);
+        }
+
+        /* Hero Enhancements */
+        .hero-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.2) 1%, transparent 4%),
+                radial-gradient(circle at 80% 70%, rgba(30, 64, 175, 0.2) 1%, transparent 4%),
+                radial-gradient(circle at 50% 50%, rgba(124, 58, 237, 0.2) 1%, transparent 4%),
+                linear-gradient(45deg, rgba(0, 0, 0, 0.95), rgba(17, 17, 17, 0.9));
+            background-size: 100px 100px, 100px 100px, 100px 100px, 100% 100%;
+            z-index: 0;
+            animation: patternMove 25s linear infinite;
+        }
+
+        @keyframes patternMove {
+            0% { background-position: 0 0, 0 0, 0 0, 0 0; }
+            100% { background-position: 100px 100px, -100px -100px, 50px 50px, 0 0; }
+        }
+
+        .hero-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 500px;
+            background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.3) 0%, rgba(30, 64, 175, 0.1) 50%, transparent 70%);
+            z-index: 1;
+            pointer-events: none;
+            animation: pulse 5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.6;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.15);
+            }
+        }
+
+        /* Newsletter Section */
+        .newsletter-section {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.1) 0%, rgba(0, 0, 0, 0.9) 100%);
+            border: 2px solid rgba(212, 175, 55, 0.4);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .newsletter-section:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+            animation: rotate 25s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .newsletter-input {
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(212, 175, 55, 0.4);
+            color: white;
+            padding: 1.2rem 1.8rem;
+            border-radius: 50px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1rem;
+            font-weight: 500;
+            width: 100%;
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            border-color: var(--gold);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+            transform: scale(1.02);
+        }
+
+        .newsletter-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Provider Logos */
+        .provider-logo {
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 25px;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+            border-radius: 20px;
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .provider-logo:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.15), transparent);
+            transition: all 0.8s;
+            transform: rotate(45deg);
+        }
+
+        .provider-logo:hover:before {
+            top: 100%;
+            left: 100%;
+        }
+
+        .provider-logo:hover {
+            transform: translateY(-12px) scale(1.08);
+            background: linear-gradient(145deg, rgba(212, 175, 55, 0.15), rgba(255, 255, 255, 0.08));
+            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.4);
+            border-color: var(--gold);
+        }
+
+        .provider-logo img {
+            max-height: 90px;
+            max-width: 100%;
+            object-fit: contain;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2;
+            position: relative;
+        }
+
+        .provider-logo:hover img {
+            transform: scale(1.15);
+            filter: brightness(1.2) drop-shadow(0 0 20px rgba(212, 175, 55, 0.6));
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--black);
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 40;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-8px) scale(1.15) rotate(360deg);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.7);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--black);
+            border-left: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--gold), var(--gold-dark));
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, var(--gold-light), var(--gold));
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        /* Gold Accent Line */
+        .gold-accent {
+            position: relative;
+        }
+
+        .gold-accent:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--gold), var(--gold-light), var(--gold), transparent);
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+        }
+
+        /* Floating particles background */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float-particle 20s infinite;
+        }
+
+        @keyframes float-particle {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-1000px) translateX(100px); opacity: 0; }
+        }
+
+        /* Success message animation */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-message {
+            animation: slideDown 0.5s ease-out;
+        }
+
+        /* Instagram Grid */
+        .instagram-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        /* ============================================
+           MOBILE RESPONSIVE STYLES - MAJOR OVERHAUL
+           ============================================ */
+
+        @media (max-width: 768px) {
+            /* Hide scroll indicators on mobile */
+            .scroll-indicators {
+                display: none;
+            }
+
+            /* Hero Section - Mobile Optimized */
+            #hero {
+                min-height: 100vh;
+                padding: 2rem 0;
+            }
+
+            #hero h1 {
+                font-size: 2rem !important;
+                line-height: 1.2;
+                margin-bottom: 1rem;
+            }
+
+            #hero p {
+                font-size: 1.1rem !important;
+                line-height: 1.5;
+                margin-bottom: 2rem;
+            }
+
+            .logo-icon {
+                width: 50px;
+                height: 50px;
+                margin-right: 10px;
+            }
+
+            /* Section Padding - Reduced for Mobile */
+            section {
+                padding: 3rem 0 !important;
+            }
+
+            /* Headings - Mobile Sizing */
+            h2 {
+                font-size: 2rem !important;
+                margin-bottom: 1.5rem !important;
+            }
+
+            h3 {
+                font-size: 1.5rem !important;
+                margin-bottom: 1rem !important;
+            }
+
+            h4 {
+                font-size: 1.25rem !important;
+            }
+
+            /* Paragraph Text - Mobile */
+            p {
+                font-size: 1rem !important;
+                line-height: 1.6 !important;
+                margin-bottom: 1rem !important;
+            }
+
+            /* Gold Accent Line - Smaller on Mobile */
+            .gold-accent:after {
+                width: 80px;
+                height: 3px;
+                bottom: -10px;
+            }
+
+            /* Buttons - Mobile Friendly */
+            .btn-premium, .btn-outline-premium {
+                padding: 0.9rem 1.5rem !important;
+                font-size: 0.75rem !important;
+                letter-spacing: 1px !important;
+                width: 100%;
+                max-width: 280px;
+            }
+
+            /* Content Layouts - Stack on Mobile */
+            .content-left, .content-right {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+            }
+
+            .content-right .text-content,
+            .content-right .image-content {
+                order: 0 !important;
+            }
+
+            /* Image Overlays - Adjusted Height */
+            .image-overlay-container {
+                height: 300px;
+                margin-bottom: 1.5rem;
+            }
+
+            .overlay-text {
+                padding: 1.5rem;
+            }
+
+            .overlay-text h3 {
+                font-size: 1.25rem !important;
+            }
+
+            /* Service Cards - Mobile Stack */
+            .service-card {
+                padding: 2rem 1.5rem !important;
+                margin-bottom: 1.5rem;
+            }
+
+            .service-card .icon-gradient {
+                font-size: 2.5rem !important;
+                margin-bottom: 1rem;
+            }
+
+            .service-card h3 {
+                font-size: 1.4rem !important;
+            }
+
+            .service-card p {
+                font-size: 0.95rem !important;
+            }
+
+            /* Glass Cards - Mobile */
+            .glass {
+                padding: 1.5rem !important;
+            }
+
+            /* Team Images - Smaller on Mobile */
+            .team-image {
+                width: 120px !important;
+                height: 120px !important;
+                border-width: 3px !important;
+            }
+
+            .partner-image {
+                width: 90px !important;
+                height: 90px !important;
+                border-width: 2px !important;
+            }
+
+            .admin-image {
+                width: 110px !important;
+                height: 110px !important;
+                border-width: 3px !important;
+            }
+
+            /* Team Cards - Mobile */
+            .team-card {
+                padding: 1.5rem 1rem !important;
+                margin-bottom: 1.5rem;
+            }
+
+            .team-card h4 {
+                font-size: 1.1rem !important;
+                margin-bottom: 0.5rem;
+            }
+
+            .team-card p {
+                font-size: 0.9rem !important;
+            }
+
+            /* Founder Image - Mobile */
+            .founder-image {
+                border-width: 3px;
+                max-width: 90%;
+                margin: 0 auto;
+            }
+
+            /* Provider Logos - Mobile */
+            .provider-logo {
+                height: 100px !important;
+                padding: 15px !important;
+            }
+
+            .provider-logo img {
+                max-height: 60px !important;
+            }
+
+            /* Newsletter - Mobile */
+            .newsletter-section {
+                padding: 2rem 1.5rem !important;
+            }
+
+            .newsletter-input {
+                padding: 1rem 1.5rem !important;
+                font-size: 0.9rem !important;
+                margin-bottom: 1rem;
+            }
+
+            /* Instagram Grid - Single Column */
+            .instagram-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem !important;
+            }
+
+            .instagram-grid a {
+                max-width: 100%;
+                margin: 0 auto;
+            }
+
+            /* Book Card - Mobile */
+            .light-card {
+                padding: 1.5rem !important;
+            }
+
+            .light-card img {
+                max-width: 120px !important;
+            }
+
+            .light-card h3 {
+                font-size: 1.3rem !important;
+            }
+
+            .light-card p {
+                font-size: 0.9rem !important;
+            }
+
+            /* Curves - Smaller on Mobile */
+            .curve-top svg, .curve-bottom svg {
+                height: 40px !important;
+            }
+
+            /* Back to Top - Mobile Position */
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+
+            /* Footer - Mobile */
+            footer {
+                padding: 2rem 0 !important;
+            }
+
+            footer h4 {
+                font-size: 1.3rem !important;
+                margin-bottom: 1rem !important;
+            }
+
+            footer p, footer a {
+                font-size: 0.95rem !important;
+            }
+
+            /* Remove hover effects on mobile for better performance */
+            .service-card:hover,
+            .team-card:hover,
+            .provider-logo:hover {
+                transform: none !important;
+            }
+
+            .service-card:hover .icon-gradient {
+                transform: none !important;
+            }
+
+            /* Container Padding - Mobile */
+            .container {
+                padding-left: 1.5rem !important;
+                padding-right: 1.5rem !important;
+            }
+
+            /* Blockquote - Mobile */
+            blockquote {
+                padding-left: 1.5rem !important;
+                margin: 1.5rem 0 !important;
+            }
+
+            blockquote p {
+                font-size: 1.3rem !important;
+            }
+
+            /* Lists - Mobile */
+            ul li {
+                font-size: 0.95rem !important;
+                margin-bottom: 0.75rem !important;
+            }
+
+            /* Grid Gaps - Reduced for Mobile */
+            .grid {
+                gap: 1.5rem !important;
+            }
+        }
+
+        /* Tablet Adjustments */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .content-left, .content-right {
+                grid-template-columns: 1fr !important;
+                gap: 3rem !important;
+            }
+
+            .content-right .text-content,
+            .content-right .image-content {
+                order: 0 !important;
+            }
+
+            h2 {
+                font-size: 2.5rem !important;
+            }
+
+            .btn-premium, .btn-outline-premium {
+                padding: 1rem 2rem !important;
+                font-size: 0.85rem !important;
+            }
+        }
+    </style>
+</head>
+<body class="gradient-bg">
+    <!-- Floating particles -->
+    <div class="particles">
+        <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="left: 20%; animation-delay: 2s;"></div>
+        <div class="particle" style="left: 30%; animation-delay: 4s;"></div>
+        <div class="particle" style="left: 40%; animation-delay: 6s;"></div>
+        <div class="particle" style="left: 50%; animation-delay: 8s;"></div>
+        <div class="particle" style="left: 60%; animation-delay: 10s;"></div>
+        <div class="particle" style="left: 70%; animation-delay: 12s;"></div>
+        <div class="particle" style="left: 80%; animation-delay: 14s;"></div>
+        <div class="particle" style="left: 90%; animation-delay: 16s;"></div>
+    </div>
+
+    <!-- SCROLL PROGRESS INDICATORS -->
+    <div class="scroll-indicators">
+        <div class="scroll-indicator active" data-section="Home" data-target="hero"></div>
+        <div class="scroll-indicator" data-section="About" data-target="intro"></div>
+        <div class="scroll-indicator" data-section="Services" data-target="services"></div>
+        <div class="scroll-indicator" data-section="Founder" data-target="about"></div>
+        <div class="scroll-indicator" data-section="Team" data-target="team"></div>
+        <div class="scroll-indicator" data-section="Careers" data-target="careers"></div>
+        <div class="scroll-indicator" data-section="Contact" data-target="contact"></div>
+    </div>
+
+    <!-- Back to top button -->
+    <a href="#" class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- STICKY HEADER -->
+    <header class="enhanced-header" id="mainHeader">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <a href="#" class="flex items-center">
+                    <img src="https://static.wixstatic.com/media/5e8141_66e7e6a003db4112869a2d8361faa1aa~mv2.jpeg" alt="WISE Financial Partners Logo" class="h-12">
+                </a>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#services" class="nav-link text-white hover:text-[#D4AF37]">Services</a>
+                    <a href="#about" class="nav-link text-white hover:text-[#D4AF37]">About</a>
+                    <a href="#team" class="nav-link text-white hover:text-[#D4AF37]">Team</a>
+                    <a href="#careers" class="nav-link text-white hover:text-[#D4AF37]">Careers</a>
+                    <a href="https://calendly.com/gwindom2/30min" target="_blank" class="btn-premium">Book Now</a>
+                </nav>
+
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none" aria-label="Open menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="mobile-menu fixed top-0 left-0 h-full w-64 bg-black bg-opacity-98 z-50 shadow-lg p-5 backdrop-blur-xl border-r-2 border-gold">
+            <div class="flex justify-end">
+                <button id="close-menu" class="text-white focus:outline-none" aria-label="Close menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="flex flex-col space-y-6 mt-10">
+                <a href="#services" class="text-white hover:text-[#D4AF37] font-semibold">Services</a>
+                <a href="#about" class="text-white hover:text-[#D4AF37] font-semibold">About</a>
+                <a href="#team" class="text-white hover:text-[#D4AF37] font-semibold">Team</a>
+                <a href="#careers" class="text-white hover:text-[#D4AF37] font-semibold">Careers</a>
+                <a href="https://calendly.com/gwindom2/30min" target="_blank" class="btn-premium text-center">Book Now</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-black opacity-70 z-10"></div>
+        <div class="absolute inset-0 z-0">
+            <div class="hero-pattern"></div>
+            <div class="hero-glow"></div>
+        </div>
+        <div class="container mx-auto px-4 z-20 text-center">
+            <div class="fade-in-up active">
+                <div class="flex items-center justify-center mb-8">
+                    <img src="https://static.wixstatic.com/media/5e8141_24f1e1c816bd46b7987e446519833fa7~mv2.jpg" alt="WISE Logo Icon" class="logo-icon">
+                    <h1 class="text-5xl md:text-7xl font-bold text-white">
+                        <span style="color: var(--gold)">WISE</span> Financial Partners
+                    </h1>
+                </div>
+                <p class="text-2xl md:text-3xl mb-10 max-w-4xl mx-auto font-light text-gray-100">
+                    Transform your mindset. Protect your income. Build legacy wealth.
+                </p>
+                <a href="https://calendly.com/gwindom2/30min" target="_blank" class="btn-premium inline-block text-lg">
+                    Start Your Wealth Journey
+                </a>
+            </div>
+        </div>
+
+        <!-- CURVED BOTTOM TRANSITION -->
+        <div class="curve-bottom">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="currentColor"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Introduction Section -->
+    <section id="intro" class="py-24 relative" style="background-color: #0a0a0a;">
+        <div class="curve-top">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#000000"></path>
+            </svg>
+        </div>
+
+        <div class="container mx-auto px-4">
+            <div class="content-left">
+                <div class="text-content slide-in-left">
+                    <h2 class="text-5xl font-bold mb-8 gold-accent">Who We <span style="color: var(--gold)">Are</span></h2>
+                    <p class="text-xl mb-6 text-gray-200 mt-16 leading-relaxed">
+                        WISE Financial Partners is a premier financial services firm dedicated to empowering individuals and businesses to achieve financial freedom through strategic planning and mindset transformation.
+                    </p>
+                    <p class="text-xl mb-6 text-gray-200 leading-relaxed">
+                        Our approach combines traditional financial strategies with innovative mindset coaching, creating a holistic path to wealth building that addresses both the practical and psychological aspects of financial success.
+                    </p>
+                    <p class="text-xl text-gray-200 leading-relaxed mb-8">
+                        We believe that true financial freedom comes from aligning your money decisions with your core values and life goals.
+                    </p>
+                    <a href="https://calendly.com/gwindom2/30min" target="_blank" class="btn-outline-premium inline-block">
+                        Begin Your Transformation
+                    </a>
+                </div>
+
+                <div class="image-content slide-in-right">
+                    <div class="image-overlay-container">
+                        <img src="https://static.wixstatic.com/media/5e8141_e8740f95ebe347df8a6ee734802564b5~mv2.jpg" alt="WISE Financial Success" class="w-full h-96 object-cover">
+                        <div class="overlay-gradient"></div>
+                        <div class="overlay-text">
+                            <h3 class="text-2xl font-bold mb-2">Financial Freedom Awaits</h3>
+                            <p class="text-gray-200">Let us guide you on your journey to wealth.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="curve-bottom">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" fill="currentColor"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 relative" style="background-color: #000000;">
+        <div class="curve-top">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" fill="#0a0a0a"></path>
+            </svg>
+        </div>
+
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-20 fade-in-up">
+                <h2 class="text-5xl font-bold mb-6 gold-accent">Our <span style="color: var(--gold)">Services</span></h2>
+                <p class="text-xl max-w-3xl mx-auto text-gray-200 mt-16">
+                    Comprehensive financial solutions tailored to your unique needs and goals.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+                <div class="service-card rounded-2xl p-10 text-center scale-in">
+                    <div class="text-5xl mb-6 icon-gradient">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Wealth Management</h3>
+                    <p class="text-gray-300 leading-relaxed">
+                        Strategic investment planning and portfolio management to grow your assets and achieve financial goals.
+                    </p>
+                </div>
+
+                <div class="service-card rounded-2xl p-10 text-center scale-in">
+                    <div class="text-5xl mb-6 icon-gradient">
+                        <i class="fas fa-shield-halved"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Income Protection</h3>
+                    <p class="text-gray-300 leading-relaxed">
+                        Safeguard your financial future with comprehensive insurance and risk management strategies.
+                    </p>
+                </div>
+
+                <div class="service-card rounded-2xl p-10 text-center scale-in">
+                    <div class="text-5xl mb-6 icon-gradient">
+                        <i class="fas fa-piggy-bank"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Retirement Planning</h3>
+                    <p class="text-gray-300 leading-relaxed">
+                        Personalized retirement strategies to ensure financial security and maintain your lifestyle.
+                    </p>
+                </div>
+
+                <div class="service-card rounded-2xl p-10 text-center scale-in">
+                    <div class="text-5xl mb-6 icon-gradient">
+                        <i class="fas fa-building-columns"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Legacy & Estate Planning</h3>
+                    <p class="text-gray-300 leading-relaxed">
+                        Preserve and transfer your wealth to future generations with thoughtful estate planning.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Additional Services -->
+            <div class="fade-in-up">
+                <h3 class="text-3xl font-bold mb-10 text-center">Additional <span style="color: var(--gold)">Financial Solutions</span></h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="glass p-8 rounded-2xl slide-in-left hover:scale-105 transition-all">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-graduation-cap text-3xl mr-4 icon-gradient"></i>
+                            <h4 class="text-xl font-bold">Educational Savings</h4>
+                        </div>
+                        <p class="text-gray-300">
+                            Strategic college funding plans to help prepare for future educational expenses.
+                        </p>
+                    </div>
+
+                    <div class="glass p-8 rounded-2xl scale-in hover:scale-105 transition-all">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-file-invoice-dollar text-3xl mr-4 icon-gradient"></i>
+                            <h4 class="text-xl font-bold">Tax Optimization</h4>
+                        </div>
+                        <p class="text-gray-300">
+                            Strategic tax planning to minimize liabilities and maximize wealth preservation.
+                        </p>
+                    </div>
+
+                    <div class="glass p-8 rounded-2xl slide-in-right hover:scale-105 transition-all">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-briefcase text-3xl mr-4 icon-gradient"></i>
+                            <h4 class="text-xl font-bold">Business Planning</h4>
+                        </div>
+                        <p class="text-gray-300">
+                            Comprehensive solutions for business owners including succession planning and benefits.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="curve-bottom">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#000000"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Network of Providers -->
+    <section class="py-20 relative" style="background-color: #0a0a0a;">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 fade-in-up">
+                <h2 class="text-4xl font-bold mb-6 gold-accent">Our Network of <span style="color: var(--gold)">Providers</span></h2>
+                <p class="text-xl max-w-3xl mx-auto text-gray-200 mt-16">
+                    We partner with industry-leading financial institutions to provide comprehensive solutions.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 items-center justify-items-center">
+                <div class="provider-logo scale-in w-full">
+                    <img src="https://static.wixstatic.com/media/5e8141_83a0fe8f518b4bb48c028479618f2e94~mv2.webp" alt="Crump" class="w-full h-auto">
+                </div>
+                <div class="provider-logo scale-in w-full">
+                    <img src="https://static.wixstatic.com/media/5e8141_c782f9209f2445f5b04b3c0272e472bc~mv2.webp" alt="AMS" class="w-full h-auto">
+                </div>
+                <div class="provider-logo scale-in w-full">
+                    <img src="https://static.wixstatic.com/media/5e8141_2bff2ce9a0dd4d4980a0febca0b6e50b~mv2.webp" alt="Nationwide" class="w-full h-auto">
+                </div>
+                <div class="provider-logo scale-in w-full">
+                    <img src="https://static.wixstatic.com/media/5e8141_b16320ee53cb41a7be87d3ba900ee4ca~mv2.webp" alt="Pacific Life" class="w-full h-auto">
+                </div>
+                <div class="provider-logo scale-in w-full">
+                    <img src="https://static.wixstatic.com/media/5e8141_8e37718a72a9477cbd82f4f67e97fd54~mv2.webp" alt="Everest" class="w-full h-auto">
+                </div>
+                <div class="provider-logo scale-in w-full">
+                    <img src="https://static.wixstatic.com/media/5e8141_63ad9169f5be4115a12d8e98e309c3a8~mv2.webp" alt="Transamerica" class="w-full h-auto">
+                </div>
+            </div>
+
+            <p class="text-center text-gray-400 mt-10 italic fade-in-up text-lg">
+                *This represents a selection of our provider network. We work with many additional financial institutions to meet your specific needs.
+            </p>
+        </div>
+    </section>
+
+    <!-- About/Founder Section -->
+    <section id="about" class="py-24 light-section">
+        <div class="curve-top">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#000000"></path>
+            </svg>
+        </div>
+
+        <div class="container mx-auto px-4">
+            <div class="content-right">
+                <div class="text-content slide-in-right">
+                    <h2 class="text-5xl font-bold mb-8 gold-accent">Meet the <span style="color: var(--gold)">Founder</span></h2>
+                    <p class="text-xl mb-6 text-gray-700 mt-16 leading-relaxed">
+                        Glenn Windom II is a visionary financial advisor whose unique approach combines mindset coaching with strategic financial planning to help clients achieve lasting wealth and financial freedom.
+                    </p>
+                    <blockquote class="border-l-4 pl-8 my-10" style="border-color: var(--gold)">
+                        <p class="text-3xl italic font-light text-gray-900">"Money isn't math, it's mental."</p>
+                    </blockquote>
+                    <p class="text-xl mb-10 text-gray-700 leading-relaxed">
+                        Glenn founded WISE Financial Partners with a mission to empower creators, professionals, and entrepreneurs to build legacy wealth through a holistic approach to financial planning.
+                    </p>
+
+                    <div class="light-card p-8 rounded-2xl mb-8">
+                        <div class="flex flex-col md:flex-row items-center gap-6">
+                            <img src="https://static.wixstatic.com/media/5e8141_ade3cb0a9ede4b05bec568edb5208e66~mv2.jpeg" alt="The Money Mirror Book Cover" class="rounded-xl shadow-lg max-w-[140px]">
+                            <div>
+                                <h3 class="text-2xl font-bold mb-3">The <span style="color: var(--gold)">Money Mirror</span></h3>
+                                <p class="text-gray-600 mb-5">
+                                    Discover the psychological principles behind wealth creation in Glenn's groundbreaking book.
+                                </p>
+                                <div class="flex flex-wrap gap-3">
+                                    <a href="https://a.co/d/aTH4fPE" target="_blank" class="btn-premium text-sm py-3 px-5">
+                                        <i class="fab fa-amazon mr-2"></i> Amazon
+                                    </a>
+                                    <a href="https://books.apple.com/us/book/the-money-mirror/id6746219698" target="_blank" class="btn-outline-premium text-sm py-3 px-5">
+                                        <i class="fab fa-apple mr-2"></i> Apple Books
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex space-x-6">
+                        <a href="https://www.instagram.com/imglennwin?igsh=MWd0Z24zbWdrbTNpeA==" target="_blank" class="text-gray-700 hover:text-[#D4AF37] transition-all transform hover:scale-125">
+                            <i class="fab fa-instagram text-3xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="image-content slide-in-left">
+                    <img src="https://static.wixstatic.com/media/2853e8_30a8c226eaa44f20b55ad1214803ccb5~mv2.png" alt="Glenn Windom II" class="founder-image w-full max-w-lg mx-auto">
+                </div>
+            </div>
+        </div>
+
+        <div class="curve-bottom">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" fill="#f7f6f2"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="py-24 relative" style="background-color: #0a0a0a;">
+
+        <div class="curve-top">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" fill="#f7f6f2"></path>
+            </svg>
+        </div>
+
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-20 fade-in-up">
+                <h2 class="text-5xl font-bold mb-6 gold-accent">Meet Our <span style="color: var(--gold)">Team</span></h2>
+                <p class="text-xl max-w-3xl mx-auto text-gray-200 mt-16">
+                    Our diverse team of financial experts is dedicated to helping you achieve your financial goals.
+                </p>
+            </div>
+
+            <!-- Licensed Agents -->
+            <div class="mb-20">
+                <h3 class="text-3xl font-bold mb-10 text-center fade-in-up" style="color: var(--gold)">Licensed Agents</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+                    <div class="team-card rounded-2xl p-8 text-center scale-in">
+                        <img src="https://static.wixstatic.com/media/2853e8_30a8c226eaa44f20b55ad1214803ccb5~mv2.png" alt="Glenn Windom II" class="team-image mb-6">
+                        <h4 class="text-xl font-bold mb-2">Glenn Windom II</h4>
+                        <p class="mb-3 text-lg" style="color: var(--gold)">Founder</p>
+                    </div>
+
+                    <div class="team-card rounded-2xl p-8 text-center scale-in">
+                        <img src="https://static.wixstatic.com/media/5e8141_877c8cd47ec04deb890e20f308247ba7~mv2.jpg" alt="Adara Johnson" class="team-image mb-6">
+                        <h4 class="text-xl font-bold mb-2">Adara Johnson</h4>
+                        <p class="mb-3 text-lg" style="color: var(--gold)">Licensed Financial Agent</p>
+                    </div>
+
+                    <div class="team-card rounded-2xl p-8 text-center scale-in">
+                        <img src="https://static.wixstatic.com/media/5e8141_e0c938f2c47640a5be8d8f88fae39e82~mv2.jpeg" alt="Andra Howard" class="team-image mb-6">
+                        <h4 class="text-xl font-bold mb-2">Andra Howard</h4>
+                        <p class="mb-3 text-lg" style="color: var(--gold)">Licensed Financial Agent</p>
+                    </div>
+
+                    <div class="team-card rounded-2xl p-8 text-center scale-in">
+                        <img src="https://static.wixstatic.com/media/5e8141_8dcfdba385a946ff94b8ee86bf0a361f~mv2.jpeg" alt="Sidney Martin" class="team-image mb-6">
+                        <h4 class="text-xl font-bold mb-2">Sidney Martin</h4>
+                        <p class="mb-3 text-lg" style="color: var(--gold)">Licensed Financial Agent</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Staff -->
+            <div class="mb-20">
+                <h3 class="text-3xl font-bold mb-10 text-center fade-in-up" style="color: var(--gold)">Administration</h3>
+                <div class="flex justify-center">
+                    <div class="team-card rounded-2xl p-8 text-center scale-in max-w-sm">
+                        <img src="https://static.wixstatic.com/media/5e8141_b8653b02268b4514a20e8389fd4613d9~mv2.jpg" alt="Saifur Rahim" class="admin-image mb-6">
+                        <h4 class="text-xl font-bold mb-2">Saifur Rahim</h4>
+                        <p class="mb-4 text-lg" style="color: var(--gold)">Admin Coordinator</p>
+                        <p class="text-gray-300">
+                            Supporting our team with exceptional organizational skills and dedication to client service.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Business Partners -->
+            <div>
+                <h3 class="text-3xl font-bold mb-10 text-center fade-in-up" style="color: var(--gold)">Business Partners</h3>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
+                    <div class="team-card rounded-2xl p-6 text-center scale-in">
+                        <img src="https://static.wixstatic.com/media/5e8141_6a9bcd8d5e004752ab5cb6d25d26aa1a~mv2.jpg" alt="Daniel Daniels" class="partner-image mb-4">
+                        <h4 class="text-lg font-bold mb-1">Daniel Daniels</h4>
+                        <p class="text-sm" style="color: var(--gold)">Business Partner</p>
+                    </div>
+
+                    <div class="team-card rounded-2xl p-6 text-center scale-in">
+                        <img src="https://static.wixstatic.com/media/5e8141_440f60ef88d94203a83fe9df23f00c51~mv2.jpeg" alt="Laura Oliden" class="partner-image mb-4">
+                        <h4 class="text-lg font-bold mb-1">Laura Oliden</h4>
+                        <p class="text-sm" style="color: var(--gold)">Business Partner</p>
+                    </div>
+
+                    <div class="team-card rounded-2xl p-6 text-center scale-in">
+                        <img src="https://static.wixstatic.com/media/5e8141_8013a8ea2bb44f75bb3f01c9b1f353c8~mv2.jpeg" alt="Ashia Anderson" class="partner-image mb-4">
+                        <h4 class="text-lg font-bold mb-1">Ashia Anderson</h4>
+                        <p class="text-sm" style="color: var(--gold)">Business Partner</p>
+                    </div>
+
+                    <div class="team-card rounded-2xl p-6 text-center scale-in">
+                        <img src="https://static.wixstatic.com/media/5e8141_d2982284904f402f87e41ac0f985c19e~mv2.jpeg" alt="Nathaniel Ilo" class="partner-image mb-4">
+                        <h4 class="text-lg font-bold mb-1">Nathaniel Ilo</h4>
+                        <p class="text-sm" style="color: var(--gold)">Business Partner</p>
+                    </div>
+
+                    <div class="team-card rounded-2xl p-6 text-center scale-in">
+                        <img src="https://static.wixstatic.com/media/5e8141_19d793055cb9436599acec506b35c6ec~mv2.jpg" alt="Ajani Johnson" class="partner-image mb-4">
+                        <h4 class="text-lg font-bold mb-1">Ajani Johnson</h4>
+                        <p class="text-sm" style="color: var(--gold)">Business Partner</p>
+                    </div>
+
+                    <div class="team-card rounded-2xl p-6 text-center scale-in">
+                        <img src="https://static.wixstatic.com/media/5e8141_fefa54cf1e8542569b95829b950a1f70~mv2.jpg" alt="Brandynn Hardin" class="partner-image mb-4">
+                        <h4 class="text-lg font-bold mb-1">Brandynn Hardin</h4>
+                        <p class="text-sm" style="color: var(--gold)">Business Partner</p>
+                    </div>
+
+                    <div class="team-card rounded-2xl p-6 text-center scale-in">
+                        <img src="https://static.wixstatic.com/media/5e8141_a7d489be9bab423790bd4ab661c246e3~mv2.jpg" alt="Britney Woods" class="partner-image mb-4">
+                        <h4 class="text-lg font-bold mb-1">Britney Woods</h4>
+                        <p class="text-sm" style="color: var(--gold)">Business Partner</p>
+                    </div>
+
+                    <div class="team-card rounded-2xl p-6 text-center scale-in">
+                        <img src="https://static.wixstatic.com/media/5e8141_86b5795bdc9b49d0a89932763fbba94f~mv2.jpg" alt="DeAnna Cole" class="partner-image mb-4">
+                        <h4 class="text-lg font-bold mb-1">DeAnna Cole</h4>
+                        <p class="text-sm" style="color: var(--gold)">Business Partner</p>
+                    </div>
+
+                    <div class="team-card rounded-2xl p-6 text-center scale-in">
+                        <img src="https://static.wixstatic.com/media/5e8141_584b610338104cb09017fd58744ea0ed~mv2.jpeg" alt="Darius Rodgers" class="partner-image mb-4">
+                        <h4 class="text-lg font-bold mb-1">Darius K. Rodgers</h4>
+                        <p class="text-sm" style="color: var(--gold)">Business Partner</p>
+                    </div>
+
+                    <div class="team-card rounded-2xl p-6 text-center scale-in">
+                        <img src="https://static.wixstatic.com/media/5e8141_162e2559ff5b4bbaa34b24f751f8f0bf~mv2.jpeg" alt="Jazlyn Miller" class="partner-image mb-4">
+                        <h4 class="text-lg font-bold mb-1">Jazlyn Miller</h4>
+                        <p class="text-sm" style="color: var(--gold)">Business Partner</p>
+                    </div>
+
+                    <div class="team-card rounded-2xl p-6 text-center scale-in">
+                        <img src="https://static.wixstatic.com/media/5e8141_63771c106f774ad382f2d7a29ece73d1~mv2.jpeg" alt="Stanley Morgan" class="partner-image mb-4">
+                        <h4 class="text-lg font-bold mb-1">Stanley Morgan</h4>
+                        <p class="text-sm" style="color: var(--gold)">Business Partner</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Careers Section -->
+    <section id="careers" class="py-24 relative" style="background-color: #000000;">
+        <div class="container mx-auto px-4">
+            <div class="content-left">
+                <div class="text-content slide-in-left">
+                    <h2 class="text-5xl font-bold mb-8 gold-accent">Grow With <span style="color: var(--gold)">Us</span></h2>
+                    <p class="text-xl mb-10 text-gray-200 mt-16 leading-relaxed">
+                        Join our team of financial professionals and make a meaningful impact while building a rewarding career.
+                    </p>
+
+                    <h3 class="text-3xl font-bold mb-6" style="color: var(--gold)">Career Opportunities</h3>
+                    <p class="text-gray-200 mb-8 text-lg leading-relaxed">
+                        We're looking for motivated individuals who are passionate about helping others achieve financial freedom.
+                    </p>
+                    <ul class="space-y-4 text-gray-200 text-lg mb-10">
+                        <li class="flex items-start">
+                            <span style="color: var(--gold)" class="mr-4 text-2xl">•</span>
+                            <span>Comprehensive training and licensing support</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span style="color: var(--gold)" class="mr-4 text-2xl">•</span>
+                            <span>Mentorship from experienced professionals</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span style="color: var(--gold)" class="mr-4 text-2xl">•</span>
+                            <span>Flexible schedule and unlimited income potential</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span style="color: var(--gold)" class="mr-4 text-2xl">•</span>
+                            <span>Access to industry-leading products</span>
+                        </li>
+                    </ul>
+
+                    <a href="https://calendly.com/gwindom2/30min" target="_blank" class="btn-premium inline-block">
+                        Launch Your Career
+                    </a>
+                </div>
+
+                <div class="image-content slide-in-right">
+                    <div class="image-overlay-container">
+                        <img src="https://static.wixstatic.com/media/5e8141_81f43291b27a4f89a64acba7d2d287e9~mv2.jpg" alt="Career Growth" class="w-full h-96 object-cover">
+                        <div class="overlay-gradient"></div>
+                        <div class="overlay-text">
+                            <h3 class="text-2xl font-bold mb-2">Build Your Future</h3>
+                            <p class="text-gray-200">Join a team that invests in your success.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 relative" style="background-color: #0a0a0a;">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-20 fade-in-up">
+                <h2 class="text-5xl font-bold mb-6 gold-accent">Get in <span style="color: var(--gold)">Touch</span></h2>
+                <p class="text-xl max-w-3xl mx-auto text-gray-200 mt-16">
+                    Ready to transform your financial future? Contact us today to schedule a consultation.
+                </p>
+            </div>
+
+            <div class="max-w-3xl mx-auto">
+                <div class="fade-in-up">
+                    <div class="glass p-12 rounded-3xl flex flex-col items-center justify-center">
+                        <p class="text-xl mb-8 text-center text-gray-200">
+                            Ready to take the next step? Schedule a free 30-minute consultation with one of our financial advisors.
+                        </p>
+                        <a href="https://calendly.com/gwindom2/30min" target="_blank" class="btn-premium inline-block text-lg">
+                            Book Your Free Consultation
+                        </a>
+                        <p class="mt-8 text-center text-gray-300 text-lg">
+                            Or email us directly at <a href="mailto:wisefinancialpartners@gmail.com" style="color: var(--gold)" class="hover:underline font-semibold">wisefinancialpartners@gmail.com</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-24 relative" style="background-color: #000000;">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto newsletter-section p-12 rounded-3xl fade-in-up" style="position: relative;">
+                <div style="position: relative; z-index: 10;">
+                    <div class="text-center mb-10">
+                        <h2 class="text-5xl font-bold mb-6">Stay <span style="color: var(--gold)">Informed</span></h2>
+                        <p class="text-xl text-gray-200">
+                            Join our newsletter for exclusive financial insights, market updates, and wealth-building strategies.
+                        </p>
+                    </div>
+
+                    <form id="newsletterForm" class="flex flex-col md:flex-row gap-4 max-w-2xl mx-auto" action="https://formspree.io/f/xeoqdqpr" method="POST">
+                        <input
+                            type="email"
+                            name="email"
+                            id="emailInput"
+                            placeholder="Enter your email address"
+                            class="newsletter-input flex-1"
+                            required
+                        >
+                        <input type="hidden" name="_subject" value="New WISE Newsletter Subscriber">
+                        <button type="submit" class="btn-premium whitespace-nowrap">
+                            Subscribe Now
+                        </button>
+                    </form>
+
+                    <p class="text-center text-gray-400 mt-8 text-sm">
+                        <i class="fas fa-lock mr-2"></i>We respect your privacy. Unsubscribe anytime. No spam, ever.
+                    </p>
+
+                    <div id="newsletterMessage" class="text-center mt-6 hidden"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instagram Feed Section -->
+    <section class="py-24 relative" style="background-color: #0a0a0a;">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-20 fade-in-up">
+                <h2 class="text-5xl font-bold mb-6 gold-accent">Daily <span style="color: var(--gold)">Inspiration</span></h2>
+                <p class="text-xl max-w-3xl mx-auto text-gray-200 mt-16">
+                    Follow us on Instagram for daily financial wisdom and motivational content.
+                </p>
+            </div>
+
+            <div class="max-w-5xl mx-auto glass p-10 rounded-3xl fade-in-up">
+                <div class="flex items-center mb-8">
+                    <i class="fab fa-instagram text-4xl mr-4" style="background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
+                    <div>
+                        <h3 class="text-2xl font-bold">@WISEFinancialPartners</h3>
+                        <p class="text-gray-400">Financial wisdom that transforms lives</p>
+                    </div>
+                </div>
+
+                <div class="instagram-grid mb-8">
+                    <a href="https://www.instagram.com/wisefinancialpartners?igsh=bGo5a2hxczlmaW81" target="_blank" class="block overflow-hidden rounded-2xl aspect-square hover:opacity-90 transition-all transform hover:scale-105 shadow-lg">
+                        <img src="https://static.wixstatic.com/media/5e8141_e8740f95ebe347df8a6ee734802564b5~mv2.jpg" alt="WISE Financial Partners Instagram" class="w-full h-full object-cover">
+                    </a>
+                    <a href="https://www.instagram.com/wisefinancialpartners?igsh=bGo5a2hxczlmaW81" target="_blank" class="block overflow-hidden rounded-2xl aspect-square hover:opacity-90 transition-all transform hover:scale-105 shadow-lg">
+                        <img src="https://static.wixstatic.com/media/5e8141_81f43291b27a4f89a64acba7d2d287e9~mv2.jpg" alt="WISE Financial Partners Instagram" class="w-full h-full object-cover">
+                    </a>
+                    <a href="https://www.instagram.com/wisefinancialpartners?igsh=bGo5a2hxczlmaW81" target="_blank" class="block overflow-hidden rounded-2xl aspect-square hover:opacity-90 transition-all transform hover:scale-105 shadow-lg">
+                        <img src="https://static.wixstatic.com/media/5e8141_bdd8824118864d93878f03232f946e6e~mv2.jpg" alt="WISE Financial Partners Instagram" class="w-full h-full object-cover">
+                    </a>
+                    <a href="https://www.instagram.com/wisefinancialpartners?igsh=bGo5a2hxczlmaW81" target="_blank" class="block overflow-hidden rounded-2xl aspect-square hover:opacity-90 transition-all transform hover:scale-105 shadow-lg">
+                        <img src="https://static.wixstatic.com/media/5e8141_e18dbdda34ba46f899b36b33cf77397c~mv2.jpg" alt="WISE Financial Partners Instagram" class="w-full h-full object-cover">
+                    </a>
+                    <a href="https://www.instagram.com/wisefinancialpartners?igsh=bGo5a2hxczlmaW81" target="_blank" class="block overflow-hidden rounded-2xl aspect-square hover:opacity-90 transition-all transform hover:scale-105 shadow-lg">
+                        <img src="https://static.wixstatic.com/media/5e8141_e3c51bd71b0f430ca404e44b23745d25~mv2.jpg" alt="WISE Financial Partners Instagram" class="w-full h-full object-cover">
+                    </a>
+                    <a href="https://www.instagram.com/wisefinancialpartners?igsh=bGo5a2hxczlmaW81" target="_blank" class="block overflow-hidden rounded-2xl aspect-square hover:opacity-90 transition-all transform hover:scale-105 shadow-lg">
+                        <img src="https://static.wixstatic.com/media/5e8141_3e6ec92cf7ae4c07863a2cbd5dec4750~mv2.jpg" alt="WISE Financial Partners Instagram" class="w-full h-full object-cover">
+                    </a>
+                </div>
+
+                <div class="text-center">
+                    <a href="https://www.instagram.com/wisefinancialpartners?igsh=bGo5a2hxczlmaW81" target="_blank" class="btn-outline-premium inline-flex items-center">
+                        <i class="fab fa-instagram mr-3"></i> Follow Us on Instagram
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-16 border-t-2 border-gold/30">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div>
+                    <img src="https://static.wixstatic.com/media/5e8141_66e7e6a003db4112869a2d8361faa1aa~mv2.jpeg" alt="WISE Financial Partners Logo" class="h-14 mb-6">
+                    <p class="text-gray-300 mb-6 text-lg">
+                        Transform your mindset. Protect your income. Build legacy wealth.
+                    </p>
+                    <div class="flex space-x-6">
+                        <a href="https://www.instagram.com/wisefinancialpartners?igsh=bGo5a2hxczlmaW81" target="_blank" class="text-white hover:text-[#D4AF37] transition-all transform hover:scale-125">
+                            <i class="fab fa-instagram text-2xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-2xl font-bold mb-6">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#services" class="text-gray-300 hover:text-[#D4AF37] transition-colors text-lg">Services</a></li>
+                        <li><a href="#about" class="text-gray-300 hover:text-[#D4AF37] transition-colors text-lg">About</a></li>
+                        <li><a href="#team" class="text-gray-300 hover:text-[#D4AF37] transition-colors text-lg">Team</a></li>
+                        <li><a href="#careers" class="text-gray-300 hover:text-[#D4AF37] transition-colors text-lg">Careers</a></li>
+                        <li><a href="#contact" class="text-gray-300 hover:text-[#D4AF37] transition-colors text-lg">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-2xl font-bold mb-6">Contact Us</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope text-xl mt-1 mr-4" style="color: var(--gold)"></i>
+                            <a href="mailto:wisefinancialpartners@gmail.com" class="text-gray-300 hover:text-[#D4AF37] transition-colors text-lg">wisefinancialpartners@gmail.com</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t-2 border-gray-800 mt-12 pt-10 text-center">
+                <p class="text-gray-400 text-lg">
+                    © <span id="current-year">2025</span> WISE Financial Partners. All Rights Reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set current year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Cache header and light section
+        const header = document.getElementById('mainHeader');
+        const lightSection = document.getElementById('about');
+
+        // STICKY NAVIGATION COLOR CHANGE ON SCROLL
+        window.addEventListener('scroll', () => {
+            const lightSectionTop = lightSection.offsetTop - header.clientHeight;
+            const lightSectionBottom = lightSection.offsetTop + lightSection.clientHeight - header.clientHeight;
+            const isOverLight = window.scrollY > lightSectionTop && window.scrollY < lightSectionBottom;
+
+            if (isOverLight) {
+                header.classList.add('header-on-light');
+                header.classList.remove('scrolled');
+            } else {
+                header.classList.remove('header-on-light');
+                if (window.scrollY > 100) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            }
+        });
+
+        // SCROLL PROGRESS INDICATORS
+        const indicators = document.querySelectorAll('.scroll-indicator');
+        const sections = document.querySelectorAll('section[id]');
+
+        indicators.forEach(indicator => {
+            indicator.addEventListener('click', () => {
+                const targetId = indicator.getAttribute('data-target');
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            indicators.forEach(indicator => {
+                indicator.classList.remove('active');
+                if (indicator.getAttribute('data-target') === current) {
+                    indicator.classList.add('active');
+                }
+            });
+        });
+
+        // Mobile menu
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const closeMenuButton = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+        });
+
+        closeMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+        });
+
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Scroll animations
+        const animatedElements = document.querySelectorAll('.fade-in-up, .slide-in-left, .slide-in-right, .scale-in');
+
+        function checkAnimation() {
+            animatedElements.forEach((element) => {
+                const elementPosition = element.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                const triggerPoint = windowHeight * 0.85;
+
+                if (elementPosition.top < triggerPoint && elementPosition.bottom > 0) {
+                    const siblings = Array.from(element.parentNode.children).filter(child =>
+                        child.classList.contains('fade-in-up') ||
+                        child.classList.contains('slide-in-left') ||
+                        child.classList.contains('slide-in-right') ||
+                        child.classList.contains('scale-in')
+                    );
+
+                    const siblingIndex = siblings.indexOf(element);
+
+                    if (siblingIndex >= 0) {
+                        setTimeout(() => {
+                            element.classList.add('active');
+                        }, siblingIndex * 120);
+                    } else {
+                        element.classList.add('active');
+                    }
+                }
+            });
+        }
+
+        // Back to top
+        const backToTopButton = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Initial animation check
+        window.addEventListener('load', checkAnimation);
+
+        // Scroll animation with throttle
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            if (!scrollTimeout) {
+                scrollTimeout = setTimeout(() => {
+                    checkAnimation();
+                    scrollTimeout = null;
+                }, 50);
+            }
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if (this.getAttribute('href') !== '#') {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Newsletter form
+        const newsletterForm = document.getElementById('newsletterForm');
+        const newsletterMessage = document.getElementById('newsletterMessage');
+
+        newsletterForm.addEventListener('submit', function(e) {
+            newsletterMessage.textContent = 'Subscribing...';
+            newsletterMessage.style.color = 'var(--gold)';
+            newsletterMessage.classList.remove('hidden');
+            newsletterMessage.classList.add('success-message');
+
+            setTimeout(() => {
+                newsletterMessage.textContent = 'Thank you for subscribing! Check your email for confirmation.';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
