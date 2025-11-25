@@ -96,6 +96,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Calendly Widget -->
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+
     <style>
         :root {
             --gold: #D4AF37;
@@ -1302,10 +1307,160 @@
                 padding: 1rem 2rem !important;
                 font-size: 0.85rem !important;
             }
+
+            /* Smaller Instagram images on mobile */
+            .instagram-grid a {
+                max-height: 250px !important;
+            }
+
+            .instagram-grid img {
+                max-height: 250px !important;
+                object-fit: cover;
+            }
+        }
+
+        /* Booking Header Banner */
+        .booking-banner {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            padding: 0.75rem 1rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .booking-banner:hover {
+            background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
+            box-shadow: 0 6px 16px rgba(212, 175, 55, 0.4);
+        }
+
+        .booking-banner-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .booking-banner h3 {
+            color: #000;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .booking-banner .pulse-icon {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Exit Intent Popup */
+        .exit-popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .exit-popup-overlay.active {
+            display: flex;
+        }
+
+        .exit-popup {
+            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
+            border: 2px solid var(--gold);
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            animation: slideDown 0.4s ease;
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.3);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .exit-popup-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: transparent;
+            border: none;
+            color: var(--gold);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .exit-popup-close:hover {
+            transform: rotate(90deg);
+        }
+
+        .exit-popup h2 {
+            color: var(--gold);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .exit-popup p {
+            color: #fff;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
         }
     </style>
 </head>
 <body class="gradient-bg">
+    <!-- Booking Banner -->
+    <div class="booking-banner" onclick="openCalendlyPopup()">
+        <div class="booking-banner-content">
+            <span class="pulse-icon">📅</span>
+            <h3>Ready to Transform Your Financial Future? Book a Free Consultation with Glenn!</h3>
+            <span class="pulse-icon">✨</span>
+        </div>
+    </div>
+
+    <!-- Exit Intent Popup -->
+    <div id="exitPopup" class="exit-popup-overlay">
+        <div class="exit-popup">
+            <button class="exit-popup-close" onclick="closeExitPopup()">&times;</button>
+            <h2>Wait! Before You Go...</h2>
+            <p>Don't miss your chance to transform your financial future. Book a FREE consultation with Glenn and start building legacy wealth today!</p>
+            <button class="btn-premium" onclick="openCalendlyFromExit()" style="font-size: 1.1rem; padding: 1rem 2.5rem;">
+                Schedule My Free Call Now
+            </button>
+        </div>
+    </div>
+
     <!-- Floating particles -->
     <div class="particles">
         <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
@@ -1349,7 +1504,7 @@
                     <a href="#about" class="nav-link text-white hover:text-[#D4AF37]">About</a>
                     <a href="#team" class="nav-link text-white hover:text-[#D4AF37]">Team</a>
                     <a href="#careers" class="nav-link text-white hover:text-[#D4AF37]">Careers</a>
-                    <a href="https://calendly.com/gwindom2?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGn7TRV8K8WHDJb9xu4YnwC70tAuxaxv8A8YUpryeI2Jo642oAzhF0-RZ8Cg0w_aem_dbt1r4Sgev3r-FTmxbSXLQ" target="_blank" class="btn-premium">Book Now</a>
+                    <a href="javascript:void(0)" onclick="openCalendlyPopup()" class="btn-premium">Book Now</a>
                 </nav>
 
                 <!-- Mobile menu button -->
@@ -1375,7 +1530,7 @@
                 <a href="#about" class="text-white hover:text-[#D4AF37] font-semibold">About</a>
                 <a href="#team" class="text-white hover:text-[#D4AF37] font-semibold">Team</a>
                 <a href="#careers" class="text-white hover:text-[#D4AF37] font-semibold">Careers</a>
-                <a href="https://calendly.com/gwindom2?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGn7TRV8K8WHDJb9xu4YnwC70tAuxaxv8A8YUpryeI2Jo642oAzhF0-RZ8Cg0w_aem_dbt1r4Sgev3r-FTmxbSXLQ" target="_blank" class="btn-premium text-center">Book Now</a>
+                <a href="javascript:void(0)" onclick="openCalendlyPopup()" class="btn-premium text-center">Book Now</a>
             </div>
         </div>
     </header>
@@ -2229,6 +2384,56 @@
                 subscribeBtn.textContent = 'Subscribe Now';
             }
         });
+
+        // Calendly Popup Functions
+        function openCalendlyPopup() {
+            if (window.Calendly) {
+                window.Calendly.initPopupWidget({
+                    url: 'https://calendly.com/gwindom2?utm_source=website&utm_medium=popup&utm_campaign=booking'
+                });
+            }
+            return false;
+        }
+
+        function openCalendlyFromExit() {
+            closeExitPopup();
+            openCalendlyPopup();
+        }
+
+        // Exit Intent Detection
+        let exitPopupShown = false;
+
+        function closeExitPopup() {
+            document.getElementById('exitPopup').classList.remove('active');
+        }
+
+        function showExitPopup() {
+            if (!exitPopupShown) {
+                document.getElementById('exitPopup').classList.add('active');
+                exitPopupShown = true;
+            }
+        }
+
+        // Detect when mouse leaves viewport (exit intent)
+        document.addEventListener('mouseleave', function(e) {
+            if (e.clientY <= 0 && !exitPopupShown) {
+                showExitPopup();
+            }
+        });
+
+        // Close popup when clicking outside
+        document.getElementById('exitPopup').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeExitPopup();
+            }
+        });
+
+        // Show exit popup after 30 seconds as backup (mobile users)
+        setTimeout(function() {
+            if (!exitPopupShown) {
+                showExitPopup();
+            }
+        }, 30000);
     </script>
 </body>
 </html>
