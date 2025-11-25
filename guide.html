@@ -221,6 +221,52 @@
       40% { transform: translateY(-10px); }
       60% { transform: translateY(-5px); }
     }
+
+    /* Mobile Optimizations - Reduce scroll length */
+    @media (max-width: 768px) {
+      /* Hide playbook section on mobile (for coordinators only) */
+      #playbook {
+        display: none;
+      }
+
+      /* Reduce section padding on mobile */
+      section {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+      }
+
+      /* Make hero not full height on mobile */
+      .hero-gradient {
+        min-height: auto;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+      }
+
+      /* Smaller counter numbers on mobile */
+      .counter-number {
+        font-size: 2rem;
+      }
+
+      /* Hide "What You'll Learn" section on mobile - show just CTA */
+      #what-youll-learn .grid {
+        display: none;
+      }
+
+      /* Reduce testimonial grid to 1 column and show only 1 */
+      #results .grid > div:nth-child(n+2) {
+        display: none;
+      }
+
+      /* Simplify FAQ - show only 3 on mobile */
+      #faq-container > div:nth-child(n+4) {
+        display: none;
+      }
+
+      /* Reduce Calendly widget height on mobile */
+      .calendly-inline-widget {
+        height: 500px !important;
+      }
+    }
   </style>
 </head>
 <body class="text-white">
@@ -540,7 +586,7 @@
   </section>
 
   <!-- What You'll Learn Section -->
-  <section class="py-20 bg-gradient-to-b from-gray-900 to-black">
+  <section id="what-youll-learn" class="py-20 bg-gradient-to-b from-gray-900 to-black">
     <div class="container mx-auto max-w-6xl px-4">
       <div class="text-center mb-16">
         <span class="inline-block px-4 py-2 rounded-full bg-yellow-500/10 text-yellow-400 text-sm font-semibold mb-4">
@@ -659,56 +705,21 @@
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="bg-gray-900 py-12 border-t border-gray-800">
+  <!-- Footer - Simplified -->
+  <footer class="bg-gray-900 py-8 border-t border-gray-800">
     <div class="container mx-auto max-w-6xl px-4">
-      <div class="grid md:grid-cols-4 gap-8 mb-8">
-        <div>
-          <h3 class="brand-title text-2xl font-bold gold-text mb-4">WISE</h3>
-          <p class="text-gray-400 text-sm">
-            Empowering financial partners to build lasting wealth through proven systems.
-          </p>
-        </div>
-        <div>
-          <h4 class="font-bold mb-4">Quick Links</h4>
-          <ul class="space-y-2 text-gray-400 text-sm">
-            <li><a href="#results" class="hover:text-yellow-400 transition-colors">Success Stories</a></li>
-            <li><a href="#book-call" class="hover:text-yellow-400 transition-colors">Book a Call with Glenn</a></li>
-            <li><a href="#playbook" class="hover:text-yellow-400 transition-colors">Partner Playbook</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="font-bold mb-4">Contact</h4>
-          <ul class="space-y-2 text-gray-400 text-sm">
-            <li><i class="fas fa-envelope mr-2"></i>support@wisefinancialpartners.com</li>
-            <li><i class="fas fa-phone mr-2"></i>(555) 123-4567</li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="font-bold mb-4">Follow Us</h4>
-          <div class="flex gap-4">
-            <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-yellow-500 hover:text-black transition-colors">
-              <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-yellow-500 hover:text-black transition-colors">
-              <i class="fab fa-instagram"></i>
-            </a>
-            <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-yellow-500 hover:text-black transition-colors">
-              <i class="fab fa-linkedin-in"></i>
-            </a>
-            <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-yellow-500 hover:text-black transition-colors">
-              <i class="fab fa-telegram-plane"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
-        <p>&copy; 2024 WISE Financial Partners. All rights reserved.</p>
-        <p class="mt-2">
-          <a href="#" class="hover:text-yellow-400">Privacy Policy</a> |
-          <a href="#" class="hover:text-yellow-400">Terms of Service</a> |
-          <a href="#" class="hover:text-yellow-400">Earnings Disclaimer</a>
+      <div class="text-center">
+        <h3 class="brand-title text-2xl font-bold gold-text mb-4">WISE</h3>
+        <p class="text-gray-400 text-sm mb-6 max-w-md mx-auto">
+          Empowering financial partners to build lasting wealth through proven systems.
         </p>
+        <button onclick="openCalendly()" class="gold-bg text-black font-bold py-3 px-8 rounded-lg hover:opacity-90 transition-opacity mb-6">
+          <i class="fas fa-calendar-check mr-2"></i>
+          Book Your Free Call with Glenn
+        </button>
+        <div class="border-t border-gray-800 pt-6 text-gray-500 text-sm">
+          <p>&copy; 2024 WISE Financial Partners. All rights reserved.</p>
+        </div>
       </div>
     </div>
   </footer>
