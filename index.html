@@ -1409,13 +1409,28 @@
             background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
             border: 2px solid var(--gold);
             border-radius: 24px;
-            padding: 3rem;
-            max-width: 500px;
+            padding: 2.5rem 2rem;
+            max-width: 450px;
             width: 90%;
             text-align: center;
             position: relative;
             animation: slideDown 0.4s ease;
             box-shadow: 0 20px 60px rgba(212, 175, 55, 0.3);
+        }
+
+        @media (max-width: 480px) {
+            .exit-popup {
+                padding: 2rem 1.5rem;
+                max-width: 95%;
+            }
+
+            .exit-popup h2 {
+                font-size: 1.5rem !important;
+            }
+
+            .exit-popup p {
+                font-size: 1rem !important;
+            }
         }
 
         @keyframes fadeIn {
@@ -1469,11 +1484,17 @@
     <div id="exitPopup" class="exit-popup-overlay">
         <div class="exit-popup">
             <button class="exit-popup-close" onclick="closeExitPopup()">&times;</button>
-            <h2>Wait! Before You Go...</h2>
-            <p>Don't miss your chance to transform your financial future. Book a FREE consultation with Glenn and start building legacy wealth today!</p>
-            <button class="btn-premium" onclick="openCalendlyFromExit()" style="font-size: 1.1rem; padding: 1rem 2.5rem;">
-                Schedule My Free Call Now
-            </button>
+            <h2>Stay Connected with WISE</h2>
+            <p>Choose how you'd like to start your wealth journey:</p>
+
+            <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem;">
+                <button class="btn-premium" onclick="openCalendlyFromExit()" style="font-size: 1rem; padding: 1rem 2rem; width: 100%;">
+                    📅 Book a Free Consultation
+                </button>
+                <button class="btn-outline-premium" onclick="scrollToNewsletter()" style="font-size: 1rem; padding: 1rem 2rem; width: 100%; background: rgba(212, 175, 55, 0.1); border: 2px solid var(--gold); color: var(--gold);">
+                    ✉️ Get Financial Insights (Newsletter)
+                </button>
+            </div>
         </div>
     </div>
 
@@ -2448,6 +2469,18 @@
         function openCalendlyFromExit() {
             closeExitPopup();
             openCalendlyPopup();
+        }
+
+        function scrollToNewsletter() {
+            closeExitPopup();
+            const newsletterSection = document.querySelector('.newsletter-section');
+            if (newsletterSection) {
+                newsletterSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                // Focus on email input after scrolling
+                setTimeout(function() {
+                    document.getElementById('emailInput').focus();
+                }, 800);
+            }
         }
 
         // Exit Intent Detection
