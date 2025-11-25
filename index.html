@@ -1009,7 +1009,7 @@
            MOBILE RESPONSIVE STYLES - MAJOR OVERHAUL
            ============================================ */
 
-        @media (max-width: 768px) {
+        @media (max-width: 480px) {
             /* Hide scroll indicators on mobile */
             .scroll-indicators {
                 display: none;
@@ -1361,7 +1361,7 @@
         }
 
         /* Mobile banner adjustments */
-        @media (max-width: 768px) {
+        @media (max-width: 480px) {
             .booking-banner {
                 padding: 0.4rem 0.5rem;
                 position: relative;
@@ -2452,21 +2452,27 @@
 
         // Exit Intent Detection
         let exitPopupShown = false;
+        let userEngaged = false;
+
+        // Track user engagement (they've been on site for 15+ seconds and scrolled)
+        setTimeout(function() {
+            userEngaged = true;
+        }, 15000);
 
         function closeExitPopup() {
             document.getElementById('exitPopup').classList.remove('active');
         }
 
         function showExitPopup() {
-            if (!exitPopupShown) {
+            if (!exitPopupShown && userEngaged) {
                 document.getElementById('exitPopup').classList.add('active');
                 exitPopupShown = true;
             }
         }
 
-        // Detect when mouse leaves viewport (exit intent)
+        // Detect when mouse leaves viewport (exit intent) - only after user is engaged
         document.addEventListener('mouseleave', function(e) {
-            if (e.clientY <= 0 && !exitPopupShown) {
+            if (e.clientY <= 0 && !exitPopupShown && userEngaged) {
                 showExitPopup();
             }
         });
@@ -2477,13 +2483,6 @@
                 closeExitPopup();
             }
         });
-
-        // Show exit popup after 30 seconds as backup (mobile users)
-        setTimeout(function() {
-            if (!exitPopupShown) {
-                showExitPopup();
-            }
-        }, 30000);
     </script>
 </body>
 </html>
