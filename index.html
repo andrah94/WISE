@@ -2485,27 +2485,28 @@
 
         // Exit Intent Detection
         let exitPopupShown = false;
-        let userEngaged = false;
-
-        // Track user engagement (they've been on site for 15+ seconds and scrolled)
-        setTimeout(function() {
-            userEngaged = true;
-        }, 15000);
 
         function closeExitPopup() {
             document.getElementById('exitPopup').classList.remove('active');
         }
 
         function showExitPopup() {
-            if (!exitPopupShown && userEngaged) {
+            if (!exitPopupShown) {
                 document.getElementById('exitPopup').classList.add('active');
                 exitPopupShown = true;
             }
         }
 
-        // Detect when mouse leaves viewport (exit intent) - only after user is engaged
+        // Show popup automatically after 15 seconds
+        setTimeout(function() {
+            if (!exitPopupShown) {
+                showExitPopup();
+            }
+        }, 15000);
+
+        // Also show on exit intent (mouse leaving page)
         document.addEventListener('mouseleave', function(e) {
-            if (e.clientY <= 0 && !exitPopupShown && userEngaged) {
+            if (e.clientY <= 0 && !exitPopupShown) {
                 showExitPopup();
             }
         });
