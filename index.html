@@ -1553,11 +1553,12 @@
 
     <!-- Hero Section -->
     <section id="hero" class="relative h-screen flex items-center justify-center overflow-hidden">
-        <div class="absolute inset-0 bg-black opacity-70 z-10"></div>
-        <div class="absolute inset-0 z-0">
-            <div class="hero-pattern"></div>
-            <div class="hero-glow"></div>
-        </div>
+        <!-- Video Background -->
+        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover z-0">
+            <source src="https://video.wixstatic.com/video/5e8141_3cad640d6a804c4d88c4e00482cbb845/720p/mp4/file.mp4" type="video/mp4">
+        </video>
+        <div class="absolute inset-0 bg-black opacity-60 z-10"></div>
+
         <div class="container mx-auto px-4 z-20 text-center">
             <div class="fade-in-up active">
                 <div class="flex items-center justify-center mb-8">
@@ -1611,7 +1612,7 @@
 
                 <div class="image-content slide-in-right">
                     <div class="image-overlay-container">
-                        <img src="https://static.wixstatic.com/media/5e8141_e8740f95ebe347df8a6ee734802564b5~mv2.jpg" alt="WISE Financial Success" class="w-full h-96 object-cover">
+                        <img src="https://static.wixstatic.com/media/5e8141_58f3f13f4f07470bbb75f838aee0699a~mv2.jpg" alt="Glenn Windom - Financial Advisor" class="w-full h-96 object-cover">
                         <div class="overlay-gradient"></div>
                         <div class="overlay-text">
                             <h3 class="text-2xl font-bold mb-2">Financial Freedom Awaits</h3>
@@ -1765,6 +1766,29 @@
             <p class="text-center text-gray-400 mt-10 italic fade-in-up text-lg">
                 *This represents a selection of our provider network. We work with many additional financial institutions to meet your specific needs.
             </p>
+        </div>
+    </section>
+
+    <!-- Why Choose WISE - Video Section -->
+    <section class="relative py-32 overflow-hidden" style="background-color: #000;">
+        <!-- Video Background -->
+        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover z-0">
+            <source src="https://video.wixstatic.com/video/5e8141_dac915906c6d4bb0825bc3e5d9f966c8/1080p/mp4/file.mp4" type="video/mp4">
+        </video>
+        <div class="absolute inset-0 bg-black opacity-70 z-10"></div>
+
+        <div class="container mx-auto px-4 z-20 relative">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-5xl md:text-6xl font-bold mb-8 text-white fade-in-up">
+                    Your Financial Future <span style="color: var(--gold)">Starts Here</span>
+                </h2>
+                <p class="text-2xl md:text-3xl mb-12 text-gray-100 leading-relaxed fade-in-up">
+                    Real people. Real results. Real transformation.
+                </p>
+                <a href="javascript:void(0)" onclick="openCalendlyPopup()" class="btn-premium inline-block text-lg fade-in-up">
+                    Book Your Consultation
+                </a>
+            </div>
         </div>
     </section>
 
@@ -2011,7 +2035,7 @@
 
                 <div class="image-content slide-in-right">
                     <div class="image-overlay-container">
-                        <img src="https://static.wixstatic.com/media/5e8141_81f43291b27a4f89a64acba7d2d287e9~mv2.jpg" alt="Career Growth" class="w-full h-96 object-cover">
+                        <img src="https://static.wixstatic.com/media/5e8141_6f7ec354a2884af1ad1278405c67ed1d~mv2.png" alt="Glenn Windom Working - Career Growth" class="w-full h-96 object-cover">
                         <div class="overlay-gradient"></div>
                         <div class="overlay-text">
                             <h3 class="text-2xl font-bold mb-2">Build Your Future</h3>
@@ -2024,8 +2048,13 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-24 relative" style="background-color: #0a0a0a;">
-        <div class="container mx-auto px-4">
+    <section id="contact" class="py-24 relative overflow-hidden" style="background-color: #0a0a0a;">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0 opacity-10">
+            <img src="https://static.wixstatic.com/media/5e8141_9b245128d85447fb95a61ab72bf081e2~mv2.jpg" alt="Background" class="w-full h-full object-cover">
+        </div>
+
+        <div class="container mx-auto px-4 relative z-10">
             <div class="text-center mb-20 fade-in-up">
                 <h2 class="text-5xl font-bold mb-6 gold-accent">Get in <span style="color: var(--gold)">Touch</span></h2>
                 <p class="text-xl max-w-3xl mx-auto text-gray-200 mt-16">
@@ -2052,8 +2081,13 @@
     </section>
 
     <!-- Newsletter Section -->
-    <section class="py-24 relative" style="background-color: #000000;">
-        <div class="container mx-auto px-4">
+    <section class="py-24 relative overflow-hidden" style="background-color: #000000;">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0 opacity-5">
+            <img src="https://static.wixstatic.com/media/5e8141_5c2162c6d7c143a29dd74e2a6280c5a6~mv2.jpg" alt="Background" class="w-full h-full object-cover">
+        </div>
+
+        <div class="container mx-auto px-4 relative z-10">
             <div class="max-w-4xl mx-auto newsletter-section p-12 rounded-3xl fade-in-up" style="position: relative;">
                 <div style="position: relative; z-index: 10;">
                     <div class="text-center mb-10">
