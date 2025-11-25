@@ -1088,9 +1088,13 @@
                 gap: 2rem !important;
             }
 
-            .content-right .text-content,
+            /* Show Glenn's picture FIRST on mobile */
             .content-right .image-content {
-                order: 0 !important;
+                order: 1 !important;
+            }
+
+            .content-right .text-content {
+                order: 2 !important;
             }
 
             /* Image Overlays - Adjusted Height */
@@ -1326,7 +1330,7 @@
             text-align: center;
             position: sticky;
             top: 0;
-            z-index: 999;
+            z-index: 100;
             box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
             cursor: pointer;
             transition: all 0.3s ease;
@@ -1354,6 +1358,27 @@
 
         .booking-banner .pulse-icon {
             animation: pulse 2s infinite;
+        }
+
+        /* Mobile banner adjustments */
+        @media (max-width: 768px) {
+            .booking-banner {
+                padding: 0.4rem 0.5rem;
+                position: relative;
+            }
+
+            .booking-banner h3 {
+                font-size: 0.75rem;
+                line-height: 1.2;
+            }
+
+            .booking-banner-content {
+                gap: 0.5rem;
+            }
+
+            .booking-banner .pulse-icon {
+                font-size: 0.9rem;
+            }
         }
 
         @keyframes pulse {
@@ -1445,7 +1470,6 @@
         <div class="booking-banner-content">
             <span class="pulse-icon">📅</span>
             <h3>Ready to Transform Your Financial Future? Book a Free Consultation with Glenn!</h3>
-            <span class="pulse-icon">✨</span>
         </div>
     </div>
 
