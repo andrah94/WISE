@@ -3,22 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WISE Financial Partners | Book Your Strategy Session</title>
-  <meta name="description" content="Join 500+ successful financial partners. Book your free strategy session and start earning within 30 days." />
+  <title>The Coordinator's Interactive Playbook | WISE Financial Partners</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <!-- Calendly integration -->
   <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
   <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
   <style>
-    @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Oswald:wght@500;700&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Oswald:wght@500;700&display=swap");
 
     body {
       font-family: "Montserrat", sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      background-color: #0a0a0a;
-      color: #ffffff;
+      background-color: #f9f9f9;
+      color: #1a1a1a;
     }
 
     .brand-title {
@@ -29,136 +28,50 @@
     .gold-text {
       color: #d4af37;
     }
-
-    .gold-gradient {
-      background: linear-gradient(135deg, #d4af37 0%, #f7e08b 50%, #d4af37 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
+    @supports (-webkit-background-clip: text) {
+      .gold-text {
+        background: -webkit-linear-gradient(45deg, #d4af37, #f7e08b, #d4af37);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
     }
 
     .gold-bg {
       background: linear-gradient(135deg, #d4af37 0%, #b8960c 100%);
     }
 
-    .gold-border {
-      border-color: #d4af37;
-    }
-
-    .hero-gradient {
-      background: linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
-    }
-
-    .glow-gold {
-      box-shadow: 0 0 30px rgba(212, 175, 55, 0.3), 0 0 60px rgba(212, 175, 55, 0.1);
-    }
-
-    .pulse-glow {
-      animation: pulseGlow 2s ease-in-out infinite;
-    }
-
-    @keyframes pulseGlow {
-      0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
-      50% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.8), 0 0 60px rgba(212, 175, 55, 0.4); }
-    }
-
-    .float-animation {
-      animation: float 6s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-    }
-
-    .counter-number {
-      font-family: "Oswald", sans-serif;
-      font-size: 3.5rem;
-      font-weight: 700;
-    }
-
-    .sticky-cta {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 50;
-      transform: translateY(100%);
-      transition: transform 0.3s ease;
-    }
-
-    .sticky-cta.visible {
-      transform: translateY(0);
-    }
-
     .phase-header {
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: background-color 0.3s ease;
     }
-
-    .phase-header:hover {
-      background-color: rgba(212, 175, 55, 0.1);
-    }
-
     .phase-content {
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.5s ease-out;
     }
-
     .phase-content.open {
       max-height: 2000px;
     }
-
     .modal-backdrop {
       transition: opacity 0.3s ease;
     }
-
     .modal-content {
       transition: transform 0.3s ease;
     }
-
     .playbook-btn {
       transition: transform 0.2s ease, background-color 0.2s ease;
     }
-
     .playbook-btn:hover {
       transform: scale(1.03);
     }
-
     .template-pre {
       white-space: pre-wrap;
       word-wrap: break-word;
       font-family: "Montserrat", sans-serif;
     }
 
-    .testimonial-card {
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .testimonial-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
-    }
-
-    .pricing-card {
-      transition: all 0.3s ease;
-    }
-
-    .pricing-card:hover {
-      transform: scale(1.02);
-    }
-
-    .pricing-card.featured {
-      border: 2px solid #d4af37;
-      transform: scale(1.05);
-    }
-
-    .pricing-card.featured:hover {
-      transform: scale(1.07);
-    }
-
-    .urgency-banner {
+    .banner {
       background: linear-gradient(90deg, #d4af37, #f7e08b, #d4af37);
       background-size: 200% 100%;
       animation: shimmer 3s linear infinite;
@@ -169,27 +82,6 @@
       100% { background-position: 200% 0; }
     }
 
-    .book-now-btn {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .book-now-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      animation: shine 2s infinite;
-    }
-
-    @keyframes shine {
-      0% { left: -100%; }
-      100% { left: 100%; }
-    }
-
     .exit-modal {
       display: none;
       position: fixed;
@@ -197,7 +89,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(0, 0, 0, 0.8);
       z-index: 100;
       justify-content: center;
       align-items: center;
@@ -207,578 +99,105 @@
       display: flex;
     }
 
-    .countdown-digit {
-      background: linear-gradient(180deg, #1a1a2e 0%, #0a0a0a 100%);
-      border: 1px solid #d4af37;
+    .faq-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
     }
 
-    .scroll-indicator {
-      animation: bounce 2s infinite;
-    }
-
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-      40% { transform: translateY(-10px); }
-      60% { transform: translateY(-5px); }
-    }
-
-    /* Mobile Optimizations - Reduce scroll length */
-    @media (max-width: 768px) {
-      /* Hide playbook section on mobile (for coordinators only) */
-      #playbook {
-        display: none;
-      }
-
-      /* Reduce section padding on mobile */
-      section {
-        padding-top: 3rem;
-        padding-bottom: 3rem;
-      }
-
-      /* Make hero not full height on mobile */
-      .hero-gradient {
-        min-height: auto;
-        padding-top: 2rem;
-        padding-bottom: 2rem;
-      }
-
-      /* Smaller counter numbers on mobile */
-      .counter-number {
-        font-size: 2rem;
-      }
-
-      /* Hide "What You'll Learn" section on mobile - show just CTA */
-      #what-youll-learn .grid {
-        display: none;
-      }
-
-      /* Reduce testimonial grid to 1 column and show only 1 */
-      #results .grid > div:nth-child(n+2) {
-        display: none;
-      }
-
-      /* Simplify FAQ - show only 3 on mobile */
-      #faq-container > div:nth-child(n+4) {
-        display: none;
-      }
-
-      /* Reduce Calendly widget height on mobile */
-      .calendly-inline-widget {
-        height: 500px !important;
-      }
+    .faq-content.open {
+      max-height: 500px;
     }
   </style>
 </head>
-<body class="text-white">
+<body class="text-gray-800">
 
-  <!-- Urgency Banner -->
-  <div class="urgency-banner text-black py-2 text-center font-bold text-sm md:text-base">
+  <!-- Top Banner -->
+  <div class="banner text-black py-2 text-center font-bold text-sm md:text-base">
     <i class="fas fa-calendar-alt mr-2"></i>
-    <span id="urgencyText">Book your <span class="font-extrabold">FREE strategy call</span> with Glenn today!</span>
-    <i class="fas fa-arrow-right ml-2"></i>
+    <span>Book your <span class="font-extrabold">FREE strategy call</span> with Glenn today!</span>
+    <button onclick="openCalendly()" class="ml-3 bg-black text-white text-xs px-3 py-1 rounded-full hover:bg-gray-800">
+      Book Now <i class="fas fa-arrow-right ml-1"></i>
+    </button>
   </div>
 
-  <!-- Hero Section -->
-  <section class="hero-gradient min-h-screen flex items-center relative overflow-hidden">
-    <div class="absolute inset-0 opacity-10">
-      <div class="absolute top-20 left-10 w-72 h-72 bg-yellow-500 rounded-full filter blur-3xl"></div>
-      <div class="absolute bottom-20 right-10 w-96 h-96 bg-yellow-600 rounded-full filter blur-3xl"></div>
-    </div>
-
-    <div class="container mx-auto max-w-6xl px-4 sm:px-6 py-12 relative z-10">
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <div class="text-center md:text-left">
-          <div class="inline-block mb-4 px-4 py-2 rounded-full border border-yellow-500/30 bg-yellow-500/10">
-            <span class="text-yellow-400 text-sm font-semibold"><i class="fas fa-star mr-2"></i>Trusted by 500+ Partners</span>
-          </div>
-
-          <h1 class="brand-title text-4xl sm:text-5xl md:text-6xl font-bold uppercase mb-6 leading-tight">
-            Build Your <span class="gold-gradient">Financial Empire</span> Starting Today
-          </h1>
-
-          <p class="text-lg sm:text-xl text-gray-300 mb-8 leading-relaxed">
-            Join WISE Financial Partners and learn the exact system that's helping ordinary people generate <span class="text-yellow-400 font-bold">$5,000-$25,000/month</span> in residual income.
-          </p>
-
-          <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start mb-8">
-            <button onclick="openCalendly()" class="book-now-btn gold-bg text-black font-bold py-4 px-8 rounded-lg text-lg pulse-glow flex items-center justify-center gap-3 hover:opacity-90 transition-opacity">
-              <i class="fas fa-calendar-check"></i>
-              Book Free Strategy Call
-            </button>
-            <a href="#results" class="border-2 border-gray-600 hover:border-yellow-500 text-white font-bold py-4 px-8 rounded-lg text-lg flex items-center justify-center gap-3 transition-colors">
-              <i class="fas fa-play-circle"></i>
-              See Results First
-            </a>
-          </div>
-
-          <div class="flex items-center justify-center md:justify-start gap-6 text-sm text-gray-400">
-            <div class="flex items-center gap-2">
-              <i class="fas fa-check-circle text-green-500"></i>
-              <span>No Experience Required</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <i class="fas fa-check-circle text-green-500"></i>
-              <span>Full Training Provided</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="relative float-animation">
-          <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-8 border border-gray-700 glow-gold">
-            <div class="text-center mb-6">
-              <div class="inline-block p-4 rounded-full gold-bg mb-4">
-                <i class="fas fa-handshake text-3xl text-black"></i>
-              </div>
-              <h3 class="text-2xl font-bold mb-2">Free Strategy Session</h3>
-              <p class="text-gray-400">30-minute call with Glenn</p>
-            </div>
-
-            <ul class="space-y-4 mb-6">
-              <li class="flex items-start gap-3">
-                <i class="fas fa-check text-yellow-400 mt-1"></i>
-                <span>Personalized income roadmap</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <i class="fas fa-check text-yellow-400 mt-1"></i>
-                <span>Learn the WISE licensing system</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <i class="fas fa-check text-yellow-400 mt-1"></i>
-                <span>Get your questions answered live</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <i class="fas fa-check text-yellow-400 mt-1"></i>
-                <span>No obligation, 100% free</span>
-              </li>
-            </ul>
-
-            <button onclick="openCalendly()" class="w-full gold-bg text-black font-bold py-4 rounded-lg text-lg hover:opacity-90 transition-opacity">
-              Claim Your Spot <i class="fas fa-arrow-right ml-2"></i>
-            </button>
-
-            <p class="text-center text-sm text-gray-500 mt-4">
-              <i class="fas fa-users mr-1"></i> 23 people viewing this page
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="text-center mt-12">
-        <a href="#results" class="scroll-indicator inline-block text-gray-400 hover:text-yellow-400 transition-colors">
-          <i class="fas fa-chevron-down text-2xl"></i>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Social Proof Bar -->
-  <section class="bg-gray-900 py-8 border-y border-gray-800">
-    <div class="container mx-auto max-w-6xl px-4">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-        <div>
-          <div class="counter-number gold-text" data-target="500">500+</div>
-          <p class="text-gray-400 text-sm mt-1">Partners Educated</p>
-        </div>
-        <div>
-          <div class="counter-number gold-text" data-target="100">100%</div>
-          <p class="text-gray-400 text-sm mt-1">Free Training</p>
-        </div>
-        <div>
-          <div class="counter-number gold-text" data-target="1">1-on-1</div>
-          <p class="text-gray-400 text-sm mt-1">Personal Coaching</p>
-        </div>
-        <div>
-          <div class="counter-number gold-text" data-target="30">30</div>
-          <p class="text-gray-400 text-sm mt-1">Min Strategy Call</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Results Section -->
-  <section id="results" class="py-20 bg-black">
-    <div class="container mx-auto max-w-6xl px-4">
-      <div class="text-center mb-16">
-        <span class="inline-block px-4 py-2 rounded-full bg-yellow-500/10 text-yellow-400 text-sm font-semibold mb-4">
-          REAL RESULTS
-        </span>
-        <h2 class="brand-title text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-          See What Our <span class="gold-gradient">Partners Achieve</span>
-        </h2>
-        <p class="text-gray-400 max-w-2xl mx-auto">
-          These are real people who started exactly where you are now.
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-8 mb-12">
-        <!-- Testimonial 1 -->
-        <div class="testimonial-card bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-6 border border-gray-700">
-          <div class="flex items-center gap-4 mb-4">
-            <div class="w-14 h-14 rounded-full gold-bg flex items-center justify-center text-black font-bold text-xl">
-              JM
-            </div>
-            <div>
-              <h4 class="font-bold">James M.</h4>
-              <p class="text-sm text-gray-400">Former Teacher</p>
-            </div>
-          </div>
-          <div class="flex mb-4">
-            <i class="fas fa-star text-yellow-400"></i>
-            <i class="fas fa-star text-yellow-400"></i>
-            <i class="fas fa-star text-yellow-400"></i>
-            <i class="fas fa-star text-yellow-400"></i>
-            <i class="fas fa-star text-yellow-400"></i>
-          </div>
-          <p class="text-gray-300 mb-4">
-            "Within 60 days of joining WISE, I replaced my teaching salary. Now I make more in a month than I used to make in a semester."
-          </p>
-          <div class="border-t border-gray-700 pt-4">
-            <p class="text-sm text-gray-400">First month earnings:</p>
-            <p class="text-2xl font-bold gold-text">$8,750</p>
-          </div>
-        </div>
-
-        <!-- Testimonial 2 -->
-        <div class="testimonial-card bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-6 border border-gray-700">
-          <div class="flex items-center gap-4 mb-4">
-            <div class="w-14 h-14 rounded-full gold-bg flex items-center justify-center text-black font-bold text-xl">
-              SK
-            </div>
-            <div>
-              <h4 class="font-bold">Sarah K.</h4>
-              <p class="text-sm text-gray-400">Stay-at-Home Mom</p>
-            </div>
-          </div>
-          <div class="flex mb-4">
-            <i class="fas fa-star text-yellow-400"></i>
-            <i class="fas fa-star text-yellow-400"></i>
-            <i class="fas fa-star text-yellow-400"></i>
-            <i class="fas fa-star text-yellow-400"></i>
-            <i class="fas fa-star text-yellow-400"></i>
-          </div>
-          <p class="text-gray-300 mb-4">
-            "I was skeptical at first, but the training was incredible. Glenn personally helped me get licensed and now I work 15 hours a week making $12K/month."
-          </p>
-          <div class="border-t border-gray-700 pt-4">
-            <p class="text-sm text-gray-400">Current monthly income:</p>
-            <p class="text-2xl font-bold gold-text">$12,400</p>
-          </div>
-        </div>
-
-        <!-- Testimonial 3 -->
-        <div class="testimonial-card bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-6 border border-gray-700">
-          <div class="flex items-center gap-4 mb-4">
-            <div class="w-14 h-14 rounded-full gold-bg flex items-center justify-center text-black font-bold text-xl">
-              DR
-            </div>
-            <div>
-              <h4 class="font-bold">David R.</h4>
-              <p class="text-sm text-gray-400">Retired Military</p>
-            </div>
-          </div>
-          <div class="flex mb-4">
-            <i class="fas fa-star text-yellow-400"></i>
-            <i class="fas fa-star text-yellow-400"></i>
-            <i class="fas fa-star text-yellow-400"></i>
-            <i class="fas fa-star text-yellow-400"></i>
-            <i class="fas fa-star text-yellow-400"></i>
-          </div>
-          <p class="text-gray-300 mb-4">
-            "The WISE system gave me purpose after retirement. I passed my exam in 2 weeks and hit $25K in month three. Best decision I ever made."
-          </p>
-          <div class="border-t border-gray-700 pt-4">
-            <p class="text-sm text-gray-400">Best month so far:</p>
-            <p class="text-2xl font-bold gold-text">$25,200</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="text-center">
-        <button onclick="openCalendly()" class="book-now-btn gold-bg text-black font-bold py-4 px-10 rounded-lg text-lg pulse-glow hover:opacity-90 transition-opacity">
-          <i class="fas fa-calendar-check mr-2"></i>
-          Book Your Free Strategy Call Now
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- How It Works -->
-  <section class="py-20 bg-gradient-to-b from-black to-gray-900">
-    <div class="container mx-auto max-w-6xl px-4">
-      <div class="text-center mb-16">
-        <span class="inline-block px-4 py-2 rounded-full bg-yellow-500/10 text-yellow-400 text-sm font-semibold mb-4">
-          SIMPLE 3-STEP PROCESS
-        </span>
-        <h2 class="brand-title text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-          Your Path to <span class="gold-gradient">Financial Freedom</span>
-        </h2>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="text-center">
-          <div class="w-20 h-20 rounded-full gold-bg mx-auto mb-6 flex items-center justify-center">
-            <span class="text-3xl font-bold text-black">1</span>
-          </div>
-          <h3 class="text-xl font-bold mb-3">Book Your Call</h3>
-          <p class="text-gray-400">Schedule a free 30-minute strategy session with Glenn to see if WISE is right for you.</p>
-        </div>
-        <div class="text-center">
-          <div class="w-20 h-20 rounded-full gold-bg mx-auto mb-6 flex items-center justify-center">
-            <span class="text-3xl font-bold text-black">2</span>
-          </div>
-          <h3 class="text-xl font-bold mb-3">Get Licensed</h3>
-          <p class="text-gray-400">Complete our Fast Track licensing program. Most partners pass within 2 weeks.</p>
-        </div>
-        <div class="text-center">
-          <div class="w-20 h-20 rounded-full gold-bg mx-auto mb-6 flex items-center justify-center">
-            <span class="text-3xl font-bold text-black">3</span>
-          </div>
-          <h3 class="text-xl font-bold mb-3">Start Earning</h3>
-          <p class="text-gray-400">Use our proven system to generate your first commission within 30 days.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Calendly Embed Section -->
-  <section id="book-call" class="py-20 bg-black">
-    <div class="container mx-auto max-w-4xl px-4">
-      <div class="text-center mb-12">
-        <span class="inline-block px-4 py-2 rounded-full bg-yellow-500/10 text-yellow-400 text-sm font-semibold mb-4">
-          BOOK NOW
-        </span>
-        <h2 class="brand-title text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-          Claim Your <span class="gold-gradient">Free Strategy Session</span>
-        </h2>
-        <p class="text-gray-400 max-w-2xl mx-auto">
-          Select a time that works for you. Glenn will personally walk you through the WISE opportunity.
-        </p>
-      </div>
-
-      <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-8 border border-gray-700 glow-gold">
-        <!-- Calendly inline widget -->
-        <div class="calendly-inline-widget" data-url="https://calendly.com/gwindom2?hide_gdpr_banner=1&background_color=1a1a2e&text_color=ffffff&primary_color=d4af37" style="min-width:320px;height:700px;"></div>
-
-        <!-- Fallback button if widget doesn't load -->
-        <div class="text-center mt-6">
-          <p class="text-gray-400 text-sm mb-4">Calendar not loading? Click below:</p>
-          <button onclick="openCalendly()" class="gold-bg text-black font-bold py-3 px-6 rounded-lg hover:opacity-90 transition-opacity">
-            Open Scheduler <i class="fas fa-external-link-alt ml-2"></i>
-          </button>
-        </div>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-6 mt-8">
-        <div class="flex items-center gap-3 justify-center">
-          <i class="fas fa-shield-alt text-yellow-400 text-xl"></i>
-          <span class="text-gray-400">100% Confidential</span>
-        </div>
-        <div class="flex items-center gap-3 justify-center">
-          <i class="fas fa-clock text-yellow-400 text-xl"></i>
-          <span class="text-gray-400">30 Minutes Only</span>
-        </div>
-        <div class="flex items-center gap-3 justify-center">
-          <i class="fas fa-ban text-yellow-400 text-xl"></i>
-          <span class="text-gray-400">No Obligation</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- What You'll Learn Section -->
-  <section id="what-youll-learn" class="py-20 bg-gradient-to-b from-gray-900 to-black">
-    <div class="container mx-auto max-w-6xl px-4">
-      <div class="text-center mb-16">
-        <span class="inline-block px-4 py-2 rounded-full bg-yellow-500/10 text-yellow-400 text-sm font-semibold mb-4">
-          100% FREE EDUCATION
-        </span>
-        <h2 class="brand-title text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-          What You'll Learn on <span class="gold-gradient">Your Call with Glenn</span>
-        </h2>
-        <p class="text-gray-400 max-w-2xl mx-auto">
-          We believe in education first. Your strategy call is completely free with no strings attached.
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-6 border border-gray-700 text-center">
-          <div class="w-16 h-16 rounded-full gold-bg mx-auto mb-4 flex items-center justify-center">
-            <i class="fas fa-graduation-cap text-2xl text-black"></i>
-          </div>
-          <h3 class="font-bold mb-2">The WISE System</h3>
-          <p class="text-gray-400 text-sm">Understand how our proven financial services model works</p>
-        </div>
-        <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-6 border border-gray-700 text-center">
-          <div class="w-16 h-16 rounded-full gold-bg mx-auto mb-4 flex items-center justify-center">
-            <i class="fas fa-certificate text-2xl text-black"></i>
-          </div>
-          <h3 class="font-bold mb-2">Licensing Path</h3>
-          <p class="text-gray-400 text-sm">Learn exactly what it takes to get licensed and start</p>
-        </div>
-        <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-6 border border-gray-700 text-center">
-          <div class="w-16 h-16 rounded-full gold-bg mx-auto mb-4 flex items-center justify-center">
-            <i class="fas fa-chart-line text-2xl text-black"></i>
-          </div>
-          <h3 class="font-bold mb-2">Income Potential</h3>
-          <p class="text-gray-400 text-sm">See realistic earning opportunities based on your goals</p>
-        </div>
-        <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-6 border border-gray-700 text-center">
-          <div class="w-16 h-16 rounded-full gold-bg mx-auto mb-4 flex items-center justify-center">
-            <i class="fas fa-question-circle text-2xl text-black"></i>
-          </div>
-          <h3 class="font-bold mb-2">Your Questions</h3>
-          <p class="text-gray-400 text-sm">Get personalized answers directly from Glenn</p>
-        </div>
-      </div>
-
-      <div class="text-center mt-12">
-        <button onclick="openCalendly()" class="book-now-btn gold-bg text-black font-bold py-4 px-10 rounded-lg text-lg pulse-glow hover:opacity-90 transition-opacity">
-          <i class="fas fa-calendar-check mr-2"></i>
-          Schedule Your Free Call with Glenn
-        </button>
-        <p class="mt-4 text-gray-500 text-sm">No cost. No obligation. Just education.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Coordinator Playbook Section -->
-  <section id="playbook" class="py-20 bg-black">
-    <div class="container mx-auto max-w-5xl px-4">
-      <div class="text-center mb-12">
-        <span class="inline-block px-4 py-2 rounded-full bg-yellow-500/10 text-yellow-400 text-sm font-semibold mb-4">
-          FOR PARTNERS
-        </span>
-        <h2 class="brand-title text-3xl sm:text-4xl font-bold mb-4">
-          The Coordinator's <span class="gold-gradient">Playbook</span>
-        </h2>
-        <p class="text-gray-400 max-w-2xl mx-auto">
-          Your step-by-step guide to launching successful partners.
-        </p>
-      </div>
-
-      <div id="phases" class="space-y-5"></div>
-    </div>
-  </section>
-
-  <!-- FAQ Section -->
-  <section class="py-20 bg-gradient-to-b from-black to-gray-900">
-    <div class="container mx-auto max-w-4xl px-4">
-      <div class="text-center mb-16">
-        <span class="inline-block px-4 py-2 rounded-full bg-yellow-500/10 text-yellow-400 text-sm font-semibold mb-4">
-          FAQ
-        </span>
-        <h2 class="brand-title text-3xl sm:text-4xl font-bold mb-4">
-          Common <span class="gold-gradient">Questions</span>
-        </h2>
-      </div>
-
-      <div class="space-y-4" id="faq-container">
-        <!-- FAQ items will be injected here -->
-      </div>
-    </div>
-  </section>
-
-  <!-- Final CTA Section -->
-  <section class="py-20 bg-black relative overflow-hidden">
-    <div class="absolute inset-0 opacity-20">
-      <div class="absolute top-0 left-1/4 w-96 h-96 bg-yellow-500 rounded-full filter blur-3xl"></div>
-      <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-yellow-600 rounded-full filter blur-3xl"></div>
-    </div>
-
-    <div class="container mx-auto max-w-4xl px-4 text-center relative z-10">
-      <h2 class="brand-title text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
-        Your Future Starts With <span class="gold-gradient">One Call</span>
-      </h2>
-      <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-        Don't let another month go by watching others succeed. Take action today.
+  <div class="container mx-auto max-w-5xl p-4 sm:p-6 md:p-8">
+    <header class="text-center mb-10 pt-4">
+      <h1 class="brand-title text-3xl sm:text-4xl md:text-5xl font-bold uppercase gold-text">
+        The Coordinator's Playbook
+      </h1>
+      <p class="mt-3 text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
+        Your step-by-step guide to launching successful partners.
       </p>
+    </header>
 
-      <button onclick="openCalendly()" class="book-now-btn gold-bg text-black font-bold py-5 px-12 rounded-lg text-xl pulse-glow hover:opacity-90 transition-opacity">
-        <i class="fas fa-calendar-check mr-3"></i>
-        Book Your Free Strategy Call
+    <!-- Phases get injected here -->
+    <div id="phases" class="space-y-5"></div>
+
+    <!-- Book a Call Section -->
+    <div class="mt-12 bg-white rounded-xl shadow-lg p-6 sm:p-8 border border-gray-200">
+      <div class="text-center mb-6">
+        <h2 class="brand-title text-2xl sm:text-3xl font-bold gold-text mb-2">Book a Call with Glenn</h2>
+        <p class="text-gray-600">Schedule your free strategy session</p>
+      </div>
+      <div class="calendly-inline-widget" data-url="https://calendly.com/gwindom2?hide_gdpr_banner=1&primary_color=d4af37" style="min-width:320px;height:600px;"></div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="mt-12">
+      <h2 class="brand-title text-2xl sm:text-3xl font-bold text-center gold-text mb-8">Frequently Asked Questions</h2>
+      <div id="faq-container" class="space-y-3"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-8 mt-12">
+    <div class="container mx-auto max-w-5xl px-4 text-center">
+      <h3 class="brand-title text-2xl font-bold gold-text mb-3">WISE Financial Partners</h3>
+      <p class="text-gray-400 text-sm mb-4">Empowering financial partners to build lasting wealth.</p>
+      <button onclick="openCalendly()" class="gold-bg text-black font-bold py-2 px-6 rounded-lg hover:opacity-90 transition-opacity">
+        <i class="fas fa-calendar-check mr-2"></i>Book Your Free Call
       </button>
-
-      <p class="mt-6 text-gray-500 text-sm">
-        <i class="fas fa-lock mr-2"></i>
-        Your information is 100% secure and will never be shared.
-      </p>
-    </div>
-  </section>
-
-  <!-- Footer - Simplified -->
-  <footer class="bg-gray-900 py-8 border-t border-gray-800">
-    <div class="container mx-auto max-w-6xl px-4">
-      <div class="text-center">
-        <h3 class="brand-title text-2xl font-bold gold-text mb-4">WISE</h3>
-        <p class="text-gray-400 text-sm mb-6 max-w-md mx-auto">
-          Empowering financial partners to build lasting wealth through proven systems.
-        </p>
-        <button onclick="openCalendly()" class="gold-bg text-black font-bold py-3 px-8 rounded-lg hover:opacity-90 transition-opacity mb-6">
-          <i class="fas fa-calendar-check mr-2"></i>
-          Book Your Free Call with Glenn
-        </button>
-        <div class="border-t border-gray-800 pt-6 text-gray-500 text-sm">
-          <p>&copy; 2024 WISE Financial Partners. All rights reserved.</p>
-        </div>
-      </div>
+      <p class="text-gray-500 text-xs mt-6">&copy; 2024 WISE Financial Partners. All rights reserved.</p>
     </div>
   </footer>
 
-  <!-- Sticky CTA Bar -->
-  <div id="stickyCta" class="sticky-cta gold-bg py-4 px-4">
-    <div class="container mx-auto max-w-6xl flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="text-black text-center sm:text-left">
-        <span class="font-bold">Ready to learn more?</span>
-        <span class="hidden sm:inline ml-2">Schedule your free call with Glenn today.</span>
+  <!-- Playbook Modal -->
+  <div id="playbookModal" class="fixed inset-0 bg-black bg-opacity-70 modal-backdrop flex justify-center items-center p-4 hidden z-50">
+    <div class="bg-white rounded-xl shadow-lg p-6 w-full max-w-2xl modal-content transform scale-95">
+      <div class="flex justify-between items-center mb-4">
+        <h2 id="modalTitle" class="text-xl font-bold text-gray-800">Playbook</h2>
+        <button id="closeModalBtn" class="text-gray-400 hover:text-gray-600 text-3xl">&times;</button>
       </div>
-      <button onclick="openCalendly()" class="bg-black text-white font-bold py-3 px-8 rounded-lg hover:bg-gray-900 transition-colors whitespace-nowrap">
-        <i class="fas fa-calendar-check mr-2"></i>
-        Book Free Call
-      </button>
+      <div id="modalContent" class="bg-gray-50 p-4 rounded-lg border border-gray-200 max-h-[60vh] overflow-y-auto">
+        <pre class="template-pre text-sm text-gray-800"></pre>
+      </div>
+      <div class="mt-6 flex justify-end">
+        <button id="copyBtn" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded-lg flex items-center space-x-2">
+          <i class="fas fa-copy"></i>
+          <span>Copy Template</span>
+        </button>
+      </div>
     </div>
   </div>
 
   <!-- Exit Intent Modal -->
   <div id="exitModal" class="exit-modal">
-    <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-8 max-w-lg mx-4 border border-yellow-500 relative">
-      <button onclick="closeExitModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">
-        &times;
-      </button>
+    <div class="bg-white rounded-2xl p-8 max-w-lg mx-4 relative">
+      <button onclick="closeExitModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
       <div class="text-center">
-        <div class="w-16 h-16 rounded-full gold-bg mx-auto mb-6 flex items-center justify-center">
-          <i class="fas fa-user-tie text-2xl text-black"></i>
+        <div class="w-16 h-16 rounded-full gold-bg mx-auto mb-4 flex items-center justify-center">
+          <i class="fas fa-calendar-check text-2xl text-black"></i>
         </div>
-        <h3 class="text-2xl font-bold mb-4">Wait! Talk to Glenn First</h3>
-        <p class="text-gray-400 mb-6">
-          Before you go, why not schedule a <span class="text-yellow-400 font-bold">FREE 30-minute call</span> with Glenn? Get all your questions answered with zero obligation.
+        <h3 class="text-2xl font-bold text-gray-800 mb-3">Before You Go...</h3>
+        <p class="text-gray-600 mb-6">
+          Have you scheduled your <span class="font-bold text-yellow-600">FREE strategy call</span> with Glenn yet? Get all your questions answered!
         </p>
-        <button onclick="openCalendly(); closeExitModal();" class="w-full gold-bg text-black font-bold py-4 rounded-lg hover:opacity-90 transition-opacity mb-4">
-          <i class="fas fa-calendar-check mr-2"></i>
-          Yes! Book My Free Call with Glenn
+        <button onclick="openCalendly(); closeExitModal();" class="w-full gold-bg text-black font-bold py-3 rounded-lg hover:opacity-90 transition-opacity mb-3">
+          <i class="fas fa-calendar-check mr-2"></i>Yes! Book My Free Call
         </button>
-        <button onclick="closeExitModal()" class="text-gray-500 hover:text-gray-400 text-sm">
-          No thanks, maybe later
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Playbook Modal -->
-  <div id="playbookModal" class="fixed inset-0 bg-black bg-opacity-90 modal-backdrop flex justify-center items-center p-4 hidden z-50">
-    <div class="bg-gray-900 rounded-xl shadow-lg p-6 w-full max-w-2xl modal-content transform scale-95 border border-gray-700">
-      <div class="flex justify-between items-center mb-4">
-        <h2 id="modalTitle" class="text-xl font-bold text-white">Playbook</h2>
-        <button id="closeModalBtn" class="text-gray-400 hover:text-white text-3xl">
-          &times;
-        </button>
-      </div>
-      <div id="modalContent" class="bg-gray-800 p-4 rounded-lg border border-gray-700 max-h-[60vh] overflow-y-auto">
-        <pre class="template-pre text-sm text-gray-200"></pre>
-      </div>
-      <div class="mt-6 flex justify-end">
-        <button id="copyBtn" class="gold-bg hover:opacity-90 text-black font-bold py-2 px-4 rounded-lg flex items-center space-x-2">
-          <i class="fas fa-copy"></i>
-          <span>Copy Template</span>
+        <button onclick="closeExitModal()" class="text-gray-400 hover:text-gray-600 text-sm">
+          Maybe later
         </button>
       </div>
     </div>
@@ -788,7 +207,7 @@
     // Calendly popup function
     function openCalendly() {
       Calendly.initPopupWidget({
-        url: 'https://calendly.com/gwindom2?hide_gdpr_banner=1&background_color=1a1a2e&text_color=ffffff&primary_color=d4af37'
+        url: 'https://calendly.com/gwindom2?hide_gdpr_banner=1&primary_color=d4af37'
       });
       return false;
     }
@@ -847,11 +266,11 @@ RED ALERT:
     const faqs = [
       {
         question: "Do I need any experience in finance or sales?",
-        answer: "No! Our education system is designed for complete beginners. We provide all the training, guidance, and support you need to understand the financial services industry. Many of our successful partners started with zero experience."
+        answer: "No! Our education system is designed for complete beginners. We provide all the training, guidance, and support you need. Many of our successful partners started with zero experience."
       },
       {
         question: "Is the strategy call really free?",
-        answer: "Yes, 100% free with absolutely no obligation. Glenn personally takes these calls to educate you about the opportunity. Even if you decide it's not for you, you'll walk away with valuable knowledge about the industry."
+        answer: "Yes, 100% free with absolutely no obligation. Glenn personally takes these calls to educate you about the opportunity. Even if you decide it's not for you, you'll walk away with valuable knowledge."
       },
       {
         question: "What will I learn on the call with Glenn?",
@@ -859,43 +278,42 @@ RED ALERT:
       },
       {
         question: "How long does it take to get licensed?",
-        answer: "Most partners complete their licensing in 2-4 weeks using our study resources. Some motivated individuals have done it in as little as 10 days. Glenn will explain the entire process on your call."
+        answer: "Most partners complete their licensing in 2-4 weeks. Some motivated individuals have done it in as little as 10 days. Glenn will explain the entire process on your call."
       },
       {
-        question: "What makes WISE different from other opportunities?",
-        answer: "We believe in education first - that's why everything starts with a free call with Glenn. No high-pressure sales, no upfront costs for training. Just real information so you can make an informed decision about your future."
+        question: "What makes WISE different?",
+        answer: "We believe in education first - that's why everything starts with a free call with Glenn. No high-pressure sales, no upfront costs for training. Just real information so you can make an informed decision."
       }
     ];
 
-    // Build FAQ items
+    // Build FAQ
     const faqContainer = document.getElementById('faq-container');
     faqs.forEach((faq, index) => {
       faqContainer.innerHTML += `
-        <div class="bg-gray-900 rounded-xl border border-gray-800 overflow-hidden">
-          <button class="faq-toggle w-full p-6 text-left flex justify-between items-center hover:bg-gray-800 transition-colors" data-index="${index}">
-            <span class="font-bold pr-4">${faq.question}</span>
-            <i class="fas fa-chevron-down text-yellow-400 transition-transform"></i>
+        <div class="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">
+          <button class="faq-toggle w-full p-4 text-left flex justify-between items-center hover:bg-gray-50" data-index="${index}">
+            <span class="font-semibold text-gray-800 pr-4">${faq.question}</span>
+            <i class="fas fa-chevron-down text-gray-400 transition-transform"></i>
           </button>
-          <div class="faq-content hidden px-6 pb-6">
-            <p class="text-gray-400">${faq.answer}</p>
+          <div class="faq-content px-4 pb-4">
+            <p class="text-gray-600">${faq.answer}</p>
           </div>
         </div>
       `;
     });
 
-    // FAQ toggle functionality
+    // FAQ toggle
     document.querySelectorAll('.faq-toggle').forEach(toggle => {
       toggle.addEventListener('click', () => {
         const content = toggle.nextElementSibling;
         const icon = toggle.querySelector('i');
-        const isOpen = !content.classList.contains('hidden');
+        const isOpen = content.classList.contains('open');
 
-        // Close all others
-        document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
+        document.querySelectorAll('.faq-content').forEach(c => c.classList.remove('open'));
         document.querySelectorAll('.faq-toggle i').forEach(i => i.classList.remove('rotate-180'));
 
         if (!isOpen) {
-          content.classList.remove('hidden');
+          content.classList.add('open');
           icon.classList.add('rotate-180');
         }
       });
@@ -904,19 +322,19 @@ RED ALERT:
     // Build phases
     const buildPhase = (emoji, title, subtitle, steps) => {
       return `
-      <div class="bg-gray-900 border border-gray-800 rounded-xl shadow-lg overflow-hidden">
-        <div class="phase-header flex justify-between items-center p-5 sm:p-6">
+      <div class="bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden">
+        <div class="phase-header flex justify-between items-center p-5 sm:p-6 hover:bg-gray-100">
           <div class="flex items-center space-x-4">
             <span class="text-2xl sm:text-3xl">${emoji}</span>
             <div>
-              <h2 class="text-xl sm:text-2xl font-bold text-white">${title}</h2>
-              <p class="text-sm sm:text-base text-gray-400">${subtitle}</p>
+              <h2 class="text-xl sm:text-2xl font-bold text-gray-800">${title}</h2>
+              <p class="text-sm sm:text-base text-gray-500">${subtitle}</p>
             </div>
           </div>
-          <i class="fas fa-chevron-down text-xl sm:text-2xl text-yellow-400 transition-transform"></i>
+          <i class="fas fa-chevron-down text-xl sm:text-2xl text-gray-400 transition-transform"></i>
         </div>
         <div class="phase-content">
-          <div class="p-4 sm:p-6 border-t border-gray-800 space-y-6">
+          <div class="p-4 sm:p-6 border-t border-gray-200 space-y-6">
             ${steps}
           </div>
         </div>
@@ -925,9 +343,9 @@ RED ALERT:
 
     const buildStep = (stepTitle, description, buttonText, color) => {
       return `
-        <div class="bg-gray-800 p-5 rounded-lg">
-          <h3 class="font-bold text-lg sm:text-xl mb-3 text-white">${stepTitle}</h3>
-          <p class="text-gray-400 mb-4 text-sm sm:text-base">${description}</p>
+        <div class="bg-gray-50 p-5 rounded-lg">
+          <h3 class="font-bold text-lg sm:text-xl mb-3 text-gray-800">${stepTitle}</h3>
+          <p class="text-gray-600 mb-4 text-sm sm:text-base">${description}</p>
           <button class="playbook-btn w-full ${color} text-white font-semibold py-3 px-6 rounded-lg hover:opacity-90">${buttonText}</button>
         </div>`;
     };
@@ -939,13 +357,13 @@ RED ALERT:
         "PHASE 1: THE FIRST 10 DAYS",
         "Licensing & Launch",
         buildStep(
-          "Step 1: The Welcome Protocol",
+          "Step 1: 🚀 The Welcome Protocol",
           "Send the Welcome Email within 12 hours and introduce them in Telegram to create instant connection.",
           "View Welcome Email Playbook",
           "bg-indigo-600"
         ) +
           buildStep(
-            "Step 2: The Licensing Push",
+            "Step 2: 🎯 The Licensing Push",
             "By Day 5, check if their exam is booked. If not, give a friendly, firm nudge.",
             "View \"Gentle Nudge\" Playbook",
             "bg-amber-500"
@@ -956,7 +374,7 @@ RED ALERT:
         "PHASE 2: THE WEEKLY RHYTHM",
         "Engagement & Accountability",
         buildStep(
-          "Step 3: Friday Wins & Recognition",
+          "Step 3: 📣 Friday Wins & Recognition",
           "Every Friday, celebrate wins publicly. Recognition builds culture.",
           "View \"Friday Wins\" Playbook",
           "bg-green-500"
@@ -967,14 +385,14 @@ RED ALERT:
         "PHASE 3: LEADERSHIP BRIEFING",
         "Coaching Glenn",
         buildStep(
-          "Step 4: The At-Risk Report",
+          "Step 4: ⚠️ The At-Risk Report",
           "Every Sunday, send Glenn a report on off-track partners for intervention.",
           "View At-Risk Report Playbook",
           "bg-red-600"
         )
       );
 
-    // Phase accordion functionality
+    // Phase accordion
     document.querySelectorAll(".phase-header").forEach((header) => {
       header.addEventListener("click", () => {
         const content = header.nextElementSibling;
@@ -991,7 +409,7 @@ RED ALERT:
       });
     });
 
-    // Playbook button functionality
+    // Playbook buttons
     document.querySelectorAll(".playbook-btn").forEach((btn) => {
       btn.addEventListener("click", (e) => {
         const text = e.target.textContent;
@@ -1028,22 +446,6 @@ RED ALERT:
       });
     });
 
-    // Sticky CTA visibility
-    let lastScroll = 0;
-    const stickyCta = document.getElementById('stickyCta');
-
-    window.addEventListener('scroll', () => {
-      const currentScroll = window.pageYOffset;
-
-      if (currentScroll > 500) {
-        stickyCta.classList.add('visible');
-      } else {
-        stickyCta.classList.remove('visible');
-      }
-
-      lastScroll = currentScroll;
-    });
-
     // Exit intent detection
     let exitShown = false;
     document.addEventListener('mouseout', (e) => {
@@ -1056,20 +458,6 @@ RED ALERT:
     function closeExitModal() {
       document.getElementById('exitModal').classList.remove('show');
     }
-
-    // Urgency banner is now static - focused on free education
-
-    // Animated counter (optional enhancement)
-    function animateCounters() {
-      const counters = document.querySelectorAll('.counter-number');
-      counters.forEach(counter => {
-        const target = counter.getAttribute('data-target');
-        // For demo, just display the value - in production you'd animate
-      });
-    }
-
-    // Initialize on load
-    window.addEventListener('load', animateCounters);
   </script>
 </body>
 </html>
