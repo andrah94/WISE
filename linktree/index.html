@@ -21,9 +21,9 @@
             margin: 0;
             padding: 0;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(-45deg, #000000, #1a1a1a, #2a2a2a, #1a1a1a);
+            background: linear-gradient(-45deg, #0a0a0a, #1a0f00, #2a1a00, #1a0a00, #000000);
             background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
+            animation: gradientShift 20s ease infinite;
             min-height: 100%;
             color: #ffffff;
         }
@@ -34,7 +34,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: #000000;
+            background: radial-gradient(circle at center, #1a1a1a, #000000);
             z-index: 999;
             animation: fadeOutOverlay 0.5s ease-out 2s forwards;
         }
@@ -91,17 +91,22 @@
             width: 140px;
             height: 140px;
             border-radius: 50%;
-            border: 4px solid #FFD700;
+            border: 4px solid transparent;
+            background: linear-gradient(135deg, #FFD700, #FFA500, #FF8C00) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
             margin: 0 auto 1rem auto;
             display: block;
             object-fit: cover;
             object-position: center top;
-            box-shadow: 0 8px 32px rgba(255, 215, 0, 0.3);
-            transition: transform 0.3s ease;
+            box-shadow: 0 8px 32px rgba(255, 165, 0, 0.4), 0 0 60px rgba(255, 215, 0, 0.2);
+            transition: all 0.3s ease;
         }
 
         .profile-image:hover {
-            transform: scale(1.05);
+            transform: scale(1.08);
+            box-shadow: 0 12px 48px rgba(255, 165, 0, 0.6), 0 0 80px rgba(255, 215, 0, 0.3);
         }
 
         .business-logo {
@@ -110,7 +115,8 @@
             margin: 0 auto 1rem auto;
             display: block;
             border-radius: 16px;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 8px 24px rgba(255, 215, 0, 0.3));
         }
 
         .business-logo.intro {
@@ -140,20 +146,22 @@
 
         .business-logo:hover {
             transform: scale(1.05) rotate(2deg);
+            filter: drop-shadow(0 12px 32px rgba(255, 215, 0, 0.5));
         }
 
         .main-title {
             font-size: 1.75rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, #FFD700, #FFA500, #FFD700);
+            background: linear-gradient(135deg, #FFD700, #FFA500, #FF8C00, #FFD700);
             background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: shimmer 3s ease-in-out infinite;
+            animation: shimmer 4s ease-in-out infinite;
             cursor: pointer;
             transition: transform 0.3s ease;
+            filter: drop-shadow(0 0 20px rgba(255, 165, 0, 0.3));
         }
 
         .main-title:hover {
@@ -168,14 +176,14 @@
 
         .subtitle {
             font-size: 1.1rem;
-            color: #cccccc;
+            color: #e0e0e0;
             margin-bottom: 0.5rem;
             font-weight: 500;
         }
 
         .bio {
             font-size: 0.95rem;
-            color: #aaaaaa;
+            color: #c0c0c0;
             line-height: 1.4;
             margin-bottom: 2rem;
         }
@@ -187,23 +195,56 @@
             gap: 1rem;
         }
 
+        /* Glassmorphism Link Buttons */
         .link-button {
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 1rem 1.5rem;
-            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
-            border: 2px solid #FFD700;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 2px solid transparent;
+            border-image: linear-gradient(135deg, #FFD700, #FFA500, #FFD700) 1;
             border-radius: 16px;
             color: #ffffff;
             text-decoration: none;
             font-weight: 600;
             font-size: 1rem;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
             opacity: 0;
             animation: slideInFromBottom 0.6s ease-out forwards;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .link-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.15), transparent);
+            transition: left 0.6s;
+        }
+
+        .link-button:hover::before {
+            left: 100%;
+        }
+
+        .link-button:hover {
+            transform: translateY(-4px) scale(1.02);
+            background: rgba(255, 215, 0, 0.1);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 8px 32px rgba(255, 165, 0, 0.4), 0 0 40px rgba(255, 215, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            border-image: linear-gradient(135deg, #FFA500, #FFD700, #FFA500) 1;
+        }
+
+        .link-button:active {
+            transform: translateY(-2px) scale(1.01);
         }
 
         .link-button:nth-child(1) { animation-delay: 2.3s; }
@@ -211,6 +252,20 @@
         .book-section { animation-delay: 2.5s; }
         .link-button:nth-child(4) { animation-delay: 2.6s; }
 
+        /* Primary Button (Calendly) */
+        .primary-button {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.15));
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 2px solid #FFD700;
+        }
+
+        .primary-button:hover {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 165, 0, 0.25));
+            box-shadow: 0 12px 40px rgba(255, 165, 0, 0.5), 0 0 60px rgba(255, 215, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        /* Book Section Glassmorphism */
         .book-section {
             width: 100%;
             opacity: 0;
@@ -219,11 +274,16 @@
             align-items: center;
             gap: 1.5rem;
             padding: 1.5rem;
-            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
-            border: 2px solid #FFD700;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 2px solid transparent;
+            border-image: linear-gradient(135deg, #FFD700, #FFA500, #FFD700) 1;
             border-radius: 16px;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .book-section::before {
@@ -233,8 +293,8 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
-            transition: left 0.5s;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.15), transparent);
+            transition: left 0.6s;
         }
 
         .book-section:hover::before {
@@ -242,8 +302,11 @@
         }
 
         .book-section:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 32px rgba(255, 215, 0, 0.3);
+            transform: translateY(-4px);
+            background: rgba(255, 215, 0, 0.1);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 8px 32px rgba(255, 165, 0, 0.4), 0 0 40px rgba(255, 215, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
 
         .book-cover-container {
