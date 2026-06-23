@@ -1638,6 +1638,190 @@
             line-height: 1;
         }
         details summary:hover { color: var(--gold); }
+
+        /* =====================================================================
+           DESIGN REFINEMENT LAYER — "Quiet Luxury" v2
+           Appended last to intentionally refine the original base styles into a
+           more modern, restrained, premium aesthetic. Touches the high-leverage
+           design tokens (buttons, cards, type, transitions, background, header)
+           so the upgrade cascades site-wide.
+           ===================================================================== */
+
+        :root {
+            --gold: #D4AF37;
+            --gold-soft: #C9A14A;
+            --gold-pale: #EADFB8;
+            --ink: #060607;
+            --hair: rgba(212, 175, 55, 0.16);
+        }
+
+        /* 1 — Calmer, deeper canvas: kill the moving gradient, add subtle depth */
+        body,
+        .gradient-bg {
+            background: #060607 !important;
+            animation: none !important;
+        }
+        body {
+            background:
+                radial-gradient(1100px 560px at 50% -8%, rgba(212, 175, 55, 0.06), transparent 60%),
+                #060607 !important;
+        }
+
+        /* Remove gimmicky ambient effects for a cleaner, more confident canvas */
+        .particles,
+        .particle,
+        .scroll-indicators { display: none !important; }
+
+        /* 2 — Replace dated wavy dividers with clean, flat section breaks */
+        .curve-top,
+        .curve-bottom { display: none !important; }
+
+        /* 3 — Editorial typography */
+        h1, h2, h3, h4 { letter-spacing: -0.02em; }
+        .gold-accent { line-height: 1.12; }
+
+        /* Eyebrow / kicker label above section headings */
+        .eyebrow {
+            display: inline-block;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.1rem;
+        }
+        .light-section .eyebrow { color: var(--gold-soft); }
+
+        /* Refined heading rule: thin, no glow */
+        .gold-accent:after {
+            width: 54px;
+            height: 2px;
+            bottom: -14px;
+            background: var(--gold);
+            box-shadow: none;
+            border-radius: 0;
+            opacity: 0.85;
+        }
+        .light-section .gold-accent:after { background: var(--gold-soft); }
+        /* Left-align the rule inside two-column editorial blocks */
+        .text-content .gold-accent:after { left: 0; transform: none; }
+
+        /* 4 — Buttons: refined, not shouty uppercase glow-pills */
+        .btn-premium {
+            background: linear-gradient(180deg, #E6CB72, #C9A14A);
+            color: #1a1407;
+            font-weight: 600;
+            padding: 0.95rem 2.1rem;
+            border-radius: 10px;
+            text-transform: none;
+            letter-spacing: 0.005em;
+            font-size: 0.98rem;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 8px 22px rgba(0, 0, 0, 0.35);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+        }
+        .btn-premium:before { display: none !important; }
+        .btn-premium:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.04);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.32), 0 14px 30px rgba(212, 175, 55, 0.26);
+        }
+
+        .btn-outline-premium {
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            color: var(--gold-pale);
+            font-weight: 600;
+            padding: 0.95rem 2.1rem;
+            border-radius: 10px;
+            text-transform: none;
+            letter-spacing: 0.005em;
+            font-size: 0.98rem;
+            background: rgba(212, 175, 55, 0.04);
+            transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+        }
+        .btn-outline-premium:before { display: none !important; }
+        .btn-outline-premium:hover {
+            transform: translateY(-2px);
+            background: rgba(212, 175, 55, 0.1);
+            border-color: var(--gold);
+            color: #ffffff;
+            box-shadow: 0 12px 26px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 5 — Cards: flatter, thin hairline borders, restrained hover */
+        .glass {
+            background: rgba(255, 255, 255, 0.025);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: none;
+        }
+        .service-card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.008));
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 14px;
+            box-shadow: none;
+            transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+        }
+        .service-card:before { display: none !important; }
+        .service-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(212, 175, 55, 0.45);
+            background: linear-gradient(180deg, rgba(212, 175, 55, 0.06), rgba(255, 255, 255, 0.008));
+            box-shadow: 0 20px 44px rgba(0, 0, 0, 0.45);
+        }
+        .team-card {
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 14px;
+            box-shadow: none;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .team-card:before { display: none !important; }
+        .team-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: 0 20px 44px rgba(0, 0, 0, 0.45);
+        }
+        .light-card {
+            border-radius: 16px;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.10);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        /* 6 — Header: drop the muddy gold-on-scroll; refined dark glass */
+        .enhanced-header {
+            background: rgba(6, 6, 7, 0.55);
+            backdrop-filter: blur(16px) saturate(140%);
+            -webkit-backdrop-filter: blur(16px) saturate(140%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: none;
+        }
+        .enhanced-header.scrolled {
+            background: rgba(6, 6, 7, 0.9) !important;
+            border-bottom: 1px solid var(--hair) !important;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45) !important;
+            padding: 0.6rem 0;
+        }
+        .enhanced-header.scrolled .btn-premium {
+            background: linear-gradient(180deg, #E6CB72, #C9A14A) !important;
+        }
+        .nav-link::after { height: 1px; background: var(--gold); }
+
+        /* 7 — Hero: cinematic gradient scrim + tighter display heading */
+        #hero .bg-black.opacity-60 {
+            background: linear-gradient(180deg, rgba(6, 6, 7, 0.5) 0%, rgba(6, 6, 7, 0.3) 38%, rgba(6, 6, 7, 0.85) 100%);
+            opacity: 1;
+        }
+        #hero h1 { letter-spacing: -0.03em; }
+
+        /* 8 — Inputs */
+        .newsletter-input { border-radius: 10px; }
+
+        /* 9 — Quieter, more intentional entrance motion */
+        .fade-in-up { transform: translateY(20px); }
+        .scale-in { transform: scale(0.98); }
+        .scale-in.active { transform: scale(1); }
     </style>
 </head>
 <body class="gradient-bg">
@@ -1782,6 +1966,7 @@
         <div class="container mx-auto px-4">
             <div class="content-left">
                 <div class="text-content slide-in-left">
+                    <p class="eyebrow">Our Firm</p>
                     <h2 class="text-5xl font-bold mb-8 gold-accent">Who We <span style="color: var(--gold)">Are</span></h2>
                     <p class="text-xl mb-6 text-gray-200 mt-16 leading-relaxed">
                         WISE Financial Partners is a premier financial services firm dedicated to empowering individuals and businesses to achieve financial freedom through strategic planning and mindset transformation.
@@ -1827,6 +2012,7 @@
 
         <div class="container mx-auto px-4">
             <div class="text-center mb-20 fade-in-up">
+                <p class="eyebrow">What We Do</p>
                 <h2 class="text-5xl font-bold mb-6 gold-accent">Our <span style="color: var(--gold)">Services</span></h2>
                 <p class="text-xl max-w-3xl mx-auto text-gray-200 mt-16">
                     Comprehensive financial solutions tailored to your unique needs and goals.
@@ -1990,6 +2176,7 @@
         <div class="container mx-auto px-4">
             <div class="content-right">
                 <div class="text-content slide-in-right">
+                    <p class="eyebrow">Leadership</p>
                     <h2 class="text-5xl font-bold mb-8 gold-accent">Meet the <span style="color: var(--gold)">Founder</span></h2>
                     <p class="text-xl mb-6 text-gray-700 mt-16 leading-relaxed">
                         Glenn Windom II is a visionary financial advisor whose unique approach combines mindset coaching with strategic financial planning to help clients achieve lasting wealth and financial freedom.
@@ -2052,6 +2239,7 @@
 
         <div class="container mx-auto px-4">
             <div class="text-center mb-20 fade-in-up">
+                <p class="eyebrow">The People</p>
                 <h2 class="text-5xl font-bold mb-6 gold-accent">Meet Our <span style="color: var(--gold)">Team</span></h2>
                 <p class="text-xl max-w-3xl mx-auto text-gray-200 mt-16">
                     Our diverse team of financial experts is dedicated to helping you achieve your financial goals.
@@ -2187,6 +2375,7 @@
         <div class="container mx-auto px-4">
             <div class="content-left">
                 <div class="text-content slide-in-left">
+                    <p class="eyebrow">Careers</p>
                     <h2 class="text-5xl font-bold mb-8 gold-accent">Grow With <span style="color: var(--gold)">Us</span></h2>
                     <p class="text-xl mb-10 text-gray-200 mt-16 leading-relaxed">
                         Join our team of financial professionals and make a meaningful impact while building a rewarding career.
@@ -2238,6 +2427,7 @@
     <section id="faq" class="py-24 relative" style="background-color: #000000;">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16 fade-in-up">
+                <p class="eyebrow">Answers</p>
                 <h2 class="text-5xl font-bold mb-6 gold-accent">Frequently Asked <span style="color: var(--gold)">Questions</span></h2>
                 <p class="text-xl max-w-3xl mx-auto text-gray-200 mt-8">
                     Everything you need to know before you book your free consultation.
@@ -2303,6 +2493,7 @@
 
         <div class="container mx-auto px-4 relative z-10">
             <div class="text-center mb-20 fade-in-up">
+                <p class="eyebrow">Get Started</p>
                 <h2 class="text-5xl font-bold mb-6 gold-accent">Get in <span style="color: var(--gold)">Touch</span></h2>
                 <p class="text-xl max-w-3xl mx-auto text-gray-200 mt-16">
                     Ready to transform your financial future? Contact us today to schedule a consultation.
