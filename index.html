@@ -13,6 +13,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="apple-touch-icon" href="/favicon.svg">
+
+    <!-- Resource Hints (faster third-party connections) -->
+    <link rel="preconnect" href="https://static.wixstatic.com" crossorigin>
+    <link rel="preconnect" href="https://video.wixstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://assets.calendly.com">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+
     <!-- Primary Meta Tags -->
     <title>WISE Financial Partners - Transform Your Financial Future</title>
     <meta name="title" content="WISE Financial Partners - Financial Advisor & Wealth Management">
@@ -89,7 +102,90 @@
         "Life Insurance",
         "Legacy Wealth Building"
       ],
-      "slogan": "Transform your mindset. Protect your income. Build legacy wealth."
+      "slogan": "Transform your mindset. Protect your income. Build legacy wealth.",
+      "sameAs": [
+        "https://www.instagram.com/wisefinancialpartners",
+        "https://www.instagram.com/imglennwin"
+      ]
+    }
+    </script>
+
+    <!-- Person Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Glenn Windom II",
+      "jobTitle": "Founder & Licensed Financial Professional",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "WISE Financial Partners"
+      },
+      "description": "Licensed financial professional and author of 'The Money Mirror.' CA Insurance License #4359007, licensed in multiple states.",
+      "url": "https://www.wisefinancialpartners.com",
+      "image": "https://static.wixstatic.com/media/2853e8_30a8c226eaa44f20b55ad1214803ccb5~mv2.png",
+      "sameAs": [
+        "https://www.instagram.com/imglennwin",
+        "https://www.linkedin.com/in/gwindom2"
+      ]
+    }
+    </script>
+
+    <!-- Book Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Book",
+      "name": "The Money Mirror",
+      "author": {
+        "@type": "Person",
+        "name": "Glenn Windom II"
+      },
+      "description": "Discover the psychological principles behind wealth creation in Glenn Windom II's book, The Money Mirror.",
+      "image": "https://static.wixstatic.com/media/5e8141_ade3cb0a9ede4b05bec568edb5208e66~mv2.jpeg",
+      "url": "https://a.co/d/aTH4fPE"
+    }
+    </script>
+
+    <!-- FAQ Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What services does WISE Financial Partners offer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We offer wealth management, income protection, retirement planning, legacy and estate planning, educational savings strategies, tax optimization guidance, and business planning."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does a consultation cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We offer a complimentary 30-minute consultation. You can schedule it directly through our website at no cost or obligation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What states is WISE Financial Partners licensed in?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Glenn Windom II holds CA Insurance License #4359007 and is licensed in multiple states. Product and service availability is subject to applicable state licensing requirements."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I get started?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The easiest way to begin is to book a free consultation through our website. We will discuss your goals and build a strategy tailored to your situation."
+          }
+        }
+      ]
     }
     </script>
 
@@ -1477,9 +1573,77 @@
             margin-bottom: 2rem;
             line-height: 1.6;
         }
+
+        /* Accessibility: respect reduced-motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+                scroll-behavior: auto !important;
+            }
+            .fade-in-up,
+            .slide-in-left,
+            .slide-in-right,
+            .scale-in {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
+
+        /* Accessibility: visually-hidden helper + visible focus */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        .skip-link {
+            position: absolute;
+            left: -999px;
+            top: 0;
+            z-index: 1000;
+            background: var(--gold);
+            color: #000;
+            padding: 0.75rem 1.25rem;
+            font-weight: 700;
+            border-radius: 0 0 8px 0;
+        }
+        .skip-link:focus {
+            left: 0;
+        }
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible,
+        summary:focus-visible {
+            outline: 3px solid var(--gold-light);
+            outline-offset: 2px;
+        }
+
+        /* FAQ accordion */
+        details summary::-webkit-details-marker { display: none; }
+        details summary { transition: color 0.2s ease; }
+        details[open] summary span { transform: rotate(45deg); }
+        details summary span {
+            display: inline-block;
+            transition: transform 0.2s ease;
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+        details summary:hover { color: var(--gold); }
     </style>
 </head>
 <body class="gradient-bg">
+    <!-- Skip to main content (accessibility) -->
+    <a href="#hero" class="skip-link">Skip to main content</a>
+
     <!-- Exit Intent Popup -->
     <div id="exitPopup" class="exit-popup-overlay">
         <div class="exit-popup">
@@ -1541,11 +1705,12 @@
                     <a href="#about" class="nav-link text-white hover:text-[#D4AF37]">About</a>
                     <a href="#team" class="nav-link text-white hover:text-[#D4AF37]">Team</a>
                     <a href="#careers" class="nav-link text-white hover:text-[#D4AF37]">Careers</a>
+                    <a href="#faq" class="nav-link text-white hover:text-[#D4AF37]">FAQ</a>
                     <a href="javascript:void(0)" onclick="openCalendlyPopup()" class="btn-premium">Book Now</a>
                 </nav>
 
                 <!-- Mobile menu button -->
-                <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none" aria-label="Open menu">
+                <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
@@ -1567,6 +1732,7 @@
                 <a href="#about" class="text-white hover:text-[#D4AF37] font-semibold">About</a>
                 <a href="#team" class="text-white hover:text-[#D4AF37] font-semibold">Team</a>
                 <a href="#careers" class="text-white hover:text-[#D4AF37] font-semibold">Careers</a>
+                <a href="#faq" class="text-white hover:text-[#D4AF37] font-semibold">FAQ</a>
                 <a href="javascript:void(0)" onclick="openCalendlyPopup()" class="btn-premium text-center">Book Now</a>
             </div>
         </div>
@@ -1575,7 +1741,7 @@
     <!-- Hero Section -->
     <section id="hero" class="relative h-screen flex items-center justify-center overflow-hidden">
         <!-- Video Background -->
-        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover z-0">
+        <video autoplay muted loop playsinline aria-hidden="true" class="absolute inset-0 w-full h-full object-cover z-0">
             <source src="https://video.wixstatic.com/video/5e8141_3cad640d6a804c4d88c4e00482cbb845/720p/mp4/file.mp4" type="video/mp4">
         </video>
         <div class="absolute inset-0 bg-black opacity-60 z-10"></div>
@@ -1633,7 +1799,7 @@
 
                 <div class="image-content slide-in-right">
                     <div class="image-overlay-container">
-                        <img src="https://static.wixstatic.com/media/5e8141_58f3f13f4f07470bbb75f838aee0699a~mv2.jpg" alt="Glenn Windom - Financial Advisor" class="w-full h-96 object-cover">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_58f3f13f4f07470bbb75f838aee0699a~mv2.jpg" alt="Glenn Windom - Financial Advisor" class="w-full h-96 object-cover">
                         <div class="overlay-gradient"></div>
                         <div class="overlay-text">
                             <h3 class="text-2xl font-bold mb-2">Financial Freedom Awaits</h3>
@@ -1765,22 +1931,22 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 items-center justify-items-center">
                 <div class="provider-logo scale-in w-full">
-                    <img src="https://static.wixstatic.com/media/5e8141_83a0fe8f518b4bb48c028479618f2e94~mv2.webp" alt="Crump" class="w-full h-auto">
+                    <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_83a0fe8f518b4bb48c028479618f2e94~mv2.webp" alt="Crump" class="w-full h-auto">
                 </div>
                 <div class="provider-logo scale-in w-full">
-                    <img src="https://static.wixstatic.com/media/5e8141_c782f9209f2445f5b04b3c0272e472bc~mv2.webp" alt="AMS" class="w-full h-auto">
+                    <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_c782f9209f2445f5b04b3c0272e472bc~mv2.webp" alt="AMS" class="w-full h-auto">
                 </div>
                 <div class="provider-logo scale-in w-full">
-                    <img src="https://static.wixstatic.com/media/5e8141_2bff2ce9a0dd4d4980a0febca0b6e50b~mv2.webp" alt="Nationwide" class="w-full h-auto">
+                    <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_2bff2ce9a0dd4d4980a0febca0b6e50b~mv2.webp" alt="Nationwide" class="w-full h-auto">
                 </div>
                 <div class="provider-logo scale-in w-full">
-                    <img src="https://static.wixstatic.com/media/5e8141_b16320ee53cb41a7be87d3ba900ee4ca~mv2.webp" alt="Pacific Life" class="w-full h-auto">
+                    <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_b16320ee53cb41a7be87d3ba900ee4ca~mv2.webp" alt="Pacific Life" class="w-full h-auto">
                 </div>
                 <div class="provider-logo scale-in w-full">
-                    <img src="https://static.wixstatic.com/media/5e8141_8e37718a72a9477cbd82f4f67e97fd54~mv2.webp" alt="Everest" class="w-full h-auto">
+                    <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_8e37718a72a9477cbd82f4f67e97fd54~mv2.webp" alt="Everest" class="w-full h-auto">
                 </div>
                 <div class="provider-logo scale-in w-full">
-                    <img src="https://static.wixstatic.com/media/5e8141_63ad9169f5be4115a12d8e98e309c3a8~mv2.webp" alt="Transamerica" class="w-full h-auto">
+                    <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_63ad9169f5be4115a12d8e98e309c3a8~mv2.webp" alt="Transamerica" class="w-full h-auto">
                 </div>
             </div>
 
@@ -1793,7 +1959,7 @@
     <!-- Why Choose WISE - Video Section -->
     <section class="relative py-32 overflow-hidden" style="background-color: #000;">
         <!-- Video Background -->
-        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover z-0">
+        <video autoplay muted loop playsinline preload="none" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover z-0">
             <source src="https://video.wixstatic.com/video/5e8141_dac915906c6d4bb0825bc3e5d9f966c8/1080p/mp4/file.mp4" type="video/mp4">
         </video>
         <div class="absolute inset-0 bg-black opacity-70 z-10"></div>
@@ -1837,17 +2003,17 @@
 
                     <div class="light-card p-8 rounded-2xl mb-8">
                         <div class="flex flex-col md:flex-row items-center gap-6">
-                            <img src="https://static.wixstatic.com/media/5e8141_ade3cb0a9ede4b05bec568edb5208e66~mv2.jpeg" alt="The Money Mirror Book Cover" class="rounded-xl shadow-lg max-w-[140px]">
+                            <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_ade3cb0a9ede4b05bec568edb5208e66~mv2.jpeg" alt="The Money Mirror Book Cover" class="rounded-xl shadow-lg max-w-[140px]">
                             <div>
                                 <h3 class="text-2xl font-bold mb-3">The <span style="color: var(--gold)">Money Mirror</span></h3>
                                 <p class="text-gray-600 mb-5">
                                     Discover the psychological principles behind wealth creation in Glenn's groundbreaking book.
                                 </p>
                                 <div class="flex flex-wrap gap-3">
-                                    <a href="https://a.co/d/aTH4fPE" target="_blank" class="btn-premium text-sm py-3 px-5">
+                                    <a href="https://a.co/d/aTH4fPE" target="_blank" rel="noopener noreferrer" class="btn-premium text-sm py-3 px-5">
                                         <i class="fab fa-amazon mr-2"></i> Amazon
                                     </a>
-                                    <a href="https://books.apple.com/us/book/the-money-mirror/id6746219698" target="_blank" class="btn-outline-premium text-sm py-3 px-5">
+                                    <a href="https://books.apple.com/us/book/the-money-mirror/id6746219698" target="_blank" rel="noopener noreferrer" class="btn-outline-premium text-sm py-3 px-5">
                                         <i class="fab fa-apple mr-2"></i> Apple Books
                                     </a>
                                 </div>
@@ -1856,14 +2022,14 @@
                     </div>
 
                     <div class="flex space-x-6">
-                        <a href="https://www.instagram.com/imglennwin?igsh=MWd0Z24zbWdrbTNpeA==" target="_blank" class="text-gray-700 hover:text-[#D4AF37] transition-all transform hover:scale-125">
+                        <a href="https://www.instagram.com/imglennwin?igsh=MWd0Z24zbWdrbTNpeA==" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-[#D4AF37] transition-all transform hover:scale-125">
                             <i class="fab fa-instagram text-3xl"></i>
                         </a>
                     </div>
                 </div>
 
                 <div class="image-content slide-in-left">
-                    <img src="https://static.wixstatic.com/media/2853e8_30a8c226eaa44f20b55ad1214803ccb5~mv2.png" alt="Glenn Windom II" class="founder-image w-full max-w-lg mx-auto">
+                    <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/2853e8_30a8c226eaa44f20b55ad1214803ccb5~mv2.png" alt="Glenn Windom II" class="founder-image w-full max-w-lg mx-auto">
                 </div>
             </div>
         </div>
@@ -1897,7 +2063,7 @@
                 <h3 class="text-3xl font-bold mb-10 text-center fade-in-up" style="color: var(--gold)">Licensed Professionals</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
                     <div class="team-card rounded-2xl p-8 text-center scale-in">
-                        <img src="https://static.wixstatic.com/media/2853e8_30a8c226eaa44f20b55ad1214803ccb5~mv2.png" alt="Glenn Windom II" class="team-image mb-6">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/2853e8_30a8c226eaa44f20b55ad1214803ccb5~mv2.png" alt="Glenn Windom II" class="team-image mb-6">
                         <h4 class="text-xl font-bold mb-2">Glenn Windom II</h4>
                         <p class="mb-3 text-lg" style="color: var(--gold)">Founder & Licensed Professional</p>
                         <p class="text-sm text-gray-400">CA Insurance License #4359007</p>
@@ -1905,21 +2071,21 @@
                     </div>
 
                     <div class="team-card rounded-2xl p-8 text-center scale-in">
-                        <img src="https://static.wixstatic.com/media/5e8141_877c8cd47ec04deb890e20f308247ba7~mv2.jpg" alt="Adara Johnson" class="team-image mb-6">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_877c8cd47ec04deb890e20f308247ba7~mv2.jpg" alt="Adara Johnson" class="team-image mb-6">
                         <h4 class="text-xl font-bold mb-2">Adara Johnson</h4>
                         <p class="mb-3 text-lg" style="color: var(--gold)">Licensed Financial Professional</p>
                         <p class="text-sm text-gray-400">CA Insurance License #4313838</p>
                     </div>
 
                     <div class="team-card rounded-2xl p-8 text-center scale-in">
-                        <img src="https://static.wixstatic.com/media/5e8141_e0c938f2c47640a5be8d8f88fae39e82~mv2.jpeg" alt="Andra Howard" class="team-image mb-6">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_e0c938f2c47640a5be8d8f88fae39e82~mv2.jpeg" alt="Andra Howard" class="team-image mb-6">
                         <h4 class="text-xl font-bold mb-2">Andra Howard</h4>
                         <p class="mb-3 text-lg" style="color: var(--gold)">Licensed Financial Professional</p>
                         <p class="text-sm text-gray-400">CA Insurance License #4383341</p>
                     </div>
 
                     <div class="team-card rounded-2xl p-8 text-center scale-in">
-                        <img src="https://static.wixstatic.com/media/5e8141_8dcfdba385a946ff94b8ee86bf0a361f~mv2.jpeg" alt="Sidney Martin" class="team-image mb-6">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_8dcfdba385a946ff94b8ee86bf0a361f~mv2.jpeg" alt="Sidney Martin" class="team-image mb-6">
                         <h4 class="text-xl font-bold mb-2">Sidney Martin</h4>
                         <p class="mb-3 text-lg" style="color: var(--gold)">Licensed Financial Professional</p>
                         <p class="text-sm text-gray-400">CA Insurance License #4457318</p>
@@ -1932,7 +2098,7 @@
                 <h3 class="text-3xl font-bold mb-10 text-center fade-in-up" style="color: var(--gold)">Administration</h3>
                 <div class="flex justify-center">
                     <div class="team-card rounded-2xl p-8 text-center scale-in max-w-sm">
-                        <img src="https://static.wixstatic.com/media/5e8141_b8653b02268b4514a20e8389fd4613d9~mv2.jpg" alt="Saifur Rahim" class="admin-image mb-6">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_b8653b02268b4514a20e8389fd4613d9~mv2.jpg" alt="Saifur Rahim" class="admin-image mb-6">
                         <h4 class="text-xl font-bold mb-2">Saifur Rahim</h4>
                         <p class="mb-4 text-lg" style="color: var(--gold)">Admin Coordinator</p>
                         <p class="text-gray-300">
@@ -1947,67 +2113,67 @@
                 <h3 class="text-3xl font-bold mb-10 text-center fade-in-up" style="color: var(--gold)">Business Partners</h3>
                 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
                     <div class="team-card rounded-2xl p-6 text-center scale-in">
-                        <img src="https://static.wixstatic.com/media/5e8141_6a9bcd8d5e004752ab5cb6d25d26aa1a~mv2.jpg" alt="Daniel Daniels" class="partner-image mb-4">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_6a9bcd8d5e004752ab5cb6d25d26aa1a~mv2.jpg" alt="Daniel Daniels" class="partner-image mb-4">
                         <h4 class="text-lg font-bold mb-1">Daniel Daniels</h4>
                         <p class="text-sm" style="color: var(--gold)">Business Partner</p>
                     </div>
 
                     <div class="team-card rounded-2xl p-6 text-center scale-in">
-                        <img src="https://static.wixstatic.com/media/5e8141_440f60ef88d94203a83fe9df23f00c51~mv2.jpeg" alt="Laura Oliden" class="partner-image mb-4">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_440f60ef88d94203a83fe9df23f00c51~mv2.jpeg" alt="Laura Oliden" class="partner-image mb-4">
                         <h4 class="text-lg font-bold mb-1">Laura Oliden</h4>
                         <p class="text-sm" style="color: var(--gold)">Business Partner</p>
                     </div>
 
                     <div class="team-card rounded-2xl p-6 text-center scale-in">
-                        <img src="https://static.wixstatic.com/media/5e8141_8013a8ea2bb44f75bb3f01c9b1f353c8~mv2.jpeg" alt="Ashia Anderson" class="partner-image mb-4">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_8013a8ea2bb44f75bb3f01c9b1f353c8~mv2.jpeg" alt="Ashia Anderson" class="partner-image mb-4">
                         <h4 class="text-lg font-bold mb-1">Ashia Anderson</h4>
                         <p class="text-sm" style="color: var(--gold)">Business Partner</p>
                     </div>
 
                     <div class="team-card rounded-2xl p-6 text-center scale-in">
-                        <img src="https://static.wixstatic.com/media/5e8141_d2982284904f402f87e41ac0f985c19e~mv2.jpeg" alt="Nathaniel Ilo" class="partner-image mb-4">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_d2982284904f402f87e41ac0f985c19e~mv2.jpeg" alt="Nathaniel Ilo" class="partner-image mb-4">
                         <h4 class="text-lg font-bold mb-1">Nathaniel Ilo</h4>
                         <p class="text-sm" style="color: var(--gold)">Business Partner</p>
                     </div>
 
                     <div class="team-card rounded-2xl p-6 text-center scale-in">
-                        <img src="https://static.wixstatic.com/media/5e8141_19d793055cb9436599acec506b35c6ec~mv2.jpg" alt="Ajani Johnson" class="partner-image mb-4">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_19d793055cb9436599acec506b35c6ec~mv2.jpg" alt="Ajani Johnson" class="partner-image mb-4">
                         <h4 class="text-lg font-bold mb-1">Ajani Johnson</h4>
                         <p class="text-sm" style="color: var(--gold)">Business Partner</p>
                     </div>
 
                     <div class="team-card rounded-2xl p-6 text-center scale-in">
-                        <img src="https://static.wixstatic.com/media/5e8141_fefa54cf1e8542569b95829b950a1f70~mv2.jpg" alt="Brandynn Hardin" class="partner-image mb-4">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_fefa54cf1e8542569b95829b950a1f70~mv2.jpg" alt="Brandynn Hardin" class="partner-image mb-4">
                         <h4 class="text-lg font-bold mb-1">Brandynn Hardin</h4>
                         <p class="text-sm" style="color: var(--gold)">Business Partner</p>
                     </div>
 
                     <div class="team-card rounded-2xl p-6 text-center scale-in">
-                        <img src="https://static.wixstatic.com/media/5e8141_a7d489be9bab423790bd4ab661c246e3~mv2.jpg" alt="Britney Woods" class="partner-image mb-4">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_a7d489be9bab423790bd4ab661c246e3~mv2.jpg" alt="Britney Woods" class="partner-image mb-4">
                         <h4 class="text-lg font-bold mb-1">Britney Woods</h4>
                         <p class="text-sm" style="color: var(--gold)">Business Partner</p>
                     </div>
 
                     <div class="team-card rounded-2xl p-6 text-center scale-in">
-                        <img src="https://static.wixstatic.com/media/5e8141_86b5795bdc9b49d0a89932763fbba94f~mv2.jpg" alt="DeAnna Cole" class="partner-image mb-4">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_86b5795bdc9b49d0a89932763fbba94f~mv2.jpg" alt="DeAnna Cole" class="partner-image mb-4">
                         <h4 class="text-lg font-bold mb-1">DeAnna Cole</h4>
                         <p class="text-sm" style="color: var(--gold)">Business Partner</p>
                     </div>
 
                     <div class="team-card rounded-2xl p-6 text-center scale-in">
-                        <img src="https://static.wixstatic.com/media/5e8141_584b610338104cb09017fd58744ea0ed~mv2.jpeg" alt="Darius Rodgers" class="partner-image mb-4">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_584b610338104cb09017fd58744ea0ed~mv2.jpeg" alt="Darius Rodgers" class="partner-image mb-4">
                         <h4 class="text-lg font-bold mb-1">Darius K. Rodgers</h4>
                         <p class="text-sm" style="color: var(--gold)">Business Partner</p>
                     </div>
 
                     <div class="team-card rounded-2xl p-6 text-center scale-in">
-                        <img src="https://static.wixstatic.com/media/5e8141_162e2559ff5b4bbaa34b24f751f8f0bf~mv2.jpeg" alt="Jazlyn Miller" class="partner-image mb-4">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_162e2559ff5b4bbaa34b24f751f8f0bf~mv2.jpeg" alt="Jazlyn Miller" class="partner-image mb-4">
                         <h4 class="text-lg font-bold mb-1">Jazlyn Miller</h4>
                         <p class="text-sm" style="color: var(--gold)">Business Partner</p>
                     </div>
 
                     <div class="team-card rounded-2xl p-6 text-center scale-in">
-                        <img src="https://static.wixstatic.com/media/5e8141_63771c106f774ad382f2d7a29ece73d1~mv2.jpeg" alt="Stanley Morgan" class="partner-image mb-4">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_63771c106f774ad382f2d7a29ece73d1~mv2.jpeg" alt="Stanley Morgan" class="partner-image mb-4">
                         <h4 class="text-lg font-bold mb-1">Stanley Morgan</h4>
                         <p class="text-sm" style="color: var(--gold)">Business Partner</p>
                     </div>
@@ -2041,7 +2207,7 @@
                         </li>
                         <li class="flex items-start">
                             <span style="color: var(--gold)" class="mr-4 text-2xl">•</span>
-                            <span>Flexible schedule and unlimited income potential</span>
+                            <span>Flexible schedule and performance-based earning potential</span>
                         </li>
                         <li class="flex items-start">
                             <span style="color: var(--gold)" class="mr-4 text-2xl">•</span>
@@ -2049,14 +2215,14 @@
                         </li>
                     </ul>
 
-                    <a href="https://calendly.com/gwindom2/partner-with-wise-fp?month=2025-11" target="_blank" class="btn-premium inline-block">
+                    <a href="javascript:void(0)" onclick="openCalendlyCareer()" class="btn-premium inline-block">
                         Launch Your Career
                     </a>
                 </div>
 
                 <div class="image-content slide-in-right">
                     <div class="image-overlay-container">
-                        <img src="https://static.wixstatic.com/media/5e8141_6f7ec354a2884af1ad1278405c67ed1d~mv2.png" alt="Glenn Windom Working - Career Growth" class="w-full h-96 object-cover">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_6f7ec354a2884af1ad1278405c67ed1d~mv2.png" alt="Glenn Windom Working - Career Growth" class="w-full h-96 object-cover">
                         <div class="overlay-gradient"></div>
                         <div class="overlay-text">
                             <h3 class="text-2xl font-bold mb-2">Build Your Future</h3>
@@ -2068,11 +2234,71 @@
         </div>
     </section>
 
+    <!-- FAQ Section -->
+    <section id="faq" class="py-24 relative" style="background-color: #000000;">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 fade-in-up">
+                <h2 class="text-5xl font-bold mb-6 gold-accent">Frequently Asked <span style="color: var(--gold)">Questions</span></h2>
+                <p class="text-xl max-w-3xl mx-auto text-gray-200 mt-8">
+                    Everything you need to know before you book your free consultation.
+                </p>
+            </div>
+
+            <div class="max-w-3xl mx-auto space-y-4 fade-in-up">
+                <details class="glass rounded-2xl p-6" style="border:1px solid rgba(212,175,55,0.25);">
+                    <summary class="text-xl font-bold cursor-pointer text-white list-none flex justify-between items-center">
+                        What services does WISE Financial Partners offer?
+                        <span style="color: var(--gold)" aria-hidden="true">+</span>
+                    </summary>
+                    <p class="text-gray-300 mt-4 leading-relaxed">
+                        We offer wealth management, income protection, retirement planning, legacy and estate planning, educational savings strategies, tax optimization guidance, and business planning — tailored to your individual goals.
+                    </p>
+                </details>
+
+                <details class="glass rounded-2xl p-6" style="border:1px solid rgba(212,175,55,0.25);">
+                    <summary class="text-xl font-bold cursor-pointer text-white list-none flex justify-between items-center">
+                        How much does a consultation cost?
+                        <span style="color: var(--gold)" aria-hidden="true">+</span>
+                    </summary>
+                    <p class="text-gray-300 mt-4 leading-relaxed">
+                        Your initial 30-minute consultation is completely free, with no cost or obligation. It's a chance to discuss your goals and see how we can help.
+                    </p>
+                </details>
+
+                <details class="glass rounded-2xl p-6" style="border:1px solid rgba(212,175,55,0.25);">
+                    <summary class="text-xl font-bold cursor-pointer text-white list-none flex justify-between items-center">
+                        What states are you licensed in?
+                        <span style="color: var(--gold)" aria-hidden="true">+</span>
+                    </summary>
+                    <p class="text-gray-300 mt-4 leading-relaxed">
+                        Glenn Windom II holds CA Insurance License #4359007 and is licensed in multiple states. Product and service availability is subject to applicable state licensing requirements.
+                    </p>
+                </details>
+
+                <details class="glass rounded-2xl p-6" style="border:1px solid rgba(212,175,55,0.25);">
+                    <summary class="text-xl font-bold cursor-pointer text-white list-none flex justify-between items-center">
+                        How do I get started?
+                        <span style="color: var(--gold)" aria-hidden="true">+</span>
+                    </summary>
+                    <p class="text-gray-300 mt-4 leading-relaxed">
+                        The easiest way to begin is to book a free consultation through this website. We'll discuss your goals and build a strategy tailored to your situation.
+                    </p>
+                </details>
+            </div>
+
+            <div class="text-center mt-12 fade-in-up">
+                <a href="javascript:void(0)" onclick="openCalendlyPopup()" class="btn-premium inline-block text-lg">
+                    Book Your Free Consultation
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact" class="py-24 relative overflow-hidden" style="background-color: #0a0a0a;">
         <!-- Background Image -->
         <div class="absolute inset-0 z-0 opacity-10">
-            <img src="https://static.wixstatic.com/media/5e8141_9b245128d85447fb95a61ab72bf081e2~mv2.jpg" alt="Background" class="w-full h-full object-cover">
+            <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_9b245128d85447fb95a61ab72bf081e2~mv2.jpg" alt="" role="presentation" class="w-full h-full object-cover">
         </div>
 
         <div class="container mx-auto px-4 relative z-10">
@@ -2105,7 +2331,7 @@
     <section class="py-24 relative overflow-hidden" style="background-color: #000000;">
         <!-- Background Image -->
         <div class="absolute inset-0 z-0 opacity-5">
-            <img src="https://static.wixstatic.com/media/5e8141_5c2162c6d7c143a29dd74e2a6280c5a6~mv2.jpg" alt="Background" class="w-full h-full object-cover">
+            <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_5c2162c6d7c143a29dd74e2a6280c5a6~mv2.jpg" alt="" role="presentation" class="w-full h-full object-cover">
         </div>
 
         <div class="container mx-auto px-4 relative z-10">
@@ -2119,14 +2345,27 @@
                     </div>
 
                     <form id="newsletterForm" class="flex flex-col md:flex-row gap-4 max-w-2xl mx-auto">
+                        <label for="nameInput" class="sr-only">Your first name</label>
+                        <input
+                            type="text"
+                            name="name"
+                            id="nameInput"
+                            placeholder="First name"
+                            class="newsletter-input flex-1"
+                            autocomplete="given-name"
+                        >
+                        <label for="emailInput" class="sr-only">Your email address</label>
                         <input
                             type="email"
                             name="email"
                             id="emailInput"
                             placeholder="Enter your email address"
                             class="newsletter-input flex-1"
+                            autocomplete="email"
                             required
                         >
+                        <!-- Honeypot field for spam protection (hidden from humans) -->
+                        <input type="text" name="website" id="websiteHp" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true">
                         <button type="submit" class="btn-premium whitespace-nowrap" id="subscribeBtn">
                             Subscribe Now
                         </button>
@@ -2134,6 +2373,7 @@
 
                     <p class="text-center text-gray-400 mt-8 text-sm">
                         <i class="fas fa-lock mr-2"></i>We respect your privacy. Unsubscribe anytime. No spam, ever.
+                        <br>By subscribing you agree to our <a href="/privacy.html" style="color: var(--gold)" class="hover:underline">Privacy Policy</a>.
                     </p>
 
                     <div id="newsletterMessage" class="text-center mt-6 hidden"></div>
@@ -2162,28 +2402,28 @@
                 </div>
 
                 <div class="instagram-grid mb-8">
-                    <a href="https://www.instagram.com/wisefinancialpartners?igsh=bGo5a2hxczlmaW81" target="_blank" class="block overflow-hidden rounded-2xl aspect-square hover:opacity-90 transition-all transform hover:scale-105 shadow-lg">
-                        <img src="https://static.wixstatic.com/media/5e8141_e8740f95ebe347df8a6ee734802564b5~mv2.jpg" alt="WISE Financial Partners Instagram" class="w-full h-full object-cover">
+                    <a href="https://www.instagram.com/wisefinancialpartners?igsh=bGo5a2hxczlmaW81" target="_blank" rel="noopener noreferrer" class="block overflow-hidden rounded-2xl aspect-square hover:opacity-90 transition-all transform hover:scale-105 shadow-lg">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_e8740f95ebe347df8a6ee734802564b5~mv2.jpg" alt="WISE Financial Partners financial wisdom post on Instagram" class="w-full h-full object-cover">
                     </a>
-                    <a href="https://www.instagram.com/wisefinancialpartners?igsh=bGo5a2hxczlmaW81" target="_blank" class="block overflow-hidden rounded-2xl aspect-square hover:opacity-90 transition-all transform hover:scale-105 shadow-lg">
-                        <img src="https://static.wixstatic.com/media/5e8141_81f43291b27a4f89a64acba7d2d287e9~mv2.jpg" alt="WISE Financial Partners Instagram" class="w-full h-full object-cover">
+                    <a href="https://www.instagram.com/wisefinancialpartners?igsh=bGo5a2hxczlmaW81" target="_blank" rel="noopener noreferrer" class="block overflow-hidden rounded-2xl aspect-square hover:opacity-90 transition-all transform hover:scale-105 shadow-lg">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_81f43291b27a4f89a64acba7d2d287e9~mv2.jpg" alt="WISE Financial Partners money mindset tip on Instagram" class="w-full h-full object-cover">
                     </a>
-                    <a href="https://www.instagram.com/wisefinancialpartners?igsh=bGo5a2hxczlmaW81" target="_blank" class="block overflow-hidden rounded-2xl aspect-square hover:opacity-90 transition-all transform hover:scale-105 shadow-lg">
-                        <img src="https://static.wixstatic.com/media/5e8141_bdd8824118864d93878f03232f946e6e~mv2.jpg" alt="WISE Financial Partners Instagram" class="w-full h-full object-cover">
+                    <a href="https://www.instagram.com/wisefinancialpartners?igsh=bGo5a2hxczlmaW81" target="_blank" rel="noopener noreferrer" class="block overflow-hidden rounded-2xl aspect-square hover:opacity-90 transition-all transform hover:scale-105 shadow-lg">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_bdd8824118864d93878f03232f946e6e~mv2.jpg" alt="WISE Financial Partners wealth-building post on Instagram" class="w-full h-full object-cover">
                     </a>
-                    <a href="https://www.instagram.com/wisefinancialpartners?igsh=bGo5a2hxczlmaW81" target="_blank" class="block overflow-hidden rounded-2xl aspect-square hover:opacity-90 transition-all transform hover:scale-105 shadow-lg">
-                        <img src="https://static.wixstatic.com/media/5e8141_e18dbdda34ba46f899b36b33cf77397c~mv2.jpg" alt="WISE Financial Partners Instagram" class="w-full h-full object-cover">
+                    <a href="https://www.instagram.com/wisefinancialpartners?igsh=bGo5a2hxczlmaW81" target="_blank" rel="noopener noreferrer" class="block overflow-hidden rounded-2xl aspect-square hover:opacity-90 transition-all transform hover:scale-105 shadow-lg">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_e18dbdda34ba46f899b36b33cf77397c~mv2.jpg" alt="WISE Financial Partners financial motivation post on Instagram" class="w-full h-full object-cover">
                     </a>
-                    <a href="https://www.instagram.com/wisefinancialpartners?igsh=bGo5a2hxczlmaW81" target="_blank" class="block overflow-hidden rounded-2xl aspect-square hover:opacity-90 transition-all transform hover:scale-105 shadow-lg">
-                        <img src="https://static.wixstatic.com/media/5e8141_e3c51bd71b0f430ca404e44b23745d25~mv2.jpg" alt="WISE Financial Partners Instagram" class="w-full h-full object-cover">
+                    <a href="https://www.instagram.com/wisefinancialpartners?igsh=bGo5a2hxczlmaW81" target="_blank" rel="noopener noreferrer" class="block overflow-hidden rounded-2xl aspect-square hover:opacity-90 transition-all transform hover:scale-105 shadow-lg">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_e3c51bd71b0f430ca404e44b23745d25~mv2.jpg" alt="WISE Financial Partners client success post on Instagram" class="w-full h-full object-cover">
                     </a>
-                    <a href="https://www.instagram.com/wisefinancialpartners?igsh=bGo5a2hxczlmaW81" target="_blank" class="block overflow-hidden rounded-2xl aspect-square hover:opacity-90 transition-all transform hover:scale-105 shadow-lg">
-                        <img src="https://static.wixstatic.com/media/5e8141_3e6ec92cf7ae4c07863a2cbd5dec4750~mv2.jpg" alt="WISE Financial Partners Instagram" class="w-full h-full object-cover">
+                    <a href="https://www.instagram.com/wisefinancialpartners?igsh=bGo5a2hxczlmaW81" target="_blank" rel="noopener noreferrer" class="block overflow-hidden rounded-2xl aspect-square hover:opacity-90 transition-all transform hover:scale-105 shadow-lg">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_3e6ec92cf7ae4c07863a2cbd5dec4750~mv2.jpg" alt="WISE Financial Partners financial education post on Instagram" class="w-full h-full object-cover">
                     </a>
                 </div>
 
                 <div class="text-center">
-                    <a href="https://www.instagram.com/wisefinancialpartners?igsh=bGo5a2hxczlmaW81" target="_blank" class="btn-outline-premium inline-flex items-center">
+                    <a href="https://www.instagram.com/wisefinancialpartners?igsh=bGo5a2hxczlmaW81" target="_blank" rel="noopener noreferrer" class="btn-outline-premium inline-flex items-center">
                         <i class="fab fa-instagram mr-3"></i> Follow Us on Instagram
                     </a>
                 </div>
@@ -2196,12 +2436,12 @@
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
                 <div>
-                    <img src="https://static.wixstatic.com/media/5e8141_66e7e6a003db4112869a2d8361faa1aa~mv2.jpeg" alt="WISE Financial Partners Logo" class="h-14 mb-6">
+                    <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_66e7e6a003db4112869a2d8361faa1aa~mv2.jpeg" alt="WISE Financial Partners Logo" class="h-14 mb-6">
                     <p class="text-gray-300 mb-6 text-lg">
                         Transform your mindset. Protect your income. Build legacy wealth.
                     </p>
                     <div class="flex space-x-6">
-                        <a href="https://www.instagram.com/wisefinancialpartners?igsh=bGo5a2hxczlmaW81" target="_blank" class="text-white hover:text-[#D4AF37] transition-all transform hover:scale-125">
+                        <a href="https://www.instagram.com/wisefinancialpartners?igsh=bGo5a2hxczlmaW81" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#D4AF37] transition-all transform hover:scale-125">
                             <i class="fab fa-instagram text-2xl"></i>
                         </a>
                     </div>
@@ -2214,6 +2454,7 @@
                         <li><a href="#about" class="text-gray-300 hover:text-[#D4AF37] transition-colors text-lg">About</a></li>
                         <li><a href="#team" class="text-gray-300 hover:text-[#D4AF37] transition-colors text-lg">Team</a></li>
                         <li><a href="#careers" class="text-gray-300 hover:text-[#D4AF37] transition-colors text-lg">Careers</a></li>
+                        <li><a href="#faq" class="text-gray-300 hover:text-[#D4AF37] transition-colors text-lg">FAQ</a></li>
                         <li><a href="#contact" class="text-gray-300 hover:text-[#D4AF37] transition-colors text-lg">Contact</a></li>
                     </ul>
                 </div>
@@ -2230,11 +2471,19 @@
             </div>
 
             <div class="border-t-2 border-gray-800 mt-12 pt-10 text-center">
+                <nav aria-label="Legal" class="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-6">
+                    <a href="/privacy.html" class="text-gray-400 hover:text-[#D4AF37] transition-colors text-sm">Privacy Policy</a>
+                    <a href="/terms.html" class="text-gray-400 hover:text-[#D4AF37] transition-colors text-sm">Terms of Use</a>
+                    <a href="/disclosures.html" class="text-gray-400 hover:text-[#D4AF37] transition-colors text-sm">Disclosures</a>
+                </nav>
                 <p class="text-gray-400 text-lg">
                     © <span id="current-year">2025</span> WISE Financial Partners. All Rights Reserved.
                 </p>
                 <p class="text-gray-500 text-sm mt-4">
                     Glenn Windom II, CA Insurance License #4359007 | Licensed in multiple states
+                </p>
+                <p class="text-gray-600 text-xs mt-4 max-w-3xl mx-auto leading-relaxed">
+                    The information on this website is for general educational purposes only and does not constitute financial, investment, tax, legal, or insurance advice. Please see our <a href="/disclosures.html" class="underline hover:text-[#D4AF37]">Disclosures</a> for important information.
                 </p>
             </div>
         </div>
@@ -2309,17 +2558,29 @@
 
         mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.add('active');
+            mobileMenuButton.setAttribute('aria-expanded', 'true');
         });
 
         closeMenuButton.addEventListener('click', () => {
             mobileMenu.classList.remove('active');
+            mobileMenuButton.setAttribute('aria-expanded', 'false');
         });
 
         const mobileLinks = mobileMenu.querySelectorAll('a');
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.remove('active');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
             });
+        });
+
+        // Close mobile menu with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                mobileMenu.classList.remove('active');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+                mobileMenuButton.focus();
+            }
         });
 
         // Scroll animations
@@ -2404,14 +2665,23 @@
         const newsletterForm = document.getElementById('newsletterForm');
         const newsletterMessage = document.getElementById('newsletterMessage');
         const emailInput = document.getElementById('emailInput');
+        const nameInput = document.getElementById('nameInput');
+        const websiteHp = document.getElementById('websiteHp');
         const subscribeBtn = document.getElementById('subscribeBtn');
 
         newsletterForm.addEventListener('submit', async function(e) {
             e.preventDefault();
 
-            const email = emailInput.value.trim();
+            // Honeypot: if filled, silently abort (likely a bot)
+            if (websiteHp && websiteHp.value) {
+                return;
+            }
 
-            if (!email) {
+            const email = emailInput.value.trim();
+            const name = nameInput ? nameInput.value.trim() : '';
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!email || !emailPattern.test(email)) {
                 newsletterMessage.textContent = 'Please enter a valid email address.';
                 newsletterMessage.style.color = '#ff6b6b';
                 newsletterMessage.classList.remove('hidden');
@@ -2429,6 +2699,7 @@
             try {
                 const formData = new FormData();
                 formData.append('email', email);
+                if (name) { formData.append('name', name); }
 
                 const response = await fetch('https://script.google.com/macros/s/AKfycbwbI0yQQoAkw7OywIvSb_ZAdaP70UmXxgOvK3aocQ7Ak60_xR78Sc994sA9_m0fRj6q/exec', {
                     method: 'POST',
@@ -2441,6 +2712,7 @@
                     newsletterMessage.textContent = result.message || 'Thank you for subscribing! 🎉';
                     newsletterMessage.style.color = 'var(--gold)';
                     emailInput.value = '';
+                    if (nameInput) { nameInput.value = ''; }
                 } else {
                     newsletterMessage.textContent = result.message || 'Something went wrong. Please try again.';
                     newsletterMessage.style.color = '#ff6b6b';
@@ -2461,6 +2733,16 @@
             if (window.Calendly) {
                 window.Calendly.initPopupWidget({
                     url: 'https://calendly.com/gwindom2?utm_source=website&utm_medium=popup&utm_campaign=booking'
+                });
+            }
+            return false;
+        }
+
+        // Careers booking (partner-with-wise-fp) — consistent in-page popup
+        function openCalendlyCareer() {
+            if (window.Calendly) {
+                window.Calendly.initPopupWidget({
+                    url: 'https://calendly.com/gwindom2/partner-with-wise-fp?utm_source=website&utm_medium=popup&utm_campaign=careers'
                 });
             }
             return false;
