@@ -1687,7 +1687,7 @@
             line-height: 1.06;
         }
         .gold-accent {
-            font-size: clamp(2.1rem, 4.6vw, 3.4rem) !important;
+            font-size: clamp(1.9rem, 4.6vw, 3.4rem) !important;
             line-height: 1.05;
             margin-bottom: 1rem;
         }
@@ -1695,16 +1695,16 @@
 
         /* ---- Hero ---- */
         #hero .bg-black.opacity-60 {
-            background: linear-gradient(180deg, rgba(10, 10, 11, 0.55) 0%, rgba(10, 10, 11, 0.32) 35%, rgba(10, 10, 11, 0.92) 100%);
+            background: linear-gradient(180deg, rgba(10, 10, 11, 0.55) 0%, rgba(10, 10, 11, 0.5) 40%, rgba(10, 10, 11, 0.92) 100%);
             opacity: 1;
         }
         #hero h1 {
-            font-size: clamp(2.75rem, 7.5vw, 5.5rem) !important;
+            font-size: clamp(2.2rem, 7vw, 5.5rem) !important;
             letter-spacing: -0.04em;
             font-weight: 800;
-            line-height: 1.0;
+            line-height: 1.02;
         }
-        #hero p { color: #D9D9DF !important; font-weight: 400; }
+        #hero p { color: #E2E2E8 !important; font-weight: 400; text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7); }
 
         /* ---- Eyebrow (pill) ---- */
         .eyebrow {
@@ -1875,6 +1875,49 @@
         .scale-in { transform: scale(0.985); }
         .scale-in.active { transform: scale(1); }
 
+        /* =================== v3 REVIEW FIXES =================== */
+        /* Enforce one radius across the surface family (beats rounded-2xl/3xl utilities) */
+        .glass, .service-card, .team-card, .light-card { border-radius: var(--radius) !important; }
+
+        /* Unify remaining light-gray body copy into the muted token */
+        .text-gray-100 { color: var(--text-muted) !important; }
+
+        /* Newsletter block: drop the old glow border, rotating spinner and pill shape */
+        .newsletter-section {
+            background: var(--surface-1) !important;
+            border: 1px solid var(--border) !important;
+            box-shadow: none !important;
+            border-radius: var(--radius) !important;
+        }
+        .newsletter-section:before { display: none !important; }
+
+        /* Founder section: convert cream panel to the consistent dark surface */
+        .light-section { background: #0A0A0B !important; color: var(--text); }
+        .light-section .text-gray-900,
+        .light-section .text-gray-800,
+        .light-section .text-gray-700,
+        .light-section .text-gray-600,
+        .light-section .text-gray-500 { color: var(--text-muted) !important; }
+        .light-section blockquote p { color: var(--text) !important; }
+        .light-section .light-card {
+            background: var(--surface-2) !important;
+            border: 1px solid var(--border) !important;
+            box-shadow: none !important;
+        }
+        .light-section .eyebrow {
+            color: var(--gold);
+            border-color: rgba(232, 185, 35, 0.3);
+            background: rgba(232, 185, 35, 0.06);
+        }
+        .light-section .eyebrow::before { background: var(--gold); }
+        .light-section .founder-image { box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5); }
+
+        /* Second full-bleed video: match the hero's cinematic scrim, not a flat wash */
+        #secondVideoScrim {
+            background: linear-gradient(180deg, rgba(10, 10, 11, 0.5) 0%, rgba(10, 10, 11, 0.55) 40%, rgba(10, 10, 11, 0.92) 100%) !important;
+            opacity: 1 !important;
+        }
+
     </style>
 </head>
 <body class="gradient-bg">
@@ -1890,10 +1933,10 @@
 
             <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem;">
                 <button class="btn-premium" onclick="openCalendlyFromExit()" style="font-size: 1rem; padding: 1rem 2rem; width: 100%;">
-                    📅 Book a Free Consultation
+                    <i class="fas fa-calendar mr-2"></i> Book a Free Consultation
                 </button>
-                <button class="btn-outline-premium" onclick="scrollToNewsletter()" style="font-size: 1rem; padding: 1rem 2rem; width: 100%; background: rgba(212, 175, 55, 0.1); border: 2px solid var(--gold); color: var(--gold);">
-                    ✉️ Get Financial Insights (Newsletter)
+                <button class="btn-outline-premium" onclick="scrollToNewsletter()" style="font-size: 1rem; padding: 1rem 2rem; width: 100%;">
+                    <i class="fas fa-envelope mr-2"></i> Get Financial Insights (Newsletter)
                 </button>
             </div>
         </div>
@@ -2206,7 +2249,7 @@
         <video autoplay muted loop playsinline preload="none" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover z-0">
             <source src="https://video.wixstatic.com/video/5e8141_dac915906c6d4bb0825bc3e5d9f966c8/1080p/mp4/file.mp4" type="video/mp4">
         </video>
-        <div class="absolute inset-0 bg-black opacity-70 z-10"></div>
+        <div id="secondVideoScrim" class="absolute inset-0 bg-black opacity-70 z-10"></div>
 
         <div class="container mx-auto px-4 z-20 relative">
             <div class="max-w-4xl mx-auto text-center">
@@ -2493,7 +2536,7 @@
             </div>
 
             <div class="max-w-3xl mx-auto space-y-4 fade-in-up">
-                <details class="glass rounded-2xl p-6" style="border:1px solid rgba(212,175,55,0.25);">
+                <details class="glass p-6">
                     <summary class="text-xl font-bold cursor-pointer text-white list-none flex justify-between items-center">
                         What services does WISE Financial Partners offer?
                         <span style="color: var(--gold)" aria-hidden="true">+</span>
@@ -2503,7 +2546,7 @@
                     </p>
                 </details>
 
-                <details class="glass rounded-2xl p-6" style="border:1px solid rgba(212,175,55,0.25);">
+                <details class="glass p-6">
                     <summary class="text-xl font-bold cursor-pointer text-white list-none flex justify-between items-center">
                         How much does a consultation cost?
                         <span style="color: var(--gold)" aria-hidden="true">+</span>
@@ -2513,7 +2556,7 @@
                     </p>
                 </details>
 
-                <details class="glass rounded-2xl p-6" style="border:1px solid rgba(212,175,55,0.25);">
+                <details class="glass p-6">
                     <summary class="text-xl font-bold cursor-pointer text-white list-none flex justify-between items-center">
                         What states are you licensed in?
                         <span style="color: var(--gold)" aria-hidden="true">+</span>
@@ -2523,7 +2566,7 @@
                     </p>
                 </details>
 
-                <details class="glass rounded-2xl p-6" style="border:1px solid rgba(212,175,55,0.25);">
+                <details class="glass p-6">
                     <summary class="text-xl font-bold cursor-pointer text-white list-none flex justify-between items-center">
                         How do I get started?
                         <span style="color: var(--gold)" aria-hidden="true">+</span>
@@ -2643,7 +2686,7 @@
 
             <div class="max-w-5xl mx-auto glass p-10 rounded-3xl fade-in-up">
                 <div class="flex items-center mb-8">
-                    <i class="fab fa-instagram text-4xl mr-4" style="background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
+                    <i class="fab fa-instagram text-4xl mr-4" style="color: var(--gold);"></i>
                     <div>
                         <h3 class="text-2xl font-bold">@WISEFinancialPartners</h3>
                         <p class="text-gray-400">Financial wisdom that transforms lives</p>
@@ -2742,26 +2785,15 @@
         // Set current year
         document.getElementById('current-year').textContent = new Date().getFullYear();
 
-        // Cache header and light section
+        // Cache header
         const header = document.getElementById('mainHeader');
-        const lightSection = document.getElementById('about');
 
-        // STICKY NAVIGATION COLOR CHANGE ON SCROLL
+        // STICKY NAVIGATION: condense header after scrolling (dark glass throughout)
         window.addEventListener('scroll', () => {
-            const lightSectionTop = lightSection.offsetTop - header.clientHeight;
-            const lightSectionBottom = lightSection.offsetTop + lightSection.clientHeight - header.clientHeight;
-            const isOverLight = window.scrollY > lightSectionTop && window.scrollY < lightSectionBottom;
-
-            if (isOverLight) {
-                header.classList.add('header-on-light');
-                header.classList.remove('scrolled');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
             } else {
-                header.classList.remove('header-on-light');
-                if (window.scrollY > 100) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
+                header.classList.remove('scrolled');
             }
         });
 
