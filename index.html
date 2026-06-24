@@ -198,19 +198,6 @@
     <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 
     <style>
-        :root {
-            --gold: #D4AF37;
-            --gold-light: #E5C158;
-            --gold-dark: #B39429;
-            --black: #000000;
-            --dark-gray: #0a0a0a;
-            --accent-blue: #1e40af;
-            --accent-purple: #7c3aed;
-            --accent-teal: #14b8a6;
-            --light-bg: #f7f6f2;
-            --dark-text: #2d2d2d;
-        }
-
         html {
             scroll-behavior: smooth;
             scroll-padding-top: 80px;
@@ -571,6 +558,7 @@
             transform: translateY(100%);
             transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        .overlay-text, .overlay-text h3, .overlay-text p { color: #FFFFFF !important; }
 
         .image-overlay-container:hover .overlay-text {
             transform: translateY(0);
@@ -780,22 +768,11 @@
 
         /* Logo Animation */
         .logo-icon {
-            width: 60px;
-            height: 60px;
-            margin-right: 15px;
+            width: 52px;
+            height: 52px;
+            margin-right: 14px;
             object-fit: cover;
-            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.8));
-            animation: float 3s ease-in-out infinite, glow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(5deg); }
-        }
-
-        @keyframes glow {
-            from { filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.8)); }
-            to { filter: drop-shadow(0 0 25px rgba(212, 175, 55, 1)); }
+            border-radius: 8px;
         }
 
         .nav-link {
@@ -923,18 +900,20 @@
 
         /* Provider Logos */
         .provider-logo {
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             height: 140px;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 25px;
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
-            border-radius: 20px;
-            border: 2px solid rgba(212, 175, 55, 0.2);
+            background: var(--surface-light);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05);
             position: relative;
             overflow: hidden;
         }
+        .provider-logo:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,0.08); }
 
         .provider-logo:before {
             content: '';
@@ -954,10 +933,10 @@
         }
 
         .provider-logo:hover {
-            transform: translateY(-12px) scale(1.08);
-            background: linear-gradient(145deg, rgba(212, 175, 55, 0.15), rgba(255, 255, 255, 0.08));
-            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.4);
-            border-color: var(--gold);
+            transform: translateY(-3px);
+            background: var(--surface-light);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            border-color: rgba(212, 175, 55, 0.4);
         }
 
         .provider-logo img {
@@ -1648,21 +1627,53 @@
            ===================================================================== */
 
         :root {
-            --gold: #D4AF37;
-            --gold-bright: #F2D675;
-            --gold-deep: #B8941F;
-            --bg-dark: #0F0F0F;
-            --bg-light: #FAFAF8;
-            --surface-dark: #1A1A1A;
-            --surface-light: #FFFFFF;
-            --border-dark: rgba(255, 255, 255, 0.12);
-            --border-light: rgba(0, 0, 0, 0.08);
-            --text-dark: #FAFAFA;
-            --text-light: #1A1A1A;
-            --text-muted-dark: #A8A8A8;
+            /* ---- GOLD (one scale, three stops) ---- */
+            --gold:        #D4AF37;   /* base brand gold */
+            --gold-bright: #F2D675;   /* lighter gold (hover/highlight) */
+            --gold-deep:   #B8941F;   /* darker gold (text-on-light, borders) */
+
+            /* ---- THEME SURFACES (suffix = which theme it's used ON) ---- */
+            --bg-dark:       #0F0F0F;
+            --bg-light:      #FAFAF8;            /* page canvas (light-dominant) */
+            --surface-dark:  #1A1A1A;
+            --surface-light: #FFFFFF;           /* white card on the off-white canvas */
+            --border-dark:   rgba(255, 255, 255, 0.12);
+            --border-light:  rgba(0, 0, 0, 0.08);
+            --text-dark:     #FAFAFA;           /* near-white (text ON dark) */
+            --text-light:    #1A1A1A;           /* near-black ink (text ON light) */
+            --text-muted-dark:  #A8A8A8;
             --text-muted-light: #666666;
+
             --radius: 16px;
+            --radius-btn: 12px;
+
+            /* ---- CANONICAL ALIASES (the 7 former orphans, resolved to LIGHT) ---- */
+            --surface-1:     var(--surface-light);     /* #FFFFFF — primary card */
+            --surface-2:     #F4F2EC;                  /* faint warm tint — elevated/hover/featured */
+            --border:        var(--border-light);      /* rgba(0,0,0,0.08) hairline */
+            --border-strong: rgba(0, 0, 0, 0.16);      /* stronger outline (btn-outline) */
+            --text:          var(--text-light);        /* #1A1A1A primary ink */
+            --text-muted:    var(--text-muted-light);  /* #666666 secondary copy */
+            --gold-soft:     var(--gold-bright);       /* #F2D675 gold hover fill */
+
+            /* ---- LEGACY v1 ALIASES (kept so old refs still resolve) ---- */
+            --gold-light: var(--gold-bright);
+            --gold-dark:  var(--gold-deep);
+            --light-bg:   var(--bg-light);
+            --dark-text:  var(--text-light);
+            --black:      #000000;
+            --dark-gray:  #0a0a0a;
         }
+        /* On-dark utility: sections that stay dark need light text since the
+           global .text-gray-* remaps resolve to dark ink for light sections. */
+        .on-dark .text-gray-100,
+        .on-dark .text-gray-200,
+        .on-dark .text-gray-300,
+        .on-dark .text-gray-400,
+        .on-dark .text-gray-500 { color: var(--text-muted-dark) !important; }
+        .on-dark h1, .on-dark h2, .on-dark h3, .on-dark h4 { color: var(--text-dark); }
+        /* On-light captions: keep faint grays readable on the off-white canvas */
+        .text-gray-400, .text-gray-500 { color: var(--text-muted) !important; }
 
         /* ---- Canvas ---- */
         body,
@@ -1839,17 +1850,22 @@
         }
         .nav-link::after { height: 1px; background: var(--gold); }
 
-        /* ---- Inputs ---- */
+        /* ---- Inputs (newsletter sits on a DARK band) ---- */
         .newsletter-input {
             border-radius: 10px;
-            background: var(--surface-1) !important;
-            border: 1px solid var(--border) !important;
-            color: var(--text) !important;
+            background: rgba(255, 255, 255, 0.06) !important;
+            border: 1px solid var(--border-dark) !important;
+            color: var(--text-dark) !important;
         }
+        .newsletter-input::placeholder { color: var(--text-muted-dark) !important; }
         .newsletter-input:focus { border-color: var(--gold) !important; }
 
-        /* ---- FAQ ---- */
-        details.glass { background: var(--surface-1); }
+        /* ---- FAQ (now on a LIGHT band) ---- */
+        details.glass {
+            background: var(--surface-light);
+            border: 1px solid var(--border) !important;
+            border-radius: var(--radius) !important;
+        }
         details summary { font-family: 'Sora', sans-serif; }
 
         /* ---- Motion ---- */
@@ -1864,29 +1880,15 @@
         /* Unify remaining light-gray body copy into the muted token */
         .text-gray-100 { color: var(--text-muted) !important; }
 
-        /* Newsletter block: drop the old glow border, rotating spinner and pill shape */
+        /* Newsletter block: dark elevated panel (sits on the dark pre-footer band) */
         .newsletter-section {
-            background: var(--surface-1) !important;
-            border: 1px solid var(--border) !important;
+            background: var(--surface-dark) !important;
+            border: 1px solid var(--border-dark) !important;
             box-shadow: none !important;
             border-radius: var(--radius) !important;
         }
         .newsletter-section:before { display: none !important; }
-
-        /* Founder section: convert cream panel to the consistent dark surface */
-        .light-section { background: #0A0A0B !important; color: var(--text); }
-        .light-section .text-gray-900,
-        .light-section .text-gray-800,
-        .light-section .text-gray-700,
-        .light-section .text-gray-600,
-        .light-section .text-gray-500 { color: var(--text-muted) !important; }
-        .light-section blockquote p { color: var(--text) !important; }
-        .light-section .light-card {
-            background: var(--surface-2) !important;
-            border: 1px solid var(--border) !important;
-            box-shadow: none !important;
-        }
-        .light-section .founder-image { box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5); }
+        .newsletter-section h2 { color: var(--text-dark); }
 
         /* Second full-bleed video: match the hero's cinematic scrim, not a flat wash */
         #secondVideoScrim {
@@ -1921,47 +1923,93 @@
             pointer-events: none;
         }
         
-        /* Reduce section separation - less boxy */
-        section + section {
-            margin-top: -2rem;
-        }
-        
         /* Soften section backgrounds */
         section {
             position: relative;
-            overflow: hidden;
         }
 
-        
-        /* Better premium buttons */
+        /* Buttons: flat solid gold, no default glow (clean fintech, not 2016 app) */
         .btn-premium {
-            background: linear-gradient(135deg, #D4AF37 0%, #F2D675 100%) !important;
+            background: var(--gold) !important;
             color: #1A1A1A !important;
             font-weight: 700 !important;
-            padding: 1rem 2.5rem !important;
-            border-radius: 12px !important;
-            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3) !important;
-            transition: all 0.3s ease !important;
+            padding: 0.95rem 2.1rem !important;
+            border-radius: var(--radius-btn) !important;
+            box-shadow: none !important;
+            transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease !important;
             border: none !important;
             text-transform: none !important;
         }
         .btn-premium:hover {
+            background: var(--gold-bright) !important;
             transform: translateY(-2px) !important;
-            box-shadow: 0 12px 32px rgba(212, 175, 55, 0.45) !important;
+            box-shadow: 0 10px 26px rgba(212, 175, 55, 0.28) !important;
         }
-        
+        .btn-premium:before { display: none !important; }
+
         .btn-outline-premium {
             background: transparent !important;
-            color: #D4AF37 !important;
-            border: 2px solid #D4AF37 !important;
-            font-weight: 700 !important;
-            padding: 1rem 2.5rem !important;
-            border-radius: 12px !important;
+            color: var(--gold-deep) !important;
+            border: 1px solid var(--border-strong) !important;
+            font-weight: 600 !important;
+            padding: 0.95rem 2.1rem !important;
+            border-radius: var(--radius-btn) !important;
+            box-shadow: none !important;
+            transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease !important;
         }
         .btn-outline-premium:hover {
-            background: rgba(212, 175, 55, 0.1) !important;
+            background: rgba(212, 175, 55, 0.08) !important;
             transform: translateY(-2px) !important;
-            border-color: #F2D675 !important;
+            border-color: var(--gold) !important;
+        }
+        /* On dark bands the ghost button needs light treatment */
+        .on-dark .btn-outline-premium {
+            color: var(--text-dark) !important;
+            border-color: var(--border-dark) !important;
+        }
+
+        /* Gold used as small text on a light surface fails contrast — darken it.
+           (Large display spans keep --gold via inline style; this targets utility labels.) */
+        .section-label { color: var(--gold-deep) !important; }
+
+        /* Cards on the near-white canvas: soft shadow for separation, single hairline */
+        .service-card, .glass, details.glass {
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border);
+        }
+        .on-dark .service-card, .on-dark .glass { box-shadow: none; }
+
+        /* Photo tiles (featured services): real imagery, not icons */
+        .photo-tile {
+            background-size: cover !important;
+            background-position: center !important;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            border: none !important;
+            overflow: hidden;
+        }
+        .photo-tile-content { padding: 2.5rem; }
+        .photo-tile .tile-chip {
+            background: rgba(255, 255, 255, 0.14);
+            color: var(--gold-bright);
+            backdrop-filter: blur(6px);
+        }
+
+        /* Icon chips: intentional tinted circles, not bare glyphs */
+        .tile-chip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            font-size: 1.25rem;
+            margin-bottom: 1.1rem;
+        }
+        .tile-chip-light {
+            background: rgba(212, 175, 55, 0.12);
+            color: var(--gold-deep);
         }
         
         /* Premium card styling */
@@ -2118,7 +2166,7 @@
     </header>
 
     <!-- Hero Section -->
-    <section id="hero" class="relative h-screen flex items-center justify-center overflow-hidden">
+    <section id="hero" class="on-dark relative h-screen flex items-center justify-center overflow-hidden">
         <!-- Video Background -->
         <video autoplay muted loop playsinline aria-hidden="true" class="absolute inset-0 w-full h-full object-cover z-0">
             <source src="https://video.wixstatic.com/video/5e8141_3cad640d6a804c4d88c4e00482cbb845/720p/mp4/file.mp4" type="video/mp4">
@@ -2136,17 +2184,18 @@
                 <p class="text-xl md:text-2xl mb-12 max-w-3xl mx-auto font-light text-gray-100">
                     Transform your mindset. Protect your income. Build legacy wealth.
                 </p>
-                <a href="javascript:void(0)" onclick="openCalendlyPopup()" class="btn-premium inline-block text-lg">
-                    Start Your Wealth Journey
-                </a>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="javascript:void(0)" onclick="openCalendlyPopup()" class="btn-premium inline-block text-lg">
+                        Start Your Wealth Journey
+                    </a>
+                    <a href="#services" class="btn-outline-premium inline-block text-lg">
+                        Explore Services
+                    </a>
+                </div>
+                <p class="mt-6 text-sm" style="color: rgba(255,255,255,0.75);">
+                    Licensed in multiple states · Free 30-minute consultation
+                </p>
             </div>
-        </div>
-
-        <!-- CURVED BOTTOM TRANSITION -->
-        <div class="curve-bottom">
-            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="currentColor"></path>
-            </svg>
         </div>
     </section>
 
@@ -2184,12 +2233,7 @@
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="py-24 relative" style="background-color: #000000;">
-        <div class="curve-top">
-            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" fill="#0a0a0a"></path>
-            </svg>
-        </div>
+    <section id="services" class="py-24 relative" style="background: var(--bg-light);">
 
         <div class="container mx-auto px-4 max-w-7xl">
             <div class="text-left mb-16 max-w-2xl fade-in-up">
@@ -2202,75 +2246,65 @@
 
             <!-- Bento Grid Layout -->
             <div class="grid grid-cols-1 md:grid-cols-12 gap-5 auto-rows-fr">
-                <!-- Featured: Wealth Management (spans 2 columns, tall) -->
-                <div class="md:col-span-7 service-card rounded-2xl p-12 scale-in" style="background: white; border: 1px solid rgba(0, 0, 0, 0.08);">
-                    <div class="text-5xl mb-6" style="color: var(--gold);">
-                        <i class="fas fa-chart-line"></i>
+                <!-- Featured: Wealth Management — real photo + scrim + overlay text -->
+                <div class="md:col-span-7 service-card photo-tile rounded-2xl scale-in" style="min-height: 360px; background-image: linear-gradient(180deg, rgba(15,15,15,0.15) 0%, rgba(15,15,15,0.55) 55%, rgba(15,15,15,0.92) 100%), url('https://static.wixstatic.com/media/5e8141_58f3f13f4f07470bbb75f838aee0699a~mv2.jpg');">
+                    <div class="photo-tile-content">
+                        <span class="tile-chip"><i class="fas fa-chart-line"></i></span>
+                        <h3 class="text-3xl font-bold mb-3" style="color:#fff;">Wealth Management</h3>
+                        <p class="leading-relaxed text-lg max-w-xl" style="color:rgba(255,255,255,0.85);">
+                            Strategic investment planning and portfolio management to grow your assets and achieve your financial goals — built around your values and timeline.
+                        </p>
                     </div>
-                    <h3 class="text-3xl font-bold mb-4" style="color: #1A1A1A;">Wealth Management</h3>
-                    <p class="text-gray-700 leading-relaxed text-lg max-w-xl">
-                        Strategic investment planning and portfolio management to grow your assets and achieve your financial goals. We build customized strategies that align with your values and timeline.
-                    </p>
                 </div>
 
-                <!-- Income Protection (medium) -->
-                <div class="md:col-span-5 service-card rounded-2xl p-10 scale-in" style="background: white; border: 1px solid rgba(0, 0, 0, 0.08);">
-                    <div class="text-4xl mb-5" style="color: var(--gold);">
-                        <i class="fas fa-shield-halved"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-3" style="color: #1A1A1A;">Income Protection</h3>
+                <!-- Income Protection -->
+                <div class="md:col-span-5 service-card rounded-2xl p-10 scale-in" style="background: var(--surface-light);">
+                    <span class="tile-chip tile-chip-light"><i class="fas fa-shield-halved"></i></span>
+                    <h3 class="text-2xl font-bold mb-3" style="color: var(--text);">Income Protection</h3>
                     <p class="text-gray-700 leading-relaxed">
                         Safeguard your financial future with comprehensive insurance and risk management strategies.
                     </p>
                 </div>
 
-                <!-- Retirement Planning (medium) -->
-                <div class="md:col-span-5 service-card rounded-2xl p-10 scale-in" style="background: white; border: 1px solid rgba(0, 0, 0, 0.08);">
-                    <div class="text-4xl mb-5" style="color: var(--gold);">
-                        <i class="fas fa-piggy-bank"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-3" style="color: #1A1A1A;">Retirement Planning</h3>
+                <!-- Retirement Planning -->
+                <div class="md:col-span-5 service-card rounded-2xl p-10 scale-in" style="background: var(--surface-light);">
+                    <span class="tile-chip tile-chip-light"><i class="fas fa-piggy-bank"></i></span>
+                    <h3 class="text-2xl font-bold mb-3" style="color: var(--text);">Retirement Planning</h3>
                     <p class="text-gray-700 leading-relaxed">
                         Personalized retirement strategies to ensure financial security and maintain your lifestyle.
                     </p>
                 </div>
 
-                <!-- Legacy & Estate Planning (large) -->
-                <div class="md:col-span-7 service-card rounded-2xl p-10 scale-in" style="background: white; border: 1px solid rgba(0, 0, 0, 0.08);">
-                    <div class="text-4xl mb-5" style="color: var(--gold);">
-                        <i class="fas fa-building-columns"></i>
+                <!-- Legacy & Estate Planning — real photo + scrim + overlay text -->
+                <div class="md:col-span-7 service-card photo-tile rounded-2xl scale-in" style="min-height: 280px; background-image: linear-gradient(180deg, rgba(15,15,15,0.15) 0%, rgba(15,15,15,0.55) 55%, rgba(15,15,15,0.92) 100%), url('https://static.wixstatic.com/media/5e8141_9b245128d85447fb95a61ab72bf081e2~mv2.jpg');">
+                    <div class="photo-tile-content">
+                        <span class="tile-chip"><i class="fas fa-building-columns"></i></span>
+                        <h3 class="text-2xl font-bold mb-3" style="color:#fff;">Legacy & Estate Planning</h3>
+                        <p class="leading-relaxed max-w-2xl" style="color:rgba(255,255,255,0.85);">
+                            Preserve and transfer your wealth to future generations with thoughtful estate planning that protects your family's future.
+                        </p>
                     </div>
-                    <h3 class="text-2xl font-bold mb-3" style="color: #1A1A1A;">Legacy & Estate Planning</h3>
-                    <p class="text-gray-700 leading-relaxed max-w-2xl">
-                        Preserve and transfer your wealth to future generations with thoughtful estate planning. Create a lasting legacy that reflects your values and protects your family's future.
-                    </p>
                 </div>
 
-                <!-- Compact services -->
-                <div class="md:col-span-4 glass p-6 rounded-2xl hover:scale-105 transition-all" style="border: 1px solid var(--border);">
-                    <i class="fas fa-graduation-cap text-2xl mb-3" style="color: var(--gold);"></i>
-                    <h4 class="text-lg font-bold mb-2" style="color: #1A1A1A;">Educational Savings</h4>
-                    <p class="text-gray-600 text-sm">College funding strategies</p>
+                <!-- Compact services with gold-on-cream icon chips -->
+                <div class="md:col-span-4 service-card p-7 rounded-2xl scale-in" style="background: var(--surface-2);">
+                    <span class="tile-chip tile-chip-light"><i class="fas fa-graduation-cap"></i></span>
+                    <h4 class="text-lg font-bold mb-1" style="color: var(--text);">Educational Savings</h4>
+                    <p class="text-gray-700 text-sm">College funding strategies</p>
                 </div>
 
-                <div class="md:col-span-4 glass p-6 rounded-2xl hover:scale-105 transition-all" style="border: 1px solid var(--border);">
-                    <i class="fas fa-file-invoice-dollar text-2xl mb-3" style="color: var(--gold);"></i>
-                    <h4 class="text-lg font-bold mb-2" style="color: #1A1A1A;">Tax Optimization</h4>
-                    <p class="text-gray-600 text-sm">Minimize liabilities & maximize wealth</p>
+                <div class="md:col-span-4 service-card p-7 rounded-2xl scale-in" style="background: var(--surface-2);">
+                    <span class="tile-chip tile-chip-light"><i class="fas fa-file-invoice-dollar"></i></span>
+                    <h4 class="text-lg font-bold mb-1" style="color: var(--text);">Tax Optimization</h4>
+                    <p class="text-gray-700 text-sm">Minimize liabilities &amp; maximize wealth</p>
                 </div>
 
-                <div class="md:col-span-4 glass p-6 rounded-2xl hover:scale-105 transition-all" style="border: 1px solid var(--border);">
-                    <i class="fas fa-briefcase text-2xl mb-3" style="color: var(--gold);"></i>
-                    <h4 class="text-lg font-bold mb-2" style="color: #1A1A1A;">Business Planning</h4>
-                    <p class="text-gray-600 text-sm">Succession & benefits solutions</p>
+                <div class="md:col-span-4 service-card p-7 rounded-2xl scale-in" style="background: var(--surface-2);">
+                    <span class="tile-chip tile-chip-light"><i class="fas fa-briefcase"></i></span>
+                    <h4 class="text-lg font-bold mb-1" style="color: var(--text);">Business Planning</h4>
+                    <p class="text-gray-700 text-sm">Succession &amp; benefits solutions</p>
                 </div>
             </div>
-        </div>
-
-        <div class="curve-bottom">
-            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#000000"></path>
-            </svg>
         </div>
     </section>
 
@@ -2279,7 +2313,7 @@
         <div class="container mx-auto px-4">
             <div class="text-center mb-16 fade-in-up">
                 <h2 class="text-4xl font-bold mb-6 gold-accent">Our Network of <span style="color: var(--gold)">Providers</span></h2>
-                <p class="text-xl max-w-3xl mx-auto text-gray-700 mt-16">
+                <p class="text-xl max-w-2xl mx-auto text-gray-700 mt-4">
                     We partner with industry-leading financial institutions to provide comprehensive solutions.
                 </p>
             </div>
@@ -2312,7 +2346,7 @@
     </section>
 
     <!-- Why Choose WISE - Video Section -->
-    <section class="relative py-32 overflow-hidden" style="background-color: #000;">
+    <section class="on-dark relative py-32 overflow-hidden" style="background: var(--bg-dark);">
         <!-- Video Background -->
         <video autoplay muted loop playsinline preload="none" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover z-0">
             <source src="https://video.wixstatic.com/video/5e8141_dac915906c6d4bb0825bc3e5d9f966c8/1080p/mp4/file.mp4" type="video/mp4">
@@ -2416,12 +2450,6 @@
 
     <!-- Team Section -->
     <section id="team" class="py-24 relative" style="background: var(--bg-light);">
-
-        <div class="curve-top">
-            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" fill="#f7f6f2"></path>
-            </svg>
-        </div>
 
         <div class="container mx-auto px-4 max-w-7xl">
             <div class="text-left mb-16 max-w-2xl fade-in-up">
@@ -2551,17 +2579,17 @@
     </section>
 
     <!-- Careers Section -->
-    <section id="careers" class="py-24 relative" style="background-color: #000000;">
+    <section id="careers" class="py-24 relative" style="background: var(--surface-light);">
         <div class="container mx-auto px-4">
             <div class="content-left">
                 <div class="text-content slide-in-left">
                     <p class="section-label">Careers</p>
-                    <h2 class="text-5xl font-bold mb-8 gold-accent">Grow With <span style="color: var(--gold)">Us</span></h2>
-                    <p class="text-xl mb-10 text-gray-200 mt-16 leading-relaxed">
+                    <h2 class="text-5xl font-bold mb-6 gold-accent">Grow With <span style="color: var(--gold)">Us</span></h2>
+                    <p class="text-xl mb-10 text-gray-200 leading-relaxed">
                         Join our team of financial professionals and make a meaningful impact while building a rewarding career.
                     </p>
 
-                    <h3 class="text-3xl font-bold mb-6" style="color: var(--gold)">Career Opportunities</h3>
+                    <h3 class="text-3xl font-bold mb-6" style="color: var(--gold-deep)">Career Opportunities</h3>
                     <p class="text-gray-200 mb-8 text-lg leading-relaxed">
                         We're looking for motivated individuals who are passionate about helping others achieve financial freedom.
                     </p>
@@ -2604,19 +2632,19 @@
     </section>
 
     <!-- FAQ Section -->
-    <section id="faq" class="py-24 relative" style="background-color: #000000;">
+    <section id="faq" class="py-24 relative" style="background: var(--bg-light);">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16 fade-in-up">
                 <p class="section-label">Answers</p>
                 <h2 class="text-5xl font-bold mb-6 gold-accent">Frequently Asked <span style="color: var(--gold)">Questions</span></h2>
-                <p class="text-xl max-w-3xl mx-auto text-gray-200 mt-8">
+                <p class="text-xl max-w-2xl mx-auto text-gray-200 mt-4">
                     Everything you need to know before you book your free consultation.
                 </p>
             </div>
 
             <div class="max-w-3xl mx-auto space-y-4 fade-in-up">
                 <details class="glass p-6">
-                    <summary class="text-xl font-bold cursor-pointer text-white list-none flex justify-between items-center">
+                    <summary class="text-xl font-bold cursor-pointer list-none flex justify-between items-center" style="color: var(--text);">
                         What services does WISE Financial Partners offer?
                         <span style="color: var(--gold)" aria-hidden="true">+</span>
                     </summary>
@@ -2626,7 +2654,7 @@
                 </details>
 
                 <details class="glass p-6">
-                    <summary class="text-xl font-bold cursor-pointer text-white list-none flex justify-between items-center">
+                    <summary class="text-xl font-bold cursor-pointer list-none flex justify-between items-center" style="color: var(--text);">
                         How much does a consultation cost?
                         <span style="color: var(--gold)" aria-hidden="true">+</span>
                     </summary>
@@ -2636,7 +2664,7 @@
                 </details>
 
                 <details class="glass p-6">
-                    <summary class="text-xl font-bold cursor-pointer text-white list-none flex justify-between items-center">
+                    <summary class="text-xl font-bold cursor-pointer list-none flex justify-between items-center" style="color: var(--text);">
                         What states are you licensed in?
                         <span style="color: var(--gold)" aria-hidden="true">+</span>
                     </summary>
@@ -2646,7 +2674,7 @@
                 </details>
 
                 <details class="glass p-6">
-                    <summary class="text-xl font-bold cursor-pointer text-white list-none flex justify-between items-center">
+                    <summary class="text-xl font-bold cursor-pointer list-none flex justify-between items-center" style="color: var(--text);">
                         How do I get started?
                         <span style="color: var(--gold)" aria-hidden="true">+</span>
                     </summary>
@@ -2675,7 +2703,7 @@
             <div class="text-center mb-20 fade-in-up">
                 <p class="section-label">Get Started</p>
                 <h2 class="text-5xl font-bold mb-6 gold-accent">Get in <span style="color: var(--gold)">Touch</span></h2>
-                <p class="text-xl max-w-3xl mx-auto text-gray-200 mt-16">
+                <p class="text-xl max-w-2xl mx-auto text-gray-200 mt-4">
                     Ready to transform your financial future? Contact us today to schedule a consultation.
                 </p>
             </div>
@@ -2690,7 +2718,7 @@
                             Book Your Free Consultation
                         </a>
                         <p class="mt-8 text-center text-gray-300 text-lg">
-                            Or email us directly at <a href="mailto:wisefinancialpartners@gmail.com" style="color: var(--gold)" class="hover:underline font-semibold">wisefinancialpartners@gmail.com</a>
+                            Or email us directly at <a href="mailto:wisefinancialpartners@gmail.com" style="color: var(--gold-deep)" class="hover:underline font-semibold">wisefinancialpartners@gmail.com</a>
                         </p>
                     </div>
                 </div>
@@ -2699,7 +2727,7 @@
     </section>
 
     <!-- Newsletter Section -->
-    <section class="py-24 relative overflow-hidden" style="background-color: #000000;">
+    <section class="on-dark py-24 relative overflow-hidden" style="background: var(--bg-dark);">
         <!-- Background Image -->
         <div class="absolute inset-0 z-0 opacity-5">
             <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_5c2162c6d7c143a29dd74e2a6280c5a6~mv2.jpg" alt="" role="presentation" class="w-full h-full object-cover">
@@ -2758,7 +2786,7 @@
         <div class="container mx-auto px-4">
             <div class="text-center mb-20 fade-in-up">
                 <h2 class="text-5xl font-bold mb-6 gold-accent">Daily <span style="color: var(--gold)">Inspiration</span></h2>
-                <p class="text-xl max-w-3xl mx-auto text-gray-200 mt-16">
+                <p class="text-xl max-w-2xl mx-auto text-gray-200 mt-4">
                     Follow us on Instagram for daily financial wisdom and motivational content.
                 </p>
             </div>
@@ -2803,7 +2831,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-black py-16 border-t-2 border-gold/30">
+    <footer class="on-dark bg-black py-16 border-t-2 border-gold/30">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
                 <div>
