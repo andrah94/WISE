@@ -1706,36 +1706,18 @@
         }
         #hero p { color: #E2E2E8 !important; font-weight: 400; text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7); }
 
-        /* ---- Eyebrow (pill) ---- */
-        .eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.55rem;
+        /* ---- Section Labels (minimal, no pills) ---- */
+        .section-label {
             font-family: 'Inter', sans-serif;
-            font-size: 0.78rem;
+            font-size: 0.7rem;
             font-weight: 600;
-            letter-spacing: 0.02em;
-            text-transform: none;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
             color: var(--gold);
-            margin-bottom: 1.15rem;
-            padding: 0.4rem 0.9rem;
-            border: 1px solid rgba(232, 185, 35, 0.3);
-            border-radius: 100px;
-            background: rgba(232, 185, 35, 0.06);
+            margin-bottom: 0.75rem;
+            opacity: 0.85;
+            display: block;
         }
-        .eyebrow::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--gold);
-        }
-        .light-section .eyebrow {
-            color: #8a6f15;
-            border-color: rgba(0, 0, 0, 0.12);
-            background: rgba(0, 0, 0, 0.03);
-        }
-        .light-section .eyebrow::before { background: #8a6f15; }
 
         /* ---- Muted body copy on dark ---- */
         .text-gray-200, .text-gray-300 { color: var(--text-muted) !important; }
@@ -1904,12 +1886,6 @@
             border: 1px solid var(--border) !important;
             box-shadow: none !important;
         }
-        .light-section .eyebrow {
-            color: var(--gold);
-            border-color: rgba(232, 185, 35, 0.3);
-            background: rgba(232, 185, 35, 0.06);
-        }
-        .light-section .eyebrow::before { background: var(--gold); }
         .light-section .founder-image { box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5); }
 
         /* Second full-bleed video: match the hero's cinematic scrim, not a flat wash */
@@ -1960,7 +1936,7 @@
         <div class="scroll-indicator active" data-section="Home" data-target="hero"></div>
         <div class="scroll-indicator" data-section="About" data-target="intro"></div>
         <div class="scroll-indicator" data-section="Services" data-target="services"></div>
-        <div class="scroll-indicator" data-section="Founder" data-target="about"></div>
+        <div class="scroll-indicator" data-section="Team" data-target="team"></div>
         <div class="scroll-indicator" data-section="Team" data-target="team"></div>
         <div class="scroll-indicator" data-section="Careers" data-target="careers"></div>
         <div class="scroll-indicator" data-section="Contact" data-target="contact"></div>
@@ -1982,7 +1958,7 @@
                 <!-- Desktop Navigation -->
                 <nav class="hidden md:flex items-center space-x-8">
                     <a href="#services" class="nav-link text-white hover:text-[#D4AF37]">Services</a>
-                    <a href="#about" class="nav-link text-white hover:text-[#D4AF37]">About</a>
+                    <a href="#intro" class="nav-link text-white hover:text-[#D4AF37]">About</a>
                     <a href="#team" class="nav-link text-white hover:text-[#D4AF37]">Team</a>
                     <a href="#careers" class="nav-link text-white hover:text-[#D4AF37]">Careers</a>
                     <a href="#faq" class="nav-link text-white hover:text-[#D4AF37]">FAQ</a>
@@ -2009,7 +1985,7 @@
             </div>
             <div class="flex flex-col space-y-6 mt-10">
                 <a href="#services" class="text-white hover:text-[#D4AF37] font-semibold">Services</a>
-                <a href="#about" class="text-white hover:text-[#D4AF37] font-semibold">About</a>
+                <a href="#intro" class="text-white hover:text-[#D4AF37] font-semibold">About</a>
                 <a href="#team" class="text-white hover:text-[#D4AF37] font-semibold">Team</a>
                 <a href="#careers" class="text-white hover:text-[#D4AF37] font-semibold">Careers</a>
                 <a href="#faq" class="text-white hover:text-[#D4AF37] font-semibold">FAQ</a>
@@ -2034,17 +2010,12 @@
                         <span style="color: var(--gold)">WISE</span> Financial Partners
                     </h1>
                 </div>
-                <p class="text-2xl md:text-3xl mb-10 max-w-4xl mx-auto font-light text-gray-100">
+                <p class="text-xl md:text-2xl mb-12 max-w-3xl mx-auto font-light text-gray-100">
                     Transform your mindset. Protect your income. Build legacy wealth.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                    <a href="javascript:void(0)" onclick="openCalendlyPopup()" class="btn-premium inline-block text-lg">
-                        Start Your Wealth Journey
-                    </a>
-                    <a href="#services" class="btn-outline-premium inline-block text-lg">
-                        Explore Services
-                    </a>
-                </div>
+                <a href="javascript:void(0)" onclick="openCalendlyPopup()" class="btn-premium inline-block text-lg">
+                    Start Your Wealth Journey
+                </a>
             </div>
         </div>
 
@@ -2065,32 +2036,24 @@
         </div>
 
         <div class="container mx-auto px-4">
-            <div class="content-left">
-                <div class="text-content slide-in-left">
-                    <p class="eyebrow">Our Firm</p>
-                    <h2 class="text-5xl font-bold mb-8 gold-accent">Who We <span style="color: var(--gold)">Are</span></h2>
-                    <p class="text-xl mb-6 text-gray-200 mt-16 leading-relaxed">
-                        WISE Financial Partners is a premier financial services firm dedicated to empowering individuals and businesses to achieve financial freedom through strategic planning and mindset transformation.
-                    </p>
-                    <p class="text-xl mb-6 text-gray-200 leading-relaxed">
-                        Our approach combines traditional financial strategies with innovative mindset coaching, creating a holistic path to wealth building that addresses both the practical and psychological aspects of financial success.
-                    </p>
-                    <p class="text-xl text-gray-200 leading-relaxed mb-8">
-                        We believe that true financial freedom comes from aligning your money decisions with your core values and life goals.
-                    </p>
-                    <a href="javascript:void(0)" onclick="openCalendlyPopup()" class="btn-outline-premium inline-block">
-                        Begin Your Transformation
-                    </a>
-                </div>
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="slide-in-left">
+                        <p class="section-label">Our Firm</p>
+                        <h2 class="text-4xl md:text-5xl font-bold mb-6 gold-accent">Who We <span style="color: var(--gold)">Are</span></h2>
+                        <p class="text-lg mb-5 text-gray-300 leading-relaxed">
+                            WISE Financial Partners combines strategic financial planning with mindset transformation to help you achieve lasting wealth and freedom.
+                        </p>
+                        <p class="text-lg text-gray-300 leading-relaxed mb-8">
+                            Our holistic approach addresses both the practical and psychological aspects of financial success, aligning your money decisions with your core values.
+                        </p>
+                        <a href="javascript:void(0)" onclick="openCalendlyPopup()" class="btn-outline-premium inline-block">
+                            Begin Your Journey
+                        </a>
+                    </div>
 
-                <div class="image-content slide-in-right">
-                    <div class="image-overlay-container">
-                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_58f3f13f4f07470bbb75f838aee0699a~mv2.jpg" alt="Glenn Windom - Financial Advisor" class="w-full h-96 object-cover">
-                        <div class="overlay-gradient"></div>
-                        <div class="overlay-text">
-                            <h3 class="text-2xl font-bold mb-2">Financial Freedom Awaits</h3>
-                            <p class="text-gray-200">Let us guide you on your journey to wealth.</p>
-                        </div>
+                    <div class="slide-in-right">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_58f3f13f4f07470bbb75f838aee0699a~mv2.jpg" alt="Glenn Windom - Financial Advisor" class="w-full rounded-2xl" style="max-height: 500px; object-fit: cover;">
                     </div>
                 </div>
             </div>
@@ -2111,90 +2074,78 @@
             </svg>
         </div>
 
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-20 fade-in-up">
-                <p class="eyebrow">What We Do</p>
-                <h2 class="text-5xl font-bold mb-6 gold-accent">Our <span style="color: var(--gold)">Services</span></h2>
-                <p class="text-xl max-w-3xl mx-auto text-gray-200 mt-16">
-                    Comprehensive financial solutions tailored to your unique needs and goals.
+        <div class="container mx-auto px-4 max-w-7xl">
+            <div class="text-left mb-16 max-w-2xl fade-in-up">
+                <p class="section-label">What We Do</p>
+                <h2 class="text-4xl md:text-5xl font-bold mb-5 gold-accent">Financial Solutions <span style="color: var(--gold)">Built for You</span></h2>
+                <p class="text-lg text-gray-300">
+                    Comprehensive wealth strategies tailored to your unique goals.
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
-                <div class="service-card rounded-2xl p-10 text-center scale-in">
-                    <div class="text-5xl mb-6 icon-gradient">
+            <!-- Bento Grid Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-5 auto-rows-fr">
+                <!-- Featured: Wealth Management (spans 2 columns, tall) -->
+                <div class="md:col-span-7 service-card rounded-2xl p-12 scale-in" style="background: var(--surface-1);">
+                    <div class="text-5xl mb-6" style="color: var(--gold);">
                         <i class="fas fa-chart-line"></i>
                     </div>
-                    <h3 class="text-2xl font-bold mb-4">Wealth Management</h3>
-                    <p class="text-gray-300 leading-relaxed">
-                        Strategic investment planning and portfolio management to grow your assets and achieve financial goals.
+                    <h3 class="text-3xl font-bold mb-4">Wealth Management</h3>
+                    <p class="text-gray-300 leading-relaxed text-lg max-w-xl">
+                        Strategic investment planning and portfolio management to grow your assets and achieve your financial goals. We build customized strategies that align with your values and timeline.
                     </p>
                 </div>
 
-                <div class="service-card rounded-2xl p-10 text-center scale-in">
-                    <div class="text-5xl mb-6 icon-gradient">
+                <!-- Income Protection (medium) -->
+                <div class="md:col-span-5 service-card rounded-2xl p-10 scale-in" style="background: var(--surface-1);">
+                    <div class="text-4xl mb-5" style="color: var(--gold);">
                         <i class="fas fa-shield-halved"></i>
                     </div>
-                    <h3 class="text-2xl font-bold mb-4">Income Protection</h3>
+                    <h3 class="text-2xl font-bold mb-3">Income Protection</h3>
                     <p class="text-gray-300 leading-relaxed">
                         Safeguard your financial future with comprehensive insurance and risk management strategies.
                     </p>
                 </div>
 
-                <div class="service-card rounded-2xl p-10 text-center scale-in">
-                    <div class="text-5xl mb-6 icon-gradient">
+                <!-- Retirement Planning (medium) -->
+                <div class="md:col-span-5 service-card rounded-2xl p-10 scale-in" style="background: var(--surface-1);">
+                    <div class="text-4xl mb-5" style="color: var(--gold);">
                         <i class="fas fa-piggy-bank"></i>
                     </div>
-                    <h3 class="text-2xl font-bold mb-4">Retirement Planning</h3>
+                    <h3 class="text-2xl font-bold mb-3">Retirement Planning</h3>
                     <p class="text-gray-300 leading-relaxed">
                         Personalized retirement strategies to ensure financial security and maintain your lifestyle.
                     </p>
                 </div>
 
-                <div class="service-card rounded-2xl p-10 text-center scale-in">
-                    <div class="text-5xl mb-6 icon-gradient">
+                <!-- Legacy & Estate Planning (large) -->
+                <div class="md:col-span-7 service-card rounded-2xl p-10 scale-in" style="background: var(--surface-1);">
+                    <div class="text-4xl mb-5" style="color: var(--gold);">
                         <i class="fas fa-building-columns"></i>
                     </div>
-                    <h3 class="text-2xl font-bold mb-4">Legacy & Estate Planning</h3>
-                    <p class="text-gray-300 leading-relaxed">
-                        Preserve and transfer your wealth to future generations with thoughtful estate planning.
+                    <h3 class="text-2xl font-bold mb-3">Legacy & Estate Planning</h3>
+                    <p class="text-gray-300 leading-relaxed max-w-2xl">
+                        Preserve and transfer your wealth to future generations with thoughtful estate planning. Create a lasting legacy that reflects your values and protects your family's future.
                     </p>
                 </div>
-            </div>
 
-            <!-- Additional Services -->
-            <div class="fade-in-up">
-                <h3 class="text-3xl font-bold mb-10 text-center">Additional <span style="color: var(--gold)">Financial Solutions</span></h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="glass p-8 rounded-2xl slide-in-left hover:scale-105 transition-all">
-                        <div class="flex items-center mb-4">
-                            <i class="fas fa-graduation-cap text-3xl mr-4 icon-gradient"></i>
-                            <h4 class="text-xl font-bold">Educational Savings</h4>
-                        </div>
-                        <p class="text-gray-300">
-                            Strategic college funding plans to help prepare for future educational expenses.
-                        </p>
-                    </div>
+                <!-- Compact services -->
+                <div class="md:col-span-4 glass p-6 rounded-2xl hover:scale-105 transition-all" style="border: 1px solid var(--border);">
+                    <i class="fas fa-graduation-cap text-2xl mb-3" style="color: var(--gold);"></i>
+                    <h4 class="text-lg font-bold mb-2">Educational Savings</h4>
+                    <p class="text-gray-400 text-sm">College funding strategies</p>
+                </div>
 
-                    <div class="glass p-8 rounded-2xl scale-in hover:scale-105 transition-all">
-                        <div class="flex items-center mb-4">
-                            <i class="fas fa-file-invoice-dollar text-3xl mr-4 icon-gradient"></i>
-                            <h4 class="text-xl font-bold">Tax Optimization</h4>
-                        </div>
-                        <p class="text-gray-300">
-                            Strategic tax planning to minimize liabilities and maximize wealth preservation.
-                        </p>
-                    </div>
+                <div class="md:col-span-4 glass p-6 rounded-2xl hover:scale-105 transition-all" style="border: 1px solid var(--border);">
+                    <i class="fas fa-file-invoice-dollar text-2xl mb-3" style="color: var(--gold);"></i>
+                    <h4 class="text-lg font-bold mb-2">Tax Optimization</h4>
+                    <p class="text-gray-400 text-sm">Minimize liabilities & maximize wealth</p>
+                </div>
 
-                    <div class="glass p-8 rounded-2xl slide-in-right hover:scale-105 transition-all">
-                        <div class="flex items-center mb-4">
-                            <i class="fas fa-briefcase text-3xl mr-4 icon-gradient"></i>
-                            <h4 class="text-xl font-bold">Business Planning</h4>
-                        </div>
-                        <p class="text-gray-300">
-                            Comprehensive solutions for business owners including succession planning and benefits.
-                        </p>
-                    </div>
+                <div class="md:col-span-4 glass p-6 rounded-2xl hover:scale-105 transition-all" style="border: 1px solid var(--border);">
+                    <i class="fas fa-briefcase text-2xl mb-3" style="color: var(--gold);"></i>
+                    <h4 class="text-lg font-bold mb-2">Business Planning</h4>
+                    <p class="text-gray-400 text-sm">Succession & benefits solutions</p>
                 </div>
             </div>
         </div>
@@ -2266,69 +2217,6 @@
         </div>
     </section>
 
-    <!-- About/Founder Section -->
-    <section id="about" class="py-24 light-section">
-        <div class="curve-top">
-            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#000000"></path>
-            </svg>
-        </div>
-
-        <div class="container mx-auto px-4">
-            <div class="content-right">
-                <div class="text-content slide-in-right">
-                    <p class="eyebrow">Leadership</p>
-                    <h2 class="text-5xl font-bold mb-8 gold-accent">Meet the <span style="color: var(--gold)">Founder</span></h2>
-                    <p class="text-xl mb-6 text-gray-700 mt-16 leading-relaxed">
-                        Glenn Windom II is a visionary financial advisor whose unique approach combines mindset coaching with strategic financial planning to help clients achieve lasting wealth and financial freedom.
-                    </p>
-                    <blockquote class="border-l-4 pl-8 my-10" style="border-color: var(--gold)">
-                        <p class="text-3xl italic font-light text-gray-900">"Money isn't math, it's mental."</p>
-                    </blockquote>
-                    <p class="text-xl mb-10 text-gray-700 leading-relaxed">
-                        Glenn founded WISE Financial Partners with a mission to empower creators, professionals, and entrepreneurs to build legacy wealth through a holistic approach to financial planning.
-                    </p>
-
-                    <div class="light-card p-8 rounded-2xl mb-8">
-                        <div class="flex flex-col md:flex-row items-center gap-6">
-                            <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_ade3cb0a9ede4b05bec568edb5208e66~mv2.jpeg" alt="The Money Mirror Book Cover" class="rounded-xl shadow-lg max-w-[140px]">
-                            <div>
-                                <h3 class="text-2xl font-bold mb-3">The <span style="color: var(--gold)">Money Mirror</span></h3>
-                                <p class="text-gray-600 mb-5">
-                                    Discover the psychological principles behind wealth creation in Glenn's groundbreaking book.
-                                </p>
-                                <div class="flex flex-wrap gap-3">
-                                    <a href="https://a.co/d/aTH4fPE" target="_blank" rel="noopener noreferrer" class="btn-premium text-sm py-3 px-5">
-                                        <i class="fab fa-amazon mr-2"></i> Amazon
-                                    </a>
-                                    <a href="https://books.apple.com/us/book/the-money-mirror/id6746219698" target="_blank" rel="noopener noreferrer" class="btn-outline-premium text-sm py-3 px-5">
-                                        <i class="fab fa-apple mr-2"></i> Apple Books
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="flex space-x-6">
-                        <a href="https://www.instagram.com/imglennwin?igsh=MWd0Z24zbWdrbTNpeA==" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-[#D4AF37] transition-all transform hover:scale-125">
-                            <i class="fab fa-instagram text-3xl"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="image-content slide-in-left">
-                    <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/2853e8_30a8c226eaa44f20b55ad1214803ccb5~mv2.png" alt="Glenn Windom II" class="founder-image w-full max-w-lg mx-auto">
-                </div>
-            </div>
-        </div>
-
-        <div class="curve-bottom">
-            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" fill="#f7f6f2"></path>
-            </svg>
-        </div>
-    </section>
-
     <!-- Team Section -->
     <section id="team" class="py-24 relative" style="background-color: #0a0a0a;">
 
@@ -2338,136 +2226,130 @@
             </svg>
         </div>
 
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-20 fade-in-up">
-                <p class="eyebrow">The People</p>
-                <h2 class="text-5xl font-bold mb-6 gold-accent">Meet Our <span style="color: var(--gold)">Team</span></h2>
-                <p class="text-xl max-w-3xl mx-auto text-gray-200 mt-16">
-                    Our diverse team of financial experts is dedicated to helping you achieve your financial goals.
+        <div class="container mx-auto px-4 max-w-7xl">
+            <div class="text-left mb-16 max-w-2xl fade-in-up">
+                <p class="section-label">Leadership</p>
+                <h2 class="text-4xl md:text-5xl font-bold mb-5 gold-accent">Experts You Can <span style="color: var(--gold)">Trust</span></h2>
+                <p class="text-lg text-gray-300">
+                    Licensed financial professionals dedicated to your success.
                 </p>
             </div>
 
-            <!-- Licensed Professionals -->
-            <div class="mb-20">
-                <h3 class="text-3xl font-bold mb-10 text-center fade-in-up" style="color: var(--gold)">Licensed Professionals</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-                    <div class="team-card rounded-2xl p-8 text-center scale-in">
-                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/2853e8_30a8c226eaa44f20b55ad1214803ccb5~mv2.png" alt="Glenn Windom II" class="team-image mb-6">
-                        <h4 class="text-xl font-bold mb-2">Glenn Windom II</h4>
-                        <p class="mb-3 text-lg" style="color: var(--gold)">Founder & Licensed Professional</p>
-                        <p class="text-sm text-gray-400">CA Insurance License #4359007</p>
-                        <p class="text-xs text-gray-500 mt-1">Licensed in multiple states</p>
+            <!-- Featured: Glenn + Key Team -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                <!-- Glenn - Featured Founder Card -->
+                <div class="team-card rounded-2xl p-10 scale-in lg:col-span-2" style="background: var(--surface-2);">
+                    <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/2853e8_30a8c226eaa44f20b55ad1214803ccb5~mv2.png" alt="Glenn Windom II" class="team-image" style="width: 180px; height: 180px;">
+                        <div class="text-center md:text-left flex-1">
+                            <h3 class="text-3xl font-bold mb-2">Glenn Windom II</h3>
+                            <p class="text-xl mb-3" style="color: var(--gold)">Founder & CEO</p>
+                            <p class="text-gray-300 mb-4 leading-relaxed max-w-2xl">
+                                Visionary financial advisor combining mindset coaching with strategic financial planning. Author of <em>The Money Mirror</em> and licensed in multiple states.
+                            </p>
+                            <p class="text-sm text-gray-400">CA Insurance License #4359007</p>
+                        </div>
                     </div>
+                </div>
 
-                    <div class="team-card rounded-2xl p-8 text-center scale-in">
-                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_877c8cd47ec04deb890e20f308247ba7~mv2.jpg" alt="Adara Johnson" class="team-image mb-6">
-                        <h4 class="text-xl font-bold mb-2">Adara Johnson</h4>
-                        <p class="mb-3 text-lg" style="color: var(--gold)">Licensed Financial Professional</p>
-                        <p class="text-sm text-gray-400">CA Insurance License #4313838</p>
+                <!-- Licensed Professionals - Compact Cards -->
+                <div class="team-card rounded-2xl p-8 scale-in" style="background: var(--surface-1);">
+                    <div class="flex items-center gap-6">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_877c8cd47ec04deb890e20f308247ba7~mv2.jpg" alt="Adara Johnson" class="team-image" style="width: 100px; height: 100px;">
+                        <div>
+                            <h4 class="text-xl font-bold mb-1">Adara Johnson</h4>
+                            <p class="mb-2" style="color: var(--gold)">Licensed Financial Professional</p>
+                            <p class="text-sm text-gray-400">License #4313838</p>
+                        </div>
                     </div>
+                </div>
 
-                    <div class="team-card rounded-2xl p-8 text-center scale-in">
-                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_e0c938f2c47640a5be8d8f88fae39e82~mv2.jpeg" alt="Andra Howard" class="team-image mb-6">
-                        <h4 class="text-xl font-bold mb-2">Andra Howard</h4>
-                        <p class="mb-3 text-lg" style="color: var(--gold)">Licensed Financial Professional</p>
-                        <p class="text-sm text-gray-400">CA Insurance License #4383341</p>
+                <div class="team-card rounded-2xl p-8 scale-in" style="background: var(--surface-1);">
+                    <div class="flex items-center gap-6">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_e0c938f2c47640a5be8d8f88fae39e82~mv2.jpeg" alt="Andra Howard" class="team-image" style="width: 100px; height: 100px;">
+                        <div>
+                            <h4 class="text-xl font-bold mb-1">Andra Howard</h4>
+                            <p class="mb-2" style="color: var(--gold)">Licensed Financial Professional</p>
+                            <p class="text-sm text-gray-400">License #4383341</p>
+                        </div>
                     </div>
+                </div>
 
-                    <div class="team-card rounded-2xl p-8 text-center scale-in">
-                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_8dcfdba385a946ff94b8ee86bf0a361f~mv2.jpeg" alt="Sidney Martin" class="team-image mb-6">
-                        <h4 class="text-xl font-bold mb-2">Sidney Martin</h4>
-                        <p class="mb-3 text-lg" style="color: var(--gold)">Licensed Financial Professional</p>
-                        <p class="text-sm text-gray-400">CA Insurance License #4457318</p>
+                <div class="team-card rounded-2xl p-8 scale-in" style="background: var(--surface-1);">
+                    <div class="flex items-center gap-6">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_8dcfdba385a946ff94b8ee86bf0a361f~mv2.jpeg" alt="Sidney Martin" class="team-image" style="width: 100px; height: 100px;">
+                        <div>
+                            <h4 class="text-xl font-bold mb-1">Sidney Martin</h4>
+                            <p class="mb-2" style="color: var(--gold)">Licensed Financial Professional</p>
+                            <p class="text-sm text-gray-400">License #4457318</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-card rounded-2xl p-8 scale-in" style="background: var(--surface-1);">
+                    <div class="flex items-center gap-6">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_b8653b02268b4514a20e8389fd4613d9~mv2.jpg" alt="Saifur Rahim" class="team-image" style="width: 100px; height: 100px;">
+                        <div>
+                            <h4 class="text-xl font-bold mb-1">Saifur Rahim</h4>
+                            <p class="mb-2" style="color: var(--gold)">Admin Coordinator</p>
+                            <p class="text-sm text-gray-400">Client Services</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Admin Staff -->
-            <div class="mb-20">
-                <h3 class="text-3xl font-bold mb-10 text-center fade-in-up" style="color: var(--gold)">Administration</h3>
-                <div class="flex justify-center">
-                    <div class="team-card rounded-2xl p-8 text-center scale-in max-w-sm">
-                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_b8653b02268b4514a20e8389fd4613d9~mv2.jpg" alt="Saifur Rahim" class="admin-image mb-6">
-                        <h4 class="text-xl font-bold mb-2">Saifur Rahim</h4>
-                        <p class="mb-4 text-lg" style="color: var(--gold)">Admin Coordinator</p>
-                        <p class="text-gray-300">
-                            Supporting our team with exceptional organizational skills and dedication to client service.
-                        </p>
+            <!-- Expandable Business Partners Section -->
+            <details class="mt-12">
+                <summary class="cursor-pointer text-center py-4 px-6 rounded-xl hover:bg-opacity-10 transition-all" style="background: rgba(232, 185, 35, 0.05); border: 1px solid var(--border);">
+                    <span class="text-lg font-semibold" style="color: var(--gold)">View Our Business Partners <span class="text-sm">(11)</span></span>
+                </summary>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 mt-8">
+                    <div class="team-card rounded-xl p-5 text-center scale-in" style="background: var(--surface-1);">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_6a9bcd8d5e004752ab5cb6d25d26aa1a~mv2.jpg" alt="Daniel Daniels" class="partner-image mb-3" style="width: 80px; height: 80px;">
+                        <h5 class="text-sm font-bold mb-1">Daniel Daniels</h5>
+                    </div>
+                    <div class="team-card rounded-xl p-5 text-center scale-in" style="background: var(--surface-1);">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_440f60ef88d94203a83fe9df23f00c51~mv2.jpeg" alt="Laura Oliden" class="partner-image mb-3" style="width: 80px; height: 80px;">
+                        <h5 class="text-sm font-bold mb-1">Laura Oliden</h5>
+                    </div>
+                    <div class="team-card rounded-xl p-5 text-center scale-in" style="background: var(--surface-1);">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_8013a8ea2bb44f75bb3f01c9b1f353c8~mv2.jpeg" alt="Ashia Anderson" class="partner-image mb-3" style="width: 80px; height: 80px;">
+                        <h5 class="text-sm font-bold mb-1">Ashia Anderson</h5>
+                    </div>
+                    <div class="team-card rounded-xl p-5 text-center scale-in" style="background: var(--surface-1);">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_d2982284904f402f87e41ac0f985c19e~mv2.jpeg" alt="Nathaniel Ilo" class="partner-image mb-3" style="width: 80px; height: 80px;">
+                        <h5 class="text-sm font-bold mb-1">Nathaniel Ilo</h5>
+                    </div>
+                    <div class="team-card rounded-xl p-5 text-center scale-in" style="background: var(--surface-1);">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_19d793055cb9436599acec506b35c6ec~mv2.jpg" alt="Ajani Johnson" class="partner-image mb-3" style="width: 80px; height: 80px;">
+                        <h5 class="text-sm font-bold mb-1">Ajani Johnson</h5>
+                    </div>
+                    <div class="team-card rounded-xl p-5 text-center scale-in" style="background: var(--surface-1);">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_fefa54cf1e8542569b95829b950a1f70~mv2.jpg" alt="Brandynn Hardin" class="partner-image mb-3" style="width: 80px; height: 80px;">
+                        <h5 class="text-sm font-bold mb-1">Brandynn Hardin</h5>
+                    </div>
+                    <div class="team-card rounded-xl p-5 text-center scale-in" style="background: var(--surface-1);">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_a7d489be9bab423790bd4ab661c246e3~mv2.jpg" alt="Britney Woods" class="partner-image mb-3" style="width: 80px; height: 80px;">
+                        <h5 class="text-sm font-bold mb-1">Britney Woods</h5>
+                    </div>
+                    <div class="team-card rounded-xl p-5 text-center scale-in" style="background: var(--surface-1);">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_86b5795bdc9b49d0a89932763fbba94f~mv2.jpg" alt="DeAnna Cole" class="partner-image mb-3" style="width: 80px; height: 80px;">
+                        <h5 class="text-sm font-bold mb-1">DeAnna Cole</h5>
+                    </div>
+                    <div class="team-card rounded-xl p-5 text-center scale-in" style="background: var(--surface-1);">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_584b610338104cb09017fd58744ea0ed~mv2.jpeg" alt="Darius Rodgers" class="partner-image mb-3" style="width: 80px; height: 80px;">
+                        <h5 class="text-sm font-bold mb-1">Darius K. Rodgers</h5>
+                    </div>
+                    <div class="team-card rounded-xl p-5 text-center scale-in" style="background: var(--surface-1);">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_162e2559ff5b4bbaa34b24f751f8f0bf~mv2.jpeg" alt="Jazlyn Miller" class="partner-image mb-3" style="width: 80px; height: 80px;">
+                        <h5 class="text-sm font-bold mb-1">Jazlyn Miller</h5>
+                    </div>
+                    <div class="team-card rounded-xl p-5 text-center scale-in" style="background: var(--surface-1);">
+                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_63771c106f774ad382f2d7a29ece73d1~mv2.jpeg" alt="Stanley Morgan" class="partner-image mb-3" style="width: 80px; height: 80px;">
+                        <h5 class="text-sm font-bold mb-1">Stanley Morgan</h5>
                     </div>
                 </div>
-            </div>
-
-            <!-- Business Partners -->
-            <div>
-                <h3 class="text-3xl font-bold mb-10 text-center fade-in-up" style="color: var(--gold)">Business Partners</h3>
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
-                    <div class="team-card rounded-2xl p-6 text-center scale-in">
-                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_6a9bcd8d5e004752ab5cb6d25d26aa1a~mv2.jpg" alt="Daniel Daniels" class="partner-image mb-4">
-                        <h4 class="text-lg font-bold mb-1">Daniel Daniels</h4>
-                        <p class="text-sm" style="color: var(--gold)">Business Partner</p>
-                    </div>
-
-                    <div class="team-card rounded-2xl p-6 text-center scale-in">
-                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_440f60ef88d94203a83fe9df23f00c51~mv2.jpeg" alt="Laura Oliden" class="partner-image mb-4">
-                        <h4 class="text-lg font-bold mb-1">Laura Oliden</h4>
-                        <p class="text-sm" style="color: var(--gold)">Business Partner</p>
-                    </div>
-
-                    <div class="team-card rounded-2xl p-6 text-center scale-in">
-                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_8013a8ea2bb44f75bb3f01c9b1f353c8~mv2.jpeg" alt="Ashia Anderson" class="partner-image mb-4">
-                        <h4 class="text-lg font-bold mb-1">Ashia Anderson</h4>
-                        <p class="text-sm" style="color: var(--gold)">Business Partner</p>
-                    </div>
-
-                    <div class="team-card rounded-2xl p-6 text-center scale-in">
-                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_d2982284904f402f87e41ac0f985c19e~mv2.jpeg" alt="Nathaniel Ilo" class="partner-image mb-4">
-                        <h4 class="text-lg font-bold mb-1">Nathaniel Ilo</h4>
-                        <p class="text-sm" style="color: var(--gold)">Business Partner</p>
-                    </div>
-
-                    <div class="team-card rounded-2xl p-6 text-center scale-in">
-                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_19d793055cb9436599acec506b35c6ec~mv2.jpg" alt="Ajani Johnson" class="partner-image mb-4">
-                        <h4 class="text-lg font-bold mb-1">Ajani Johnson</h4>
-                        <p class="text-sm" style="color: var(--gold)">Business Partner</p>
-                    </div>
-
-                    <div class="team-card rounded-2xl p-6 text-center scale-in">
-                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_fefa54cf1e8542569b95829b950a1f70~mv2.jpg" alt="Brandynn Hardin" class="partner-image mb-4">
-                        <h4 class="text-lg font-bold mb-1">Brandynn Hardin</h4>
-                        <p class="text-sm" style="color: var(--gold)">Business Partner</p>
-                    </div>
-
-                    <div class="team-card rounded-2xl p-6 text-center scale-in">
-                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_a7d489be9bab423790bd4ab661c246e3~mv2.jpg" alt="Britney Woods" class="partner-image mb-4">
-                        <h4 class="text-lg font-bold mb-1">Britney Woods</h4>
-                        <p class="text-sm" style="color: var(--gold)">Business Partner</p>
-                    </div>
-
-                    <div class="team-card rounded-2xl p-6 text-center scale-in">
-                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_86b5795bdc9b49d0a89932763fbba94f~mv2.jpg" alt="DeAnna Cole" class="partner-image mb-4">
-                        <h4 class="text-lg font-bold mb-1">DeAnna Cole</h4>
-                        <p class="text-sm" style="color: var(--gold)">Business Partner</p>
-                    </div>
-
-                    <div class="team-card rounded-2xl p-6 text-center scale-in">
-                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_584b610338104cb09017fd58744ea0ed~mv2.jpeg" alt="Darius Rodgers" class="partner-image mb-4">
-                        <h4 class="text-lg font-bold mb-1">Darius K. Rodgers</h4>
-                        <p class="text-sm" style="color: var(--gold)">Business Partner</p>
-                    </div>
-
-                    <div class="team-card rounded-2xl p-6 text-center scale-in">
-                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_162e2559ff5b4bbaa34b24f751f8f0bf~mv2.jpeg" alt="Jazlyn Miller" class="partner-image mb-4">
-                        <h4 class="text-lg font-bold mb-1">Jazlyn Miller</h4>
-                        <p class="text-sm" style="color: var(--gold)">Business Partner</p>
-                    </div>
-
-                    <div class="team-card rounded-2xl p-6 text-center scale-in">
-                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_63771c106f774ad382f2d7a29ece73d1~mv2.jpeg" alt="Stanley Morgan" class="partner-image mb-4">
-                        <h4 class="text-lg font-bold mb-1">Stanley Morgan</h4>
-                        <p class="text-sm" style="color: var(--gold)">Business Partner</p>
-                    </div>
-                </div>
-            </div>
+            </details>
         </div>
     </section>
 
@@ -2476,7 +2358,7 @@
         <div class="container mx-auto px-4">
             <div class="content-left">
                 <div class="text-content slide-in-left">
-                    <p class="eyebrow">Careers</p>
+                    <p class="section-label">Careers</p>
                     <h2 class="text-5xl font-bold mb-8 gold-accent">Grow With <span style="color: var(--gold)">Us</span></h2>
                     <p class="text-xl mb-10 text-gray-200 mt-16 leading-relaxed">
                         Join our team of financial professionals and make a meaningful impact while building a rewarding career.
@@ -2528,7 +2410,7 @@
     <section id="faq" class="py-24 relative" style="background-color: #000000;">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16 fade-in-up">
-                <p class="eyebrow">Answers</p>
+                <p class="section-label">Answers</p>
                 <h2 class="text-5xl font-bold mb-6 gold-accent">Frequently Asked <span style="color: var(--gold)">Questions</span></h2>
                 <p class="text-xl max-w-3xl mx-auto text-gray-200 mt-8">
                     Everything you need to know before you book your free consultation.
@@ -2594,7 +2476,7 @@
 
         <div class="container mx-auto px-4 relative z-10">
             <div class="text-center mb-20 fade-in-up">
-                <p class="eyebrow">Get Started</p>
+                <p class="section-label">Get Started</p>
                 <h2 class="text-5xl font-bold mb-6 gold-accent">Get in <span style="color: var(--gold)">Touch</span></h2>
                 <p class="text-xl max-w-3xl mx-auto text-gray-200 mt-16">
                     Ready to transform your financial future? Contact us today to schedule a consultation.
@@ -2743,7 +2625,7 @@
                     <h4 class="text-2xl font-bold mb-6">Quick Links</h4>
                     <ul class="space-y-3">
                         <li><a href="#services" class="text-gray-300 hover:text-[#D4AF37] transition-colors text-lg">Services</a></li>
-                        <li><a href="#about" class="text-gray-300 hover:text-[#D4AF37] transition-colors text-lg">About</a></li>
+                        <li><a href="#intro" class="text-gray-300 hover:text-[#D4AF37] transition-colors text-lg">About</a></li>
                         <li><a href="#team" class="text-gray-300 hover:text-[#D4AF37] transition-colors text-lg">Team</a></li>
                         <li><a href="#careers" class="text-gray-300 hover:text-[#D4AF37] transition-colors text-lg">Careers</a></li>
                         <li><a href="#faq" class="text-gray-300 hover:text-[#D4AF37] transition-colors text-lg">FAQ</a></li>
