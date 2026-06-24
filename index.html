@@ -1894,6 +1894,92 @@
             opacity: 1 !important;
         }
 
+        /* =================== MODERN PREMIUM IMPROVEMENTS =================== */
+        
+        /* Better premium buttons */
+        .btn-premium {
+            background: linear-gradient(135deg, #D4AF37 0%, #F2D675 100%) !important;
+            color: #1A1A1A !important;
+            font-weight: 700 !important;
+            padding: 1rem 2.5rem !important;
+            border-radius: 12px !important;
+            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3) !important;
+            transition: all 0.3s ease !important;
+            border: none !important;
+            text-transform: none !important;
+        }
+        .btn-premium:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 12px 32px rgba(212, 175, 55, 0.45) !important;
+        }
+        
+        .btn-outline-premium {
+            background: transparent !important;
+            color: #D4AF37 !important;
+            border: 2px solid #D4AF37 !important;
+            font-weight: 700 !important;
+            padding: 1rem 2.5rem !important;
+            border-radius: 12px !important;
+        }
+        .btn-outline-premium:hover {
+            background: rgba(212, 175, 55, 0.1) !important;
+            transform: translateY(-2px) !important;
+            border-color: #F2D675 !important;
+        }
+        
+        /* Premium card styling */
+        .team-card {
+            background: white !important;
+            border: 1px solid rgba(0, 0, 0, 0.08) !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06) !important;
+            transition: all 0.3s ease !important;
+        }
+        .team-card:hover {
+            box-shadow: 0 12px 32px rgba(212, 175, 55, 0.2) !important;
+            transform: translateY(-4px) !important;
+        }
+        
+        .service-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+        .service-card:hover {
+            transform: translateY(-6px) !important;
+        }
+        
+        /* Enhanced header */
+        .enhanced-header {
+            backdrop-filter: blur(20px) !important;
+            background: rgba(250, 250, 248, 0.92) !important;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15) !important;
+        }
+        .enhanced-header.scrolled {
+            background: rgba(250, 250, 248, 0.96) !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+        }
+        .enhanced-header .nav-link {
+            color: #1A1A1A !important;
+            font-weight: 600 !important;
+        }
+        .enhanced-header .nav-link:hover {
+            color: #D4AF37 !important;
+        }
+        
+        /* Section labels with accent */
+        .section-label::after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #D4AF37, transparent);
+            margin-top: 0.5rem;
+        }
+        
+        /* Better section spacing */
+        section {
+            padding: 5rem 0 !important;
+        }
+        
+
     </style>
 </head>
 <body class="gradient-bg">
@@ -2152,7 +2238,7 @@
     </section>
 
     <!-- Network of Providers -->
-    <section class="py-20 relative" style="background-color: #0a0a0a;">
+    <section class="py-20 relative" style="background: var(--bg-light);">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16 fade-in-up">
                 <h2 class="text-4xl font-bold mb-6 gold-accent">Our Network of <span style="color: var(--gold)">Providers</span></h2>
@@ -2292,7 +2378,7 @@
     </section>
 
     <!-- Team Section -->
-    <section id="team" class="py-24 relative" style="background-color: #0a0a0a;">
+    <section id="team" class="py-24 relative" style="background: var(--bg-light);">
 
         <div class="curve-top">
             <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -2304,7 +2390,7 @@
             <div class="text-left mb-16 max-w-2xl fade-in-up">
                 <p class="section-label">Leadership</p>
                 <h2 class="text-4xl md:text-5xl font-bold mb-5 gold-accent">Experts You Can <span style="color: var(--gold)">Trust</span></h2>
-                <p class="text-lg text-gray-300">
+                <p class="text-lg text-gray-700">
                     Licensed financial professionals dedicated to your success.
                 </p>
             </div>
@@ -2318,10 +2404,10 @@
                         <div class="text-center md:text-left flex-1">
                             <h3 class="text-3xl font-bold mb-2">Glenn Windom II</h3>
                             <p class="text-xl mb-3" style="color: var(--gold)">Founder & CEO</p>
-                            <p class="text-gray-300 mb-4 leading-relaxed max-w-2xl">
+                            <p class="text-gray-700 mb-4 leading-relaxed max-w-2xl">
                                 Visionary financial advisor combining mindset coaching with strategic financial planning. Author of <em>The Money Mirror</em> and licensed in multiple states.
                             </p>
-                            <p class="text-sm text-gray-400">CA Insurance License #4359007</p>
+                            <p class="text-sm text-gray-500">CA Insurance License #4359007</p>
                         </div>
                     </div>
                 </div>
@@ -2333,7 +2419,7 @@
                         <div>
                             <h4 class="text-xl font-bold mb-1">Adara Johnson</h4>
                             <p class="mb-2" style="color: var(--gold)">Licensed Financial Professional</p>
-                            <p class="text-sm text-gray-400">License #4313838</p>
+                            <p class="text-sm text-gray-500">License #4313838</p>
                         </div>
                     </div>
                 </div>
@@ -2344,7 +2430,7 @@
                         <div>
                             <h4 class="text-xl font-bold mb-1">Andra Howard</h4>
                             <p class="mb-2" style="color: var(--gold)">Licensed Financial Professional</p>
-                            <p class="text-sm text-gray-400">License #4383341</p>
+                            <p class="text-sm text-gray-500">License #4383341</p>
                         </div>
                     </div>
                 </div>
@@ -2355,7 +2441,7 @@
                         <div>
                             <h4 class="text-xl font-bold mb-1">Sidney Martin</h4>
                             <p class="mb-2" style="color: var(--gold)">Licensed Financial Professional</p>
-                            <p class="text-sm text-gray-400">License #4457318</p>
+                            <p class="text-sm text-gray-500">License #4457318</p>
                         </div>
                     </div>
                 </div>
@@ -2366,7 +2452,7 @@
                         <div>
                             <h4 class="text-xl font-bold mb-1">Saifur Rahim</h4>
                             <p class="mb-2" style="color: var(--gold)">Admin Coordinator</p>
-                            <p class="text-sm text-gray-400">Client Services</p>
+                            <p class="text-sm text-gray-500">Client Services</p>
                         </div>
                     </div>
                 </div>
@@ -2542,7 +2628,7 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-24 relative overflow-hidden" style="background-color: #0a0a0a;">
+    <section id="contact" class="py-24 relative overflow-hidden" style="background: var(--bg-light);">
         <!-- Background Image -->
         <div class="absolute inset-0 z-0 opacity-10">
             <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_9b245128d85447fb95a61ab72bf081e2~mv2.jpg" alt="" role="presentation" class="w-full h-full object-cover">
@@ -2631,7 +2717,7 @@
     </section>
 
     <!-- Instagram Feed Section -->
-    <section class="py-24 relative" style="background-color: #0a0a0a;">
+    <section class="py-24 relative" style="background: var(--bg-light);">
         <div class="container mx-auto px-4">
             <div class="text-center mb-20 fade-in-up">
                 <h2 class="text-5xl font-bold mb-6 gold-accent">Daily <span style="color: var(--gold)">Inspiration</span></h2>
