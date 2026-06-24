@@ -1648,33 +1648,33 @@
            ===================================================================== */
 
         :root {
-            --gold: #E8B923;
-            --gold-deep: #D4AF37;
-            --gold-soft: #F2D061;
-            --bg: #0A0A0B;
-            --surface-1: #141417;
-            --surface-2: #1C1C21;
-            --border: rgba(255, 255, 255, 0.09);
-            --border-strong: rgba(255, 255, 255, 0.16);
-            --text: #F5F5F7;
-            --text-muted: #C7C7CF;
-            --radius: 14px;
+            --gold: #D4AF37;
+            --gold-bright: #F2D675;
+            --gold-deep: #B8941F;
+            --bg-dark: #0F0F0F;
+            --bg-light: #FAFAF8;
+            --surface-dark: #1A1A1A;
+            --surface-light: #FFFFFF;
+            --border-dark: rgba(255, 255, 255, 0.12);
+            --border-light: rgba(0, 0, 0, 0.08);
+            --text-dark: #FAFAFA;
+            --text-light: #1A1A1A;
+            --text-muted-dark: #A8A8A8;
+            --text-muted-light: #666666;
+            --radius: 16px;
         }
 
         /* ---- Canvas ---- */
         body,
         .gradient-bg {
-            background: #0A0A0B !important;
+            background: var(--bg-light) !important;
             animation: none !important;
         }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
-            color: var(--text);
+            color: var(--text-light);
             letter-spacing: -0.011em;
             -webkit-font-smoothing: antialiased;
-            background:
-                radial-gradient(900px 480px at 50% -10%, rgba(232, 185, 35, 0.07), transparent 60%),
-                #0A0A0B !important;
         }
         .particles, .particle, .scroll-indicators { display: none !important; }
         .curve-top, .curve-bottom { display: none !important; }
@@ -2028,41 +2028,35 @@
     </section>
 
     <!-- Introduction Section -->
-    <section id="intro" class="py-24 relative" style="background-color: #0a0a0a;">
-        <div class="curve-top">
-            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#000000"></path>
-            </svg>
-        </div>
-
+    <section id="intro" class="py-24" style="background: var(--bg-light);">
         <div class="container mx-auto px-4">
             <div class="max-w-6xl mx-auto">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     <div class="slide-in-left">
-                        <p class="section-label">Our Firm</p>
-                        <h2 class="text-4xl md:text-5xl font-bold mb-6 gold-accent">Who We <span style="color: var(--gold)">Are</span></h2>
-                        <p class="text-lg mb-5 text-gray-300 leading-relaxed">
+                        <p class="section-label" style="color: var(--gold-deep);">Our Firm</p>
+                        <h2 class="text-4xl md:text-5xl font-bold mb-6" style="color: var(--text-light);">
+                            Who We <span style="color: var(--gold);">Are</span>
+                        </h2>
+                        <p class="text-lg mb-5 leading-relaxed" style="color: var(--text-muted-light);">
                             WISE Financial Partners combines strategic financial planning with mindset transformation to help you achieve lasting wealth and freedom.
                         </p>
-                        <p class="text-lg text-gray-300 leading-relaxed mb-8">
+                        <p class="text-lg leading-relaxed mb-8" style="color: var(--text-muted-light);">
                             Our holistic approach addresses both the practical and psychological aspects of financial success, aligning your money decisions with your core values.
                         </p>
-                        <a href="javascript:void(0)" onclick="openCalendlyPopup()" class="btn-outline-premium inline-block">
+                        <a href="javascript:void(0)" onclick="openCalendlyPopup()" class="btn-premium inline-block">
                             Begin Your Journey
                         </a>
                     </div>
 
                     <div class="slide-in-right">
-                        <img loading="lazy" decoding="async" src="https://static.wixstatic.com/media/5e8141_58f3f13f4f07470bbb75f838aee0699a~mv2.jpg" alt="Glenn Windom - Financial Advisor" class="w-full rounded-2xl" style="max-height: 500px; object-fit: cover;">
+                        <img loading="lazy" decoding="async"
+                             src="https://static.wixstatic.com/media/5e8141_58f3f13f4f07470bbb75f838aee0699a~mv2.jpg"
+                             alt="WISE Financial Partners Team"
+                             class="w-full rounded-3xl shadow-2xl"
+                             style="max-height: 500px; object-fit: cover; box-shadow: 0 25px 60px rgba(212, 175, 55, 0.12);">
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="curve-bottom">
-            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" fill="currentColor"></path>
-            </svg>
         </div>
     </section>
 
@@ -2213,6 +2207,86 @@
                 <a href="javascript:void(0)" onclick="openCalendlyPopup()" class="btn-premium inline-block text-lg fade-in-up">
                     Book Your Consultation
                 </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founder Section - Glenn Windom -->
+    <section id="founder" class="py-32" style="background: var(--bg-light);">
+        <div class="container mx-auto px-4 max-w-7xl">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <!-- Left: Glenn's Image -->
+                <div class="fade-in-up">
+                    <img loading="lazy" decoding="async"
+                         src="https://static.wixstatic.com/media/2853e8_30a8c226eaa44f20b55ad1214803ccb5~mv2.png"
+                         alt="Glenn Windom II - Founder"
+                         class="w-full max-w-lg mx-auto rounded-3xl shadow-2xl"
+                         style="box-shadow: 0 25px 60px rgba(212, 175, 55, 0.15);">
+                </div>
+
+                <!-- Right: Content -->
+                <div class="fade-in-up">
+                    <p class="section-label" style="color: var(--gold-deep);">Founder & Visionary</p>
+                    <h2 class="text-4xl md:text-6xl font-bold mb-6" style="color: var(--text-light);">
+                        Meet <span style="color: var(--gold);">Glenn Windom II</span>
+                    </h2>
+
+                    <blockquote class="border-l-4 pl-6 my-8" style="border-color: var(--gold);">
+                        <p class="text-2xl md:text-3xl italic font-light" style="color: var(--text-light);">
+                            "Money isn't math, it's mental."
+                        </p>
+                    </blockquote>
+
+                    <p class="text-lg mb-6 leading-relaxed" style="color: var(--text-muted-light);">
+                        Glenn Windom II is a visionary financial advisor whose unique approach combines mindset coaching with strategic financial planning to help clients achieve lasting wealth and financial freedom.
+                    </p>
+
+                    <p class="text-lg mb-8 leading-relaxed" style="color: var(--text-muted-light);">
+                        As founder of WISE Financial Partners, Glenn empowers creators, professionals, and entrepreneurs to build legacy wealth through a holistic approach that addresses both the practical and psychological aspects of money.
+                    </p>
+
+                    <!-- The Money Mirror Book Card -->
+                    <div class="p-8 rounded-2xl mb-8" style="background: var(--surface-light); border: 2px solid var(--border-light); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);">
+                        <div class="flex flex-col md:flex-row items-center gap-6">
+                            <img loading="lazy" decoding="async"
+                                 src="https://static.wixstatic.com/media/5e8141_ade3cb0a9ede4b05bec568edb5208e66~mv2.jpeg"
+                                 alt="The Money Mirror Book Cover"
+                                 class="rounded-xl shadow-lg w-32 md:w-40">
+                            <div class="flex-1 text-center md:text-left">
+                                <h3 class="text-2xl md:text-3xl font-bold mb-3" style="color: var(--text-light);">
+                                    The <span style="color: var(--gold);">Money Mirror</span>
+                                </h3>
+                                <p class="mb-5 text-lg" style="color: var(--text-muted-light);">
+                                    Discover the psychological principles behind wealth creation in Glenn's groundbreaking book.
+                                </p>
+                                <div class="flex flex-wrap gap-3 justify-center md:justify-start">
+                                    <a href="https://a.co/d/aTH4fPE" target="_blank" rel="noopener noreferrer"
+                                       class="btn-premium text-sm py-3 px-6">
+                                        <i class="fab fa-amazon mr-2"></i> Get on Amazon
+                                    </a>
+                                    <a href="https://books.apple.com/us/book/the-money-mirror/id6746219698"
+                                       target="_blank" rel="noopener noreferrer"
+                                       class="btn-outline-premium text-sm py-3 px-6">
+                                        <i class="fab fa-apple mr-2"></i> Apple Books
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Credentials & Social -->
+                    <div class="flex flex-col sm:flex-row items-center gap-6">
+                        <p class="text-sm font-semibold" style="color: var(--gold-deep);">
+                            CA Insurance License #4359007 | Licensed in Multiple States
+                        </p>
+                        <a href="https://www.instagram.com/imglennwin?igsh=MWd0Z24zbWdrbTNweA=="
+                           target="_blank" rel="noopener noreferrer"
+                           class="transform hover:scale-110 transition-transform"
+                           style="color: var(--gold);">
+                            <i class="fab fa-instagram text-3xl"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
