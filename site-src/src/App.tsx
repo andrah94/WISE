@@ -233,23 +233,11 @@ function Gallery() {
         <Heading className="mt-6 !text-ink">Real people. <em>Real results.</em></Heading>
         <FadeUp delay={0.15}><p className="mt-6 max-w-xl text-ink/65">Backed by a network of industry-leading carriers, with a licensed professional in your corner.</p></FadeUp>
       </div>
-      <div className="px-6 pb-16 md:hidden">
-        <div className="grid grid-cols-2 items-center gap-x-6 gap-y-8">
-          {providers.map((p, i) => (
-            <FadeUp key={p.alt} delay={i * 0.05}><img src={p.src} alt={p.alt} loading="lazy" className="mx-auto h-28 w-full scale-125 object-contain" /></FadeUp>
-          ))}
-        </div>
-        <FadeUp className="relative mt-12 overflow-hidden rounded-3xl">
-          <img src={wix(IMG.glennWorking, 900, 1000)} alt="Glenn Windom II at the WISE office" loading="lazy" className="h-[26rem] w-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/20 to-transparent" />
-          <p className="display absolute inset-x-0 bottom-6 text-center text-4xl text-white">Real <em className="gold-text italic">transformation.</em></p>
-        </FadeUp>
-      </div>
-      <div className="hidden md:block"><ZoomParallax images={images}>
+      <ZoomParallax images={images}>
         <div className="text-center">
           <p className="display text-[clamp(2.6rem,7vw,6.5rem)] text-white">Real <em className="gold-text italic">transformation.</em></p>
         </div>
-      </ZoomParallax></div>
+      </ZoomParallax>
     </section>
   )
 }
