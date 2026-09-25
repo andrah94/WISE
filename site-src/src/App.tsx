@@ -388,7 +388,7 @@ function Careers() {
         <div className="relative mx-auto max-w-7xl px-6 md:px-10">
           <div className="max-w-3xl">
             <span className="eyebrow">Join WISE</span>
-            <div className="max-w-[min(100%,8.6em)] text-[clamp(2.6rem,6vw,5.6rem)]"><Heading className="mt-5">Build a business. <em>Grow with us.</em></Heading></div>
+            <div className="max-w-[min(100%,7.4em)] text-[clamp(2.6rem,6vw,5.6rem)]"><Heading className="mt-5">Build a business. <em>Grow with us.</em></Heading></div>
             <FadeUp delay={0.1}><p className="mt-7 text-lg font-light leading-relaxed text-bone/70">Help families protect what matters and build wealth, while you build a business of your own. No finance background needed. We train you, mentor you, and grow with you.</p></FadeUp>
             <FadeUp delay={0.15} className="mt-10">
               <p className="font-serif text-[clamp(1.6rem,3.2vw,2.6rem)] leading-[1.2] text-white/85">Built for <RotatingWord words={who} /></p>
