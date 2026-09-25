@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: 'Fraunces', Georgia, serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --color-ink: #070708;
+  --color-ink-2: #0d0d0f;
+  --color-ink-3: #151518;
+  --color-bone: #efe9dd;
+  --color-gold: #c9a24b;
+  --color-gold-2: #e7ce8a;
+  --color-gold-3: #9c7a2e;
+  --animate-accordion-down: accordion-down 0.35s cubic-bezier(.2,.7,.2,1);
+  --animate-accordion-up: accordion-up 0.3s cubic-bezier(.2,.7,.2,1);
+  @keyframes accordion-down { from { height: 0 } to { height: var(--radix-accordion-content-height) } }
+  @keyframes accordion-up { from { height: var(--radix-accordion-content-height) } to { height: 0 } }
+}
+
+:root { color-scheme: dark; }
+html { background: var(--color-ink); }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+body {
+  background: var(--color-ink);
+  color: var(--color-bone);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+::selection { background: var(--color-gold-2); color: var(--color-ink); }
+
+.gold-text {
+  background: linear-gradient(110deg, #9c7a2e 0%, #f3e3b3 38%, #c9a24b 55%, #e7ce8a 75%, #9c7a2e 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: sheen 8s linear infinite;
+}
+@keyframes sheen { to { background-position: -200% 0; } }
+.gold-bg { background: linear-gradient(110deg, #9c7a2e 0%, #e7ce8a 45%, #c9a24b 70%, #f3e3b3 100%); }
+.grain::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .08; z-index: 1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.eyebrow { display: inline-flex; align-items: center; gap: .75rem; font-size: .72rem; letter-spacing: .28em; text-transform: uppercase; font-weight: 600; color: var(--color-gold-2); }
+.eyebrow::before { content: ""; width: 2rem; height: 1px; background: currentColor; opacity: .7; }
+.display { font-family: var(--font-serif); font-weight: 300; letter-spacing: -.025em; line-height: 1; }
+.outline-text { -webkit-text-stroke: 1px rgba(231,206,138,.22); color: transparent; }
+@media (prefers-reduced-motion: reduce) { .gold-text { animation: none; } }
