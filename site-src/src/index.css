@@ -36,6 +36,12 @@ body {
   -webkit-background-clip: text; background-clip: text; color: transparent;
   animation: sheen 8s linear infinite;
 }
+.gold-text-deep {
+  background: linear-gradient(110deg, #6f5418 0%, #b08a35 40%, #8a6a24 60%, #c29a45 80%, #6f5418 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: sheen 8s linear infinite;
+}
 @keyframes sheen { to { background-position: -200% 0; } }
 .gold-bg { background: linear-gradient(110deg, #9c7a2e 0%, #e7ce8a 45%, #c9a24b 70%, #f3e3b3 100%); }
 .grain::after {

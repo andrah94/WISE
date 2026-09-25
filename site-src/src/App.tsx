@@ -42,8 +42,8 @@ function FadeUp({ children, delay = 0, className }: { children: React.ReactNode;
     </motion.div>
   )
 }
-function Heading({ children, className, as = 'h2' }: { children: React.ReactNode; className?: string; as?: 'h1' | 'h2' }) {
-  return <MaskedTextReveal as={as} splitBy="lines" className={cn('display text-[clamp(2.6rem,6vw,5.6rem)] text-bone', className)} unitClassName="gold-text italic">{children}</MaskedTextReveal>
+function Heading({ children, className, as = 'h2', unitClassName = 'gold-text italic' }: { children: React.ReactNode; className?: string; as?: 'h1' | 'h2'; unitClassName?: string }) {
+  return <MaskedTextReveal as={as} splitBy="lines" className={cn('display text-[clamp(2.6rem,6vw,5.6rem)] text-bone', className)} unitClassName={unitClassName}>{children}</MaskedTextReveal>
 }
 
 /* ---------- nav ---------- */
@@ -216,8 +216,8 @@ function ServiceCard({ s, i, big }: { s: (typeof services)[number]; i: number; b
       <div className="relative p-7 md:p-8">
         <h3 className={cn('font-serif leading-tight text-white', big ? 'text-3xl md:text-[2.4rem]' : 'text-2xl md:text-[1.7rem]')}>{s.title}</h3>
         <p className="mt-3 max-w-md text-[15px] font-light leading-relaxed text-white/75">{s.desc}</p>
-        <ul className="mt-5 flex flex-wrap items-center gap-x-2.5 gap-y-1 border-t border-gold/25 pt-4 text-[11px] font-medium tracking-[0.16em] text-gold-2 uppercase" aria-label={`${s.title} products`}>
-          {s.products.map((p, j) => <li key={p} className="flex items-center gap-2.5">{j > 0 && <span aria-hidden className="h-3 w-px rotate-[20deg] bg-gold/50" />}{p}</li>)}
+        <ul className="mt-5 grid grid-cols-1 gap-y-2 border-t border-gold/25 pt-4 text-[11px] font-medium tracking-[0.16em] text-gold-2 uppercase sm:grid-cols-2 sm:gap-x-5" aria-label={`${s.title} products`}>
+          {s.products.map((p) => <li key={p} className="flex items-center gap-2.5"><span aria-hidden className="h-px w-3 shrink-0 bg-gold/60" />{p}</li>)}
         </ul>
       </div>
     </div>
@@ -265,7 +265,7 @@ function Gallery() {
       <div aria-hidden className="h-[28vh] bg-gradient-to-b from-ink to-bone" />
       <div className="relative mx-auto flex max-w-5xl flex-col items-center justify-center px-6 pb-10 text-center">
         <span className="eyebrow !text-gold-3">Your financial future starts here</span>
-        <Heading className="mt-6 !text-ink">Real people. <em>Real results.</em></Heading>
+        <Heading className="mt-6 !text-ink" unitClassName="gold-text-deep italic">Real people. <em>Real results.</em></Heading>
         <FadeUp delay={0.15}><p className="mt-6 max-w-xl text-ink/65">Backed by a network of industry-leading carriers, with a licensed professional in your corner.</p></FadeUp>
       </div>
       <ZoomParallax images={images}>
@@ -301,7 +301,7 @@ function Founder() {
             <blockquote className="mt-8 border-l-2 border-gold pl-6 font-serif text-[clamp(1.7rem,2.8vw,2.6rem)] leading-tight font-light text-white italic">"Money isn't math, it's mental."</blockquote>
           </FadeUp>
           <FadeUp delay={0.15}>
-            <p className="mt-8 text-lg font-light leading-relaxed text-bone/65">Glenn Windom II is a visionary financial advisor whose unique approach combines mindset coaching with strategic financial planning to help clients achieve lasting wealth and financial freedom.</p>
+            <p className="mt-8 text-lg font-light leading-relaxed text-bone/65">Glenn Windom II is a visionary financial professional whose unique approach combines mindset coaching with strategic financial planning to help clients achieve lasting wealth and financial freedom.</p>
             <p className="mt-4 text-lg font-light leading-relaxed text-bone/65">As founder of WISE Financial Partners, Glenn empowers creators, professionals, and entrepreneurs to build legacy wealth through a holistic approach that addresses both the practical and psychological aspects of money.</p>
             <p className="mt-6 text-lg font-light leading-relaxed text-bone/80">His book, <em className="gold-text italic">The Money Mirror</em>, explores the psychological principles behind wealth creation.</p>
           </FadeUp>
@@ -349,7 +349,7 @@ function RotatingWord({ words }: { words: string[] }) {
   return (
     <span className="relative inline-block h-[1.2em] overflow-hidden align-top">
       <AnimatePresence mode="wait" initial={false}>
-        <motion.em key={words[i]} className="gold-text inline-block italic" initial={{ y: '105%' }} animate={{ y: '0%' }} exit={{ y: '-105%' }} transition={{ duration: 0.55, ease }}>{words[i]}</motion.em>
+        <motion.em key={words[i]} className="gold-text inline-block whitespace-nowrap italic" initial={{ y: '105%' }} animate={{ y: '0%' }} exit={{ y: '-105%' }} transition={{ duration: 0.55, ease }}>{words[i]}</motion.em>
       </AnimatePresence>
       <span className="sr-only">{words.join(', ')}</span>
     </span>
@@ -375,7 +375,7 @@ function LitLine({ text, i }: { text: string; i: number }) {
 
 /* ---------- careers / join WISE ---------- */
 function Careers() {
-  const who = ['career changers.', 'entrepreneurs.', 'students & recent grads.', 'parents.', 'part-time builders.', 'future leaders.']
+  const who = ['career changers.', 'entrepreneurs.', 'new grads.', 'parents.', 'side hustlers.', 'future leaders.']
   const lookFor = ['A willingness to learn', 'A genuine desire to help families', 'Coachable and consistent', 'Integrity in every conversation']
   const youGet = ['Licensing guidance and ongoing training', 'Mentorship from Glenn and experienced leaders', 'A flexible schedule you control', 'Access to industry-leading products and carriers']
   return (
@@ -388,7 +388,7 @@ function Careers() {
         <div className="relative mx-auto max-w-7xl px-6 md:px-10">
           <div className="max-w-3xl">
             <span className="eyebrow">Join WISE</span>
-            <Heading className="mt-5">Build a business. <em>Grow with us.</em></Heading>
+            <div className="max-w-[min(100%,8.6em)] text-[clamp(2.6rem,6vw,5.6rem)]"><Heading className="mt-5">Build a business. <em>Grow with us.</em></Heading></div>
             <FadeUp delay={0.1}><p className="mt-7 text-lg font-light leading-relaxed text-bone/70">Help families protect what matters and build wealth, while you build a business of your own. No finance background needed. We train you, mentor you, and grow with you.</p></FadeUp>
             <FadeUp delay={0.15} className="mt-10">
               <p className="font-serif text-[clamp(1.6rem,3.2vw,2.6rem)] leading-[1.2] text-white/85">Built for <RotatingWord words={who} /></p>
@@ -535,7 +535,7 @@ function Contact() {
               <div>
                 <span className="eyebrow">Free consultation</span>
                 <h3 className="display mt-5 text-[clamp(2.2rem,3.6vw,3.4rem)] text-white">Take the <em className="gold-text italic">next step.</em></h3>
-                <p className="mt-4 max-w-md font-light text-white/70">Schedule a free 30-minute consultation with one of our financial advisors.</p>
+                <p className="mt-4 max-w-md font-light text-white/70">Schedule a free 30-minute consultation with one of our licensed financial professionals.</p>
               </div>
               <div className="mt-10">
                 <GoldButton onClick={() => openCalendly()}>Book Your Free Consultation</GoldButton>
@@ -652,8 +652,11 @@ function Popup() {
 /* ---------- always-visible booking ---------- */
 function StickyCTA() {
   const [show, setShow] = useState(false)
+  const [career, setCareer] = useState(false)
   useEffect(() => {
     const on = () => {
+      const c = document.getElementById('careers')?.getBoundingClientRect()
+      setCareer(!!c && c.top < window.innerHeight * 0.6 && c.bottom > window.innerHeight * 0.4)
       const past = window.scrollY > window.innerHeight * 0.7
       const nearEnd = window.innerHeight + window.scrollY > document.documentElement.scrollHeight - 900
       setShow(past && !nearEnd)
@@ -667,8 +670,7 @@ function StickyCTA() {
         <motion.div initial={{ y: 120, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 120, opacity: 0 }} transition={{ duration: 0.5, ease }}
           className="fixed inset-x-3 bottom-3 z-[55] md:hidden">
           <div className="flex items-center gap-4 rounded-full border border-gold/30 bg-ink/85 py-2 pr-2 pl-5 shadow-[0_20px_60px_-15px_rgba(0,0,0,.8)] backdrop-blur-xl">
-            <span className="hidden text-sm text-white/80 sm:block">Free 30-min consultation</span>
-            <button onClick={() => openCalendly()} className="flex-1 rounded-full gold-bg px-6 py-3 text-sm font-semibold whitespace-nowrap text-[#141005] sm:flex-none">Book a Free Consult</button>
+            <button onClick={() => openCalendly(career ? CAREER_URL : undefined)} className="flex-1 rounded-full gold-bg px-6 py-3 text-sm font-semibold whitespace-nowrap text-[#141005]">{career ? 'Book a Career Conversation' : 'Book a Free Consult'}</button>
           </div>
         </motion.div>
       )}
