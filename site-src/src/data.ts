@@ -112,3 +112,17 @@ export function openCalendly(url: string = BOOK_URL) {
   if (window.Calendly) window.Calendly.initPopupWidget({ url })
   else window.open(url, '_blank', 'noopener')
 }
+
+/** SAMPLE reviews for layout only. Replace with real, approved client reviews before launch (set REVIEWS_ARE_SAMPLE = false). */
+export const REVIEWS_ARE_SAMPLE = true
+export const reviews = [
+  { text: 'Glenn walked us through term vs. IUL without any pressure. For the first time we actually understand what we are paying for and why.', name: 'Marcus T.', place: 'Inglewood, CA', product: 'Life Insurance', when: '2 months ago' },
+  { text: 'I kept putting off planning for retirement because it felt overwhelming. The Needs Analysis broke it down into steps I could actually follow.', name: 'Denise R.', place: 'Long Beach, CA', product: 'Retirement Strategies', when: '3 weeks ago' },
+  { text: 'As a small business owner I never had a plan if something happened to me. Now my family and my business are both protected.', name: 'Andre W.', place: 'Atlanta, GA', product: 'Business Strategies', when: '1 month ago' },
+  { text: 'The Money Mirror changed how I think about spending. Meeting with the team afterward helped me turn that into a real plan.', name: 'Keisha M.', place: 'Carson, CA', product: 'Financial Needs Analysis', when: '5 months ago' },
+  { text: 'They answered every question my husband and I had, even the ones we were embarrassed to ask. Professional and patient.', name: 'Latoya & James B.', place: 'Houston, TX', product: 'Life Insurance', when: '4 months ago' },
+  { text: 'We started a college fund for our daughter the same week. Wish we had done this when she was born.', name: 'Carlos V.', place: 'Pasadena, CA', product: 'College Funding', when: '6 weeks ago' },
+  { text: 'I rolled my old 401(k) into something I understand and I finally sleep at night. Great follow-up after the fact too.', name: 'Pamela H.', place: 'Riverside, CA', product: 'Annuities', when: '2 months ago' },
+  { text: 'No sales pitch, just clarity. They looked at my whole picture and showed me where the gaps were.', name: 'Jordan K.', place: 'Los Angeles, CA', product: 'Income Protection', when: '1 week ago' },
+  { text: 'My parents never talked about money. Working with WISE, I am building something my kids will actually inherit.', name: 'Brianna S.', place: 'Oakland, CA', product: 'Estate Preservation', when: '3 months ago' },
+]

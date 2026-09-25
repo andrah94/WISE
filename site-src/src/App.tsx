@@ -8,13 +8,14 @@ import { InfiniteSlider } from '@/components/ui/infinite-slider'
 import { ScrollWordReveal } from '@/components/ui/scroll-word-reveal'
 import ScrollRevealContent from '@/components/ui/scroll-reveal-content'
 import { ZoomParallax } from '@/components/ui/zoom-parallax'
+import { TestimonialsColumn } from '@/components/ui/testimonials-columns'
 import { Tilt } from '@/components/ui/tilt'
 import { Spotlight } from '@/components/ui/spotlight'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { cn } from '@/lib/utils'
 import {
   AMAZON, APPLE_BOOKS, CAREER_URL, EMAIL, GLENN_IG, GLENN_IN, IMG, NEWSLETTER_ENDPOINT, VIDEO_HANDSHAKE, VIDEO_SECOND,
-  agentFaqs, careerPath, faqs, leaders, openCalendly, partners, providers, services, steps, unsplash, wix,
+  REVIEWS_ARE_SAMPLE, agentFaqs, careerPath, reviews, faqs, leaders, openCalendly, partners, providers, services, steps, unsplash, wix,
 } from '@/data'
 
 const ease = [0.2, 0.7, 0.2, 1] as const
@@ -273,6 +274,39 @@ function Gallery() {
           <p className="display text-[clamp(2.6rem,7vw,6.5rem)] text-white">Real <em className="gold-text italic">transformation.</em></p>
         </div>
       </ZoomParallax>
+    </section>
+  )
+}
+
+/* ---------- client reviews (21st.dev: efferd/testimonials-columns-1) ---------- */
+function Reviews() {
+  return (
+    <section id="reviews" className="relative overflow-hidden bg-ink py-20 md:py-28">
+      <div aria-hidden className="absolute top-1/3 left-1/2 h-[60vmin] w-[90vmin] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(201,162,75,.14),transparent)] blur-2xl" />
+      <div className="relative mx-auto max-w-7xl px-6 md:px-10">
+        <div className="flex flex-wrap items-end justify-between gap-8">
+          <div className="min-w-0 flex-[1_1_36rem]">
+            <span className="eyebrow">Client stories</span>
+            <Heading className="mt-5">Trusted by families <em>like yours.</em></Heading>
+          </div>
+          <FadeUp className="flex flex-col items-start gap-3">
+            <div className="flex items-center gap-3">
+              <span className="font-serif text-5xl leading-none text-white">5.0</span>
+              <div>
+                <div className="flex gap-0.5">{Array.from({ length: 5 }).map((_, i) => <svg key={i} viewBox="0 0 20 20" className="size-4 fill-gold-2" aria-hidden><path d="M10 1.5l2.6 5.5 6 .8-4.4 4.2 1.1 6-5.3-2.9-5.3 2.9 1.1-6L1.4 7.8l6-.8z" /></svg>)}</div>
+                <p className="mt-1 text-xs text-white/50">Average client rating</p>
+              </div>
+            </div>
+            {REVIEWS_ARE_SAMPLE && <span className="rounded-full border border-dashed border-gold/50 px-3 py-1 text-[11px] tracking-wide text-gold-2">Sample reviews for layout. Replace before launch.</span>}
+          </FadeUp>
+        </div>
+        <div className="mt-12 flex max-h-[720px] justify-center gap-5 overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_18%,black_82%,transparent)]">
+          <TestimonialsColumn reviews={reviews.slice(0, 3)} duration={26} />
+          <TestimonialsColumn reviews={reviews.slice(3, 6)} duration={32} className="hidden md:block" />
+          <TestimonialsColumn reviews={reviews.slice(6, 9)} duration={29} className="hidden lg:block" />
+        </div>
+        <p className="mt-8 text-center text-[11px] text-white/35">Testimonials reflect individual experiences and may not be representative of other clients. No guarantee of future performance or success.</p>
+      </div>
     </section>
   )
 }
@@ -703,6 +737,7 @@ export default function App() {
           text="Money isn't math, it's mental. We align your money decisions with your core values." />
         <Method />
         <Gallery />
+        <Reviews />
         <Founder />
         <Team />
         <FAQ />
