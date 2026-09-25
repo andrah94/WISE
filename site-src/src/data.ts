@@ -61,9 +61,9 @@ export const services = [
   { title: 'Income Protection', desc: 'Safeguard your financial future with comprehensive insurance and risk management strategies.', img: wix(IMG.planning, 1000, 1200) },
   { title: 'Retirement Planning', desc: 'Personalized retirement strategies to ensure financial security and maintain your lifestyle.', img: unsplash('photo-1566053166065-79446ba9b79f', 1000) },
   { title: 'Legacy & Estate Planning', desc: "Preserve and transfer your wealth to future generations with thoughtful estate planning that protects your family's future.", img: unsplash('photo-1592599457566-c660153d9548', 1000) },
-  { title: 'Educational Savings', desc: 'College funding strategies.', img: unsplash('photo-1704452607333-f0e189d7e2cc', 1000) },
+  { title: 'Educational Savings', desc: 'College funding strategies.', img: unsplash('photo-1665598214162-274973faa6f7', 1000) },
   { title: 'Tax Optimization', desc: 'Minimize liabilities and maximize wealth.', img: unsplash('photo-1599837487527-e009248aa71b', 1000) },
-  { title: 'Business Planning', desc: 'Succession and benefits solutions.', img: unsplash('photo-1761370571806-886404629697', 1000) },
+  { title: 'Business Planning', desc: 'Succession and benefits solutions.', img: unsplash('photo-1611432579402-7037e3e2c1e4', 1000) },
 ]
 
 export const igPosts = [

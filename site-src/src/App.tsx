@@ -4,7 +4,6 @@ import { AnimatePresence, motion, useScroll, useSpring, useTransform } from 'mot
 import { ArrowRight, ArrowUpRight, BadgeCheck, CalendarCheck, Mail, Menu, ShieldCheck, X, Check } from 'lucide-react'
 import { Instagram, Linkedin } from '@/components/icons'
 import { MaskedTextReveal } from '@/components/ui/text-reveal-mask'
-import { BlurredMarquee } from '@/components/ui/blurred-marquee'
 import { InfiniteSlider } from '@/components/ui/infinite-slider'
 import { ScrollWordReveal } from '@/components/ui/scroll-word-reveal'
 import ScrollRevealContent from '@/components/ui/scroll-reveal-content'
@@ -152,17 +151,6 @@ function Hero() {
   )
 }
 
-/* ---------- providers ---------- */
-function Providers() {
-  return (
-    <section className="relative bg-ink py-16">
-      <p className="mb-8 text-center text-[11px] tracking-[0.32em] text-white/40 uppercase">Our network of providers</p>
-      <BlurredMarquee logos={providers} />
-      <p className="mx-auto mt-8 max-w-2xl px-6 text-center text-xs text-white/35">This represents a selection of our provider network. We work with many additional financial institutions to meet your specific needs.</p>
-    </section>
-  )
-}
-
 /* ---------- WISE method ---------- */
 function Method() {
   return (
@@ -203,7 +191,7 @@ function ServiceCard({ s, i, big }: { s: (typeof services)[number]; i: number; b
 
 function Services() {
   return (
-    <section id="services" className="relative bg-ink py-24 md:py-32">
+    <section id="services" className="relative bg-ink py-16 md:py-24">
       <div aria-hidden className="absolute top-0 left-1/2 h-[60vmin] w-[90vmin] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(201,162,75,.12),transparent)] blur-2xl" />
       <div className="relative mx-auto max-w-7xl px-6 md:px-10">
         <div className="flex flex-wrap items-end justify-between gap-8">
@@ -220,7 +208,7 @@ function Services() {
           {services.map((s, i) => <div key={s.title} className="w-[80vw] shrink-0 snap-center"><ServiceCard s={s} i={i} /></div>)}
         </div>
         <p className="mt-2 text-center text-xs text-white/35 md:hidden">Swipe to see all 7 services</p>
-        <div className="mt-14 hidden gap-4 md:grid md:grid-cols-2">
+        <div className="mt-10 hidden gap-4 md:grid md:grid-cols-2">
           {services.slice(0, 4).map((s, i) => <FadeUp key={s.title} delay={(i % 2) * 0.08}><ServiceCard s={s} i={i} big /></FadeUp>)}
         </div>
         <div className="mt-4 hidden gap-4 md:grid md:grid-cols-3">
@@ -245,11 +233,23 @@ function Gallery() {
         <Heading className="mt-6 !text-ink">Real people. <em>Real results.</em></Heading>
         <FadeUp delay={0.15}><p className="mt-6 max-w-xl text-ink/65">Backed by a network of industry-leading carriers, with a licensed professional in your corner.</p></FadeUp>
       </div>
-      <ZoomParallax images={images}>
+      <div className="px-6 pb-16 md:hidden">
+        <div className="grid grid-cols-2 items-center gap-x-6 gap-y-8">
+          {providers.map((p, i) => (
+            <FadeUp key={p.alt} delay={i * 0.05}><img src={p.src} alt={p.alt} loading="lazy" className="mx-auto h-28 w-full scale-125 object-contain" /></FadeUp>
+          ))}
+        </div>
+        <FadeUp className="relative mt-12 overflow-hidden rounded-3xl">
+          <img src={wix(IMG.glennWorking, 900, 1000)} alt="Glenn Windom II at the WISE office" loading="lazy" className="h-[26rem] w-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/20 to-transparent" />
+          <p className="display absolute inset-x-0 bottom-6 text-center text-4xl text-white">Real <em className="gold-text italic">transformation.</em></p>
+        </FadeUp>
+      </div>
+      <div className="hidden md:block"><ZoomParallax images={images}>
         <div className="text-center">
           <p className="display text-[clamp(2.6rem,7vw,6.5rem)] text-white">Real <em className="gold-text italic">transformation.</em></p>
         </div>
-      </ZoomParallax>
+      </ZoomParallax></div>
     </section>
   )
 }
@@ -257,8 +257,8 @@ function Gallery() {
 /* ---------- founder + book ---------- */
 function Founder() {
   return (
-    <section id="founder" className="relative overflow-hidden bg-ink-2 py-28 md:py-40">
-      <div aria-hidden className="outline-text pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 select-none text-center font-serif text-[20vw] leading-none whitespace-nowrap">The Money Mirror</div>
+    <section id="founder" className="relative overflow-hidden bg-ink-2 py-20 md:py-28">
+      <div aria-hidden className="outline-text pointer-events-none absolute inset-x-0 top-1/2 hidden -translate-y-1/2 select-none text-center font-serif text-[20vw] leading-none whitespace-nowrap lg:block">The Money Mirror</div>
       <div aria-hidden className="absolute top-1/2 left-1/4 h-[70vmin] w-[70vmin] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(201,162,75,.28),transparent)] blur-2xl" />
       <div className="relative mx-auto grid max-w-7xl items-center gap-16 px-6 md:px-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
         <FadeUp className="flex flex-col items-center">
@@ -337,7 +337,7 @@ function Team() {
 function Careers() {
   const perks = ['Comprehensive training and licensing support', 'Mentorship from experienced professionals', 'Flexible schedule and performance-based earning potential', 'Access to industry-leading products']
   return (
-    <section id="careers" className="relative overflow-hidden bg-ink py-28 md:py-44">
+    <section id="careers" className="relative overflow-hidden bg-ink py-20 md:py-32">
       <video autoPlay muted loop playsInline preload="none" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover opacity-30">
         <source src={VIDEO_SECOND} type="video/mp4" />
       </video>
@@ -370,7 +370,7 @@ function Careers() {
 /* ---------- faq ---------- */
 function FAQ() {
   return (
-    <section id="faq" className="relative bg-ink py-28 md:py-40">
+    <section id="faq" className="relative bg-ink py-20 md:py-28">
       <div className="mx-auto grid max-w-7xl gap-14 px-6 md:px-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
         <div>
           <span className="eyebrow">Answers</span>
@@ -417,14 +417,14 @@ function Contact() {
     } finally { setBusy(false) }
   }
   return (
-    <section id="contact" className="relative bg-ink py-28 md:py-40">
+    <section id="contact" className="relative bg-ink py-20 md:py-28">
       <div className="mx-auto max-w-7xl px-6 md:px-10">
         <div className="flex flex-wrap items-end justify-between gap-8">
           <div className="min-w-0 flex-[1_1_40rem]">
             <span className="eyebrow">Get started</span>
-            <Heading className="mt-5">Get in <em>touch.</em></Heading>
+            <Heading className="mt-5">Your legacy starts <em>today.</em></Heading>
           </div>
-          <FadeUp><p className="max-w-sm font-light text-bone/60">Ready to transform your financial future? Contact us today to schedule a consultation.</p></FadeUp>
+          <FadeUp><p className="max-w-sm font-light text-bone/60">One free conversation. No pressure, no obligation. Just clarity on where you are and where you want to go.</p></FadeUp>
         </div>
         <div className="mt-14 grid gap-4 lg:grid-cols-2">
           <FadeUp>
@@ -471,19 +471,10 @@ function Contact() {
 function Footer() {
   const nav = [['Services', '#services'], ['About', '#about'], ['Founder', '#founder'], ['Team', '#team'], ['Careers', '#careers'], ['FAQ', '#faq'], ['Contact', '#contact']]
   return (
-    <footer className="relative overflow-hidden bg-ink">
-      <div className="relative overflow-hidden border-t border-white/10 py-28 text-center md:py-40">
-        <img src={unsplash('photo-1631473121056-34bbec0dfb3b', 2000)} alt="" loading="lazy" className="absolute inset-0 size-full object-cover opacity-25" />
-        <div className="absolute inset-0 bg-gradient-to-b from-ink via-ink/40 to-ink" />
-        <div className="relative px-6">
-          <Heading className="mx-auto max-w-4xl text-[clamp(3rem,8vw,7.5rem)]">Your legacy starts <em>today.</em></Heading>
-          <FadeUp delay={0.15}><p className="mx-auto mt-6 max-w-md font-light text-white/65">One free conversation. No pressure, no obligation. Just clarity on where you are and where you want to go.</p></FadeUp>
-          <FadeUp delay={0.25} className="mt-10 flex justify-center"><GoldButton onClick={() => openCalendly()}>Book a Free Consultation</GoldButton></FadeUp>
-        </div>
-      </div>
+    <footer className="relative overflow-hidden border-t border-white/10 bg-ink">
       <div className="mx-auto grid max-w-7xl grid-cols-2 gap-10 px-6 pt-16 md:grid-cols-4 md:px-10">
         <div className="col-span-2">
-          <img src="/img/logo.jpg" alt="WISE Financial Partners" className="w-56 rounded-lg" loading="lazy" />
+          <div className="flex items-center gap-3"><img src="/img/mark.png" alt="" className="size-12 object-contain" /><span className="font-serif text-2xl text-white"><span className="tracking-[0.18em]">WISE</span> <span className="text-white/70">Financial Partners</span></span></div>
           <p className="mt-6 max-w-xs font-serif text-xl leading-snug font-light text-white/85">Transform your mindset. Protect your income. Build legacy wealth.</p>
           <div className="mt-6 flex gap-3">
             <a href={`mailto:${EMAIL}`} aria-label="Email" className="grid size-11 place-items-center rounded-full border border-white/15 hover:border-gold-2 hover:text-gold-2"><Mail className="size-4" /></a>
@@ -570,7 +561,7 @@ function StickyCTA() {
     <AnimatePresence>
       {show && (
         <motion.div initial={{ y: 120, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 120, opacity: 0 }} transition={{ duration: 0.5, ease }}
-          className="fixed inset-x-3 bottom-3 z-[55] md:inset-x-auto md:right-6 md:bottom-6">
+          className="fixed inset-x-3 bottom-3 z-[55] md:hidden">
           <div className="flex items-center gap-4 rounded-full border border-gold/30 bg-ink/85 py-2 pr-2 pl-5 shadow-[0_20px_60px_-15px_rgba(0,0,0,.8)] backdrop-blur-xl">
             <span className="hidden text-sm text-white/80 sm:block">Free 30-min consultation</span>
             <button onClick={() => openCalendly()} className="flex-1 rounded-full gold-bg px-6 py-3 text-sm font-semibold whitespace-nowrap text-[#141005] sm:flex-none">Book a Free Consult</button>
@@ -600,10 +591,9 @@ export default function App() {
       <Nav />
       <main id="main">
         <Hero />
-        <Providers />
         <Services />
         <ScrollWordReveal kicker="Our philosophy" goldWords={['mental', 'values']}
-          text="Money isn't math, it's mental. We combine strategic financial planning with mindset transformation, aligning your money decisions with your core values." />
+          text="Money isn't math, it's mental. We align your money decisions with your core values." />
         <Method />
         <Gallery />
         <Founder />

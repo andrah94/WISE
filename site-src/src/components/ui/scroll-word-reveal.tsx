@@ -2,7 +2,7 @@
 import { Fragment, useRef } from 'react'
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from 'motion/react'
 
-const REST_OPACITY = 0.12
+const REST_OPACITY = 0.3
 const REVEAL_SPAN = 0.8
 const WORD_WINDOW = 0.2
 
@@ -19,7 +19,7 @@ function getWordOpacity(progress: number, { start, end }: { start: number; end: 
 function Word({ children, progress, index, count, reducedMotion, gold }: { children: string; progress: MotionValue<number>; index: number; count: number; reducedMotion: boolean; gold?: boolean }) {
   const range = getWordRange(index, count)
   const opacity = useTransform(progress, (v) => getWordOpacity(v, range))
-  const blur = useTransform(progress, (v) => `blur(${(1 - getWordOpacity(v, range)) * 6}px)`)
+  const blur = useTransform(progress, (v) => `blur(${(1 - getWordOpacity(v, range)) * 3}px)`)
   return (
     <motion.span aria-hidden="true" className={gold ? 'gold-text italic' : undefined} style={reducedMotion ? undefined : { opacity, filter: blur }}>
       {children}
@@ -33,7 +33,7 @@ export function ScrollWordReveal({ text, goldWords = [], kicker }: { text: strin
   const { scrollYProgress } = useScroll({ target: targetRef, offset: ['start start', 'end end'] })
   const words = text.split(' ')
   return (
-    <section ref={targetRef} className="relative h-[180vh]" aria-label={text}>
+    <section ref={targetRef} className="relative h-[150vh]" aria-label={text}>
       <div className="sticky top-0 flex h-screen items-center">
         <div className="mx-auto flex w-full max-w-6xl gap-8 px-6 md:gap-14 md:px-10">
           <div className="relative hidden w-px shrink-0 self-stretch bg-white/10 md:block" aria-hidden="true">
