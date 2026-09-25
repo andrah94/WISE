@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Lenis from 'lenis'
 import { AnimatePresence, motion, useScroll, useSpring, useTransform } from 'motion/react'
-import { ArrowRight, ArrowUpRight, BadgeCheck, CalendarCheck, Mail, Menu, ShieldCheck, X, Check } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, BadgeCheck, CalendarCheck, Mail, Menu, ShieldCheck, X } from 'lucide-react'
 import { Instagram, Linkedin } from '@/components/icons'
 import { MaskedTextReveal } from '@/components/ui/text-reveal-mask'
 import { InfiniteSlider } from '@/components/ui/infinite-slider'
@@ -216,8 +216,8 @@ function ServiceCard({ s, i, big }: { s: (typeof services)[number]; i: number; b
       <div className="relative p-7 md:p-8">
         <h3 className={cn('font-serif leading-tight text-white', big ? 'text-3xl md:text-[2.4rem]' : 'text-2xl md:text-[1.7rem]')}>{s.title}</h3>
         <p className="mt-3 max-w-md text-[15px] font-light leading-relaxed text-white/75">{s.desc}</p>
-        <ul className="mt-5 flex flex-wrap gap-1.5" aria-label={`${s.title} products`}>
-          {s.products.map((p) => <li key={p} className="rounded-full border border-white/15 bg-ink/40 px-3 py-1 text-[12px] text-white/85 backdrop-blur-md">{p}</li>)}
+        <ul className="mt-5 flex flex-wrap items-center gap-x-2.5 gap-y-1 border-t border-gold/25 pt-4 text-[11px] font-medium tracking-[0.16em] text-gold-2 uppercase" aria-label={`${s.title} products`}>
+          {s.products.map((p, j) => <li key={p} className="flex items-center gap-2.5">{j > 0 && <span aria-hidden className="h-3 w-px rotate-[20deg] bg-gold/50" />}{p}</li>)}
         </ul>
       </div>
     </div>
@@ -343,9 +343,39 @@ function Team() {
   )
 }
 
+function RotatingWord({ words }: { words: string[] }) {
+  const [i, setI] = useState(0)
+  useEffect(() => { const t = window.setInterval(() => setI((n) => (n + 1) % words.length), 2200); return () => window.clearInterval(t) }, [words.length])
+  return (
+    <span className="relative inline-block h-[1.2em] overflow-hidden align-top">
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.em key={words[i]} className="gold-text inline-block italic" initial={{ y: '105%' }} animate={{ y: '0%' }} exit={{ y: '-105%' }} transition={{ duration: 0.55, ease }}>{words[i]}</motion.em>
+      </AnimatePresence>
+      <span className="sr-only">{words.join(', ')}</span>
+    </span>
+  )
+}
+
+function LitLine({ text, i }: { text: string; i: number }) {
+  const ref = useRef<HTMLLIElement>(null)
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 92%', 'start 55%'] })
+  const opacity = useTransform(scrollYProgress, [0, 1], [0.18, 1])
+  const x = useTransform(scrollYProgress, [0, 1], [-24, 0])
+  const line = useTransform(scrollYProgress, [0, 1], [0, 1])
+  return (
+    <motion.li ref={ref} style={{ opacity }} className="relative py-5">
+      <motion.div style={{ x }} className="flex items-baseline gap-5">
+        <span className="font-serif text-sm text-gold-2/80 italic">0{i + 1}</span>
+        <span className="font-serif text-[clamp(1.5rem,2.6vw,2.2rem)] leading-tight font-light text-white">{text}</span>
+      </motion.div>
+      <motion.span aria-hidden style={{ scaleX: line }} className="absolute inset-x-0 bottom-0 h-px origin-left bg-gradient-to-r from-gold/70 via-white/15 to-transparent" />
+    </motion.li>
+  )
+}
+
 /* ---------- careers / join WISE ---------- */
 function Careers() {
-  const who = ['Career changers', 'Entrepreneurs', 'Students & recent grads', 'Parents', 'Part-time or full-time']
+  const who = ['career changers.', 'entrepreneurs.', 'students & recent grads.', 'parents.', 'part-time builders.', 'future leaders.']
   const lookFor = ['A willingness to learn', 'A genuine desire to help families', 'Coachable and consistent', 'Integrity in every conversation']
   const youGet = ['Licensing guidance and ongoing training', 'Mentorship from Glenn and experienced leaders', 'A flexible schedule you control', 'Access to industry-leading products and carriers']
   return (
@@ -360,8 +390,8 @@ function Careers() {
             <span className="eyebrow">Join WISE</span>
             <Heading className="mt-5">Build a business. <em>Grow with us.</em></Heading>
             <FadeUp delay={0.1}><p className="mt-7 text-lg font-light leading-relaxed text-bone/70">Help families protect what matters and build wealth, while you build a business of your own. No finance background needed. We train you, mentor you, and grow with you.</p></FadeUp>
-            <FadeUp delay={0.15} className="mt-8 flex flex-wrap gap-2">
-              {who.map((w) => <span key={w} className="rounded-full border border-white/15 bg-ink/40 px-4 py-1.5 text-[13px] text-white/80 backdrop-blur-md">{w}</span>)}
+            <FadeUp delay={0.15} className="mt-10">
+              <p className="font-serif text-[clamp(1.6rem,3.2vw,2.6rem)] leading-[1.2] text-white/85">Built for <RotatingWord words={who} /></p>
             </FadeUp>
           </div>
 
@@ -390,17 +420,12 @@ function Careers() {
       {/* expectations */}
       <div className="relative mx-auto grid max-w-7xl gap-12 px-6 pb-16 md:grid-cols-2 md:gap-16 md:px-10 md:pb-24">
         {[['What we look for', lookFor], ['What you get', youGet]].map(([t, list]) => (
-          <FadeUp key={t as string}>
-            <h3 className="font-serif text-3xl text-white">{t as string}</h3>
-            <ul className="mt-6">
-              {(list as string[]).map((p) => (
-                <li key={p} className="flex items-center gap-4 border-b border-white/10 py-4">
-                  <span className="grid size-7 shrink-0 place-items-center rounded-full border border-gold/50 text-gold-2"><Check className="size-3.5" /></span>
-                  <span className="text-[15px] text-white/85">{p}</span>
-                </li>
-              ))}
+          <div key={t as string}>
+            <p className="text-[11px] tracking-[0.24em] text-gold-2 uppercase">{t as string}</p>
+            <ul className="mt-4">
+              {(list as string[]).map((p, i) => <LitLine key={p} i={i} text={p} />)}
             </ul>
-          </FadeUp>
+          </div>
         ))}
       </div>
 
