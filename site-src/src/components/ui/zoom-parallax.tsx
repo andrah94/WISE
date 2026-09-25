@@ -19,7 +19,7 @@ export function ZoomParallax({ images, children }: ZoomParallaxProps) {
   const shade = useTransform(scrollYProgress, [0.65, 0.9], [0, 0.62])
 
   return (
-    <div ref={container} className="relative h-[300vh]">
+    <div ref={container} className="relative h-[230vh]">
       <div className="sticky top-0 h-screen overflow-hidden">
         {images.map(({ src, alt }, index) => {
           const scale = scales[index % scales.length]

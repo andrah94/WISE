@@ -16,7 +16,7 @@ export default function ScrollRevealContent({ items, header, className }: { item
   const activeIndex = Math.min(n - 1, Math.floor(progress * n))
 
   return (
-    <div ref={ref} className={cn('relative', className)} style={{ height: `${n * 90 + 40}vh` }}>
+    <div ref={ref} className={cn('relative', className)} style={{ height: `${n * 65 + 40}vh` }}>
       <div className="sticky top-0 flex h-screen items-center">
         <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-10 px-6 md:px-10 lg:grid-cols-2 lg:gap-20">
           <div className="flex flex-col">

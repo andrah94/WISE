@@ -8,15 +8,14 @@ import { BlurredMarquee } from '@/components/ui/blurred-marquee'
 import { InfiniteSlider } from '@/components/ui/infinite-slider'
 import { ScrollWordReveal } from '@/components/ui/scroll-word-reveal'
 import ScrollRevealContent from '@/components/ui/scroll-reveal-content'
-import { HoverExpand } from '@/components/ui/hover-expand'
 import { ZoomParallax } from '@/components/ui/zoom-parallax'
 import { Tilt } from '@/components/ui/tilt'
 import { Spotlight } from '@/components/ui/spotlight'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { cn } from '@/lib/utils'
 import {
-  AMAZON, APPLE_BOOKS, CAREER_URL, EMAIL, GLENN_IG, GLENN_IN, IG_URL, IMG, NEWSLETTER_ENDPOINT, VIDEO_HANDSHAKE, VIDEO_SECOND,
-  faqs, igPosts, leaders, openCalendly, partners, providers, services, unsplash, wix,
+  AMAZON, APPLE_BOOKS, CAREER_URL, EMAIL, GLENN_IG, GLENN_IN, IMG, NEWSLETTER_ENDPOINT, VIDEO_HANDSHAKE, VIDEO_SECOND,
+  faqs, leaders, openCalendly, partners, providers, services, unsplash, wix,
 } from '@/data'
 
 const ease = [0.2, 0.7, 0.2, 1] as const
@@ -72,7 +71,7 @@ function Nav() {
               {links.map(([l, h]) => <a key={h} href={h} className="rounded-full px-4 py-2 text-sm text-white/75 transition-colors hover:bg-white/5 hover:text-white">{l}</a>)}
             </nav>
             <div className="flex items-center gap-2">
-              <button onClick={() => openCalendly()} className="hidden rounded-full gold-bg px-5 py-2.5 text-sm font-medium text-[#141005] transition-transform hover:-translate-y-0.5 sm:inline-flex">Book a Free Consult</button>
+              <button onClick={() => openCalendly()} className="inline-flex rounded-full gold-bg px-4 py-2.5 text-sm font-medium whitespace-nowrap text-[#141005] transition-transform hover:-translate-y-0.5 sm:px-5"><span className="sm:hidden">Book Free</span><span className="hidden sm:inline">Book a Free Consult</span></button>
               <button onClick={() => setOpen(true)} className="grid size-11 place-items-center rounded-full border border-white/15 text-white lg:hidden" aria-label="Open menu"><Menu className="size-5" /></button>
             </div>
           </div>
@@ -134,7 +133,7 @@ function Hero() {
         </motion.p>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 1.1, ease }} className="mt-10 flex flex-wrap gap-3">
           <GoldButton onClick={() => openCalendly()}>Start Your Wealth Journey</GoldButton>
-          <GhostButton href="#services">Explore Services</GhostButton>
+          <GhostButton href="#services">See Our Services</GhostButton>
         </motion.div>
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1.4 }} className="mt-12 flex flex-wrap gap-x-8 gap-y-3 text-[13px] tracking-wide text-white/55">
           <span className="flex items-center gap-2"><CalendarCheck className="size-4 text-gold-2" />Free 30-minute consultation</span>
@@ -188,9 +187,27 @@ function Method() {
 }
 
 /* ---------- services ---------- */
+function ServiceCard({ s, i, big }: { s: (typeof services)[number]; i: number; big?: boolean }) {
+  return (
+    <button type="button" onClick={() => openCalendly()} aria-label={`${s.title}: book a free consultation`}
+      className={cn('group relative flex w-full flex-col justify-end overflow-hidden rounded-[28px] border border-white/10 text-left', big ? 'min-h-[26rem] md:min-h-[30rem]' : 'min-h-[20rem]')}>
+      <img src={s.img} alt="" loading="lazy" className="absolute inset-0 size-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105" />
+      <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/5" />
+      <span className="absolute top-6 left-6 text-xs tracking-[0.22em] text-gold-2">0{i + 1}</span>
+      <div className="relative p-7 md:p-8">
+        <h3 className={cn('font-serif leading-tight text-white', big ? 'text-3xl md:text-[2.4rem]' : 'text-2xl md:text-[1.7rem]')}>{s.title}</h3>
+        <p className="mt-3 max-w-md text-[15px] font-light leading-relaxed text-white/75">{s.desc}</p>
+        <span className="mt-6 inline-flex items-center gap-2 rounded-full gold-bg px-5 py-2.5 text-sm font-medium text-[#141005] transition-transform duration-500 group-hover:-translate-y-0.5">
+          Book a free consult <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+        </span>
+      </div>
+    </button>
+  )
+}
+
 function Services() {
   return (
-    <section id="services" className="relative bg-ink py-28 md:py-40">
+    <section id="services" className="relative bg-ink py-24 md:py-32">
       <div aria-hidden className="absolute top-0 left-1/2 h-[60vmin] w-[90vmin] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(201,162,75,.12),transparent)] blur-2xl" />
       <div className="relative mx-auto max-w-7xl px-6 md:px-10">
         <div className="flex flex-wrap items-end justify-between gap-8">
@@ -198,23 +215,16 @@ function Services() {
             <span className="eyebrow">What we do</span>
             <Heading className="mt-5">Financial solutions <em>built for you.</em></Heading>
           </div>
-          <FadeUp><p className="max-w-sm font-light text-bone/60">Comprehensive wealth strategies tailored to your unique goals.</p></FadeUp>
+          <FadeUp className="flex flex-col items-start gap-5">
+            <p className="max-w-sm font-light text-bone/60">Comprehensive wealth strategies tailored to your unique goals. Every consultation is free.</p>
+            <GoldButton onClick={() => openCalendly()}>Book a Free Consultation</GoldButton>
+          </FadeUp>
         </div>
-        <FadeUp className="mt-16 hidden md:block"><HoverExpand items={services.map((s) => ({ src: s.img, title: s.title, desc: s.desc }))} /></FadeUp>
-        <div className="mt-12 grid gap-4 md:hidden">
-          {services.map((s, i) => (
-            <FadeUp key={s.title} delay={i * 0.03}>
-              <div className="relative h-72 overflow-hidden rounded-3xl">
-                <img src={s.img} alt="" loading="lazy" className="absolute inset-0 size-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-6">
-                  <span className="text-xs tracking-[0.2em] text-gold-2">0{i + 1}</span>
-                  <h3 className="mt-1 font-serif text-2xl text-white">{s.title}</h3>
-                  <p className="mt-1 text-sm font-light text-white/70">{s.desc}</p>
-                </div>
-              </div>
-            </FadeUp>
-          ))}
+        <div className="mt-14 grid gap-4 md:grid-cols-2">
+          {services.slice(0, 4).map((s, i) => <FadeUp key={s.title} delay={(i % 2) * 0.08}><ServiceCard s={s} i={i} big /></FadeUp>)}
+        </div>
+        <div className="mt-4 grid gap-4 md:grid-cols-3">
+          {services.slice(4).map((s, i) => <FadeUp key={s.title} delay={i * 0.08}><ServiceCard s={s} i={i + 4} /></FadeUp>)}
         </div>
       </div>
     </section>
@@ -224,13 +234,13 @@ function Services() {
 /* ---------- people gallery ---------- */
 function Gallery() {
   const images = [
-    { src: wix(IMG.glennWorking, 1600, 1100), alt: 'Glenn Windom II at work' },
-    { src: wix(leaders[1].img, 900, 700, 't'), alt: 'Adara Johnson' },
-    { src: wix(leaders[2].img, 600, 900, 't'), alt: 'Andra Howard' },
-    { src: wix(IMG.family, 900, 700), alt: 'Family' },
-    { src: wix(leaders[3].img, 700, 800, 't'), alt: 'Sidney Martin' },
-    { src: wix(IMG.planning, 900, 700), alt: 'Planning' },
-    { src: wix(leaders[4].img, 600, 600, 't'), alt: 'Saifur Rahim' },
+    { src: unsplash('photo-1577896849786-738ed6c78bd3', 1800), alt: 'A family playing a board game together at home' },
+    { src: unsplash('photo-1606788075819-9574a6edfab3', 1000), alt: 'A family gathered around the table' },
+    { src: unsplash('photo-1586498024141-1940debde48d', 800), alt: 'A grandfather holding his granddaughter' },
+    { src: unsplash('photo-1758522487963-1b193a2837fd', 1000), alt: 'A couple reviewing good news together in the kitchen' },
+    { src: unsplash('photo-1593100126453-19b562a800c1', 900), alt: 'A grandmother hugging her grandchild' },
+    { src: unsplash('photo-1614317354806-860a3bf79069', 1000), alt: 'A multigenerational family at home' },
+    { src: unsplash('photo-1544164559-90f4302d5142', 700), alt: 'A parent and child walking together' },
   ]
   return (
     <section className="relative bg-ink" aria-label="Real people. Real results. Real transformation.">
@@ -332,9 +342,9 @@ function Team() {
           </div>
           <FadeUp><p className="max-w-sm font-light text-bone/60">Licensed financial professionals dedicated to your success.</p></FadeUp>
         </div>
-        <div className="mt-16 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
+        <div className="mt-16 grid grid-cols-2 gap-4 lg:grid-cols-4">
           {leaders.map((p, i) => (
-            <FadeUp key={p.name} delay={i * 0.06} className={cn(i === 0 && 'col-span-2 md:col-span-1')}>
+            <FadeUp key={p.name} delay={i * 0.06}>
               <div className="group relative aspect-[3/4] overflow-hidden rounded-3xl border border-white/10 bg-ink-3">
                 <img src={wix(p.img, 600, 800, 't')} alt={p.name} loading="lazy" className="size-full object-cover object-top grayscale transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0" />
                 <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/10 to-transparent" />
@@ -506,34 +516,6 @@ function Contact() {
   )
 }
 
-/* ---------- instagram ---------- */
-function Insta() {
-  return (
-    <section className="relative bg-ink pb-28 md:pb-40">
-      <div className="mx-auto max-w-7xl px-6 md:px-10">
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <span className="eyebrow">Daily inspiration</span>
-            <h2 className="display mt-5 text-[clamp(2rem,4.4vw,3.8rem)] text-white">@WISE<wbr /><em className="gold-text italic">FinancialPartners</em></h2>
-            <p className="mt-3 font-light text-bone/60">Follow us on Instagram for daily financial wisdom and motivational content.</p>
-          </div>
-          <GhostButton href={IG_URL}><Instagram className="size-4" /> Follow Us on Instagram</GhostButton>
-        </div>
-        <div className="mt-12 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
-          {igPosts.map((id, i) => (
-            <FadeUp key={id} delay={i * 0.05}>
-              <a href={IG_URL} target="_blank" rel="noopener" className="group relative block aspect-square overflow-hidden rounded-2xl">
-                <img src={wix(id, 560, 560)} alt="WISE Financial Partners post on Instagram" loading="lazy" className="size-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                <span className="absolute inset-0 grid place-items-center bg-ink/50 opacity-0 transition-opacity duration-500 group-hover:opacity-100"><Instagram className="size-7 text-white" /></span>
-              </a>
-            </FadeUp>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
 /* ---------- closing + footer (21st.dev: scrollxui/footer-with-suite adapted) ---------- */
 function Footer() {
   const nav = [['Services', '#services'], ['About', '#about'], ['Founder', '#founder'], ['Team', '#team'], ['Careers', '#careers'], ['FAQ', '#faq'], ['Contact', '#contact']]
@@ -553,7 +535,6 @@ function Footer() {
           <img src="/img/logo.jpg" alt="WISE Financial Partners" className="w-56 rounded-lg" loading="lazy" />
           <p className="mt-6 max-w-xs font-serif text-xl leading-snug font-light text-white/85">Transform your mindset. Protect your income. Build legacy wealth.</p>
           <div className="mt-6 flex gap-3">
-            <a href={IG_URL} target="_blank" rel="noopener" aria-label="Instagram" className="grid size-11 place-items-center rounded-full border border-white/15 hover:border-gold-2 hover:text-gold-2"><Instagram className="size-4" /></a>
             <a href={`mailto:${EMAIL}`} aria-label="Email" className="grid size-11 place-items-center rounded-full border border-white/15 hover:border-gold-2 hover:text-gold-2"><Mail className="size-4" /></a>
           </div>
         </div>
@@ -622,6 +603,49 @@ function Popup() {
   )
 }
 
+/* ---------- mid-page booking band ---------- */
+function BookBand() {
+  return (
+    <section className="relative bg-ink px-6 py-10 md:px-10">
+      <FadeUp className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 rounded-[32px] border border-gold/30 bg-gradient-to-r from-gold/15 via-gold/5 to-transparent p-8 md:flex-row md:items-center md:p-12">
+        <div>
+          <p className="eyebrow">Free 30-minute consultation</p>
+          <h3 className="display mt-4 text-[clamp(2rem,3.6vw,3.2rem)] text-white">Ready to talk about your <em className="gold-text italic">goals?</em></h3>
+          <p className="mt-2 font-light text-white/60">No cost. No obligation. Just a real conversation with a licensed professional.</p>
+        </div>
+        <GoldButton onClick={() => openCalendly()} className="shrink-0">Book a Free Consultation</GoldButton>
+      </FadeUp>
+    </section>
+  )
+}
+
+/* ---------- always-visible booking ---------- */
+function StickyCTA() {
+  const [show, setShow] = useState(false)
+  useEffect(() => {
+    const on = () => {
+      const past = window.scrollY > window.innerHeight * 0.7
+      const nearEnd = window.innerHeight + window.scrollY > document.documentElement.scrollHeight - 900
+      setShow(past && !nearEnd)
+    }
+    on(); window.addEventListener('scroll', on, { passive: true })
+    return () => window.removeEventListener('scroll', on)
+  }, [])
+  return (
+    <AnimatePresence>
+      {show && (
+        <motion.div initial={{ y: 120, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 120, opacity: 0 }} transition={{ duration: 0.5, ease }}
+          className="fixed inset-x-3 bottom-3 z-[55] md:inset-x-auto md:right-6 md:bottom-6">
+          <div className="flex items-center gap-4 rounded-full border border-gold/30 bg-ink/85 py-2 pr-2 pl-5 shadow-[0_20px_60px_-15px_rgba(0,0,0,.8)] backdrop-blur-xl">
+            <span className="hidden text-sm text-white/80 sm:block">Free 30-min consultation</span>
+            <button onClick={() => openCalendly()} className="flex-1 rounded-full gold-bg px-6 py-3 text-sm font-semibold whitespace-nowrap text-[#141005] sm:flex-none">Book a Free Consult</button>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  )
+}
+
 /* ---------- app ---------- */
 export default function App() {
   const { scrollYProgress } = useScroll()
@@ -642,10 +666,11 @@ export default function App() {
       <main id="main">
         <Hero />
         <Providers />
+        <Services />
         <ScrollWordReveal kicker="Our philosophy" goldWords={['mental', 'values']}
           text="Money isn't math, it's mental. We combine strategic financial planning with mindset transformation, aligning your money decisions with your core values." />
         <Method />
-        <Services />
+        <BookBand />
         <Gallery />
         <Founder />
         <Book />
@@ -653,9 +678,9 @@ export default function App() {
         <Careers />
         <FAQ />
         <Contact />
-        <Insta />
       </main>
       <Footer />
+      <StickyCTA />
       <Popup />
     </>
   )

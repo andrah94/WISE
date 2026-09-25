@@ -40,7 +40,6 @@ export const leaders = [
   { name: 'Adara Johnson', role: 'Licensed Financial Professional', lic: 'License #4313838', img: '5e8141_877c8cd47ec04deb890e20f308247ba7~mv2.jpg' },
   { name: 'Andra Howard', role: 'Licensed Financial Professional', lic: 'License #4383341', img: '5e8141_e0c938f2c47640a5be8d8f88fae39e82~mv2.jpeg' },
   { name: 'Sidney Martin', role: 'Licensed Financial Professional', lic: 'License #4457318', img: '5e8141_8dcfdba385a946ff94b8ee86bf0a361f~mv2.jpeg' },
-  { name: 'Saifur Rahim', role: 'Admin Coordinator', lic: 'Client Services', img: '5e8141_b8653b02268b4514a20e8389fd4613d9~mv2.jpg' },
 ]
 
 export const partners = [
