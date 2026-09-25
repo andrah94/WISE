@@ -234,19 +234,15 @@ function Services() {
 /* ---------- people gallery ---------- */
 function Gallery() {
   const images = [
-    { src: unsplash('photo-1577896849786-738ed6c78bd3', 1800), alt: 'A family playing a board game together at home' },
-    { src: unsplash('photo-1606788075819-9574a6edfab3', 1000), alt: 'A family gathered around the table' },
-    { src: unsplash('photo-1586498024141-1940debde48d', 800), alt: 'A grandfather holding his granddaughter' },
-    { src: unsplash('photo-1758522487963-1b193a2837fd', 1000), alt: 'A couple reviewing good news together in the kitchen' },
-    { src: unsplash('photo-1593100126453-19b562a800c1', 900), alt: 'A grandmother hugging her grandchild' },
-    { src: unsplash('photo-1614317354806-860a3bf79069', 1000), alt: 'A multigenerational family at home' },
-    { src: unsplash('photo-1544164559-90f4302d5142', 700), alt: 'A parent and child walking together' },
+    { src: wix(IMG.glennWorking, 1800, 1200), alt: 'Glenn Windom II at the WISE office' },
+    ...providers.map((p) => ({ src: p.src, alt: p.alt, logo: true })),
   ]
   return (
     <section className="relative bg-ink" aria-label="Real people. Real results. Real transformation.">
       <div className="relative mx-auto flex h-[60vh] max-w-5xl flex-col items-center justify-center px-6 text-center">
         <span className="eyebrow">Your financial future starts here</span>
         <Heading className="mt-6">Real people. <em>Real results.</em></Heading>
+        <FadeUp delay={0.15}><p className="mt-6 max-w-xl font-light text-bone/60">Backed by a network of industry-leading carriers, with a licensed professional in your corner.</p></FadeUp>
       </div>
       <ZoomParallax images={images}>
         <div className="text-center">
