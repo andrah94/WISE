@@ -65,13 +65,13 @@ function Nav() {
           <div className={cn('flex items-center justify-between rounded-full border px-3 py-2 pl-4 transition-all duration-500', scrolled ? 'border-white/10 bg-ink/70 shadow-[0_20px_60px_-20px_rgba(0,0,0,.6)] backdrop-blur-xl' : 'border-transparent')}>
             <a href="#top" className="flex items-center gap-3" aria-label="WISE Financial Partners home">
               <img src="/img/mark.png" alt="" className="size-9 object-contain" />
-              <span className="font-serif text-lg tracking-tight text-white"><span className="tracking-[0.18em]">WISE</span> <span className="text-white/70">Financial Partners</span></span>
+              <span className="font-serif text-lg tracking-tight whitespace-nowrap text-white"><span className="tracking-[0.18em]">WISE</span><span className="hidden text-white/70 sm:inline"> Financial Partners</span></span>
             </a>
             <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
               {links.map(([l, h]) => <a key={h} href={h} className="rounded-full px-4 py-2 text-sm text-white/75 transition-colors hover:bg-white/5 hover:text-white">{l}</a>)}
             </nav>
             <div className="flex items-center gap-2">
-              <button onClick={() => openCalendly()} className="inline-flex rounded-full gold-bg px-4 py-2.5 text-sm font-medium whitespace-nowrap text-[#141005] transition-transform hover:-translate-y-0.5 sm:px-5"><span className="sm:hidden">Book Free</span><span className="hidden sm:inline">Book a Free Consult</span></button>
+              <button onClick={() => openCalendly()} className="hidden rounded-full gold-bg px-5 py-2.5 text-sm font-medium whitespace-nowrap text-[#141005] transition-transform hover:-translate-y-0.5 sm:inline-flex">Book a Free Consult</button>
               <button onClick={() => setOpen(true)} className="grid size-11 place-items-center rounded-full border border-white/15 text-white lg:hidden" aria-label="Open menu"><Menu className="size-5" /></button>
             </div>
           </div>
@@ -216,10 +216,14 @@ function Services() {
             <GoldButton onClick={() => openCalendly()}>Book a Free Consultation</GoldButton>
           </FadeUp>
         </div>
-        <div className="mt-14 grid gap-4 md:grid-cols-2">
+        <div className="-mx-6 mt-10 flex snap-x snap-mandatory gap-3 overflow-x-auto px-6 pb-4 [scrollbar-width:none] md:hidden [&::-webkit-scrollbar]:hidden">
+          {services.map((s, i) => <div key={s.title} className="w-[80vw] shrink-0 snap-center"><ServiceCard s={s} i={i} /></div>)}
+        </div>
+        <p className="mt-2 text-center text-xs text-white/35 md:hidden">Swipe to see all 7 services</p>
+        <div className="mt-14 hidden gap-4 md:grid md:grid-cols-2">
           {services.slice(0, 4).map((s, i) => <FadeUp key={s.title} delay={(i % 2) * 0.08}><ServiceCard s={s} i={i} big /></FadeUp>)}
         </div>
-        <div className="mt-4 grid gap-4 md:grid-cols-3">
+        <div className="mt-4 hidden gap-4 md:grid md:grid-cols-3">
           {services.slice(4).map((s, i) => <FadeUp key={s.title} delay={i * 0.08}><ServiceCard s={s} i={i + 4} /></FadeUp>)}
         </div>
       </div>
@@ -289,48 +293,37 @@ function Founder() {
   )
 }
 
-/* ---------- team ---------- */
+/* ---------- team (compact) ---------- */
 function Team() {
+  const team = leaders.filter((p) => !p.name.startsWith('Glenn'))
   return (
-    <section id="team" className="relative bg-ink py-28 md:py-40">
+    <section id="team" className="relative border-t border-white/10 bg-ink py-16 md:py-20">
       <div className="mx-auto max-w-7xl px-6 md:px-10">
-        <div className="flex flex-wrap items-end justify-between gap-8">
-          <div className="min-w-0 flex-[1_1_40rem]">
-            <span className="eyebrow">Leadership</span>
-            <Heading className="mt-5">Experts you <em>can trust.</em></Heading>
-          </div>
-          <FadeUp><p className="max-w-sm font-light text-bone/60">Licensed financial professionals dedicated to your success.</p></FadeUp>
+        <div className="flex flex-wrap items-baseline justify-between gap-4">
+          <h2 className="font-serif text-2xl text-white md:text-3xl">Our team</h2>
+          <span className="text-sm text-white/45">Licensed financial professionals dedicated to your success.</span>
         </div>
-        <div className="mt-16 grid grid-cols-2 gap-4 md:grid-cols-3">
-          {leaders.filter((p) => !p.name.startsWith('Glenn')).map((p, i) => (
-            <FadeUp key={p.name} delay={i * 0.06}>
-              <div className="group relative aspect-[3/4] overflow-hidden rounded-3xl border border-white/10 bg-ink-3">
-                <img src={wix(p.img, 600, 800, 't')} alt={p.name} loading="lazy" className="size-full object-cover object-top grayscale transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0" />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/10 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-5">
-                  <h3 className="font-serif text-xl leading-tight text-white">{p.name}</h3>
-                  <p className="mt-1 text-[12.5px] text-gold-2">{p.role}</p>
-                  <p className="mt-1 text-[11px] text-white/45">{p.lic}</p>
-                </div>
+        <div className="mt-6 grid sm:mt-8 sm:grid-cols-3 sm:gap-3">
+          {team.map((p) => (
+            <div key={p.name} className="flex items-center gap-4 border-b border-white/10 py-3 sm:rounded-2xl sm:border sm:bg-white/[0.03] sm:p-3">
+              <img src={wix(p.img, 140, 140, 't')} alt={p.name} loading="lazy" className="size-14 rounded-full object-cover" />
+              <div className="min-w-0">
+                <p className="truncate text-sm font-medium text-white">{p.name}</p>
+                <p className="truncate text-xs text-gold-2">{p.role}</p>
+                <p className="truncate text-[11px] text-white/40">{p.lic}</p>
               </div>
-            </FadeUp>
+            </div>
           ))}
         </div>
       </div>
-      <div className="mt-24">
-        <div className="mx-auto mb-8 flex max-w-7xl items-baseline justify-between px-6 md:px-10">
-          <h3 className="font-serif text-3xl text-white">Business Partners</h3>
-          <span className="text-sm text-white/45">11 Licensed Financial Professionals</span>
-        </div>
-        <div className="relative [mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)]">
-          <InfiniteSlider gap={14} duration={50} durationOnHover={120}>
+      <div className="mt-8">
+        <p className="mx-auto mb-4 max-w-7xl px-6 text-xs tracking-[0.2em] text-white/40 uppercase md:px-10">Business partners</p>
+        <div className="relative [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)]">
+          <InfiniteSlider gap={10} duration={60} durationOnHover={140}>
             {partners.map((p) => (
-              <div key={p.name} className="flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.03] py-2 pr-6 pl-2">
-                <img src={wix(p.img, 120, 120, 't')} alt={p.name} loading="lazy" className="size-12 rounded-full object-cover" />
-                <div>
-                  <p className="text-sm font-medium whitespace-nowrap text-white">{p.name}</p>
-                  <p className="text-xs whitespace-nowrap text-white/45">Licensed Financial Professional</p>
-                </div>
+              <div key={p.name} className="flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.03] py-1.5 pr-4 pl-1.5">
+                <img src={wix(p.img, 80, 80, 't')} alt={p.name} loading="lazy" className="size-8 rounded-full object-cover" />
+                <p className="text-xs whitespace-nowrap text-white/75">{p.name}</p>
               </div>
             ))}
           </InfiniteSlider>
@@ -355,12 +348,12 @@ function Careers() {
           <Heading className="mt-5">Grow <em>with us.</em></Heading>
           <FadeUp delay={0.1}><p className="mt-7 text-lg font-light leading-relaxed text-bone/70">Join our team of financial professionals and make a meaningful impact while building a rewarding career. We're looking for motivated individuals who are passionate about helping others achieve financial freedom.</p></FadeUp>
         </div>
-        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid sm:mt-14 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
           {perks.map((p, i) => (
             <FadeUp key={p} delay={i * 0.07}>
-              <div className="h-full rounded-3xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur-md transition-colors hover:border-gold/50">
-                <span className="grid size-10 place-items-center rounded-full gold-bg text-ink"><Check className="size-5" /></span>
-                <p className="mt-6 text-[15px] leading-relaxed text-white/85">{p}</p>
+              <div className="flex h-full items-center gap-4 border-b border-white/10 py-4 sm:block sm:rounded-3xl sm:border sm:bg-white/[0.04] sm:p-7 sm:backdrop-blur-md sm:transition-colors sm:hover:border-gold/50">
+                <span className="grid size-8 shrink-0 place-items-center rounded-full gold-bg text-ink sm:size-10"><Check className="size-4 sm:size-5" /></span>
+                <p className="text-[15px] leading-relaxed text-white/85 sm:mt-6">{p}</p>
               </div>
             </FadeUp>
           ))}
@@ -435,7 +428,7 @@ function Contact() {
         </div>
         <div className="mt-14 grid gap-4 lg:grid-cols-2">
           <FadeUp>
-            <div className="relative flex h-full min-h-[460px] flex-col justify-between overflow-hidden rounded-[32px] border border-white/10 p-8 md:p-12">
+            <div className="relative flex h-full min-h-[380px] flex-col justify-between overflow-hidden rounded-[32px] border border-white/10 p-8 md:p-12 lg:min-h-[460px]">
               <img src={wix(IMG.planning, 1200, 1000)} alt="" loading="lazy" className="absolute inset-0 -z-10 size-full object-cover opacity-50" />
               <div className="absolute inset-0 -z-10 bg-gradient-to-br from-ink/40 via-ink/80 to-ink" />
               <div>
@@ -450,7 +443,7 @@ function Contact() {
             </div>
           </FadeUp>
           <FadeUp delay={0.1}>
-            <div id="newsletter" className="flex h-full min-h-[460px] flex-col justify-between rounded-[32px] border border-white/10 bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-8 md:p-12">
+            <div id="newsletter" className="flex h-full flex-col justify-between pt-10 lg:min-h-[460px] lg:rounded-[32px] lg:border lg:border-white/10 lg:bg-gradient-to-b lg:from-white/[0.06] lg:to-white/[0.02] lg:p-12">
               <div>
                 <span className="eyebrow">Stay informed</span>
                 <h3 className="display mt-5 text-[clamp(2.2rem,3.6vw,3.4rem)] text-white">The WISE <em className="gold-text italic">Report.</em></h3>
@@ -614,9 +607,9 @@ export default function App() {
         <Method />
         <Gallery />
         <Founder />
-        <Team />
         <Careers />
         <FAQ />
+        <Team />
         <Contact />
       </main>
       <Footer />
