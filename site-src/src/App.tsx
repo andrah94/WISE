@@ -14,7 +14,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { cn } from '@/lib/utils'
 import {
   AMAZON, APPLE_BOOKS, CAREER_URL, EMAIL, GLENN_IG, GLENN_IN, IMG, NEWSLETTER_ENDPOINT, VIDEO_HANDSHAKE, VIDEO_SECOND,
-  faqs, leaders, openCalendly, partners, providers, services, unsplash, wix,
+  agentFaqs, careerPath, faqs, leaders, openCalendly, partners, providers, services, steps, unsplash, wix,
 } from '@/data'
 
 const ease = [0.2, 0.7, 0.2, 1] as const
@@ -56,7 +56,7 @@ function Nav() {
     return () => window.removeEventListener('scroll', on)
   }, [])
   useEffect(() => { document.body.style.overflow = open ? 'hidden' : '' }, [open])
-  const links = [['Services', '#services'], ['About', '#about'], ['Founder', '#founder'], ['Team', '#team'], ['Careers', '#careers'], ['FAQ', '#faq']]
+  const links = [['Products', '#services'], ['How It Works', '#process'], ['About', '#about'], ['Founder', '#founder'], ['Join WISE', '#careers'], ['FAQ', '#faq']]
   return (
     <>
       <header className={cn('fixed inset-x-0 z-50 transition-all duration-500', scrolled ? 'top-3' : 'top-5')}>
@@ -70,6 +70,7 @@ function Nav() {
               {links.map(([l, h]) => <a key={h} href={h} className="rounded-full px-4 py-2 text-sm text-white/75 transition-colors hover:bg-white/5 hover:text-white">{l}</a>)}
             </nav>
             <div className="flex items-center gap-2">
+              <a href="#careers" className="hidden rounded-full border border-white/20 px-5 py-2.5 text-sm whitespace-nowrap text-white transition-colors hover:border-gold-2 hover:text-gold-2 xl:inline-flex">Join the Team</a>
               <button onClick={() => openCalendly()} className="hidden rounded-full gold-bg px-5 py-2.5 text-sm font-medium whitespace-nowrap text-[#141005] transition-transform hover:-translate-y-0.5 sm:inline-flex">Book a Free Consult</button>
               <button onClick={() => setOpen(true)} className="grid size-11 place-items-center rounded-full border border-white/15 text-white lg:hidden" aria-label="Open menu"><Menu className="size-5" /></button>
             </div>
@@ -83,7 +84,10 @@ function Nav() {
             {links.map(([l, h], i) => (
               <motion.a key={h} href={h} onClick={() => setOpen(false)} className="border-b border-white/10 py-3 font-serif text-4xl text-white" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 * i, duration: 0.5, ease }}>{l}</motion.a>
             ))}
-            <GoldButton className="mt-10 self-start" onClick={() => { setOpen(false); openCalendly() }}>Book a Free Consultation</GoldButton>
+            <div className="mt-10 flex flex-col items-start gap-3">
+              <GoldButton onClick={() => { setOpen(false); openCalendly() }}>Book a Free Consultation</GoldButton>
+              <GhostButton onClick={() => { setOpen(false); openCalendly(CAREER_URL) }}>Explore a Career with WISE</GhostButton>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -132,9 +136,12 @@ function Hero() {
         </motion.p>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 1.1, ease }} className="mt-10 flex flex-wrap gap-3">
           <GoldButton onClick={() => openCalendly()}>Start Your Wealth Journey</GoldButton>
-          <GhostButton href="#services">See Our Services</GhostButton>
+          <GhostButton href="#services">See Our Products</GhostButton>
         </motion.div>
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1.4 }} className="mt-12 flex flex-wrap gap-x-8 gap-y-3 text-[13px] tracking-wide text-white/55">
+        <motion.a href="#careers" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1.3 }} className="group mt-6 inline-flex items-center gap-2 text-sm text-white/65 transition-colors hover:text-gold-2">
+          <span className="h-px w-6 bg-gold-2/70" />Looking to build a career? <span className="text-gold-2">Join the team</span><ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
+        </motion.a>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1.4 }} className="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-[13px] tracking-wide text-white/55">
           <span className="flex items-center gap-2"><CalendarCheck className="size-4 text-gold-2" />Free 30-minute consultation</span>
           <span className="flex items-center gap-2"><BadgeCheck className="size-4 text-gold-2" />Licensed in multiple states</span>
           <span className="flex items-center gap-2"><ShieldCheck className="size-4 text-gold-2" />CA Insurance License #4359007</span>
@@ -146,6 +153,31 @@ function Hero() {
           <img src="/img/glenn-cutout.webp" alt="" className="relative h-full w-auto max-w-none object-contain object-bottom [mask-image:linear-gradient(to_right,transparent,#000_22%)]" />
           <div className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-ink to-transparent" />
         </div>
+      </div>
+    </section>
+  )
+}
+
+/* ---------- how it works ---------- */
+function Process() {
+  return (
+    <section id="process" className="relative border-t border-white/10 bg-ink py-16 md:py-24">
+      <div className="mx-auto max-w-7xl px-6 md:px-10">
+        <span className="eyebrow">How it works</span>
+        <Heading className="mt-5 text-[clamp(2.4rem,5vw,4.6rem)]">Three steps to <em>clarity.</em></Heading>
+        <ol className="mt-12 grid md:mt-16 md:grid-cols-3 md:gap-10">
+          {steps.map((st, i) => (
+            <FadeUp key={st.n} delay={i * 0.1}>
+              <li className="relative flex gap-6 border-t border-white/10 py-7 md:block md:pt-8">
+                <span className="gold-text font-serif text-5xl leading-none font-light md:text-7xl">{st.n}</span>
+                <div className="md:mt-6">
+                  <h3 className="font-serif text-2xl text-white md:text-[1.9rem]">{st.title}</h3>
+                  <p className="mt-3 max-w-sm text-[15px] font-light leading-relaxed text-white/60">{st.desc}</p>
+                </div>
+              </li>
+            </FadeUp>
+          ))}
+        </ol>
       </div>
     </section>
   )
@@ -177,13 +209,16 @@ function Method() {
 /* ---------- services ---------- */
 function ServiceCard({ s, i, big }: { s: (typeof services)[number]; i: number; big?: boolean }) {
   return (
-    <div className={cn('group relative flex w-full flex-col justify-end overflow-hidden rounded-[28px] border border-white/10 text-left', big ? 'min-h-[26rem] md:min-h-[30rem]' : 'min-h-[20rem]')}>
+    <div className={cn('group relative flex w-full flex-col justify-end overflow-hidden rounded-[28px] border border-white/10 text-left', big ? 'min-h-[28rem] md:min-h-[32rem]' : 'min-h-[24rem]')}>
       <img src={s.img} alt="" loading="lazy" className="absolute inset-0 size-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105" />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/5" />
       <span className="absolute top-6 left-6 text-xs tracking-[0.22em] text-gold-2">0{i + 1}</span>
       <div className="relative p-7 md:p-8">
         <h3 className={cn('font-serif leading-tight text-white', big ? 'text-3xl md:text-[2.4rem]' : 'text-2xl md:text-[1.7rem]')}>{s.title}</h3>
         <p className="mt-3 max-w-md text-[15px] font-light leading-relaxed text-white/75">{s.desc}</p>
+        <ul className="mt-5 flex flex-wrap gap-1.5" aria-label={`${s.title} products`}>
+          {s.products.map((p) => <li key={p} className="rounded-full border border-white/15 bg-ink/40 px-3 py-1 text-[12px] text-white/85 backdrop-blur-md">{p}</li>)}
+        </ul>
       </div>
     </div>
   )
@@ -196,11 +231,11 @@ function Services() {
       <div className="relative mx-auto max-w-7xl px-6 md:px-10">
         <div className="flex flex-wrap items-end justify-between gap-8">
           <div className="min-w-0 flex-[1_1_40rem]">
-            <span className="eyebrow">What we do</span>
+            <span className="eyebrow">Products &amp; services</span>
             <Heading className="mt-5">Financial solutions <em>built for you.</em></Heading>
           </div>
           <FadeUp className="flex flex-col items-start gap-5">
-            <p className="max-w-sm font-light text-bone/60">Comprehensive wealth strategies tailored to your unique goals. Every consultation is free.</p>
+            <p className="max-w-sm font-light text-bone/60">Protect those you love. Create the life you deserve. Build a financial legacy. Every consultation is free.</p>
             <GoldButton onClick={() => openCalendly()}>Book a Free Consultation</GoldButton>
           </FadeUp>
         </div>
@@ -304,52 +339,105 @@ function Team() {
           ))}
         </div>
       </div>
-      <div className="mt-8">
-        <p className="mx-auto mb-4 max-w-7xl px-6 text-xs tracking-[0.2em] text-white/40 uppercase md:px-10">Business partners</p>
+    </section>
+  )
+}
+
+/* ---------- careers / join WISE ---------- */
+function Careers() {
+  const who = ['Career changers', 'Entrepreneurs', 'Students & recent grads', 'Parents', 'Part-time or full-time']
+  const lookFor = ['A willingness to learn', 'A genuine desire to help families', 'Coachable and consistent', 'Integrity in every conversation']
+  const youGet = ['Licensing guidance and ongoing training', 'Mentorship from Glenn and experienced leaders', 'A flexible schedule you control', 'Access to industry-leading products and carriers']
+  return (
+    <section id="careers" className="relative overflow-hidden bg-ink">
+      <div className="relative py-20 md:py-32">
+        <video autoPlay muted loop playsInline preload="none" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover opacity-30">
+          <source src={VIDEO_SECOND} type="video/mp4" />
+        </video>
+        <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-ink via-ink/70 to-ink" />
+        <div className="relative mx-auto max-w-7xl px-6 md:px-10">
+          <div className="max-w-3xl">
+            <span className="eyebrow">Join WISE</span>
+            <Heading className="mt-5">Build a business. <em>Grow with us.</em></Heading>
+            <FadeUp delay={0.1}><p className="mt-7 text-lg font-light leading-relaxed text-bone/70">Help families protect what matters and build wealth, while you build a business of your own. No finance background needed. We train you, mentor you, and grow with you.</p></FadeUp>
+            <FadeUp delay={0.15} className="mt-8 flex flex-wrap gap-2">
+              {who.map((w) => <span key={w} className="rounded-full border border-white/15 bg-ink/40 px-4 py-1.5 text-[13px] text-white/80 backdrop-blur-md">{w}</span>)}
+            </FadeUp>
+          </div>
+
+          {/* path */}
+          <div className="mt-16 md:mt-24">
+            <p className="text-[11px] tracking-[0.24em] text-gold-2 uppercase">Your path</p>
+            <ol className="relative mt-8 grid gap-0 md:grid-cols-5 md:gap-6">
+              <div aria-hidden className="absolute top-5 right-[10%] left-[10%] hidden h-px bg-gradient-to-r from-gold/0 via-gold/50 to-gold/0 md:block" />
+              <div aria-hidden className="absolute top-2 bottom-2 left-5 w-px bg-gradient-to-b from-gold/60 to-gold/0 md:hidden" />
+              {careerPath.map((c, i) => (
+                <FadeUp key={c.title} delay={i * 0.08}>
+                  <li className="relative flex gap-5 pb-8 md:block md:pb-0 md:text-center">
+                    <span className="relative z-10 grid size-10 shrink-0 place-items-center rounded-full gold-bg font-serif text-base text-ink md:mx-auto">{i + 1}</span>
+                    <div className="md:mt-6">
+                      <h3 className="font-serif text-xl text-white">{c.title}</h3>
+                      <p className="mt-2 text-[14px] font-light leading-relaxed text-white/60">{c.desc}</p>
+                    </div>
+                  </li>
+                </FadeUp>
+              ))}
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      {/* expectations */}
+      <div className="relative mx-auto grid max-w-7xl gap-12 px-6 pb-16 md:grid-cols-2 md:gap-16 md:px-10 md:pb-24">
+        {[['What we look for', lookFor], ['What you get', youGet]].map(([t, list]) => (
+          <FadeUp key={t as string}>
+            <h3 className="font-serif text-3xl text-white">{t as string}</h3>
+            <ul className="mt-6">
+              {(list as string[]).map((p) => (
+                <li key={p} className="flex items-center gap-4 border-b border-white/10 py-4">
+                  <span className="grid size-7 shrink-0 place-items-center rounded-full border border-gold/50 text-gold-2"><Check className="size-3.5" /></span>
+                  <span className="text-[15px] text-white/85">{p}</span>
+                </li>
+              ))}
+            </ul>
+          </FadeUp>
+        ))}
+      </div>
+
+      {/* faces of WISE */}
+      <div className="relative pb-16 md:pb-24">
+        <div className="mx-auto mb-6 flex max-w-7xl flex-wrap items-baseline justify-between gap-3 px-6 md:px-10">
+          <h3 className="font-serif text-3xl text-white">Faces of <em className="gold-text italic">WISE.</em></h3>
+          <span className="text-sm text-white/45">Business partners building with us.</span>
+        </div>
         <div className="relative [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)]">
-          <InfiniteSlider gap={10} duration={60} durationOnHover={140}>
+          <InfiniteSlider gap={12} duration={60} durationOnHover={140}>
             {partners.map((p, i) => (
-              <div key={p.name} className="flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.03] py-1.5 pr-4 pl-1.5">
-                <img src={`/img/partner-${i}.webp`} alt={p.name} loading="lazy" className="size-8 rounded-full object-cover" />
-                <p className="text-xs whitespace-nowrap text-white/75">{p.name}</p>
+              <div key={p.name} className="flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.03] py-2 pr-5 pl-2">
+                <img src={`/img/partner-${i}.webp`} alt={p.name} loading="lazy" className="size-10 rounded-full object-cover" />
+                <p className="text-sm whitespace-nowrap text-white/80">{p.name}</p>
               </div>
             ))}
           </InfiniteSlider>
         </div>
       </div>
-    </section>
-  )
-}
 
-/* ---------- careers ---------- */
-function Careers() {
-  const perks = ['Comprehensive training and licensing support', 'Mentorship from experienced professionals', 'Flexible schedule and performance-based earning potential', 'Access to industry-leading products']
-  return (
-    <section id="careers" className="relative overflow-hidden bg-ink py-20 md:py-32">
-      <video autoPlay muted loop playsInline preload="none" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover opacity-30">
-        <source src={VIDEO_SECOND} type="video/mp4" />
-      </video>
-      <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-ink via-ink/70 to-ink" />
-      <div className="relative mx-auto max-w-7xl px-6 md:px-10">
-        <div className="max-w-3xl">
-          <span className="eyebrow">Careers</span>
-          <Heading className="mt-5">Grow <em>with us.</em></Heading>
-          <FadeUp delay={0.1}><p className="mt-7 text-lg font-light leading-relaxed text-bone/70">Join our team of financial professionals and make a meaningful impact while building a rewarding career. We're looking for motivated individuals who are passionate about helping others achieve financial freedom.</p></FadeUp>
+      {/* agent FAQ + CTA */}
+      <div className="relative mx-auto grid max-w-7xl gap-12 border-t border-white/10 px-6 py-16 md:px-10 md:py-24 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+        <div>
+          <h3 className="display text-[clamp(2.2rem,4vw,3.6rem)] text-white">Ready to <em className="gold-text italic">start?</em></h3>
+          <p className="mt-5 max-w-sm font-light text-bone/60">Book a career conversation with Glenn. We will answer your questions and map out what your first 90 days could look like.</p>
+          <GoldButton className="mt-8" onClick={() => openCalendly(CAREER_URL)}>Book a Career Conversation</GoldButton>
+          <p className="mt-6 max-w-sm text-[11px] leading-relaxed text-white/40">Associates are independent contractors. Earnings depend on individual effort, results, and many other factors. There is no guarantee of income.</p>
         </div>
-        <div className="mt-10 grid sm:mt-14 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
-          {perks.map((p, i) => (
-            <FadeUp key={p} delay={i * 0.07}>
-              <div className="flex h-full items-center gap-4 border-b border-white/10 py-4 sm:block sm:rounded-3xl sm:border sm:bg-white/[0.04] sm:p-7 sm:backdrop-blur-md sm:transition-colors sm:hover:border-gold/50">
-                <span className="grid size-8 shrink-0 place-items-center rounded-full gold-bg text-ink sm:size-10"><Check className="size-4 sm:size-5" /></span>
-                <p className="text-[15px] leading-relaxed text-white/85 sm:mt-6">{p}</p>
-              </div>
-            </FadeUp>
+        <Accordion type="single" collapsible className="border-t border-white/10">
+          {agentFaqs.map((f, i) => (
+            <AccordionItem key={f.question} value={`agent-${i}`}>
+              <AccordionTrigger>{f.question}</AccordionTrigger>
+              <AccordionContent>{f.answer}</AccordionContent>
+            </AccordionItem>
           ))}
-        </div>
-        <FadeUp delay={0.2} className="mt-12 flex flex-wrap items-center gap-6">
-          <GoldButton onClick={() => openCalendly(CAREER_URL)}>Launch Your Career</GoldButton>
-          <span className="text-sm text-white/50">Build your future. Join a team that invests in your success.</span>
-        </FadeUp>
+        </Accordion>
       </div>
     </section>
   )
@@ -457,7 +545,7 @@ function Contact() {
 
 /* ---------- closing + footer (21st.dev: scrollxui/footer-with-suite adapted) ---------- */
 function Footer() {
-  const nav = [['Services', '#services'], ['About', '#about'], ['Founder', '#founder'], ['Team', '#team'], ['Careers', '#careers'], ['FAQ', '#faq'], ['Contact', '#contact']]
+  const nav = [['Products', '#services'], ['How It Works', '#process'], ['About', '#about'], ['Founder', '#founder'], ['Team', '#team'], ['Join WISE', '#careers'], ['FAQ', '#faq'], ['Contact', '#contact']]
   return (
     <footer className="relative overflow-hidden border-t border-white/10 bg-ink">
       <div className="mx-auto grid max-w-7xl grid-cols-2 gap-10 px-6 pt-16 md:grid-cols-4 md:px-10">
@@ -489,6 +577,8 @@ function Footer() {
         <p>© {new Date().getFullYear()} WISE Financial Partners. All Rights Reserved.</p>
         <p>Glenn Windom II, CA Insurance License #4359007 | Licensed in multiple states</p>
         <p className="mt-2 max-w-4xl">The information on this website is for general educational purposes only and does not constitute financial, investment, tax, legal, or insurance advice. Please see our <a href="/disclosures.html" className="underline">Disclosures</a> for important information.</p>
+        <p className="mt-2 max-w-4xl">WISE Financial Partners is affiliated with World Financial Group. Insurance and annuity products are offered through World Financial Group Insurance Agency, LLC and its affiliated agencies, and are subject to state availability. Neither World Financial Group nor its agents provide tax, estate planning, or legal advice.</p>
+        <p className="mt-2 max-w-4xl">Business opportunity: associates are independent contractors. Earnings depend on individual effort, results, and many other factors. There is no guarantee of income or success.</p>
       </div>
     </footer>
   )
@@ -524,7 +614,8 @@ function Popup() {
             <p className="relative mt-3 font-light text-white/60">Choose how you'd like to begin.</p>
             <div className="relative mt-7 grid gap-3">
               <GoldButton className="justify-center" onClick={() => { setShow(false); openCalendly() }}>Book a Free Consultation</GoldButton>
-              <GhostButton className="justify-center" onClick={() => { setShow(false); document.getElementById('newsletter')?.scrollIntoView({ behavior: 'smooth', block: 'center' }) }}>Get Financial Insights</GhostButton>
+              <GhostButton className="justify-center" onClick={() => { setShow(false); openCalendly(CAREER_URL) }}>Explore a Career with WISE</GhostButton>
+              <button type="button" className="mt-1 text-sm text-white/50 hover:text-gold-2" onClick={() => { setShow(false); document.getElementById('newsletter')?.scrollIntoView({ behavior: 'smooth', block: 'center' }) }}>Or get free financial insights</button>
             </div>
           </motion.div>
         </motion.div>
@@ -580,14 +671,15 @@ export default function App() {
       <main id="main">
         <Hero />
         <Services />
+        <Process />
         <ScrollWordReveal kicker="Our philosophy" goldWords={['mental', 'values']}
           text="Money isn't math, it's mental. We align your money decisions with your core values." />
         <Method />
         <Gallery />
         <Founder />
-        <Careers />
-        <FAQ />
         <Team />
+        <FAQ />
+        <Careers />
         <Contact />
       </main>
       <Footer />

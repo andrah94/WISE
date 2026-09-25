@@ -56,14 +56,36 @@ export const partners = [
   { name: 'Stanley Morgan', img: '5e8141_63771c106f774ad382f2d7a29ece73d1~mv2.jpeg' },
 ]
 
+/** Product list mirrors World Financial Group's U.S. client solutions */
 export const services = [
-  { title: 'Wealth Management', desc: 'Strategic investment planning and portfolio management to grow your assets and achieve your financial goals, built around your values and timeline.', img: wix(IMG.family, 1000, 1200) },
-  { title: 'Income Protection', desc: 'Safeguard your financial future with comprehensive insurance and risk management strategies.', img: wix(IMG.planning, 1000, 1200) },
-  { title: 'Retirement Planning', desc: 'Personalized retirement strategies to ensure financial security and maintain your lifestyle.', img: unsplash('photo-1566053166065-79446ba9b79f', 1000) },
-  { title: 'Legacy & Estate Planning', desc: "Preserve and transfer your wealth to future generations with thoughtful estate planning that protects your family's future.", img: unsplash('photo-1592599457566-c660153d9548', 1000) },
-  { title: 'Educational Savings', desc: 'College funding strategies.', img: unsplash('photo-1665598214162-274973faa6f7', 1000) },
-  { title: 'Tax Optimization', desc: 'Minimize liabilities and maximize wealth.', img: unsplash('photo-1599837487527-e009248aa71b', 1000) },
-  { title: 'Business Planning', desc: 'Succession and benefits solutions.', img: unsplash('photo-1611432579402-7037e3e2c1e4', 1000) },
+  { title: 'Life Insurance', desc: 'Protect those you love. Coverage that replaces your income and keeps your family’s plans on track, no matter what.', products: ['Term Life', 'Whole Life', 'Universal Life', 'Indexed Universal Life', 'No-Medical-Exam Options'], img: wix(IMG.family, 1000, 1200) },
+  { title: 'Retirement Strategies', desc: 'Create the life you deserve. Build retirement income you can count on and help protect your savings from market swings.', products: ['Fixed Annuities', 'Fixed Indexed Annuities', 'Retirement Income Strategies'], img: unsplash('photo-1566053166065-79446ba9b79f', 1000) },
+  { title: 'Income Protection', desc: 'Your ability to earn is your biggest asset. Protect it if illness, injury, or the need for care interrupts your paycheck.', products: ['Disability Insurance', 'Long Term Care Insurance', 'Living Benefits'], img: wix(IMG.planning, 1000, 1200) },
+  { title: 'Estate Preservation', desc: 'Build a financial legacy. Strategies to help transfer wealth to the next generation, prepared alongside your legal and tax professionals.', products: ['Life Insurance Strategies', 'Wealth Replacement Strategies', 'Charitable Strategies & Trusts'], img: unsplash('photo-1592599457566-c660153d9548', 1000) },
+  { title: 'College Funding', desc: 'Plan ahead for the rising cost of higher education.', products: ['College Funding Plans', 'Education Savings Strategies'], img: unsplash('photo-1665598214162-274973faa6f7', 1000) },
+  { title: 'Business Strategies', desc: 'Protect what you built and reward the people who help you build it.', products: ['Business Continuation', 'Executive Compensation', 'Business Insurance & Retirement'], img: unsplash('photo-1611432579402-7037e3e2c1e4', 1000) },
+  { title: 'Tax-Advantaged Strategies', desc: 'Grow and access money with tax advantages, coordinated with your tax professional.', products: ['Tax-Deferred Growth', 'Tax-Advantaged Cash Value'], img: unsplash('photo-1599837487527-e009248aa71b', 1000) },
+]
+
+export const steps = [
+  { n: '01', title: 'Free consultation', desc: 'A relaxed, 30-minute conversation with a licensed professional about where you are and where you want to go.' },
+  { n: '02', title: 'Financial Needs Analysis', desc: 'We look at the full picture: income, protection, debt, savings, and goals, so nothing important gets missed.' },
+  { n: '03', title: 'Your custom strategy', desc: 'Clear recommendations that fit your needs and budget, using products from top-rated carriers. Then we stay with you as life changes.' },
+]
+
+export const careerPath = [
+  { title: 'Connect with Glenn', desc: 'A no-pressure conversation about your goals and whether this business is a fit.' },
+  { title: 'Get licensed', desc: 'We guide you through pre-licensing education and your state insurance exam.' },
+  { title: 'Train in the field', desc: 'Learn side by side with an experienced mentor through real client appointments.' },
+  { title: 'Serve your first clients', desc: 'Start helping families with protection, retirement, and legacy strategies.' },
+  { title: 'Build your business', desc: 'Grow at your own pace, full-time or part-time, and develop a team of your own.' },
+]
+
+export const agentFaqs = [
+  { question: 'Do I need a background in finance?', answer: 'No. Many of our associates come from other careers entirely: teaching, sales, the military, healthcare, entrepreneurship. What matters most is a willingness to learn and a desire to help people.' },
+  { question: 'Can I start part-time?', answer: 'Yes. You can build your business part-time around your current schedule, and move to full-time when you are ready.' },
+  { question: 'How do I get licensed?', answer: 'We walk you through pre-licensing education and the state insurance exam. Timelines vary by state and by how much time you put in. There are some out-of-pocket costs for licensing and getting started.' },
+  { question: 'How are associates paid?', answer: 'Associates are independent contractors paid on commission. Earnings depend on individual effort, results, and many other factors, and there is no guarantee of income.' },
 ]
 
 export const igPosts = [
@@ -76,7 +98,8 @@ export const igPosts = [
 ]
 
 export const faqs = [
-  { question: 'What services does WISE Financial Partners offer?', answer: 'We offer wealth management, income protection, retirement planning, legacy and estate planning, educational savings strategies, tax optimization guidance, and business planning, tailored to your individual goals.' },
+  { question: 'What services does WISE Financial Partners offer?', answer: 'We offer life insurance (term, whole, universal, and indexed universal life), retirement strategies including fixed and fixed indexed annuities, disability and long term care insurance, estate preservation, college funding, business strategies, and tax-advantaged strategies, tailored to your goals after a free Financial Needs Analysis.' },
+  { question: 'Do you give tax or legal advice?', answer: 'No. We do not provide tax, estate planning, or legal advice. When your strategy touches those areas, we work alongside your tax and legal professionals.' },
   { question: 'How much does a consultation cost?', answer: "Your initial 30-minute consultation is completely free, with no cost or obligation. It's a chance to discuss your goals and see how we can help." },
   { question: 'What states are you licensed in?', answer: 'Glenn Windom II holds CA Insurance License #4359007 and is licensed in multiple states. Product and service availability is subject to applicable state licensing requirements.' },
   { question: 'How do I get started?', answer: "The easiest way to begin is to book a free consultation through this website. We'll discuss your goals and build a strategy tailored to your situation." },
