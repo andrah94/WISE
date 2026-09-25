@@ -306,7 +306,7 @@ function Team() {
         <div className="mt-6 grid sm:mt-8 sm:grid-cols-3 sm:gap-3">
           {team.map((p) => (
             <div key={p.name} className="flex items-center gap-4 border-b border-white/10 py-3 sm:rounded-2xl sm:border sm:bg-white/[0.03] sm:p-3">
-              <img src={wix(p.img, 140, 140, 't')} alt={p.name} loading="lazy" className="size-14 rounded-full object-cover" />
+              <img src={`/img/team-${p.name.split(' ')[0].toLowerCase()}.webp`} alt={p.name} loading="lazy" className="size-14 rounded-full object-cover ring-1 ring-gold/30" />
               <div className="min-w-0">
                 <p className="truncate text-sm font-medium text-white">{p.name}</p>
                 <p className="truncate text-xs text-gold-2">{p.role}</p>
@@ -320,9 +320,9 @@ function Team() {
         <p className="mx-auto mb-4 max-w-7xl px-6 text-xs tracking-[0.2em] text-white/40 uppercase md:px-10">Business partners</p>
         <div className="relative [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)]">
           <InfiniteSlider gap={10} duration={60} durationOnHover={140}>
-            {partners.map((p) => (
+            {partners.map((p, i) => (
               <div key={p.name} className="flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.03] py-1.5 pr-4 pl-1.5">
-                <img src={wix(p.img, 80, 80, 't')} alt={p.name} loading="lazy" className="size-8 rounded-full object-cover" />
+                <img src={`/img/partner-${i}.webp`} alt={p.name} loading="lazy" className="size-8 rounded-full object-cover" />
                 <p className="text-xs whitespace-nowrap text-white/75">{p.name}</p>
               </div>
             ))}
