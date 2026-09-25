@@ -597,10 +597,10 @@ function Contact() {
           </FadeUp>
         </div>
         <FadeUp className="mt-4">
-          <div className="flex flex-col items-center gap-5 rounded-[28px] bg-bone px-6 py-6 md:flex-row md:justify-between md:px-10">
+          <div className="flex flex-col items-center gap-5 rounded-[28px] bg-bone px-6 py-5 md:flex-row md:justify-between md:px-10">
             <p className="shrink-0 text-center text-[11px] font-semibold tracking-[0.22em] text-gold-3 uppercase md:text-left">Access to leading carriers</p>
-            <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
-              {providers.map((p) => <img key={p.alt} src={p.src} alt={p.alt} loading="lazy" className="h-7 w-auto object-contain md:h-8" />)}
+            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 md:gap-x-6">
+              {providers.map((p) => <img key={p.alt} src={p.src} alt={p.alt} loading="lazy" className="h-14 w-auto object-contain md:h-20" />)}
             </div>
           </div>
         </FadeUp>
