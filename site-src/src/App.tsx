@@ -38,7 +38,7 @@ function GhostButton({ children, href, onClick, className }: { children: React.R
 }
 function FadeUp({ children, delay = 0, className }: { children: React.ReactNode; delay?: number; className?: string }) {
   return (
-    <motion.div className={className} initial={{ opacity: 0, y: 36, filter: 'blur(8px)' }} whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }} viewport={{ once: true, margin: '0px 0px -12% 0px' }} transition={{ duration: 1, delay, ease }}>
+    <motion.div className={className} initial={{ opacity: 0, y: 24, filter: 'blur(6px)' }} whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }} viewport={{ once: true, margin: '0px 0px -4% 0px' }} transition={{ duration: 0.75, delay: delay * 0.7, ease }}>
       {children}
     </motion.div>
   )
@@ -106,7 +106,7 @@ function Hero() {
   const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '-18%'])
   const fade = useTransform(scrollYProgress, [0, 0.7], [1, 0])
   return (
-    <section id="top" ref={ref} className="grain relative flex min-h-[100svh] items-start overflow-hidden bg-ink pb-[44svh] lg:items-end lg:pb-0">
+    <section id="top" ref={ref} className="grain relative flex min-h-[100svh] items-start overflow-hidden bg-ink pb-14 lg:items-end lg:pb-0">
       <video autoPlay muted loop playsInline aria-hidden="true" className="absolute inset-0 h-full w-full object-cover opacity-[0.16]">
         <source src={VIDEO_HANDSHAKE} type="video/mp4" />
       </video>
@@ -115,7 +115,7 @@ function Hero() {
       <div aria-hidden className="absolute bottom-[-20%] left-[-10%] h-[70vmin] w-[70vmin] rounded-full bg-[radial-gradient(circle,rgba(156,122,46,.22),transparent_65%)] blur-2xl" />
       <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-ink/40 via-transparent to-ink" />
 
-      <motion.div aria-hidden style={{ y: wordY }} className="outline-text pointer-events-none absolute inset-x-0 bottom-[6vh] select-none text-center font-serif text-[34vw] leading-none tracking-[-0.04em] lg:text-[26vw]">WISE</motion.div>
+      <motion.div aria-hidden style={{ y: wordY }} className="outline-text pointer-events-none absolute hidden lg:block inset-x-0 bottom-[6vh] select-none text-center font-serif text-[34vw] leading-none tracking-[-0.04em] lg:text-[26vw]">WISE</motion.div>
 
       <motion.div style={{ y: glennY, scale: glennScale }} className="absolute right-[2vw] bottom-0 z-[2] hidden h-[92svh] origin-bottom lg:block">
         <div aria-hidden className="absolute inset-x-[10%] top-[8%] bottom-0 rounded-full bg-[radial-gradient(closest-side,rgba(231,206,138,.35),transparent)] blur-3xl" />
@@ -125,14 +125,14 @@ function Hero() {
       </motion.div>
       <div aria-hidden className="absolute inset-y-0 left-0 z-[2] hidden w-[62%] bg-gradient-to-r from-ink via-ink/70 to-transparent lg:block" />
 
-      <motion.div style={{ y: contentY, opacity: fade }} className="relative z-10 mx-auto w-full max-w-7xl px-6 pt-32 md:px-10 lg:pt-36 lg:pb-[12svh]">
+      <motion.div style={{ y: contentY, opacity: fade }} className="relative z-10 mx-auto w-full max-w-7xl px-6 pt-[46svh] md:px-10 lg:pt-36 lg:pb-[12svh]">
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease }} className="eyebrow">Wealth · Impact · Strategy · Execution</motion.div>
         <div className="mt-7 max-w-[52rem]">
-          <MaskedTextReveal as="h1" immediate delay={0.25} splitBy="lines" className="display text-[clamp(2.9rem,7.4vw,7.4rem)] leading-[0.98] text-white" unitClassName="gold-text italic">
+          <MaskedTextReveal as="h1" immediate delay={0.25} splitBy="lines" className="display text-[clamp(2.55rem,7.4vw,7.4rem)] leading-[0.98] text-white" unitClassName="gold-text italic">
             Transform your mindset. Protect your <em>income.</em> Build <em>legacy</em> wealth.
           </MaskedTextReveal>
         </div>
-        <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.9, ease }} className="mt-8 max-w-lg text-lg font-light leading-relaxed text-white/70">
+        <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.9, ease }} className="mt-8 max-w-lg text-lg leading-relaxed text-white/70">
           WISE Financial Partners combines strategic financial planning with mindset transformation to help you achieve lasting wealth and freedom.
         </motion.p>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 1.1, ease }} className="mt-10 flex flex-wrap gap-3">
@@ -142,18 +142,17 @@ function Hero() {
         <motion.a href="#careers" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1.3 }} className="group mt-6 inline-flex items-center gap-2 text-sm text-white/65 transition-colors hover:text-gold-2">
           <span className="h-px w-6 bg-gold-2/70" />Looking to build a career? <span className="text-gold-2">Join the team</span><ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
         </motion.a>
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1.4 }} className="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-[13px] tracking-wide text-white/55">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1.4 }} className="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-[13px] tracking-wide text-white/68">
           <span className="flex items-center gap-2"><CalendarCheck className="size-4 text-gold-2" />Free 30-minute consultation</span>
           <span className="flex items-center gap-2"><BadgeCheck className="size-4 text-gold-2" />Licensed in multiple states</span>
           <span className="flex items-center gap-2"><ShieldCheck className="size-4 text-gold-2" />CA Insurance License #4359007</span>
         </motion.div>
       </motion.div>
-      <div className="absolute inset-x-0 bottom-0 z-[3] flex justify-end lg:hidden" aria-hidden="true">
-        <div className="relative mr-[-6vw] h-[46svh]">
-          <div className="absolute inset-x-[5%] top-[10%] bottom-0 rounded-full bg-[radial-gradient(closest-side,rgba(231,206,138,.3),transparent)] blur-2xl" />
-          <img src="/img/glenn-cutout.webp" alt="" className="relative h-full w-auto max-w-none object-contain object-bottom [mask-image:linear-gradient(to_right,transparent,#000_22%)]" />
-          <div className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-ink to-transparent" />
-        </div>
+      <div className="absolute inset-x-0 top-[9svh] z-[3] flex justify-end lg:hidden" aria-hidden="true">
+        <motion.div className="relative mr-[-10vw] h-[52svh]" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, delay: 0.1, ease }}>
+          <div className="absolute inset-x-[8%] top-[14%] bottom-[10%] rounded-full bg-[radial-gradient(closest-side,rgba(231,206,138,.32),transparent)] blur-2xl" />
+          <img src="/img/glenn-cutout.webp" alt="" className="relative h-full w-auto max-w-none object-contain object-bottom [mask-image:linear-gradient(to_right,transparent,#000_26%),linear-gradient(to_bottom,#000_45%,transparent_96%)] [mask-composite:intersect] [-webkit-mask-composite:source-in]" />
+        </motion.div>
       </div>
     </section>
   )
@@ -162,18 +161,18 @@ function Hero() {
 /* ---------- how it works ---------- */
 function Process() {
   return (
-    <section id="process" className="relative border-t border-white/10 bg-ink py-16 md:py-24">
+    <section id="process" className="relative bg-bone py-16 text-ink md:py-24">
       <div className="mx-auto max-w-7xl px-6 md:px-10">
-        <span className="eyebrow">How it works</span>
-        <Heading className="mt-5 text-[clamp(2.4rem,5vw,4.6rem)]">Three steps to <em>clarity.</em></Heading>
+        <span className="eyebrow !text-gold-3">How it works</span>
+        <Heading className="mt-5 !text-ink text-[clamp(2.4rem,5vw,4.6rem)]" unitClassName="gold-text-deep italic">Three steps to <em>clarity.</em></Heading>
         <ol className="mt-12 grid md:mt-16 md:grid-cols-3 md:gap-10">
           {steps.map((st, i) => (
             <FadeUp key={st.n} delay={i * 0.1}>
-              <li className="relative flex gap-6 border-t border-white/10 py-7 md:block md:pt-8">
-                <span className="gold-text font-serif text-5xl leading-none font-light md:text-7xl">{st.n}</span>
+              <li className="relative flex gap-6 border-t border-ink/15 py-7 md:block md:pt-8">
+                <span className="gold-text-deep font-serif text-5xl leading-none font-light md:text-7xl">{st.n}</span>
                 <div className="md:mt-6">
-                  <h3 className="font-serif text-2xl text-white md:text-[1.9rem]">{st.title}</h3>
-                  <p className="mt-3 max-w-sm text-[15px] font-light leading-relaxed text-white/60">{st.desc}</p>
+                  <h3 className="font-serif text-2xl text-ink md:text-[1.9rem]">{st.title}</h3>
+                  <p className="mt-3 max-w-sm text-base leading-relaxed text-ink/70">{st.desc}</p>
                 </div>
               </li>
             </FadeUp>
@@ -193,7 +192,7 @@ function Method() {
           <>
             <span className="eyebrow">Who we are</span>
             <Heading className="mt-5 text-[clamp(2.4rem,4.6vw,4.4rem)]">What <em>WISE</em> stands for.</Heading>
-            <p className="mt-5 max-w-lg font-light leading-relaxed text-bone/60">Our holistic approach addresses both the practical and psychological aspects of financial success, aligning your money decisions with your core values.</p>
+            <p className="mt-5 max-w-lg font-light leading-relaxed text-bone/75">Our holistic approach addresses both the practical and psychological aspects of financial success, aligning your money decisions with your core values.</p>
           </>
         }
         items={[
@@ -216,7 +215,7 @@ function ServiceCard({ s, i, big }: { s: (typeof services)[number]; i: number; b
       <span className="absolute top-6 left-6 text-xs tracking-[0.22em] text-gold-2">0{i + 1}</span>
       <div className="relative p-7 md:p-8">
         <h3 className={cn('font-serif leading-tight text-white', big ? 'text-3xl md:text-[2.4rem]' : 'text-2xl md:text-[1.7rem]')}>{s.title}</h3>
-        <p className="mt-3 max-w-md text-[15px] font-light leading-relaxed text-white/75">{s.desc}</p>
+        <p className="mt-3 max-w-md text-base leading-relaxed text-white/75">{s.desc}</p>
         <ul className="mt-5 grid grid-cols-1 gap-y-2 border-t border-gold/25 pt-4 text-[11px] font-medium tracking-[0.16em] text-gold-2 uppercase sm:grid-cols-2 sm:gap-x-5" aria-label={`${s.title} products`}>
           {s.products.map((p) => <li key={p} className="flex items-center gap-2.5"><span aria-hidden className="h-px w-3 shrink-0 bg-gold/60" />{p}</li>)}
         </ul>
@@ -236,7 +235,7 @@ function Services() {
             <Heading className="mt-5">Financial solutions <em>built for you.</em></Heading>
           </div>
           <FadeUp className="flex flex-col items-start gap-5">
-            <p className="max-w-sm font-light text-bone/60">Protect those you love. Create the life you deserve. Build a financial legacy. Every consultation is free.</p>
+            <p className="max-w-sm text-bone/75">Protect those you love. Create the life you deserve. Build a financial legacy. Every consultation is free.</p>
             <GoldButton onClick={() => openCalendly()}>Book a Free Consultation</GoldButton>
           </FadeUp>
         </div>
@@ -281,23 +280,23 @@ function Gallery() {
 /* ---------- client reviews (21st.dev: efferd/testimonials-columns-1) ---------- */
 function Reviews() {
   return (
-    <section id="reviews" className="relative overflow-hidden bg-ink py-20 md:py-28">
-      <div aria-hidden className="absolute top-1/3 left-1/2 h-[60vmin] w-[90vmin] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(201,162,75,.14),transparent)] blur-2xl" />
+    <section id="reviews" className="relative overflow-hidden bg-bone py-20 text-ink md:py-28">
+      <div aria-hidden className="absolute top-1/3 left-1/2 h-[60vmin] w-[90vmin] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(201,162,75,.22),transparent)] blur-2xl" />
       <div className="relative mx-auto max-w-7xl px-6 md:px-10">
         <div className="flex flex-wrap items-end justify-between gap-8">
           <div className="min-w-0 flex-[1_1_36rem]">
-            <span className="eyebrow">Client stories</span>
-            <Heading className="mt-5">Trusted by families <em>like yours.</em></Heading>
+            <span className="eyebrow !text-gold-3">Client stories</span>
+            <Heading className="mt-5 !text-ink" unitClassName="gold-text-deep italic">Trusted by families <em>like yours.</em></Heading>
           </div>
           <FadeUp className="flex flex-col items-start gap-3">
             <div className="flex items-center gap-3">
-              <span className="font-serif text-5xl leading-none text-white">5.0</span>
+              <span className="font-serif text-5xl leading-none text-ink">5.0</span>
               <div>
-                <div className="flex gap-0.5">{Array.from({ length: 5 }).map((_, i) => <svg key={i} viewBox="0 0 20 20" className="size-4 fill-gold-2" aria-hidden><path d="M10 1.5l2.6 5.5 6 .8-4.4 4.2 1.1 6-5.3-2.9-5.3 2.9 1.1-6L1.4 7.8l6-.8z" /></svg>)}</div>
-                <p className="mt-1 text-xs text-white/50">Average client rating</p>
+                <div className="flex gap-0.5">{Array.from({ length: 5 }).map((_, i) => <svg key={i} viewBox="0 0 20 20" className="size-4 fill-gold" aria-hidden><path d="M10 1.5l2.6 5.5 6 .8-4.4 4.2 1.1 6-5.3-2.9-5.3 2.9 1.1-6L1.4 7.8l6-.8z" /></svg>)}</div>
+                <p className="mt-1 text-xs text-ink/55">Average client rating</p>
               </div>
             </div>
-            {REVIEWS_ARE_SAMPLE && <span className="rounded-full border border-dashed border-gold/50 px-3 py-1 text-[11px] tracking-wide text-gold-2">Sample reviews for layout. Replace before launch.</span>}
+            {REVIEWS_ARE_SAMPLE && <span className="rounded-full border border-dashed border-gold-3/60 px-3 py-1 text-[11px] tracking-wide text-gold-3">Sample reviews for layout. Replace before launch.</span>}
           </FadeUp>
         </div>
         <div className="mt-12 flex max-h-[720px] justify-center gap-5 overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_18%,black_82%,transparent)]">
@@ -305,7 +304,7 @@ function Reviews() {
           <TestimonialsColumn reviews={reviews.slice(3, 6)} duration={32} className="hidden md:block" />
           <TestimonialsColumn reviews={reviews.slice(6, 9)} duration={29} className="hidden lg:block" />
         </div>
-        <p className="mt-8 text-center text-[11px] text-white/35">Testimonials reflect individual experiences and may not be representative of other clients. No guarantee of future performance or success.</p>
+        <p className="mt-8 text-center text-xs text-ink/50">Testimonials reflect individual experiences and may not be representative of other clients. No guarantee of future performance or success.</p>
       </div>
     </section>
   )
@@ -335,9 +334,9 @@ function Founder() {
             <blockquote className="mt-8 border-l-2 border-gold pl-6 font-serif text-[clamp(1.7rem,2.8vw,2.6rem)] leading-tight font-light text-white italic">"Money isn't math, it's mental."</blockquote>
           </FadeUp>
           <FadeUp delay={0.15}>
-            <p className="mt-8 text-lg font-light leading-relaxed text-bone/65">Glenn Windom II is a visionary financial professional whose unique approach combines mindset coaching with strategic financial planning to help clients achieve lasting wealth and financial freedom.</p>
-            <p className="mt-4 text-lg font-light leading-relaxed text-bone/65">As founder of WISE Financial Partners, Glenn empowers creators, professionals, and entrepreneurs to build legacy wealth through a holistic approach that addresses both the practical and psychological aspects of money.</p>
-            <p className="mt-6 text-lg font-light leading-relaxed text-bone/80">His book, <em className="gold-text italic">The Money Mirror</em>, explores the psychological principles behind wealth creation.</p>
+            <p className="mt-8 text-lg leading-relaxed text-bone/75">Glenn Windom II is a visionary financial professional whose unique approach combines mindset coaching with strategic financial planning to help clients achieve lasting wealth and financial freedom.</p>
+            <p className="mt-4 text-lg leading-relaxed text-bone/75">As founder of WISE Financial Partners, Glenn empowers creators, professionals, and entrepreneurs to build legacy wealth through a holistic approach that addresses both the practical and psychological aspects of money.</p>
+            <p className="mt-6 text-lg leading-relaxed text-bone/80">His book, <em className="gold-text italic">The Money Mirror</em>, explores the psychological principles behind wealth creation.</p>
           </FadeUp>
           <FadeUp delay={0.2} className="mt-10 flex flex-wrap items-center gap-4">
             <a href={GLENN_IG} target="_blank" rel="noopener" aria-label="Glenn on Instagram" className="grid size-12 place-items-center rounded-full border border-white/15 transition-colors hover:border-gold-2 hover:text-gold-2"><Instagram className="size-5" /></a>
@@ -423,7 +422,7 @@ function Careers() {
           <div className="max-w-3xl">
             <span className="eyebrow">Join WISE</span>
             <div className="max-w-[min(100%,7.4em)] text-[clamp(2.6rem,6vw,5.6rem)]"><Heading className="mt-5">Build a business. <em>Grow with us.</em></Heading></div>
-            <FadeUp delay={0.1}><p className="mt-7 text-lg font-light leading-relaxed text-bone/70">Help families protect what matters and build wealth, while you build a business of your own. No finance background needed. We train you, mentor you, and grow with you.</p></FadeUp>
+            <FadeUp delay={0.1}><p className="mt-7 text-lg leading-relaxed text-bone/80">Help families protect what matters and build wealth, while you build a business of your own. No finance background needed. We train you, mentor you, and grow with you.</p></FadeUp>
             <FadeUp delay={0.15} className="mt-10">
               <p className="font-serif text-[clamp(1.6rem,3.2vw,2.6rem)] leading-[1.2] text-white/85">Built for <RotatingWord words={who} /></p>
             </FadeUp>
@@ -441,7 +440,7 @@ function Careers() {
                     <span className="relative z-10 grid size-10 shrink-0 place-items-center rounded-full gold-bg font-serif text-base text-ink md:mx-auto">{i + 1}</span>
                     <div className="md:mt-6">
                       <h3 className="font-serif text-xl text-white">{c.title}</h3>
-                      <p className="mt-2 text-[14px] font-light leading-relaxed text-white/60">{c.desc}</p>
+                      <p className="mt-2 text-[15px] leading-relaxed text-white/72">{c.desc}</p>
                     </div>
                   </li>
                 </FadeUp>
@@ -485,7 +484,7 @@ function Careers() {
       <div className="relative mx-auto grid max-w-7xl gap-12 border-t border-white/10 px-6 py-16 md:px-10 md:py-24 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
         <div>
           <h3 className="display text-[clamp(2.2rem,4vw,3.6rem)] text-white">Ready to <em className="gold-text italic">start?</em></h3>
-          <p className="mt-5 max-w-sm font-light text-bone/60">Book a career conversation with Glenn. We will answer your questions and map out what your first 90 days could look like.</p>
+          <p className="mt-5 max-w-sm text-bone/75">Book a career conversation with Glenn. We will answer your questions and map out what your first 90 days could look like.</p>
           <GoldButton className="mt-8" onClick={() => openCalendly(CAREER_URL)}>Book a Career Conversation</GoldButton>
           <p className="mt-6 max-w-sm text-[11px] leading-relaxed text-white/40">Associates are independent contractors. Earnings depend on individual effort, results, and many other factors. There is no guarantee of income.</p>
         </div>
@@ -505,19 +504,19 @@ function Careers() {
 /* ---------- faq ---------- */
 function FAQ() {
   return (
-    <section id="faq" className="relative bg-ink py-20 md:py-28">
+    <section id="faq" className="relative bg-bone py-20 text-ink md:py-28">
       <div className="mx-auto grid max-w-7xl gap-14 px-6 md:px-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
         <div>
-          <span className="eyebrow">Answers</span>
-          <Heading className="mt-5 text-[clamp(2.6rem,5vw,4.8rem)]">Frequently asked <em>questions.</em></Heading>
-          <FadeUp delay={0.1}><p className="mt-6 max-w-sm font-light text-bone/60">Everything you need to know before you book your free consultation.</p></FadeUp>
+          <span className="eyebrow !text-gold-3">Answers</span>
+          <Heading className="mt-5 !text-ink text-[clamp(2.6rem,5vw,4.8rem)]" unitClassName="gold-text-deep italic">Frequently asked <em>questions.</em></Heading>
+          <FadeUp delay={0.1}><p className="mt-6 max-w-sm text-ink/70">Everything you need to know before you book your free consultation.</p></FadeUp>
         </div>
         <FadeUp delay={0.1}>
-          <Accordion type="single" collapsible defaultValue="item-0" className="border-t border-white/10">
+          <Accordion type="single" collapsible defaultValue="item-0" className="border-t border-ink/10">
             {faqs.map((f, i) => (
-              <AccordionItem key={f.question} value={`item-${i}`}>
-                <AccordionTrigger>{f.question}</AccordionTrigger>
-                <AccordionContent>{f.answer}</AccordionContent>
+              <AccordionItem light key={f.question} value={`item-${i}`}>
+                <AccordionTrigger light>{f.question}</AccordionTrigger>
+                <AccordionContent light>{f.answer}</AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
@@ -559,7 +558,7 @@ function Contact() {
             <span className="eyebrow">Get started</span>
             <Heading className="mt-5">Your legacy starts <em>today.</em></Heading>
           </div>
-          <FadeUp><p className="max-w-sm font-light text-bone/60">One free conversation. No pressure, no obligation. Just clarity on where you are and where you want to go.</p></FadeUp>
+          <FadeUp><p className="max-w-sm text-bone/75">One free conversation. No pressure, no obligation. Just clarity on where you are and where you want to go.</p></FadeUp>
         </div>
         <div className="mt-14 grid gap-4 lg:grid-cols-2">
           <FadeUp>
@@ -569,11 +568,11 @@ function Contact() {
               <div>
                 <span className="eyebrow">Free consultation</span>
                 <h3 className="display mt-5 text-[clamp(2.2rem,3.6vw,3.4rem)] text-white">Take the <em className="gold-text italic">next step.</em></h3>
-                <p className="mt-4 max-w-md font-light text-white/70">Schedule a free 30-minute consultation with one of our licensed financial professionals.</p>
+                <p className="mt-4 max-w-md text-white/80">Schedule a free 30-minute consultation with one of our licensed financial professionals.</p>
               </div>
               <div className="mt-10">
                 <GoldButton onClick={() => openCalendly()}>Book Your Free Consultation</GoldButton>
-                <p className="mt-6 text-sm text-white/55">Or email us directly at <a href={`mailto:${EMAIL}`} className="text-gold-2 underline-offset-4 hover:underline">{EMAIL}</a></p>
+                <p className="mt-6 text-sm text-white/68">Or email us directly at <a href={`mailto:${EMAIL}`} className="text-gold-2 underline-offset-4 hover:underline">{EMAIL}</a></p>
               </div>
             </div>
           </FadeUp>
@@ -582,7 +581,7 @@ function Contact() {
               <div>
                 <span className="eyebrow">Stay informed</span>
                 <h3 className="display mt-5 text-[clamp(2.2rem,3.6vw,3.4rem)] text-white">The WISE <em className="gold-text italic">Report.</em></h3>
-                <p className="mt-4 max-w-md font-light text-white/60">Join our newsletter for exclusive financial insights, market updates, and wealth-building strategies.</p>
+                <p className="mt-4 max-w-md text-white/75">Join our newsletter for exclusive financial insights, market updates, and wealth-building strategies.</p>
               </div>
               <form onSubmit={submit} noValidate className="mt-10 grid gap-3">
                 <label className="sr-only" htmlFor="nl-name">First name</label>
@@ -597,6 +596,14 @@ function Contact() {
             </div>
           </FadeUp>
         </div>
+        <FadeUp className="mt-4">
+          <div className="flex flex-col items-center gap-5 rounded-[28px] bg-bone px-6 py-6 md:flex-row md:justify-between md:px-10">
+            <p className="shrink-0 text-center text-[11px] font-semibold tracking-[0.22em] text-gold-3 uppercase md:text-left">Access to leading carriers</p>
+            <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+              {providers.map((p) => <img key={p.alt} src={p.src} alt={p.alt} loading="lazy" className="h-7 w-auto object-contain md:h-8" />)}
+            </div>
+          </div>
+        </FadeUp>
       </div>
     </section>
   )
@@ -667,10 +674,10 @@ function Popup() {
         <motion.div className="fixed inset-0 z-[70] grid place-items-center bg-black/60 p-5 backdrop-blur-sm" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={(e) => { if (e.target === e.currentTarget) setShow(false) }} role="dialog" aria-modal="true" aria-labelledby="popup-title">
           <motion.div className="relative w-full max-w-md overflow-hidden rounded-[28px] border border-gold/25 bg-ink-2 p-9 shadow-2xl" initial={{ y: 30, scale: 0.97 }} animate={{ y: 0, scale: 1 }} exit={{ y: 20, opacity: 0 }} transition={{ duration: 0.5, ease }}>
             <div aria-hidden className="absolute -top-24 -right-24 size-64 rounded-full bg-[radial-gradient(circle,rgba(201,162,75,.35),transparent_70%)]" />
-            <button onClick={() => setShow(false)} aria-label="Close" className="absolute top-4 right-4 grid size-9 place-items-center rounded-full text-white/60 hover:bg-white/10 hover:text-white"><X className="size-4" /></button>
+            <button onClick={() => setShow(false)} aria-label="Close" className="absolute top-4 right-4 grid size-9 place-items-center rounded-full text-white/72 hover:bg-white/10 hover:text-white"><X className="size-4" /></button>
             <img src="/img/mark.png" alt="" className="relative size-12" />
             <h3 id="popup-title" className="display relative mt-5 text-4xl text-white">Start your wealth journey with <em className="gold-text italic">WISE.</em></h3>
-            <p className="relative mt-3 font-light text-white/60">Choose how you'd like to begin.</p>
+            <p className="relative mt-3 text-white/75">Choose how you'd like to begin.</p>
             <div className="relative mt-7 grid gap-3">
               <GoldButton className="justify-center" onClick={() => { setShow(false); openCalendly() }}>Book a Free Consultation</GoldButton>
               <GhostButton className="justify-center" onClick={() => { setShow(false); openCalendly(CAREER_URL) }}>Explore a Career with WISE</GhostButton>

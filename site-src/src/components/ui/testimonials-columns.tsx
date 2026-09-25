@@ -9,7 +9,7 @@ function Stars() {
   return (
     <div className="flex gap-0.5" aria-label="5 out of 5 stars">
       {Array.from({ length: 5 }).map((_, i) => (
-        <svg key={i} viewBox="0 0 20 20" className="size-4 fill-gold-2" aria-hidden><path d="M10 1.5l2.6 5.5 6 .8-4.4 4.2 1.1 6-5.3-2.9-5.3 2.9 1.1-6L1.4 7.8l6-.8z" /></svg>
+        <svg key={i} viewBox="0 0 20 20" className="size-4 fill-gold" aria-hidden><path d="M10 1.5l2.6 5.5 6 .8-4.4 4.2 1.1 6-5.3-2.9-5.3 2.9 1.1-6L1.4 7.8l6-.8z" /></svg>
       ))}
     </div>
   )
@@ -18,17 +18,17 @@ function Stars() {
 function ReviewCard({ r }: { r: Review }) {
   const initials = r.name.split(' ').map((w) => w[0]).join('').slice(0, 2)
   return (
-    <figure className="w-full max-w-sm rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-7 shadow-[0_30px_60px_-30px_rgba(0,0,0,.8)]">
+    <figure className="w-full max-w-sm rounded-3xl border border-ink/[0.06] bg-white p-7 shadow-[0_24px_50px_-28px_rgba(40,30,10,.35)]">
       <div className="flex items-center justify-between">
         <Stars />
-        <span className="text-[11px] text-white/40">{r.when}</span>
+        <span className="text-xs text-ink/45">{r.when}</span>
       </div>
-      <blockquote className="mt-5 text-[15px] leading-relaxed text-white/80">{r.text}</blockquote>
-      <figcaption className="mt-6 flex items-center gap-3 border-t border-white/10 pt-5">
+      <blockquote className="mt-5 text-base leading-relaxed text-ink/80">{r.text}</blockquote>
+      <figcaption className="mt-6 flex items-center gap-3 border-t border-ink/10 pt-5">
         <span className="grid size-10 shrink-0 place-items-center rounded-full gold-bg font-serif text-sm text-ink">{initials}</span>
         <div className="min-w-0">
-          <p className="text-sm font-medium text-white">{r.name}</p>
-          <p className="truncate text-xs text-white/45">{r.place} · <span className="text-gold-2/90">{r.product}</span></p>
+          <p className="text-sm font-semibold text-ink">{r.name}</p>
+          <p className="truncate text-xs text-ink/55">{r.place} · <span className="font-medium text-gold-3">{r.product}</span></p>
         </div>
       </figcaption>
     </figure>
