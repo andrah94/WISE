@@ -177,7 +177,7 @@ function Method() {
         }
         items={[
           { marker: 'W', title: 'Wealth', description: 'Grow what you have built with strategic planning designed around your values and your timeline.', image: { url: wix(IMG.family, 1100, 1300), alt: 'A family walking together outdoors' } },
-          { marker: 'I', title: 'Impact', description: 'Money is a tool for the life and legacy you want. We start with what matters most to you and your family.', image: { url: wix(IMG.glennWorking, 1100, 1300), alt: 'Glenn Windom II working in the WISE office' } },
+          { marker: 'I', title: 'Impact', description: 'Money is a tool for the life and legacy you want. We start with what matters most to you and your family.', image: { url: unsplash('photo-1577896849786-738ed6c78bd3', 1200), alt: 'A family spending time together at home' } },
           { marker: 'S', title: 'Strategy', description: 'A clear, personalized plan across protection, retirement, and legacy, aligned with your goals.', image: { url: wix(IMG.planning, 1100, 1300), alt: 'Financial planning documents' } },
           { marker: 'E', title: 'Execution', description: 'Guidance that helps you put the plan into action, one step at a time.', image: { url: unsplash('photo-1566053166065-79446ba9b79f', 1200), alt: 'A couple walking hand in hand' } },
         ]}
@@ -238,43 +238,40 @@ function Gallery() {
     ...providers.map((p) => ({ src: p.src, alt: p.alt, logo: true })),
   ]
   return (
-    <section className="relative bg-ink" aria-label="Real people. Real results. Real transformation.">
-      <div className="relative mx-auto flex h-[60vh] max-w-5xl flex-col items-center justify-center px-6 text-center">
-        <span className="eyebrow">Your financial future starts here</span>
-        <Heading className="mt-6">Real people. <em>Real results.</em></Heading>
-        <FadeUp delay={0.15}><p className="mt-6 max-w-xl font-light text-bone/60">Backed by a network of industry-leading carriers, with a licensed professional in your corner.</p></FadeUp>
+    <section className="relative bg-bone" aria-label="Real people. Real results. Real transformation.">
+      <div aria-hidden className="h-[28vh] bg-gradient-to-b from-ink to-bone" />
+      <div className="relative mx-auto flex max-w-5xl flex-col items-center justify-center px-6 pb-10 text-center">
+        <span className="eyebrow !text-gold-3">Your financial future starts here</span>
+        <Heading className="mt-6 !text-ink">Real people. <em>Real results.</em></Heading>
+        <FadeUp delay={0.15}><p className="mt-6 max-w-xl text-ink/65">Backed by a network of industry-leading carriers, with a licensed professional in your corner.</p></FadeUp>
       </div>
       <ZoomParallax images={images}>
         <div className="text-center">
           <p className="display text-[clamp(2.6rem,7vw,6.5rem)] text-white">Real <em className="gold-text italic">transformation.</em></p>
         </div>
       </ZoomParallax>
-      <div className="flex justify-center pt-4 pb-10">
+      <div className="flex justify-center bg-ink pt-6 pb-12">
         <GoldButton onClick={() => openCalendly()}>Book Your Consultation</GoldButton>
       </div>
     </section>
   )
 }
 
-/* ---------- founder ---------- */
+/* ---------- founder + book ---------- */
 function Founder() {
-  const ref = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
-  const y = useTransform(scrollYProgress, [0, 1], ['-8%', '8%'])
   return (
-    <section id="founder" className="relative overflow-hidden bg-ink py-28 md:py-44">
-      <div ref={ref} className="mx-auto grid max-w-7xl items-center gap-14 px-6 md:px-10 lg:grid-cols-[1fr_1.1fr] lg:gap-24">
-        <FadeUp>
-          <div className="relative aspect-[4/5] overflow-hidden rounded-[32px] border border-white/10 bg-[radial-gradient(90%_70%_at_50%_25%,#3a3121,#0b0a08)]">
-            <motion.img style={{ y }} src="/img/glenn-cutout.webp" alt="Glenn Windom II" className="absolute inset-x-0 bottom-0 mx-auto h-[108%] w-auto max-w-none object-contain object-bottom" loading="lazy" />
-            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-ink/90 to-transparent" />
-            <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
-              <div>
-                <p className="font-serif text-2xl text-white">Glenn Windom II</p>
-                <p className="text-sm text-gold-2">Founder & CEO</p>
-              </div>
-              <img src="/img/mark.png" alt="" className="size-12 opacity-90" />
-            </div>
+    <section id="founder" className="relative overflow-hidden bg-ink-2 py-28 md:py-40">
+      <div aria-hidden className="outline-text pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 select-none text-center font-serif text-[20vw] leading-none whitespace-nowrap">The Money Mirror</div>
+      <div aria-hidden className="absolute top-1/2 left-1/4 h-[70vmin] w-[70vmin] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(201,162,75,.28),transparent)] blur-2xl" />
+      <div className="relative mx-auto grid max-w-7xl items-center gap-16 px-6 md:px-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
+        <FadeUp className="flex flex-col items-center">
+          <Tilt rotationFactor={10} isRevese springOptions={{ stiffness: 26.7, damping: 4.1, mass: 0.2 }} className="group relative rounded-[10px]" style={{ transformOrigin: 'center center' }}>
+            <Spotlight className="z-10 from-white/40 via-white/15 to-transparent blur-2xl" size={260} springOptions={{ stiffness: 26.7, damping: 4.1, mass: 0.2 }} />
+            <img src="/img/money-mirror.webp" alt="The Money Mirror by Glenn Windom II" className="w-[min(72vw,380px)] rounded-[10px] shadow-[0_50px_100px_-20px_rgba(0,0,0,.85),0_0_0_1px_rgba(255,255,255,.06)]" loading="lazy" />
+          </Tilt>
+          <div className="mt-10 flex flex-wrap justify-center gap-3">
+            <GoldButton href={AMAZON}>Get on Amazon</GoldButton>
+            <GhostButton href={APPLE_BOOKS}>Apple Books <ArrowUpRight className="size-4" /></GhostButton>
           </div>
         </FadeUp>
         <div>
@@ -286,6 +283,7 @@ function Founder() {
           <FadeUp delay={0.15}>
             <p className="mt-8 text-lg font-light leading-relaxed text-bone/65">Glenn Windom II is a visionary financial advisor whose unique approach combines mindset coaching with strategic financial planning to help clients achieve lasting wealth and financial freedom.</p>
             <p className="mt-4 text-lg font-light leading-relaxed text-bone/65">As founder of WISE Financial Partners, Glenn empowers creators, professionals, and entrepreneurs to build legacy wealth through a holistic approach that addresses both the practical and psychological aspects of money.</p>
+            <p className="mt-6 text-lg font-light leading-relaxed text-bone/80">His book, <em className="gold-text italic">The Money Mirror</em>, explores the psychological principles behind wealth creation.</p>
           </FadeUp>
           <FadeUp delay={0.2} className="mt-10 flex flex-wrap items-center gap-4">
             <GoldButton onClick={() => openCalendly()}>Book with Glenn</GoldButton>
@@ -293,33 +291,6 @@ function Founder() {
             <a href={GLENN_IN} target="_blank" rel="noopener" aria-label="Glenn on LinkedIn" className="grid size-12 place-items-center rounded-full border border-white/15 transition-colors hover:border-gold-2 hover:text-gold-2"><Linkedin className="size-5" /></a>
           </FadeUp>
           <p className="mt-8 text-xs tracking-wider text-white/40">CA Insurance License #4359007 · Licensed in Multiple States</p>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-/* ---------- book ---------- */
-function Book() {
-  return (
-    <section className="relative overflow-hidden bg-ink-2 py-28 md:py-44">
-      <div aria-hidden className="outline-text pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 select-none text-center font-serif text-[20vw] leading-none whitespace-nowrap">The Money Mirror</div>
-      <div aria-hidden className="absolute top-1/2 left-1/4 h-[70vmin] w-[70vmin] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(201,162,75,.3),transparent)] blur-2xl" />
-      <div className="relative mx-auto grid max-w-7xl items-center gap-16 px-6 md:px-10 lg:grid-cols-2">
-        <FadeUp className="flex justify-center">
-          <Tilt rotationFactor={10} isRevese springOptions={{ stiffness: 26.7, damping: 4.1, mass: 0.2 }} className="group relative rounded-[10px]" style={{ transformOrigin: 'center center' }}>
-            <Spotlight className="z-10 from-white/40 via-white/15 to-transparent blur-2xl" size={260} springOptions={{ stiffness: 26.7, damping: 4.1, mass: 0.2 }} />
-            <img src="/img/money-mirror.webp" alt="The Money Mirror by Glenn Windom II" className="w-[min(78vw,400px)] rounded-[10px] shadow-[0_50px_100px_-20px_rgba(0,0,0,.85),0_0_0_1px_rgba(255,255,255,.06)]" loading="lazy" />
-          </Tilt>
-        </FadeUp>
-        <div>
-          <span className="eyebrow">The book</span>
-          <Heading className="mt-5">The Money <em>Mirror.</em></Heading>
-          <FadeUp delay={0.1}><p className="mt-7 max-w-lg text-lg font-light leading-relaxed text-bone/65">Discover the psychological principles behind wealth creation in Glenn's groundbreaking book.</p></FadeUp>
-          <FadeUp delay={0.2} className="mt-10 flex flex-wrap gap-3">
-            <GoldButton href={AMAZON}>Get on Amazon</GoldButton>
-            <GhostButton href={APPLE_BOOKS}>Apple Books <ArrowUpRight className="size-4" /></GhostButton>
-          </FadeUp>
         </div>
       </div>
     </section>
@@ -338,8 +309,8 @@ function Team() {
           </div>
           <FadeUp><p className="max-w-sm font-light text-bone/60">Licensed financial professionals dedicated to your success.</p></FadeUp>
         </div>
-        <div className="mt-16 grid grid-cols-2 gap-4 lg:grid-cols-4">
-          {leaders.map((p, i) => (
+        <div className="mt-16 grid grid-cols-2 gap-4 md:grid-cols-3">
+          {leaders.filter((p) => !p.name.startsWith('Glenn')).map((p, i) => (
             <FadeUp key={p.name} delay={i * 0.06}>
               <div className="group relative aspect-[3/4] overflow-hidden rounded-3xl border border-white/10 bg-ink-3">
                 <img src={wix(p.img, 600, 800, 't')} alt={p.name} loading="lazy" className="size-full object-cover object-top grayscale transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0" />
@@ -669,7 +640,6 @@ export default function App() {
         <BookBand />
         <Gallery />
         <Founder />
-        <Book />
         <Team />
         <Careers />
         <FAQ />
