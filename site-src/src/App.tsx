@@ -189,19 +189,15 @@ function Method() {
 /* ---------- services ---------- */
 function ServiceCard({ s, i, big }: { s: (typeof services)[number]; i: number; big?: boolean }) {
   return (
-    <button type="button" onClick={() => openCalendly()} aria-label={`${s.title}: book a free consultation`}
-      className={cn('group relative flex w-full flex-col justify-end overflow-hidden rounded-[28px] border border-white/10 text-left', big ? 'min-h-[26rem] md:min-h-[30rem]' : 'min-h-[20rem]')}>
+    <div className={cn('group relative flex w-full flex-col justify-end overflow-hidden rounded-[28px] border border-white/10 text-left', big ? 'min-h-[26rem] md:min-h-[30rem]' : 'min-h-[20rem]')}>
       <img src={s.img} alt="" loading="lazy" className="absolute inset-0 size-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105" />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/5" />
       <span className="absolute top-6 left-6 text-xs tracking-[0.22em] text-gold-2">0{i + 1}</span>
       <div className="relative p-7 md:p-8">
         <h3 className={cn('font-serif leading-tight text-white', big ? 'text-3xl md:text-[2.4rem]' : 'text-2xl md:text-[1.7rem]')}>{s.title}</h3>
         <p className="mt-3 max-w-md text-[15px] font-light leading-relaxed text-white/75">{s.desc}</p>
-        <span className="mt-6 inline-flex items-center gap-2 rounded-full gold-bg px-5 py-2.5 text-sm font-medium text-[#141005] transition-transform duration-500 group-hover:-translate-y-0.5">
-          Book a free consult <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-        </span>
       </div>
-    </button>
+    </div>
   )
 }
 
@@ -250,9 +246,6 @@ function Gallery() {
           <p className="display text-[clamp(2.6rem,7vw,6.5rem)] text-white">Real <em className="gold-text italic">transformation.</em></p>
         </div>
       </ZoomParallax>
-      <div className="flex justify-center bg-ink pt-6 pb-12">
-        <GoldButton onClick={() => openCalendly()}>Book Your Consultation</GoldButton>
-      </div>
     </section>
   )
 }
@@ -286,7 +279,6 @@ function Founder() {
             <p className="mt-6 text-lg font-light leading-relaxed text-bone/80">His book, <em className="gold-text italic">The Money Mirror</em>, explores the psychological principles behind wealth creation.</p>
           </FadeUp>
           <FadeUp delay={0.2} className="mt-10 flex flex-wrap items-center gap-4">
-            <GoldButton onClick={() => openCalendly()}>Book with Glenn</GoldButton>
             <a href={GLENN_IG} target="_blank" rel="noopener" aria-label="Glenn on Instagram" className="grid size-12 place-items-center rounded-full border border-white/15 transition-colors hover:border-gold-2 hover:text-gold-2"><Instagram className="size-5" /></a>
             <a href={GLENN_IN} target="_blank" rel="noopener" aria-label="Glenn on LinkedIn" className="grid size-12 place-items-center rounded-full border border-white/15 transition-colors hover:border-gold-2 hover:text-gold-2"><Linkedin className="size-5" /></a>
           </FadeUp>
@@ -391,7 +383,6 @@ function FAQ() {
           <span className="eyebrow">Answers</span>
           <Heading className="mt-5 text-[clamp(2.6rem,5vw,4.8rem)]">Frequently asked <em>questions.</em></Heading>
           <FadeUp delay={0.1}><p className="mt-6 max-w-sm font-light text-bone/60">Everything you need to know before you book your free consultation.</p></FadeUp>
-          <FadeUp delay={0.2} className="mt-10"><GoldButton onClick={() => openCalendly()}>Book Your Free Consultation</GoldButton></FadeUp>
         </div>
         <FadeUp delay={0.1}>
           <Accordion type="single" collapsible defaultValue="item-0" className="border-t border-white/10">
@@ -570,22 +561,6 @@ function Popup() {
   )
 }
 
-/* ---------- mid-page booking band ---------- */
-function BookBand() {
-  return (
-    <section className="relative bg-ink px-6 py-10 md:px-10">
-      <FadeUp className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 rounded-[32px] border border-gold/30 bg-gradient-to-r from-gold/15 via-gold/5 to-transparent p-8 md:flex-row md:items-center md:p-12">
-        <div>
-          <p className="eyebrow">Free 30-minute consultation</p>
-          <h3 className="display mt-4 text-[clamp(2rem,3.6vw,3.2rem)] text-white">Ready to talk about your <em className="gold-text italic">goals?</em></h3>
-          <p className="mt-2 font-light text-white/60">No cost. No obligation. Just a real conversation with a licensed professional.</p>
-        </div>
-        <GoldButton onClick={() => openCalendly()} className="shrink-0">Book a Free Consultation</GoldButton>
-      </FadeUp>
-    </section>
-  )
-}
-
 /* ---------- always-visible booking ---------- */
 function StickyCTA() {
   const [show, setShow] = useState(false)
@@ -637,7 +612,6 @@ export default function App() {
         <ScrollWordReveal kicker="Our philosophy" goldWords={['mental', 'values']}
           text="Money isn't math, it's mental. We combine strategic financial planning with mindset transformation, aligning your money decisions with your core values." />
         <Method />
-        <BookBand />
         <Gallery />
         <Founder />
         <Team />
