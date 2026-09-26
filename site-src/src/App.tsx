@@ -678,9 +678,9 @@ function Careers() {
         </div>
         <div className="relative [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)]">
           <InfiniteSlider gap={12} duration={60} durationOnHover={140}>
-            {partners.map((p, i) => (
+            {partners.map((p) => (
               <div key={p.name} className="flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.03] py-2 pr-5 pl-2">
-                <img src={`/img/partner-${i}.webp`} alt={p.name} loading="lazy" className="size-10 rounded-full object-cover" />
+                <img src={p.photo} alt={p.name} loading="lazy" className="size-10 rounded-full object-cover" />
                 <p className="text-sm whitespace-nowrap text-white/80">{p.name}</p>
               </div>
             ))}

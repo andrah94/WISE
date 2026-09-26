@@ -43,17 +43,16 @@ export const leaders = [
 ]
 
 export const partners = [
-  { name: 'Daniel Daniels', img: '5e8141_6a9bcd8d5e004752ab5cb6d25d26aa1a~mv2.jpg' },
-  { name: 'Laura Oliden', img: '5e8141_440f60ef88d94203a83fe9df23f00c51~mv2.jpeg' },
-  { name: 'Ashia Anderson', img: '5e8141_8013a8ea2bb44f75bb3f01c9b1f353c8~mv2.jpeg' },
-  { name: 'Nathaniel Ilo', img: '5e8141_d2982284904f402f87e41ac0f985c19e~mv2.jpeg' },
-  { name: 'Ajani Johnson', img: '5e8141_19d793055cb9436599acec506b35c6ec~mv2.jpg' },
-  { name: 'Brandynn Hardin', img: '5e8141_fefa54cf1e8542569b95829b950a1f70~mv2.jpg' },
-  { name: 'Britney Woods', img: '5e8141_a7d489be9bab423790bd4ab661c246e3~mv2.jpg' },
-  { name: 'DeAnna Cole', img: '5e8141_86b5795bdc9b49d0a89932763fbba94f~mv2.jpg' },
-  { name: 'Darius K. Rodgers', img: '5e8141_584b610338104cb09017fd58744ea0ed~mv2.jpeg' },
-  { name: 'Jazlyn Miller', img: '5e8141_162e2559ff5b4bbaa34b24f751f8f0bf~mv2.jpeg' },
-  { name: 'Stanley Morgan', img: '5e8141_63771c106f774ad382f2d7a29ece73d1~mv2.jpeg' },
+  { photo: '/img/partner-0.webp', name: 'Daniel Daniels', img: '5e8141_6a9bcd8d5e004752ab5cb6d25d26aa1a~mv2.jpg' },
+  { photo: '/img/partner-1.webp', name: 'Laura Oliden', img: '5e8141_440f60ef88d94203a83fe9df23f00c51~mv2.jpeg' },
+  { photo: '/img/partner-2.webp', name: 'Ashia Anderson', img: '5e8141_8013a8ea2bb44f75bb3f01c9b1f353c8~mv2.jpeg' },
+  { photo: '/img/partner-3.webp', name: 'Nathaniel Ilo', img: '5e8141_d2982284904f402f87e41ac0f985c19e~mv2.jpeg' },
+  { photo: '/img/partner-4.webp', name: 'Ajani Johnson', img: '5e8141_19d793055cb9436599acec506b35c6ec~mv2.jpg' },
+  { photo: '/img/partner-5.webp', name: 'Brandynn Hardin', img: '5e8141_fefa54cf1e8542569b95829b950a1f70~mv2.jpg' },
+  { photo: '/img/partner-6.webp', name: 'Britney Woods', img: '5e8141_a7d489be9bab423790bd4ab661c246e3~mv2.jpg' },
+  { photo: '/img/partner-7.webp', name: 'DeAnna Cole', img: '5e8141_86b5795bdc9b49d0a89932763fbba94f~mv2.jpg' },
+  { photo: '/img/partner-9.webp', name: 'Jazlyn Miller', img: '5e8141_162e2559ff5b4bbaa34b24f751f8f0bf~mv2.jpeg' },
+  { photo: '/img/partner-10.webp', name: 'Stanley Morgan', img: '5e8141_63771c106f774ad382f2d7a29ece73d1~mv2.jpeg' },
 ]
 
 /** Product list mirrors World Financial Group's U.S. client solutions */
