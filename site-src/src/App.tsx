@@ -8,14 +8,13 @@ import { InfiniteSlider } from '@/components/ui/infinite-slider'
 import { ScrollWordReveal } from '@/components/ui/scroll-word-reveal'
 import ScrollRevealContent from '@/components/ui/scroll-reveal-content'
 import { ZoomParallax } from '@/components/ui/zoom-parallax'
-import { TestimonialsColumn } from '@/components/ui/testimonials-columns'
 import { Tilt } from '@/components/ui/tilt'
 import { Spotlight } from '@/components/ui/spotlight'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { cn } from '@/lib/utils'
 import {
   AMAZON, APPLE_BOOKS, CAREER_URL, EMAIL, EMAIL_RE, GLENN_IG, GLENN_IN, IMG, VIDEO_HANDSHAKE, VIDEO_SECOND,
-  REVIEWS_ARE_SAMPLE, agentFaqs, careerPath, reviews, faqs, leaders, openCalendly, partners, providers, services, steps, unsplash, wix,
+  agentFaqs, careerPath, faqs, leaders, openCalendly, partners, providers, services, steps, unsplash, wix,
   isPatternKey, quizBookUrl, quizQuestions, quizResults, subscribeNewsletter, track, type PatternKey,
 } from '@/data'
 
@@ -519,39 +518,6 @@ function Gallery() {
   )
 }
 
-/* ---------- client reviews (21st.dev: efferd/testimonials-columns-1) ---------- */
-function Reviews() {
-  return (
-    <section id="reviews" className="relative overflow-hidden bg-bone py-20 text-ink md:py-28">
-      <div aria-hidden className="absolute top-1/3 left-1/2 h-[60vmin] w-[90vmin] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(201,162,75,.22),transparent)] blur-2xl" />
-      <div className="relative mx-auto max-w-7xl px-6 md:px-10">
-        <div className="flex flex-wrap items-end justify-between gap-8">
-          <div className="min-w-0 flex-[1_1_36rem]">
-            <span className="eyebrow !text-gold-3">Client stories</span>
-            <Heading className="mt-5 !text-ink" unitClassName="gold-text-deep italic">Trusted by families <em>like yours.</em></Heading>
-          </div>
-          <FadeUp className="flex flex-col items-start gap-3">
-            <div className="flex items-center gap-3">
-              <span className="font-serif text-5xl leading-none text-ink">5.0</span>
-              <div>
-                <div className="flex gap-0.5">{Array.from({ length: 5 }).map((_, i) => <svg key={i} viewBox="0 0 20 20" className="size-4 fill-gold" aria-hidden><path d="M10 1.5l2.6 5.5 6 .8-4.4 4.2 1.1 6-5.3-2.9-5.3 2.9 1.1-6L1.4 7.8l6-.8z" /></svg>)}</div>
-                <p className="mt-1 text-xs text-ink/55">Average client rating</p>
-              </div>
-            </div>
-            {REVIEWS_ARE_SAMPLE && <span className="rounded-full border border-dashed border-gold-3/60 px-3 py-1 text-[11px] tracking-wide text-gold-3">Sample reviews for layout. Replace before launch.</span>}
-          </FadeUp>
-        </div>
-        <div className="mt-12 flex max-h-[720px] justify-center gap-5 overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_18%,black_82%,transparent)]">
-          <TestimonialsColumn reviews={reviews.slice(0, 3)} duration={26} />
-          <TestimonialsColumn reviews={reviews.slice(3, 6)} duration={32} className="hidden md:block" />
-          <TestimonialsColumn reviews={reviews.slice(6, 9)} duration={29} className="hidden lg:block" />
-        </div>
-        <p className="mt-8 text-center text-xs text-ink/50">Testimonials reflect individual experiences and may not be representative of other clients. No guarantee of future performance or success.</p>
-      </div>
-    </section>
-  )
-}
-
 /* ---------- founder + book ---------- */
 function Founder() {
   return (
@@ -562,7 +528,7 @@ function Founder() {
         <FadeUp className="flex flex-col items-center">
           <Tilt rotationFactor={10} isRevese springOptions={{ stiffness: 26.7, damping: 4.1, mass: 0.2 }} className="group relative rounded-[10px]" style={{ transformOrigin: 'center center' }}>
             <Spotlight className="z-10 from-white/40 via-white/15 to-transparent blur-2xl" size={260} springOptions={{ stiffness: 26.7, damping: 4.1, mass: 0.2 }} />
-            <img src="/img/money-mirror.webp" alt="The Money Mirror by Glenn Windom II" className="w-[min(72vw,380px)] rounded-[10px] shadow-[0_50px_100px_-20px_rgba(0,0,0,.85),0_0_0_1px_rgba(255,255,255,.06)]" loading="lazy" />
+            <img src="/img/money-mirror.webp" alt="The Money Mirror: Money Isn't Math, It's Mental, by Glenn Windom II" className="w-[min(72vw,380px)] rounded-[10px] shadow-[0_50px_100px_-20px_rgba(0,0,0,.85),0_0_0_1px_rgba(255,255,255,.06)]" loading="lazy" />
           </Tilt>
           <div className="mt-10 flex flex-wrap justify-center gap-3">
             <GoldButton href={AMAZON}>Get on Amazon</GoldButton>
@@ -578,7 +544,7 @@ function Founder() {
           <FadeUp delay={0.15}>
             <p className="mt-8 text-lg leading-relaxed text-bone/75">Glenn Windom II is a visionary financial professional whose unique approach combines mindset coaching with strategic financial planning to help clients achieve lasting wealth and financial freedom.</p>
             <p className="mt-4 text-lg leading-relaxed text-bone/75">As founder of WISE Financial Partners, Glenn empowers creators, professionals, and entrepreneurs to build legacy wealth through a holistic approach that addresses both the practical and psychological aspects of money.</p>
-            <p className="mt-6 text-lg leading-relaxed text-bone/80">His book, <em className="gold-text italic">The Money Mirror</em>, explores the psychological principles behind wealth creation.</p>
+            <p className="mt-6 text-lg leading-relaxed text-bone/80">His book, <em className="gold-text italic">The Money Mirror: Money Isn't Math, It's Mental</em>, explores the psychological principles behind wealth creation.</p>
           </FadeUp>
           <FadeUp delay={0.2} className="mt-10 flex flex-wrap items-center gap-4">
             <a href={GLENN_IG} target="_blank" rel="noopener" aria-label="Glenn on Instagram" className="grid size-12 place-items-center rounded-full border border-white/15 transition-colors hover:border-gold-2 hover:text-gold-2"><Instagram className="size-5" /></a>
@@ -980,7 +946,6 @@ export default function App() {
           text="Money isn't math, it's mental. We align your money decisions with your core values." />
         <Method />
         <Gallery />
-        <Reviews />
         <Founder />
         <Team />
         <FAQ />
