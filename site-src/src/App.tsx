@@ -270,8 +270,8 @@ function QuizResult({ pattern, answers, onRestart, headingRef }: { pattern: Patt
       </div>
 
       <form onSubmit={submit} noValidate className="mt-10 grid grid-cols-1 gap-3 border-t border-white/10 pt-8" aria-labelledby="mm-keep">
-        <p id="mm-keep" className="font-serif text-xl text-white">Keep this tool</p>
-        <p className="-mt-1 text-sm text-white/60">Optional. Only your name and email are sent. Your answers stay on this page.</p>
+        <p id="mm-keep" className="font-serif text-xl text-white">Stay in touch</p>
+        <p className="-mt-1 text-sm text-white/60">Optional. Screenshot or save the tool above. Only your name and email are sent; your answers stay on this page.</p>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <div>
             <label className="sr-only" htmlFor="mm-name">First name</label>
@@ -285,9 +285,9 @@ function QuizResult({ pattern, answers, onRestart, headingRef }: { pattern: Patt
         <input name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="absolute left-[-9999px] h-px w-px" />
         <label className="mt-1 flex cursor-pointer items-start gap-3 text-sm leading-relaxed text-white/75">
           <input type="checkbox" required checked={consent} onChange={(e) => setConsent(e.target.checked)} className={cn('mt-0.5 size-5 shrink-0 accent-[#c9a24b]', focusRing)} />
-          <span>Email me this tool and occasional insights from WISE. Unsubscribe anytime.</span>
+          <span>Add me to The WISE Report for occasional insights from Glenn. Unsubscribe anytime.</span>
         </label>
-        <button type="submit" disabled={busy} className={cn('mt-2 rounded-2xl bg-bone py-4 font-medium text-ink transition-colors hover:bg-white disabled:opacity-60', focusRing)}>{busy ? 'Sending...' : 'Email Me This Tool'}</button>
+        <button type="submit" disabled={busy} className={cn('mt-2 rounded-2xl bg-bone py-4 font-medium text-ink transition-colors hover:bg-white disabled:opacity-60', focusRing)}>{busy ? 'Subscribing...' : 'Join The WISE Report'}</button>
         <p role="status" className={cn('min-h-[1.25rem] text-sm', msg?.ok ? 'text-gold-2' : 'text-red-400')}>{msg?.text}</p>
         <p className="text-xs text-white/40">By signing up you agree to our <a href="/privacy.html" className="underline">Privacy Policy</a>.</p>
       </form>
@@ -349,7 +349,7 @@ function CheckIn() {
         <div className="relative mx-auto grid max-w-7xl gap-12 px-6 md:px-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
           <div className="lg:sticky lg:top-28 lg:self-start">
             <span className="eyebrow">From The Money Mirror</span>
-            <Heading className="mt-5 text-[clamp(2.4rem,4.8vw,4.4rem)]">Money isn't math. It's <em>mental.</em></Heading>
+            <Heading className="mt-5 text-[clamp(2.4rem,4.8vw,4.4rem)]">Look in the <em>mirror.</em></Heading>
             <FadeUp delay={0.1}>
               <p className="mt-6 max-w-md text-lg leading-relaxed text-bone/75">Five quick questions from Glenn's book. No account numbers, no judgment. You get the reflection tool that fits where you are right now.</p>
             </FadeUp>
