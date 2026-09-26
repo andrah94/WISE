@@ -106,11 +106,156 @@ export const faqs = [
 ]
 
 declare global {
-  interface Window { Calendly?: { initPopupWidget: (o: { url: string }) => void } }
+  interface Window {
+    Calendly?: { initPopupWidget: (o: { url: string }) => void }
+    gtag?: (...args: unknown[]) => void
+  }
 }
 export function openCalendly(url: string = BOOK_URL) {
   if (window.Calendly) window.Calendly.initPopupWidget({ url })
   else window.open(url, '_blank', 'noopener')
+}
+
+/** Returns `url` with the given query params set (overriding any existing ones). Values are URL-encoded; empty values are skipped. */
+export function withParams(url: string, params: Record<string, string | undefined>) {
+  const [base, query = ''] = url.split('?')
+  const merged = new Map(query.split('&').filter(Boolean).map((kv) => { const i = kv.indexOf('='); return [kv.slice(0, i), kv.slice(i + 1)] as [string, string] }))
+  for (const [k, v] of Object.entries(params)) if (v) merged.set(k, encodeURIComponent(v))
+  return `${base}?${[...merged].map(([k, v]) => `${k}=${v}`).join('&')}`
+}
+
+/** Booking link for the Money Mirror Check-In: quiz UTMs, plus Calendly prefill when the visitor gave a name/email. */
+export function quizBookUrl(pattern: PatternKey, prefill: { name?: string; email?: string } = {}) {
+  const email = prefill.email?.trim()
+  return withParams(BOOK_URL, {
+    utm_source: 'website', utm_medium: 'quiz', utm_campaign: 'money_mirror', utm_content: pattern,
+    name: prefill.name?.trim(),
+    email: email && EMAIL_RE.test(email) ? email : undefined,
+  })
+}
+
+/** Fire a GA4 event if gtag is on the page. Never pass answers or personal data. */
+export function track(event: string, params?: Record<string, string>) {
+  if (typeof window !== 'undefined' && typeof window.gtag === 'function') window.gtag('event', event, ...(params ? [params] : []))
+}
+
+export const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+/** Shared newsletter signup (Contact form + Money Mirror Check-In). Sends only email and optional first name. */
+export async function subscribeNewsletter(email: string, name?: string): Promise<{ ok: boolean; text: string }> {
+  try {
+    const body = new FormData(); body.append('email', email); if (name) body.append('name', name)
+    const res = await fetch(NEWSLETTER_ENDPOINT, { method: 'POST', body })
+    const r = await res.json()
+    if (r.status === 'success') return { ok: true, text: r.message || 'Thank you for subscribing.' }
+    return { ok: false, text: r.message || 'Something went wrong. Please try again.' }
+  } catch (err) {
+    console.error('Newsletter signup error:', err)
+    return { ok: false, text: 'Unable to subscribe. Please try again later.' }
+  }
+}
+
+/* ---------- The Money Mirror Check-In ---------- */
+export type Option = { value: string; label: string; quote?: string }
+export type Question =
+  | { id: 'life' | 'depends'; kind: 'multi'; prompt: string; hint: string; options: Option[]; exclusive?: string }
+  | { id: 'runway' | 'pattern'; kind: 'single'; prompt: string; hint: string; options: Option[] }
+  | { id: 'stopped'; kind: 'text'; prompt: string; hint: string; maxLength: number }
+
+export const quizQuestions: Question[] = [
+  {
+    id: 'life', kind: 'multi', prompt: 'What’s going on in your life right now?', hint: 'Choose all that apply.',
+    options: [
+      { value: 'family', label: 'Growing family' },
+      { value: 'home', label: 'Bought or buying a home' },
+      { value: 'job_change', label: 'Changed jobs or have an old 401(k)' },
+      { value: 'business', label: 'Own a business' },
+      { value: 'build_wealth', label: 'Want to build wealth' },
+      { value: 'retirement', label: 'Thinking about retirement' },
+      { value: 'checkup', label: 'Just want a check-up' },
+    ],
+  },
+  {
+    id: 'depends', kind: 'multi', prompt: 'Who depends on your income?', hint: 'Choose all that apply.', exclusive: 'self',
+    options: [
+      { value: 'partner', label: 'My partner' },
+      { value: 'kids', label: 'My kids' },
+      { value: 'parents', label: 'My parents' },
+      { value: 'business', label: 'A business' },
+      { value: 'self', label: 'Just me' },
+    ],
+  },
+  {
+    id: 'runway', kind: 'single', prompt: 'If your paycheck stopped tomorrow, how long would your household be okay?', hint: 'Choose one. Your best guess is fine.',
+    options: [
+      { value: 'lt1', label: 'Less than a month' },
+      { value: '1to3', label: '1 to 3 months' },
+      { value: '3to6', label: '3 to 6 months' },
+      { value: 'gt6', label: 'More than 6 months' },
+      { value: 'unsure', label: 'I’m not sure' },
+    ],
+  },
+  {
+    id: 'pattern', kind: 'single', prompt: 'Which sounds most like you right now?', hint: 'Choose the one that feels closest.',
+    options: [
+      { value: 'avoid', label: 'I avoid looking.', quote: 'I’d avoid checking my balance because I didn’t want to feel the stress.' },
+      { value: 'restart', label: 'I start strong, then it falls apart.', quote: 'Budget. Break it. Shame myself. Repeat.' },
+      { value: 'alone', label: 'I’m figuring it out on my own.', quote: 'I’d smile and say, ‘I’m good. Just grinding.’' },
+      { value: 'busy', label: 'I’m busy, but not getting ahead.', quote: 'Moving fast, sweating hard… but the view never changed.' },
+    ],
+  },
+  { id: 'stopped', kind: 'text', prompt: 'What’s stopped you from getting this handled before now?', hint: 'A sentence or two is enough.', maxLength: 1000 },
+]
+
+export type PatternKey = 'avoid' | 'restart' | 'alone' | 'busy'
+export const isPatternKey = (v: unknown): v is PatternKey => v === 'avoid' || v === 'restart' || v === 'alone' || v === 'busy'
+
+/** Result texts are verbatim from Glenn's manuscript of The Money Mirror. Do not paraphrase or add to them. */
+export const quizResults: Record<PatternKey, { chapter: string; chapterTitle: string; reframe: string[]; tool: string; intro?: string; prompts: string[]; outro?: string }> = {
+  avoid: {
+    chapter: 'Chapter 1', chapterTitle: 'The Money Mirror',
+    reframe: ['Money is never just money. It’s a mirror.', 'Awareness is where change begins. Not shame. Power.'],
+    tool: 'The Money Mirror Check-In',
+    intro: 'Go back through your last 15–20 transactions. For each one, ask yourself:',
+    prompts: ['What was I feeling in that moment?', 'What did I really need?', 'Was that purchase aligned with my long-term goals or just a short-term feeling?'],
+    outro: 'Highlight any patterns that come up, not to shame yourself, but to understand yourself.',
+  },
+  restart: {
+    chapter: 'Chapter 2', chapterTitle: 'Budgeting with Broken Beliefs',
+    reframe: ['Most people don’t have a budgeting problem. They have a belief problem.', 'Real budgeting is about alignment. It’s not self-denial. It’s self-respect.'],
+    tool: 'The Belief Audit',
+    prompts: [
+      'What do I believe about budgeting?',
+      'How do I feel when I sit down to look at my money?',
+      'Do I see budgeting as a tool for peace, or pressure?',
+      'What story did I grow up hearing about money and planning?',
+      'What would it look like to build a budget that honors who I am becoming, not just where I am right now?',
+    ],
+  },
+  alone: {
+    chapter: 'Chapter 4', chapterTitle: 'Closed Mouths Miss Clarity',
+    reframe: ['Closed mouths don’t just miss meals. They miss mentorship. They miss solutions. They miss peace.'],
+    tool: 'Unspoken Truths',
+    prompts: [
+      'Where in my life have I stayed silent, even though I needed help or clarity?',
+      'What’s one financial or personal struggle I’ve been trying to figure out alone?',
+      'What am I afraid might happen if I tell the truth about where I’m really at?',
+      'What mindset or belief might be keeping me from asking for help?',
+      'What’s one area of my life I need to open my mind, or my mouth, to move forward?',
+    ],
+  },
+  busy: {
+    chapter: 'Chapter 5', chapterTitle: 'Always Moving, Never Arriving',
+    reframe: ['Just because I’m moving doesn’t mean I’m progressing.', 'Is this movement, or momentum?'],
+    tool: '30-Day Strategic Focus Plan',
+    intro: 'Choose one main area of focus for the next 30 days. Then answer:',
+    prompts: [
+      'What does success look like 30 days from now? (Be specific.)',
+      'What 3–5 habits will help me get there?',
+      'What distractions do I need to eliminate?',
+      'Who or what can help hold me accountable?',
+      'What will I do weekly to check in with my progress?',
+    ],
+  },
 }
 
 /** SAMPLE reviews for layout only. Replace with real, approved client reviews before launch (set REVIEWS_ARE_SAMPLE = false). */

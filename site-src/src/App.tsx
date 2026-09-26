@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Lenis from 'lenis'
-import { AnimatePresence, motion, useScroll, useSpring, useTransform } from 'motion/react'
-import { ArrowRight, ArrowUpRight, BadgeCheck, CalendarCheck, Mail, Menu, ShieldCheck, X } from 'lucide-react'
+import { AnimatePresence, MotionConfig, motion, useReducedMotion, useScroll, useSpring, useTransform } from 'motion/react'
+import { ArrowLeft, ArrowRight, ArrowUpRight, BadgeCheck, CalendarCheck, Check, Mail, Menu, ShieldCheck, X } from 'lucide-react'
 import { Instagram, Linkedin } from '@/components/icons'
 import { MaskedTextReveal } from '@/components/ui/text-reveal-mask'
 import { InfiniteSlider } from '@/components/ui/infinite-slider'
@@ -14,14 +14,15 @@ import { Spotlight } from '@/components/ui/spotlight'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { cn } from '@/lib/utils'
 import {
-  AMAZON, APPLE_BOOKS, CAREER_URL, EMAIL, GLENN_IG, GLENN_IN, IMG, NEWSLETTER_ENDPOINT, VIDEO_HANDSHAKE, VIDEO_SECOND,
+  AMAZON, APPLE_BOOKS, CAREER_URL, EMAIL, EMAIL_RE, GLENN_IG, GLENN_IN, IMG, VIDEO_HANDSHAKE, VIDEO_SECOND,
   REVIEWS_ARE_SAMPLE, agentFaqs, careerPath, reviews, faqs, leaders, openCalendly, partners, providers, services, steps, unsplash, wix,
+  isPatternKey, quizBookUrl, quizQuestions, quizResults, subscribeNewsletter, track, type PatternKey,
 } from '@/data'
 
 const ease = [0.2, 0.7, 0.2, 1] as const
 
 /* ---------- shared bits ---------- */
-function GoldButton({ children, onClick, href, className }: { children: React.ReactNode; onClick?: () => void; href?: string; className?: string }) {
+function GoldButton({ children, onClick, href, className, type = 'button' }: { children: React.ReactNode; onClick?: () => void; href?: string; className?: string; type?: 'button' | 'submit' }) {
   const cls = cn('group relative inline-flex items-center gap-3 overflow-hidden rounded-full gold-bg px-7 py-4 text-[15px] font-medium text-[#141005] shadow-[0_12px_40px_-12px_rgba(201,162,75,.65)] transition-transform duration-500 hover:-translate-y-0.5', className)
   const inner = (
     <>
@@ -30,7 +31,7 @@ function GoldButton({ children, onClick, href, className }: { children: React.Re
       <ArrowRight className="relative size-4 transition-transform duration-500 group-hover:translate-x-1" />
     </>
   )
-  return href ? <a href={href} target="_blank" rel="noopener" className={cls}>{inner}</a> : <button type="button" onClick={onClick} className={cls}>{inner}</button>
+  return href ? <a href={href} target="_blank" rel="noopener" className={cls}>{inner}</a> : <button type={type} onClick={onClick} className={cls}>{inner}</button>
 }
 function GhostButton({ children, href, onClick, className }: { children: React.ReactNode; href?: string; onClick?: () => void; className?: string }) {
   const cls = cn('inline-flex items-center gap-2 rounded-full border border-white/20 px-7 py-4 text-[15px] text-white backdrop-blur-md transition-colors duration-300 hover:border-gold-2 hover:text-gold-2', className)
@@ -57,7 +58,7 @@ function Nav() {
     return () => window.removeEventListener('scroll', on)
   }, [])
   useEffect(() => { document.body.style.overflow = open ? 'hidden' : '' }, [open])
-  const links = [['Products', '#services'], ['How It Works', '#process'], ['About', '#about'], ['Founder', '#founder'], ['Join WISE', '#careers'], ['FAQ', '#faq']]
+  const links = [['Products', '#services'], ['How It Works', '#process'], ['Money Mirror', '#check-in'], ['About', '#about'], ['Founder', '#founder'], ['Join WISE', '#careers'], ['FAQ', '#faq']]
   return (
     <>
       <header className={cn('fixed inset-x-0 z-50 transition-all duration-500', scrolled ? 'top-3' : 'top-5')}>
@@ -65,10 +66,10 @@ function Nav() {
           <div className={cn('flex items-center justify-between rounded-full border px-3 py-2 pl-4 transition-all duration-500', scrolled ? 'border-white/10 bg-ink/70 shadow-[0_20px_60px_-20px_rgba(0,0,0,.6)] backdrop-blur-xl' : 'border-transparent')}>
             <a href="#top" className="flex items-center gap-3" aria-label="WISE Financial Partners home">
               <img src="/img/mark.png" alt="" className="size-9 object-contain" />
-              <span className="font-serif text-lg tracking-tight whitespace-nowrap text-white"><span className="tracking-[0.18em]">WISE</span><span className="hidden text-white/70 sm:inline"> Financial Partners</span></span>
+              <span className="font-serif text-lg tracking-tight whitespace-nowrap text-white"><span className="tracking-[0.18em]">WISE</span><span className="hidden text-white/70 sm:inline lg:hidden"> Financial Partners</span></span>
             </a>
             <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
-              {links.map(([l, h]) => <a key={h} href={h} className="rounded-full px-4 py-2 text-sm text-white/75 transition-colors hover:bg-white/5 hover:text-white">{l}</a>)}
+              {links.map(([l, h]) => <a key={h} href={h} className="rounded-full px-3 py-2 text-sm whitespace-nowrap text-white/75 transition-colors hover:bg-white/5 hover:text-white xl:px-4">{l}</a>)}
             </nav>
             <div className="flex items-center gap-2">
               <a href="#careers" className="hidden rounded-full border border-white/20 px-5 py-2.5 text-sm whitespace-nowrap text-white transition-colors hover:border-gold-2 hover:text-gold-2 xl:inline-flex">Join the Team</a>
@@ -180,6 +181,247 @@ function Process() {
         </ol>
       </div>
     </section>
+  )
+}
+
+/* ---------- The Money Mirror Check-In ---------- */
+type Answers = { life: string[]; depends: string[]; runway: string; pattern: string; stopped: string }
+const emptyAnswers: Answers = { life: [], depends: [], runway: '', pattern: '', stopped: '' }
+const focusRing = 'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-2'
+const field = 'w-full rounded-2xl border border-white/15 bg-ink/60 px-5 py-4 text-white placeholder:text-white/35 focus:border-gold focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-2/60'
+
+function Choice({ type, name, value, label, quote, checked, onChange }: { type: 'checkbox' | 'radio'; name: string; value: string; label: string; quote?: string; checked: boolean; onChange: () => void }) {
+  return (
+    <label className={cn('relative flex cursor-pointer items-start gap-4 rounded-2xl border px-4 py-4 transition-colors sm:px-5 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-gold-2',
+      checked ? 'border-gold bg-gold/10' : 'border-white/15 bg-ink/40 hover:border-white/35')}>
+      <input type={type} name={name} value={value} checked={checked} onChange={onChange} className="sr-only" />
+      <span aria-hidden className={cn('mt-0.5 grid size-5 shrink-0 place-items-center border transition-colors', type === 'radio' ? 'rounded-full' : 'rounded-md', checked ? 'gold-bg border-gold' : 'border-white/40')}>
+        {checked && (type === 'radio' ? <span className="size-2 rounded-full bg-ink" /> : <Check className="size-3.5 text-ink" strokeWidth={3} />)}
+      </span>
+      <span className="min-w-0">
+        <span className="block text-[15px] leading-snug text-white">{label}</span>
+        {quote && <span className="mt-1.5 block font-serif text-[15px] leading-snug font-light text-white/70 italic">“{quote}”</span>}
+      </span>
+    </label>
+  )
+}
+
+function QuizResult({ pattern, answers, onRestart, headingRef }: { pattern: PatternKey; answers: Answers; onRestart: () => void; headingRef: React.RefObject<HTMLHeadingElement | null> }) {
+  const r = quizResults[pattern]
+  const patternQ = quizQuestions.find((q) => q.id === 'pattern')
+  const label = patternQ?.kind === 'single' ? patternQ.options.find((o) => o.value === pattern)?.label : ''
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [consent, setConsent] = useState(false)
+  const [busy, setBusy] = useState(false)
+  const [msg, setMsg] = useState<{ text: string; ok: boolean } | null>(null)
+  async function submit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    const fd = new FormData(e.currentTarget)
+    if (fd.get('website')) return
+    const em = email.trim()
+    if (!EMAIL_RE.test(em)) { setMsg({ text: 'Please enter a valid email address.', ok: false }); return }
+    if (!consent) { setMsg({ text: 'Please check the box so we know it is okay to email you.', ok: false }); return }
+    setBusy(true); setMsg({ text: 'Sending...', ok: true })
+    const res = await subscribeNewsletter(em, name.trim())
+    setMsg(res); setBusy(false)
+  }
+  function book() {
+    track('quiz_book_click', { pattern })
+    openCalendly(quizBookUrl(pattern, { name, email }))
+  }
+  return (
+    <div>
+      <p className="text-[11px] tracking-[0.24em] text-gold-2 uppercase">Where you are right now</p>
+      <h3 ref={headingRef} tabIndex={-1} className="display mt-4 text-[clamp(2rem,4.4vw,3.2rem)] text-white outline-none"><em className="gold-text italic">“{label}”</em></h3>
+      <blockquote className="mt-7 border-l-2 border-gold pl-5">
+        {r.reframe.map((line) => <p key={line} className="font-serif text-[clamp(1.2rem,2vw,1.5rem)] leading-snug font-light text-white/90 italic">{line}</p>)}
+        <footer className="mt-3 text-xs tracking-wide text-white/50">Glenn Windom II, <cite className="not-italic">The Money Mirror</cite></footer>
+      </blockquote>
+
+      <div className="mt-9 rounded-2xl border border-white/10 bg-ink/50 p-5 sm:p-7">
+        <p className="text-[11px] tracking-[0.2em] text-gold-2 uppercase">{r.chapter} · {r.chapterTitle}</p>
+        <h4 className="mt-3 font-serif text-2xl text-white md:text-[1.75rem]">{r.tool}</h4>
+        {r.intro && <p className="mt-3 leading-relaxed text-white/75">{r.intro}</p>}
+        <ol className="mt-5 grid gap-4">
+          {r.prompts.map((p, i) => (
+            <li key={p} className="flex gap-4">
+              <span aria-hidden className="gold-text w-6 shrink-0 font-serif text-xl leading-6 italic">{i + 1}</span>
+              <span className="leading-relaxed text-white/85">{p}</span>
+            </li>
+          ))}
+        </ol>
+        {r.outro && <p className="mt-5 font-serif leading-relaxed text-white/80 italic">{r.outro}</p>}
+      </div>
+
+      {answers.stopped.trim() && (
+        <div className="mt-6">
+          <p className="text-[11px] tracking-[0.2em] text-white/50 uppercase">In your words</p>
+          <p className="mt-2 border-l border-white/20 pl-4 text-white/75 [overflow-wrap:anywhere] whitespace-pre-line">{answers.stopped.trim()}</p>
+        </div>
+      )}
+
+      <div className="mt-10 border-t border-white/10 pt-8">
+        <p className="font-serif text-2xl leading-snug text-white">Want to walk through what you found with Glenn?</p>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <GoldButton onClick={book} className={focusRing}>Book Your Free 30-Minute Review</GoldButton>
+          <GhostButton href={AMAZON} className={focusRing}>Get the book on Amazon <ArrowUpRight className="size-4" /></GhostButton>
+        </div>
+      </div>
+
+      <form onSubmit={submit} noValidate className="mt-10 grid grid-cols-1 gap-3 border-t border-white/10 pt-8" aria-labelledby="mm-keep">
+        <p id="mm-keep" className="font-serif text-xl text-white">Keep this tool</p>
+        <p className="-mt-1 text-sm text-white/60">Optional. Only your name and email are sent. Your answers stay on this page.</p>
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div>
+            <label className="sr-only" htmlFor="mm-name">First name</label>
+            <input id="mm-name" name="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Your first name" autoComplete="given-name" className={field} />
+          </div>
+          <div>
+            <label className="sr-only" htmlFor="mm-email">Email address</label>
+            <input id="mm-email" name="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Your email address" autoComplete="email" className={field} />
+          </div>
+        </div>
+        <input name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="absolute left-[-9999px] h-px w-px" />
+        <label className="mt-1 flex cursor-pointer items-start gap-3 text-sm leading-relaxed text-white/75">
+          <input type="checkbox" required checked={consent} onChange={(e) => setConsent(e.target.checked)} className={cn('mt-0.5 size-5 shrink-0 accent-[#c9a24b]', focusRing)} />
+          <span>Email me this tool and occasional insights from WISE. Unsubscribe anytime.</span>
+        </label>
+        <button type="submit" disabled={busy} className={cn('mt-2 rounded-2xl bg-bone py-4 font-medium text-ink transition-colors hover:bg-white disabled:opacity-60', focusRing)}>{busy ? 'Sending...' : 'Email Me This Tool'}</button>
+        <p role="status" className={cn('min-h-[1.25rem] text-sm', msg?.ok ? 'text-gold-2' : 'text-red-400')}>{msg?.text}</p>
+        <p className="text-xs text-white/40">By signing up you agree to our <a href="/privacy.html" className="underline">Privacy Policy</a>.</p>
+      </form>
+
+      <button type="button" onClick={onRestart} className={cn('mt-8 inline-flex items-center gap-2 rounded-full text-sm text-white/60 underline-offset-4 hover:text-gold-2 hover:underline', focusRing)}>
+        <ArrowLeft className="size-3.5" />Start over
+      </button>
+      <p className="mt-6 text-xs leading-relaxed text-white/45">This check-in is for personal reflection and education only. It is not financial, insurance, tax, or legal advice, and it does not recommend any product.</p>
+    </div>
+  )
+}
+
+function CheckIn() {
+  const reduce = useReducedMotion()
+  const [step, setStep] = useState(-1) // -1 intro, 0..n-1 questions, n result
+  const [answers, setAnswers] = useState<Answers>(emptyAnswers)
+  const [error, setError] = useState('')
+  const headingRef = useRef<HTMLHeadingElement>(null)
+  const cardRef = useRef<HTMLDivElement>(null)
+  const interacted = useRef(false)
+  const total = quizQuestions.length
+
+  useEffect(() => {
+    if (!interacted.current) return
+    headingRef.current?.focus({ preventScroll: true })
+    const top = cardRef.current?.getBoundingClientRect().top ?? 0
+    if (top < 72) window.scrollTo({ top: window.scrollY + top - 96, behavior: 'auto' })
+  }, [step])
+
+  const go = (n: number) => { interacted.current = true; setError(''); setStep(n) }
+  const start = () => { track('quiz_start'); setAnswers(emptyAnswers); go(0) }
+
+  function next(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    const q = quizQuestions[step]
+    if (q.kind === 'multi' && answers[q.id].length === 0) { setError('Choose at least one to continue.'); return }
+    if (q.kind === 'single' && !answers[q.id]) { setError('Choose one to continue.'); return }
+    if (step === total - 1 && isPatternKey(answers.pattern)) track('quiz_complete', { pattern: answers.pattern })
+    go(step + 1)
+  }
+
+  function toggle(id: 'life' | 'depends', value: string, exclusive?: string) {
+    setError('')
+    setAnswers((a) => {
+      const cur = a[id]
+      let nextVals = cur.includes(value) ? cur.filter((v) => v !== value) : [...cur, value]
+      if (exclusive && !cur.includes(value)) nextVals = value === exclusive ? [value] : nextVals.filter((v) => v !== exclusive)
+      return { ...a, [id]: nextVals }
+    })
+  }
+
+  const q = step >= 0 && step < total ? quizQuestions[step] : null
+  const pattern = isPatternKey(answers.pattern) ? answers.pattern : null
+
+  return (
+    <MotionConfig reducedMotion="user">
+      <section id="check-in" aria-label="The Money Mirror Check-In" className="relative scroll-mt-24 overflow-hidden bg-ink-2 py-20 md:py-28">
+        <div aria-hidden className="absolute top-1/4 right-[-10%] h-[70vmin] w-[70vmin] rounded-full bg-[radial-gradient(closest-side,rgba(201,162,75,.18),transparent)] blur-2xl" />
+        <div className="relative mx-auto grid max-w-7xl gap-12 px-6 md:px-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
+          <div className="lg:sticky lg:top-28 lg:self-start">
+            <span className="eyebrow">From The Money Mirror</span>
+            <Heading className="mt-5 text-[clamp(2.4rem,4.8vw,4.4rem)]">Money isn't math. It's <em>mental.</em></Heading>
+            <FadeUp delay={0.1}>
+              <p className="mt-6 max-w-md text-lg leading-relaxed text-bone/75">Five quick questions from Glenn's book. No account numbers, no judgment. You get the reflection tool that fits where you are right now.</p>
+            </FadeUp>
+            <FadeUp delay={0.15} className="mt-8 hidden items-center gap-4 lg:flex">
+              <img src="/img/money-mirror.webp" alt="" loading="lazy" className="w-16 rounded-[4px] shadow-[0_20px_40px_-10px_rgba(0,0,0,.8)]" />
+              <p className="text-sm leading-relaxed text-white/55">Based on <em className="font-serif text-white/80">The Money Mirror</em><br />by Glenn Windom II</p>
+            </FadeUp>
+          </div>
+
+          <FadeUp delay={0.1}>
+            <div ref={cardRef} className="rounded-[28px] border border-white/10 bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-5 sm:p-8 md:p-10">
+              <motion.div key={step} initial={reduce ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, ease }}>
+                {step === -1 && (
+                  <div>
+                    <p className="text-[11px] tracking-[0.24em] text-gold-2 uppercase">The Money Mirror Check-In</p>
+                    <h3 className="mt-4 font-serif text-[clamp(1.7rem,3vw,2.4rem)] leading-tight text-white">Take two minutes to look in the mirror.</h3>
+                    <ul className="mt-6 grid gap-3 text-white/75">
+                      {['5 questions, about 2 minutes', 'A reflection tool from the book, matched to you', 'Your answers stay on this page. We don’t save them.'].map((t) => (
+                        <li key={t} className="flex items-start gap-3"><Check aria-hidden className="mt-1 size-4 shrink-0 text-gold-2" />{t}</li>
+                      ))}
+                    </ul>
+                    <GoldButton onClick={start} className={cn('mt-8', focusRing)}>Start the Check-In</GoldButton>
+                  </div>
+                )}
+
+                {q && (
+                  <form onSubmit={next} noValidate>
+                    <div aria-hidden className="flex gap-1.5">
+                      {quizQuestions.map((qq, i) => <span key={qq.id} className={cn('h-1 flex-1 rounded-full transition-colors duration-500', i <= step ? 'gold-bg' : 'bg-white/12')} />)}
+                    </div>
+                    <fieldset className="mt-6 min-w-0" aria-describedby={cn('q-hint', error && 'q-error')}>
+                      <legend className="w-full">
+                        <span className="block text-[11px] tracking-[0.24em] text-gold-2 uppercase">Question {step + 1} of {total}</span>
+                        <h3 id="q-title" ref={headingRef} tabIndex={-1} className="mt-4 font-serif text-[clamp(1.6rem,3vw,2.3rem)] leading-tight text-white outline-none">{q.prompt}</h3>
+                      </legend>
+                      <p id="q-hint" className="mt-2 text-sm text-white/55">{q.hint}</p>
+
+                      {q.kind === 'multi' && (
+                        <div className={cn('mt-6 grid gap-2.5', q.options.length > 5 && 'sm:grid-cols-2')}>
+                          {q.options.map((o) => <Choice key={o.value} type="checkbox" name={q.id} value={o.value} label={o.label} checked={answers[q.id].includes(o.value)} onChange={() => toggle(q.id, o.value, q.exclusive)} />)}
+                        </div>
+                      )}
+                      {q.kind === 'single' && (
+                        <div className="mt-6 grid gap-2.5">
+                          {q.options.map((o) => <Choice key={o.value} type="radio" name={q.id} value={o.value} label={o.label} quote={o.quote} checked={answers[q.id] === o.value} onChange={() => { setError(''); setAnswers((a) => ({ ...a, [q.id]: o.value })) }} />)}
+                        </div>
+                      )}
+                      {q.kind === 'text' && (
+                        <div className="mt-6">
+                          <textarea aria-labelledby="q-title" aria-describedby="q-hint q-count" value={answers.stopped} maxLength={q.maxLength} rows={4} onChange={(e) => setAnswers((a) => ({ ...a, stopped: e.target.value }))}
+                            placeholder="Optional" className={cn(field, 'resize-y')} />
+                          <p id="q-count" className="mt-2 text-right text-xs text-white/40">{answers.stopped.length} / {q.maxLength}</p>
+                        </div>
+                      )}
+                      <p id="q-error" role="alert" className="mt-3 min-h-[1.25rem] text-sm text-red-400">{error}</p>
+                    </fieldset>
+                    <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+                      <button type="button" onClick={() => go(step - 1)} className={cn('inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-3.5 text-[15px] text-white transition-colors hover:border-gold-2 hover:text-gold-2', focusRing)}>
+                        <ArrowLeft className="size-4" />Back
+                      </button>
+                      <GoldButton type="submit" className={cn('px-6', focusRing)}>{step === total - 1 ? 'See My Reflection' : 'Continue'}</GoldButton>
+                    </div>
+                  </form>
+                )}
+
+                {step === total && pattern && <QuizResult pattern={pattern} answers={answers} headingRef={headingRef} onRestart={start} />}
+              </motion.div>
+            </div>
+          </FadeUp>
+        </div>
+      </section>
+    </MotionConfig>
   )
 }
 
@@ -537,18 +779,11 @@ function Contact() {
     if (fd.get('website')) return
     const email = String(fd.get('email') || '').trim()
     const name = String(fd.get('name') || '').trim()
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setMsg({ text: 'Please enter a valid email address.', ok: false }); return }
+    if (!EMAIL_RE.test(email)) { setMsg({ text: 'Please enter a valid email address.', ok: false }); return }
     setBusy(true); setMsg({ text: 'Processing your subscription...', ok: true })
-    try {
-      const body = new FormData(); body.append('email', email); if (name) body.append('name', name)
-      const res = await fetch(NEWSLETTER_ENDPOINT, { method: 'POST', body })
-      const r = await res.json()
-      if (r.status === 'success') { setMsg({ text: r.message || 'Thank you for subscribing.', ok: true }); form.reset() }
-      else setMsg({ text: r.message || 'Something went wrong. Please try again.', ok: false })
-    } catch (err) {
-      console.error('Newsletter signup error:', err)
-      setMsg({ text: 'Unable to subscribe. Please try again later.', ok: false })
-    } finally { setBusy(false) }
+    const r = await subscribeNewsletter(email, name)
+    setMsg(r); if (r.ok) form.reset()
+    setBusy(false)
   }
   return (
     <section id="contact" className="relative bg-ink py-20 md:py-28">
@@ -560,7 +795,7 @@ function Contact() {
           </div>
           <FadeUp><p className="max-w-sm text-bone/75">One free conversation. No pressure, no obligation. Just clarity on where you are and where you want to go.</p></FadeUp>
         </div>
-        <div className="mt-14 grid gap-4 lg:grid-cols-2">
+        <div className="mt-14 grid grid-cols-1 gap-4 lg:grid-cols-2">
           <FadeUp>
             <div className="relative flex h-full min-h-[380px] flex-col justify-between overflow-hidden rounded-[32px] border border-white/10 p-8 md:p-12 lg:min-h-[460px]">
               <img src={wix(IMG.planning, 1200, 1000)} alt="" loading="lazy" className="absolute inset-0 -z-10 size-full object-cover opacity-50" />
@@ -583,7 +818,7 @@ function Contact() {
                 <h3 className="display mt-5 text-[clamp(2.2rem,3.6vw,3.4rem)] text-white">The WISE <em className="gold-text italic">Report.</em></h3>
                 <p className="mt-4 max-w-md text-white/75">Join our newsletter for exclusive financial insights, market updates, and wealth-building strategies.</p>
               </div>
-              <form onSubmit={submit} noValidate className="mt-10 grid gap-3">
+              <form onSubmit={submit} noValidate className="mt-10 grid grid-cols-1 gap-3">
                 <label className="sr-only" htmlFor="nl-name">First name</label>
                 <input id="nl-name" name="name" placeholder="Your first name" autoComplete="given-name" className="rounded-2xl border border-white/15 bg-ink/60 px-5 py-4 text-white placeholder:text-white/35 focus:border-gold focus:outline-none" />
                 <label className="sr-only" htmlFor="nl-email">Email address</label>
@@ -611,7 +846,7 @@ function Contact() {
 
 /* ---------- closing + footer (21st.dev: scrollxui/footer-with-suite adapted) ---------- */
 function Footer() {
-  const nav = [['Products', '#services'], ['How It Works', '#process'], ['About', '#about'], ['Founder', '#founder'], ['Team', '#team'], ['Join WISE', '#careers'], ['FAQ', '#faq'], ['Contact', '#contact']]
+  const nav = [['Products', '#services'], ['How It Works', '#process'], ['Money Mirror', '#check-in'], ['About', '#about'], ['Founder', '#founder'], ['Team', '#team'], ['Join WISE', '#careers'], ['FAQ', '#faq'], ['Contact', '#contact']]
   return (
     <footer className="relative overflow-hidden border-t border-white/10 bg-ink">
       <div className="mx-auto grid max-w-7xl grid-cols-2 gap-10 px-6 pt-16 md:grid-cols-4 md:px-10">
@@ -681,7 +916,7 @@ function Popup() {
             <div className="relative mt-7 grid gap-3">
               <GoldButton className="justify-center" onClick={() => { setShow(false); openCalendly() }}>Book a Free Consultation</GoldButton>
               <GhostButton className="justify-center" onClick={() => { setShow(false); openCalendly(CAREER_URL) }}>Explore a Career with WISE</GhostButton>
-              <button type="button" className="mt-1 text-sm text-white/50 hover:text-gold-2" onClick={() => { setShow(false); document.getElementById('newsletter')?.scrollIntoView({ behavior: 'smooth', block: 'center' }) }}>Or get free financial insights</button>
+              <button type="button" className="mt-1 text-sm text-white/50 hover:text-gold-2" onClick={() => { setShow(false); document.getElementById('check-in')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}>Or take the 2-minute Money Mirror Check-In</button>
             </div>
           </motion.div>
         </motion.div>
@@ -740,6 +975,7 @@ export default function App() {
         <Hero />
         <Services />
         <Process />
+        <CheckIn />
         <ScrollWordReveal kicker="Our philosophy" goldWords={['mental', 'values']}
           text="Money isn't math, it's mental. We align your money decisions with your core values." />
         <Method />
