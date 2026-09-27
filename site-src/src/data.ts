@@ -37,7 +37,6 @@ export const providers = [
 
 export const leaders = [
   { name: 'Glenn Windom II', role: 'Founder & CEO', lic: 'CA Insurance License #4359007', img: '2853e8_30a8c226eaa44f20b55ad1214803ccb5~mv2.png' },
-  { name: 'Andra Howard', role: 'Licensed Financial Professional', lic: 'License #4383341', img: '5e8141_e0c938f2c47640a5be8d8f88fae39e82~mv2.jpeg' },
 ]
 
 /** Product list mirrors World Financial Group's U.S. client solutions */

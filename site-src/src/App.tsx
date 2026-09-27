@@ -13,7 +13,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { cn } from '@/lib/utils'
 import {
   AMAZON, APPLE_BOOKS, CAREER_URL, EMAIL, EMAIL_RE, GLENN_IG, GLENN_IN, IMG, VIDEO_HANDSHAKE, VIDEO_SECOND,
-  agentFaqs, careerPath, faqs, leaders, openCalendly, providers, services, steps, unsplash, wix,
+  agentFaqs, careerPath, faqs, openCalendly, providers, services, steps, unsplash, wix,
   isPatternKey, quizBookUrl, quizQuestions, quizResults, subscribeNewsletter, track, type PatternKey,
 } from '@/data'
 
@@ -556,33 +556,6 @@ function Founder() {
   )
 }
 
-/* ---------- team (compact) ---------- */
-function Team() {
-  const team = leaders.filter((p) => !p.name.startsWith('Glenn'))
-  return (
-    <section id="team" className="relative border-t border-white/10 bg-ink py-16 md:py-20">
-      <div className="mx-auto max-w-7xl px-6 md:px-10">
-        <div className="flex flex-wrap items-baseline justify-between gap-4">
-          <h2 className="font-serif text-2xl text-white md:text-3xl">Our team</h2>
-          <span className="text-sm text-white/45">Licensed financial professionals dedicated to your success.</span>
-        </div>
-        <div className="mt-6 grid sm:mt-8 sm:grid-cols-3 sm:gap-3">
-          {team.map((p) => (
-            <div key={p.name} className="flex items-center gap-4 border-b border-white/10 py-3 sm:rounded-2xl sm:border sm:bg-white/[0.03] sm:p-3">
-              <img src={`/img/team-${p.name.split(' ')[0].toLowerCase()}.webp`} alt={p.name} loading="lazy" className="size-14 rounded-full object-cover ring-1 ring-gold/30" />
-              <div className="min-w-0">
-                <p className="truncate text-sm font-medium text-white">{p.name}</p>
-                <p className="truncate text-xs text-gold-2">{p.role}</p>
-                <p className="truncate text-[11px] text-white/40">{p.lic}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
 function RotatingWord({ words }: { words: string[] }) {
   const [i, setI] = useState(0)
   useEffect(() => { const t = window.setInterval(() => setI((n) => (n + 1) % words.length), 2200); return () => window.clearInterval(t) }, [words.length])
@@ -793,7 +766,7 @@ function Contact() {
 
 /* ---------- closing + footer (21st.dev: scrollxui/footer-with-suite adapted) ---------- */
 function Footer() {
-  const nav = [['Products', '#services'], ['How It Works', '#process'], ['Money Mirror', '#check-in'], ['About', '#about'], ['Founder', '#founder'], ['Team', '#team'], ['Join WISE', '#careers'], ['FAQ', '#faq'], ['Contact', '#contact']]
+  const nav = [['Products', '#services'], ['How It Works', '#process'], ['Money Mirror', '#check-in'], ['About', '#about'], ['Founder', '#founder'], ['Join WISE', '#careers'], ['FAQ', '#faq'], ['Contact', '#contact']]
   return (
     <footer className="relative overflow-hidden border-t border-white/10 bg-ink">
       <div className="mx-auto grid max-w-7xl grid-cols-2 gap-10 px-6 pt-16 md:grid-cols-4 md:px-10">
@@ -928,7 +901,6 @@ export default function App() {
         <Method />
         <Gallery />
         <Founder />
-        <Team />
         <FAQ />
         <Careers />
         <Contact />
