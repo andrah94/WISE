@@ -122,6 +122,25 @@ export function track(event: string, params?: Record<string, string>) {
   if (typeof window !== 'undefined' && typeof window.gtag === 'function') window.gtag('event', event, ...(params ? [params] : []))
 }
 
+/** WISE HQ receives quiz results (only when shared) and newsletter sign-ups. */
+export const HQ_WEBSITE_ENDPOINT = 'https://hq.wisefinancialpartners.com/api/public/website'
+function pageSource() {
+  try {
+    const q = new URLSearchParams(window.location.search)
+    let referrer = ''
+    try { referrer = document.referrer ? new URL(document.referrer).hostname : '' } catch { referrer = '' }
+    return { page: window.location.pathname + window.location.hash, utm_source: q.get('utm_source') || '', utm_medium: q.get('utm_medium') || '',
+      utm_campaign: q.get('utm_campaign') || '', referrer }
+  } catch { return {} }
+}
+/** Fire-and-forget copy to HQ. Never blocks or changes what the visitor sees. */
+export function sendToHQ(body: Record<string, unknown>) {
+  try {
+    fetch(HQ_WEBSITE_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, keepalive: true,
+      body: JSON.stringify({ ...body, source: pageSource() }) }).catch(() => undefined)
+  } catch { /* HQ is optional for the visitor */ }
+}
+
 export const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 /** Shared newsletter signup (Contact form + Money Mirror Check-In). Sends only email and optional first name. */
 export async function subscribeNewsletter(email: string, name?: string): Promise<{ ok: boolean; text: string }> {

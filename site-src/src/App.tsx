@@ -14,7 +14,7 @@ import { cn } from '@/lib/utils'
 import {
   AMAZON, APPLE_BOOKS, CAREER_URL, EMAIL, EMAIL_RE, GLENN_IG, GLENN_IN, IMG, VIDEO_HANDSHAKE, VIDEO_SECOND,
   agentFaqs, careerPath, faqs, openCalendly, providers, services, steps, unsplash, wix,
-  isPatternKey, quizBookUrl, quizQuestions, quizResults, subscribeNewsletter, track, type PatternKey,
+  isPatternKey, quizBookUrl, quizQuestions, quizResults, sendToHQ, subscribeNewsletter, track, type PatternKey,
 } from '@/data'
 
 const ease = [0.2, 0.7, 0.2, 1] as const
@@ -204,6 +204,20 @@ function Choice({ type, name, value, label, quote, checked, onChange }: { type: 
   )
 }
 
+/** Plain-language copy of the answers for Glenn (labels, not codes). */
+function quizForHQ(pattern: PatternKey, answers: Answers) {
+  const answerFor = (q: (typeof quizQuestions)[number]) => {
+    const value = answers[q.id as keyof Answers]
+    if (q.kind === 'text') return String(value || '').trim()
+    const pick = (v: string) => q.options.find((o) => o.value === v)?.label || v
+    return Array.isArray(value) ? value.map(pick) : value ? pick(value) : ''
+  }
+  const patternQ = quizQuestions.find((q) => q.id === 'pattern')
+  const label = patternQ && patternQ.kind === 'single' ? patternQ.options.find((o) => o.value === pattern)?.label || '' : ''
+  return { pattern: { value: pattern, label },
+    answers: quizQuestions.map((q) => ({ question: q.prompt, answer: answerFor(q) })).filter((a) => (Array.isArray(a.answer) ? a.answer.length : a.answer)) }
+}
+
 function QuizResult({ pattern, answers, onRestart, headingRef }: { pattern: PatternKey; answers: Answers; onRestart: () => void; headingRef: React.RefObject<HTMLHeadingElement | null> }) {
   const r = quizResults[pattern]
   const patternQ = quizQuestions.find((q) => q.id === 'pattern')
@@ -211,6 +225,7 @@ function QuizResult({ pattern, answers, onRestart, headingRef }: { pattern: Patt
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [consent, setConsent] = useState(false)
+  const [share, setShare] = useState(false)
   const [busy, setBusy] = useState(false)
   const [msg, setMsg] = useState<{ text: string; ok: boolean } | null>(null)
   async function submit(e: React.FormEvent<HTMLFormElement>) {
@@ -222,6 +237,9 @@ function QuizResult({ pattern, answers, onRestart, headingRef }: { pattern: Patt
     if (!consent) { setMsg({ text: 'Please check the box so we know it is okay to email you.', ok: false }); return }
     setBusy(true); setMsg({ text: 'Sending...', ok: true })
     const res = await subscribeNewsletter(em, name.trim())
+    // Answers go to Glenn only when the visitor chose to share them.
+    if (share) sendToHQ({ kind: 'quiz', email: em, name: name.trim(), consent: true, quiz: quizForHQ(pattern, answers) })
+    else sendToHQ({ kind: 'newsletter', email: em, name: name.trim(), consent: true })
     setMsg(res); setBusy(false)
   }
   function book() {
@@ -269,7 +287,7 @@ function QuizResult({ pattern, answers, onRestart, headingRef }: { pattern: Patt
 
       <form onSubmit={submit} noValidate className="mt-10 grid grid-cols-1 gap-3 border-t border-white/10 pt-8" aria-labelledby="mm-keep">
         <p id="mm-keep" className="font-serif text-xl text-white">Stay in touch</p>
-        <p className="-mt-1 text-sm text-white/60">Optional. Screenshot or save the tool above. Only your name and email are sent; your answers stay on this page.</p>
+        <p className="-mt-1 text-sm text-white/60">Optional. Screenshot or save the tool above. Only your name and email are sent, unless you choose to share your answers with Glenn below.</p>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <div>
             <label className="sr-only" htmlFor="mm-name">First name</label>
@@ -284,6 +302,10 @@ function QuizResult({ pattern, answers, onRestart, headingRef }: { pattern: Patt
         <label className="mt-1 flex cursor-pointer items-start gap-3 text-sm leading-relaxed text-white/75">
           <input type="checkbox" required checked={consent} onChange={(e) => setConsent(e.target.checked)} className={cn('mt-0.5 size-5 shrink-0 accent-[#c9a24b]', focusRing)} />
           <span>Add me to The WISE Report for occasional insights from Glenn. Unsubscribe anytime.</span>
+        </label>
+        <label className="flex cursor-pointer items-start gap-3 text-sm leading-relaxed text-white/75">
+          <input type="checkbox" checked={share} onChange={(e) => setShare(e.target.checked)} className={cn('mt-0.5 size-5 shrink-0 accent-[#c9a24b]', focusRing)} />
+          <span>Also share my answers with Glenn so he can prepare for our conversation. <span className="text-white/50">Optional.</span></span>
         </label>
         <button type="submit" disabled={busy} className={cn('mt-2 rounded-2xl bg-bone py-4 font-medium text-ink transition-colors hover:bg-white disabled:opacity-60', focusRing)}>{busy ? 'Subscribing...' : 'Join The WISE Report'}</button>
         <p role="status" className={cn('min-h-[1.25rem] text-sm', msg?.ok ? 'text-gold-2' : 'text-red-400')}>{msg?.text}</p>
@@ -702,6 +724,7 @@ function Contact() {
     if (!EMAIL_RE.test(email)) { setMsg({ text: 'Please enter a valid email address.', ok: false }); return }
     setBusy(true); setMsg({ text: 'Processing your subscription...', ok: true })
     const r = await subscribeNewsletter(email, name)
+    if (r.ok) sendToHQ({ kind: 'newsletter', email, name, consent: true })
     setMsg(r); if (r.ok) form.reset()
     setBusy(false)
   }
