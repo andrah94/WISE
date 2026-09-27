@@ -1,0 +1,13 @@
+# Source and tooling stay private; only the built site is published.
+.git
+.github
+site-src
+worker
+wrangler.jsonc
+README.md
+CNAME
+.nojekyll
+.assetsignore
+node_modules
+.wrangler
+.gitignore

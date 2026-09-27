@@ -1,0 +1,17 @@
+// The public website on Cloudflare Workers (free plan). It serves the same files
+// GitHub Pages serves: the built site at the repo root. Rebuild with
+// `cd site-src && npm run build` and copy dist/ to the root, as before.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "wise-website",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-08-01",
+  "assets": {
+    "directory": ".",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "none",
+    "run_worker_first": true
+  },
+  "observability": { "enabled": true }
+}
