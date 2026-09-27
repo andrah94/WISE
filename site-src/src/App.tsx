@@ -4,7 +4,6 @@ import { AnimatePresence, MotionConfig, motion, useReducedMotion, useScroll, use
 import { ArrowLeft, ArrowRight, ArrowUpRight, BadgeCheck, CalendarCheck, Check, Mail, Menu, ShieldCheck, X } from 'lucide-react'
 import { Instagram, Linkedin } from '@/components/icons'
 import { MaskedTextReveal } from '@/components/ui/text-reveal-mask'
-import { InfiniteSlider } from '@/components/ui/infinite-slider'
 import { ScrollWordReveal } from '@/components/ui/scroll-word-reveal'
 import ScrollRevealContent from '@/components/ui/scroll-reveal-content'
 import { ZoomParallax } from '@/components/ui/zoom-parallax'
@@ -14,7 +13,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { cn } from '@/lib/utils'
 import {
   AMAZON, APPLE_BOOKS, CAREER_URL, EMAIL, EMAIL_RE, GLENN_IG, GLENN_IN, IMG, VIDEO_HANDSHAKE, VIDEO_SECOND,
-  agentFaqs, careerPath, faqs, leaders, openCalendly, partners, providers, services, steps, unsplash, wix,
+  agentFaqs, careerPath, faqs, leaders, openCalendly, providers, services, steps, unsplash, wix,
   isPatternKey, quizBookUrl, quizQuestions, quizResults, subscribeNewsletter, track, type PatternKey,
 } from '@/data'
 
@@ -668,24 +667,6 @@ function Careers() {
             </ul>
           </div>
         ))}
-      </div>
-
-      {/* faces of WISE */}
-      <div className="relative pb-16 md:pb-24">
-        <div className="mx-auto mb-6 flex max-w-7xl flex-wrap items-baseline justify-between gap-3 px-6 md:px-10">
-          <h3 className="font-serif text-3xl text-white">Faces of <em className="gold-text italic">WISE.</em></h3>
-          <span className="text-sm text-white/45">Business partners building with us.</span>
-        </div>
-        <div className="relative [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)]">
-          <InfiniteSlider gap={12} duration={60} durationOnHover={140}>
-            {partners.map((p) => (
-              <div key={p.name} className="flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.03] py-2 pr-5 pl-2">
-                <img src={p.photo} alt={p.name} loading="lazy" className="size-10 rounded-full object-cover" />
-                <p className="text-sm whitespace-nowrap text-white/80">{p.name}</p>
-              </div>
-            ))}
-          </InfiniteSlider>
-        </div>
       </div>
 
       {/* agent FAQ + CTA */}
