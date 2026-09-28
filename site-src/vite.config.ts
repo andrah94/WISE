@@ -7,5 +7,8 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: { alias: { '@': path.resolve(import.meta.dirname, './src') } },
   base: '/',
-  build: { outDir: 'dist', assetsDir: 'assets' },
+  build: {
+    outDir: 'dist', assetsDir: 'assets',
+    rollupOptions: { input: { main: path.resolve(import.meta.dirname, 'index.html'), linktree: path.resolve(import.meta.dirname, 'linktree/index.html') } },
+  },
 })

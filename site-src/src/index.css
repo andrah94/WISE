@@ -53,3 +53,12 @@ body {
 .display { font-family: var(--font-serif); font-weight: 300; letter-spacing: -.025em; line-height: 1; }
 .outline-text { -webkit-text-stroke: 1px rgba(231,206,138,.22); color: transparent; }
 @media (prefers-reduced-motion: reduce) { .gold-text { animation: none; } }
+
+/* Linktree: rotating gold ring, traveling border beam, slow mirror ripple */
+@property --spin { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+.ring-spin { background: conic-gradient(from var(--spin), #9c7a2e, #f3e3b3, #c9a24b, rgba(201,162,75,.15), #e7ce8a, #9c7a2e); animation: gold-spin 6s linear infinite; }
+.beam { background: conic-gradient(from var(--spin), rgba(201,162,75,.25) 0deg, #f3e3b3 40deg, rgba(201,162,75,.25) 90deg, rgba(201,162,75,.25) 360deg); animation: gold-spin 5s linear infinite; }
+.mirror { animation: ripple 6s ease-in-out infinite; }
+@keyframes gold-spin { to { --spin: 360deg; } }
+@keyframes ripple { 0%, 100% { transform: scale(1); opacity: .5; } 50% { transform: scale(1.12); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .ring-spin, .beam, .mirror { animation: none; } }
