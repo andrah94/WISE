@@ -53,6 +53,3 @@ body {
 .display { font-family: var(--font-serif); font-weight: 300; letter-spacing: -.025em; line-height: 1; }
 .outline-text { -webkit-text-stroke: 1px rgba(231,206,138,.22); color: transparent; }
 @media (prefers-reduced-motion: reduce) { .gold-text { animation: none; } }
-
-/* Linktree is a light page: it sets class="light-page" on <html>. */
-html.light-page, html.light-page body { background: #f6f1e8; color: #1d1a16; color-scheme: light; }

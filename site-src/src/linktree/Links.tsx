@@ -1,16 +1,16 @@
-// wisefinancialpartners.com/linktree: Glenn's personal link-in-bio. Still a Linktree (one
-// column of links) but editorial: portrait hero, Fraunces serif, hairline ivory rows grouped
-// into short sections, and an espresso fill that sweeps in on hover. Gold is an accent only.
-// Add a link by adding a row to one of the `sections` below.
-import { useEffect, useState } from 'react'
-import { AnimatePresence, MotionConfig, motion } from 'motion/react'
-import { ArrowRight, ArrowUpRight, BookOpen, Briefcase, Check, Contact, Mail, Plus, Share2 } from 'lucide-react'
-import { Instagram, Linkedin } from '@/components/icons'
+// wisefinancialpartners.com/linktree: Glenn's personal link-in-bio. One column of links, but
+// premium: a slow WebGL mesh-gradient backdrop (Paper Shaders, via 21st.dev), Glenn's
+// portrait, Fraunces serif, glass rows that fill ivory on hover, and real imagery (photos,
+// the book, brand logos) instead of line icons. Colorways live in THEMES (?theme=… to preview).
+import { useEffect, useMemo, useState } from 'react'
+import { AnimatePresence, MotionConfig, motion, useReducedMotion } from 'motion/react'
+import { MeshGradient } from '@paper-design/shaders-react'
+import { ArrowRight, ArrowUpRight, Check, Contact, Plus, Share2 } from 'lucide-react'
 import { Tilt } from '@/components/ui/tilt'
 import { cn } from '@/lib/utils'
 import {
-  AMAZON, APPLE_BOOKS, BOOK_URL, CAREER_URL, EMAIL, EMAIL_RE, GLENN_IG, GLENN_IN, IG_URL,
-  openCalendly, sendToHQ, subscribeNewsletter, track, withParams,
+  AMAZON, APPLE_BOOKS, BOOK_URL, CAREER_URL, EMAIL, EMAIL_RE, GLENN_IG, GLENN_IN, IG_URL, IMG,
+  openCalendly, sendToHQ, subscribeNewsletter, track, wix, withParams,
 } from '@/data'
 
 const SITE = 'https://www.wisefinancialpartners.com'
@@ -18,29 +18,62 @@ const PAGE = `${SITE}/linktree/`
 const fromHere = { utm_source: 'linktree', utm_medium: 'bio' }
 const site = (hash = '') => withParams('/', fromHere) + hash
 const ease = [0.2, 0.7, 0.2, 1] as const
-const focusRing = 'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9c7a2e]'
+const focusRing = 'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]'
 const clicked = (link: string) => track('linktree_click', { link })
 
-/* palette: ivory paper, espresso ink, champagne accent */
-const INK = 'text-[#1d1a16]'
-const MUTED = 'text-[#7a7064]'
+/* ---------- colorways ---------- */
+type Theme = { name: string; base: string; mesh: string[] }
+const THEMES: Record<string, Theme> = {
+  navy: { name: 'Midnight', base: '#0b1522', mesh: ['#0b1522', '#1a2f4d', '#0e2036', '#5d4f36'] },
+  emerald: { name: 'Emerald', base: '#08201a', mesh: ['#08201a', '#11392f', '#1b4a3d', '#5a5030'] },
+  oxblood: { name: 'Oxblood', base: '#1a0a0e', mesh: ['#1a0a0e', '#3a111a', '#561d27', '#6a5230'] },
+}
+function useTheme(): Theme {
+  return useMemo(() => {
+    let key = 'navy'
+    try { key = new URLSearchParams(window.location.search).get('theme') || key } catch { /* default */ }
+    return THEMES[key] || THEMES.navy
+  }, [])
+}
 
-type Row = { key: string; title: string; note?: string; icon: React.ReactNode; href?: string; onClick?: () => void }
-const glyph = (node: React.ReactNode) => <span className="grid size-11 shrink-0 place-items-center rounded-full border border-[#e4dac7] bg-[#f8f3ea] text-[#8a6a24] transition-colors duration-500 group-hover:border-white/15 group-hover:bg-white/10 group-hover:text-[#e7ce8a]">{node}</span>
+function Backdrop({ theme }: { theme: Theme }) {
+  const still = useReducedMotion()
+  return (
+    <div aria-hidden className="pointer-events-none fixed inset-0" style={{ background: theme.base }}>
+      <MeshGradient className="absolute inset-0 size-full" colors={theme.mesh} distortion={0.9} swirl={0.35} speed={still ? 0 : 0.18} grainOverlay={0.12} />
+      <div className="absolute inset-0 bg-[radial-gradient(80%_50%_at_50%_0%,rgba(227,201,143,.14),transparent_70%)]" />
+    </div>
+  )
+}
 
-/* ---------- a link row: hairline ivory, espresso sweeps in on hover ---------- */
+/* ---------- thumbnails: real imagery, never line icons ---------- */
+const thumb = 'relative block size-12 shrink-0 overflow-hidden rounded-[14px] ring-1 ring-white/15'
+const Photo = ({ src, pos = 'center' }: { src: string; pos?: string }) => <span className={thumb}><img src={src} alt="" loading="lazy" className="size-full object-cover" style={{ objectPosition: pos }} /></span>
+const Logo = ({ src, bg = '#fff', pad = 'p-2.5' }: { src: string; bg?: string; pad?: string }) => <span className={cn(thumb, 'grid place-items-center', pad)} style={{ background: bg }}><img src={src} alt="" className="size-full object-contain" /></span>
+const Avatar = ({ dot }: { dot?: boolean }) => (
+  <span className="relative size-12 shrink-0">
+    <span className={cn(thumb, 'block bg-[linear-gradient(160deg,#ecdcb3,#c8ab72)]')}>
+      <img src="/img/glenn-cutout.webp" alt="" className="absolute top-[4%] left-1/2 h-[170%] w-auto max-w-none -translate-x-1/2 object-contain object-top" />
+    </span>
+    {dot && <span className="absolute -right-0.5 -bottom-0.5 size-3.5 rounded-full border-2 border-[var(--base)] bg-emerald-400" />}
+  </span>
+)
+const Monogram = () => <span className={cn(thumb, 'grid place-items-center bg-[linear-gradient(150deg,#f1e2b8,#b99155)] font-serif text-lg text-[#2a2012] italic')}>GW</span>
+
+/* ---------- a link row: glass, fills ivory on hover ---------- */
+type Row = { key: string; title: string; note?: string; media: React.ReactNode; href?: string; onClick?: () => void }
 function LinkRow({ r, i }: { r: Row; i: number }) {
   const external = r.href?.startsWith('http')
-  const cls = cn('group relative flex w-full items-center gap-4 overflow-hidden rounded-[22px] border border-[#e8e0d1] bg-white/75 py-3 pr-4 pl-3 text-left shadow-[0_1px_0_rgba(255,255,255,.9)_inset,0_8px_24px_-18px_rgba(60,45,15,.35)] backdrop-blur-sm transition-[border-color,transform] duration-500 hover:-translate-y-[1px] hover:border-[#1d1a16]', focusRing)
+  const cls = cn('group relative flex w-full items-center gap-4 overflow-hidden rounded-[20px] border border-white/12 bg-white/[.06] p-2.5 pr-4 text-left backdrop-blur-xl transition-[border-color,transform] duration-500 hover:-translate-y-[1px] hover:border-transparent', focusRing)
   const inner = <>
-    <span aria-hidden className="absolute inset-0 origin-left scale-x-0 bg-[#1d1a16] transition-transform duration-500 ease-[cubic-bezier(.2,.7,.2,1)] group-hover:scale-x-100" />
-    <span className="relative">{glyph(r.icon)}</span>
+    <span aria-hidden className="absolute inset-0 origin-left scale-x-0 bg-[#f4ede0] transition-transform duration-500 ease-[cubic-bezier(.2,.7,.2,1)] group-hover:scale-x-100" />
+    <span className="relative">{r.media}</span>
     <span className="relative min-w-0 flex-1">
-      <span className={cn('block text-[15.5px] leading-snug font-medium transition-colors duration-500 group-hover:text-[#f6f1e8]', INK)}>{r.title}</span>
-      {r.note && <span className={cn('mt-0.5 block text-[13px] transition-colors duration-500 group-hover:text-white/60', MUTED)}>{r.note}</span>}
+      <span className="block text-[15.5px] leading-snug font-medium text-[#f4ede0] transition-colors duration-500 group-hover:text-[var(--base)]">{r.title}</span>
+      {r.note && <span className="mt-0.5 block text-[13px] text-[#f4ede0]/55 transition-colors duration-500 group-hover:text-[var(--base)]/60">{r.note}</span>}
     </span>
-    <span className="relative grid size-8 shrink-0 place-items-center rounded-full text-[#a79c89] transition-all duration-500 group-hover:translate-x-0.5 group-hover:text-[#e7ce8a]">
-      {external ? <ArrowUpRight className="size-[18px]" /> : <ArrowRight className="size-[18px]" />}
+    <span className="relative text-[#f4ede0]/45 transition-all duration-500 group-hover:translate-x-0.5 group-hover:text-[var(--base)]">
+      {external ? <ArrowUpRight className="size-[18px]" strokeWidth={1.6} /> : <ArrowRight className="size-[18px]" strokeWidth={1.6} />}
     </span>
   </>
   const onClick = () => { clicked(r.key); r.onClick?.() }
@@ -53,9 +86,9 @@ function LinkRow({ r, i }: { r: Row; i: number }) {
   )
 }
 
-function Reveal({ i, children, className }: { i: number; children: React.ReactNode; className?: string }) {
+function Reveal({ i, children }: { i: number; children: React.ReactNode }) {
   return (
-    <motion.div className={className} initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '0px 0px -4% 0px' }}
+    <motion.div initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '0px 0px -4% 0px' }}
       transition={{ duration: 0.6, delay: Math.min(i, 6) * 0.05, ease }}>{children}</motion.div>
   )
 }
@@ -64,9 +97,9 @@ function Section({ label, children }: { label: string; children: React.ReactNode
   return (
     <section className="mt-10" aria-label={label}>
       <div className="mb-4 flex items-center gap-4">
-        <span className="h-px flex-1 bg-gradient-to-r from-transparent to-[#d9cdb6]" />
-        <h2 className="font-serif text-[13px] tracking-[0.32em] text-[#8a6a24] uppercase">{label}</h2>
-        <span className="h-px flex-1 bg-gradient-to-l from-transparent to-[#d9cdb6]" />
+        <span className="h-px flex-1 bg-gradient-to-r from-transparent to-white/20" />
+        <h2 className="font-serif text-[12.5px] tracking-[0.34em] text-[var(--accent)] uppercase">{label}</h2>
+        <span className="h-px flex-1 bg-gradient-to-l from-transparent to-white/20" />
       </div>
       <div className="grid gap-3">{children}</div>
     </section>
@@ -85,94 +118,88 @@ function vCard() {
   clicked('save_contact')
 }
 
-function Social({ href, label, children, onClick }: { href?: string; label: string; children: React.ReactNode; onClick?: () => void }) {
-  const cls = cn('grid size-11 place-items-center rounded-full border border-[#e4dac7] bg-white/70 text-[#1d1a16] backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#1d1a16] hover:bg-[#1d1a16] hover:text-[#e7ce8a]', focusRing)
-  return href
-    ? <a href={href} target={href.startsWith('mailto:') ? undefined : '_blank'} rel="noopener" aria-label={label} title={label} className={cls} onClick={onClick}>{children}</a>
-    : <button type="button" aria-label={label} title={label} className={cls} onClick={onClick}>{children}</button>
-}
-
 function Hero({ onShare }: { onShare: () => void }) {
+  const pill = cn('inline-flex h-10 items-center gap-2 rounded-full border border-white/15 bg-white/[.07] px-4 text-[13px] font-medium text-[#f4ede0] backdrop-blur-xl transition-colors hover:border-white/40 hover:bg-white/[.12]', focusRing)
   return (
-    <header>
-      <motion.div className="relative h-[min(64svh,460px)] overflow-hidden rounded-[32px] bg-[radial-gradient(90%_70%_at_50%_100%,#e9d7ab_0%,#dcc79a_28%,#cbb389_52%,#b9a07a_100%)] shadow-[0_30px_60px_-35px_rgba(60,45,15,.6)]"
-        initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease }}>
-        <div aria-hidden className="grain absolute inset-0" />
-        <motion.span aria-hidden className="absolute inset-x-0 top-[7%] text-center font-serif text-[clamp(8rem,42vw,15rem)] leading-none font-light tracking-[-0.05em] text-white/25 italic select-none"
-          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.4, delay: 0.2, ease }}>GW</motion.span>
-        <motion.img src="/img/glenn-cutout.webp" alt="Glenn Windom II" fetchPriority="high"
-          className="absolute bottom-0 left-1/2 h-[92%] w-auto max-w-none -translate-x-1/2 object-contain object-bottom drop-shadow-[0_20px_30px_rgba(60,40,10,.35)]"
-          initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.1, delay: 0.1, ease }} />
-        <div aria-hidden className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-[#f6f1e8] via-[#f6f1e8]/70 to-transparent" />
-        <button type="button" onClick={onShare} aria-label="Share this page"
-          className={cn('absolute top-4 right-4 grid size-10 place-items-center rounded-full bg-white/55 text-[#1d1a16] backdrop-blur-md transition-colors hover:bg-white', focusRing)}>
-          <Share2 className="size-4" />
+    <header className="relative">
+      <div className="flex items-center justify-between">
+        <span className="font-serif text-[13px] tracking-[0.34em] text-[#f4ede0]/70 uppercase">Glenn Windom II</span>
+        <button type="button" onClick={onShare} aria-label="Share this page" className={cn('grid size-10 place-items-center rounded-full border border-white/15 bg-white/[.07] text-[#f4ede0] backdrop-blur-xl hover:bg-white/[.14]', focusRing)}>
+          <Share2 className="size-4" strokeWidth={1.7} />
         </button>
-      </motion.div>
+      </div>
 
-      <div className="relative -mt-6 text-center">
-        <motion.h1 className={cn('display text-[clamp(2.7rem,11vw,3.6rem)] leading-[0.95]', INK)}
+      <div className="relative mx-auto mt-6 h-[min(50svh,400px)] w-full">
+        <motion.div aria-hidden className="absolute bottom-[4%] left-1/2 size-[min(78vw,340px)] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(236,220,179,.5),rgba(236,220,179,.08)_70%,transparent)]"
+          initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.4, ease }} />
+        <motion.img src="/img/glenn-cutout.webp" alt="Glenn Windom II" fetchPriority="high"
+          className="absolute bottom-0 left-1/2 h-full w-auto max-w-none -translate-x-1/2 object-contain object-bottom [mask-image:linear-gradient(to_bottom,#000_70%,transparent)]"
+          initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.1, delay: 0.1, ease }} />
+      </div>
+
+      <div className="relative -mt-4 text-center">
+        <motion.h1 className="display text-[clamp(2.9rem,12vw,3.9rem)] leading-[0.95] text-[#f4ede0]"
           initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.25, ease }}>
-          Glenn Windom <em className="gold-text-deep italic">II</em>
+          Glenn Windom <em className="gold-text italic">II</em>
         </motion.h1>
-        <motion.p className="mt-4 text-[11.5px] font-medium tracking-[0.28em] text-[#8a6a24] uppercase"
+        <motion.p className="mt-4 text-[11.5px] font-medium tracking-[0.3em] text-[var(--accent)] uppercase"
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.9, delay: 0.4 }}>
           Entrepreneur · Author · Founder
         </motion.p>
-        <motion.p className={cn('mx-auto mt-3 max-w-[22rem] font-serif text-[17px] leading-snug italic', MUTED)}
+        <motion.p className="mx-auto mt-3 max-w-[22rem] font-serif text-[17px] leading-snug text-[#f4ede0]/65 italic"
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.9, delay: 0.5 }}>
           Money isn’t math, it’s mental. Building wealth, impact and legacy.
         </motion.p>
-        <motion.div className="mt-6 flex items-center justify-center gap-2.5" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6, ease }}>
-          <Social href={GLENN_IG} label="Instagram" onClick={() => clicked('ig_glenn_icon')}><Instagram className="size-[19px]" /></Social>
-          <Social href={GLENN_IN} label="LinkedIn" onClick={() => clicked('linkedin_icon')}><Linkedin className="size-[17px]" /></Social>
-          <Social href={`mailto:${EMAIL}`} label="Email" onClick={() => clicked('email_icon')}><Mail className="size-[19px]" /></Social>
-          <Social label="Save my contact" onClick={vCard}><Contact className="size-[19px]" /></Social>
+        <motion.div className="mt-6 flex flex-wrap items-center justify-center gap-2" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6, ease }}>
+          <a href={GLENN_IG} target="_blank" rel="noopener" onClick={() => clicked('ig_glenn_pill')} className={pill}><img src="/img/brands/instagram.svg" alt="" className="size-4" />Instagram</a>
+          <a href={GLENN_IN} target="_blank" rel="noopener" onClick={() => clicked('linkedin_pill')} className={pill}><img src="/img/brands/linkedin.svg" alt="" className="size-4 rounded-[3px] bg-white" />LinkedIn</a>
+          <button type="button" onClick={vCard} className={pill}><Contact className="size-4" strokeWidth={1.7} />Save contact</button>
         </motion.div>
       </div>
     </header>
   )
 }
 
-/* ---------- featured: the one dark moment on the page ---------- */
+/* ---------- featured booking: the one ivory card ---------- */
 function Consult() {
   return (
     <Reveal i={0}>
       <button type="button" onClick={() => { clicked('book_consult'); openCalendly(withParams(BOOK_URL, { ...fromHere, utm_campaign: 'booking' })) }}
-        className={cn('group relative w-full overflow-hidden rounded-[26px] bg-[#1d1a16] p-6 text-left text-[#f6f1e8] shadow-[0_24px_50px_-28px_rgba(29,26,22,.9)]', focusRing)}>
-        <span aria-hidden className="absolute -top-20 -right-16 size-56 rounded-full bg-[radial-gradient(circle,rgba(231,206,138,.28),transparent_65%)] transition-transform duration-700 group-hover:scale-125" />
-        <span aria-hidden className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/[.06] to-transparent transition-transform duration-1000 group-hover:translate-x-full" />
-        <span className="relative flex items-end justify-between gap-4">
-          <span>
-            <span className="text-[11px] font-medium tracking-[0.28em] text-[#e7ce8a] uppercase">WISE Financial Partners</span>
-            <span className="mt-2 block font-serif text-[1.9rem] leading-[1.05] font-light">Book a free<br /><em className="gold-text italic">consultation</em></span>
-            <span className="mt-3 block text-[13px] text-white/55">30 minutes · No cost · No obligation</span>
+        className={cn('group relative w-full overflow-hidden rounded-[24px] bg-[#f4ede0] p-5 text-left shadow-[0_30px_60px_-30px_rgba(0,0,0,.8)]', focusRing)}>
+        <span aria-hidden className="absolute -top-24 -right-20 size-60 rounded-full bg-[radial-gradient(circle,rgba(201,162,75,.35),transparent_65%)] transition-transform duration-700 group-hover:scale-125" />
+        <span className="relative flex items-center gap-4">
+          <Avatar dot />
+          <span className="min-w-0 flex-1">
+            <span className="block text-[11px] font-semibold tracking-[0.24em] text-[#8a6a24] uppercase">Free · 30 minutes</span>
+            <span className="mt-0.5 block font-serif text-[1.55rem] leading-tight text-[var(--base)]">Book a consultation</span>
           </span>
-          <span className="grid size-12 shrink-0 place-items-center rounded-full bg-[#f6f1e8] text-[#1d1a16] transition-transform duration-500 group-hover:rotate-[-45deg]"><ArrowRight className="size-5" /></span>
+          <span className="grid size-11 shrink-0 place-items-center rounded-full bg-[var(--base)] text-[#f4ede0] transition-transform duration-500 group-hover:-rotate-45"><ArrowRight className="size-[18px]" /></span>
         </span>
+        <span className="relative mt-3 block text-[13px] text-[var(--base)]/60">With WISE Financial Partners · No cost, no obligation</span>
       </button>
     </Reveal>
   )
 }
 
 function Book() {
-  const store = (href: string, label: string, key: string) => (
+  const store = (href: string, key: string, children: React.ReactNode) => (
     <a href={href} target="_blank" rel="noopener" onClick={() => clicked(key)}
-      className={cn('inline-flex items-center gap-1.5 rounded-full border border-[#1d1a16]/15 px-4 py-2 text-[13px] font-medium text-[#1d1a16] transition-colors hover:border-[#1d1a16] hover:bg-[#1d1a16] hover:text-[#f6f1e8]', focusRing)}>
-      {label}<ArrowUpRight className="size-3.5" />
-    </a>
+      className={cn('inline-flex h-9 items-center gap-1.5 rounded-full bg-[#f4ede0] px-4 text-[13px] font-semibold text-[var(--base)] transition-transform hover:-translate-y-0.5', focusRing)}>{children}</a>
   )
   return (
     <Reveal i={0}>
-      <div className="relative flex items-center gap-5 overflow-hidden rounded-[26px] border border-[#e8e0d1] bg-gradient-to-br from-white/90 to-[#f3ead9]/90 p-5 shadow-[0_8px_24px_-18px_rgba(60,45,15,.35)]">
-        <Tilt rotationFactor={12} className="w-[92px] shrink-0">
-          <img src="/img/money-mirror.webp" alt="The Money Mirror by Glenn Windom II" loading="lazy" className="w-full rounded-[4px] shadow-[0_18px_30px_-12px_rgba(40,25,5,.6),0_0_0_1px_rgba(0,0,0,.06)]" />
+      <div className="relative flex items-center gap-5 overflow-hidden rounded-[24px] border border-white/12 bg-white/[.06] p-5 backdrop-blur-xl">
+        <Tilt rotationFactor={12} className="w-[96px] shrink-0">
+          <img src="/img/money-mirror.webp" alt="The Money Mirror by Glenn Windom II" loading="lazy" className="w-full rounded-[4px] shadow-[0_22px_34px_-12px_rgba(0,0,0,.8),0_0_0_1px_rgba(255,255,255,.08)]" />
         </Tilt>
         <div className="min-w-0">
-          <p className="text-[11px] font-medium tracking-[0.28em] text-[#8a6a24] uppercase">My book</p>
-          <p className={cn('mt-1.5 font-serif text-[1.55rem] leading-tight', INK)}>The Money <em className="italic">Mirror</em></p>
-          <p className={cn('mt-0.5 text-[13px]', MUTED)}>Money isn’t math, it’s mental.</p>
-          <div className="mt-3.5 flex flex-wrap gap-2">{store(AMAZON, 'Amazon', 'book_amazon')}{store(APPLE_BOOKS, 'Apple Books', 'book_apple')}</div>
+          <p className="text-[11px] font-medium tracking-[0.28em] text-[var(--accent)] uppercase">My book</p>
+          <p className="mt-1.5 font-serif text-[1.6rem] leading-tight text-[#f4ede0]">The Money <em className="italic">Mirror</em></p>
+          <p className="mt-0.5 text-[13px] text-[#f4ede0]/55">Money isn’t math, it’s mental.</p>
+          <div className="mt-3.5 flex flex-wrap gap-2">
+            {store(AMAZON, 'book_amazon', <>Amazon<ArrowUpRight className="size-3.5" /></>)}
+            {store(APPLE_BOOKS, 'book_apple', <><img src="/img/brands/apple.svg" alt="" className="-mt-0.5 size-3.5" />Books<ArrowUpRight className="size-3.5" /></>)}
+          </div>
         </div>
       </div>
     </Reveal>
@@ -194,36 +221,36 @@ function Newsletter() {
     if (r.ok) { sendToHQ({ kind: 'newsletter', email, name, consent: true }); track('newsletter_signup', { location: 'linktree' }) }
     setState(r.ok ? 'done' : 'error'); setMsg(r.text)
   }
-  const field = 'w-full min-w-0 rounded-2xl border border-[#e4dac7] bg-[#fbf8f2] px-4 py-3 text-[15px] text-[#1d1a16] placeholder:text-[#a79c89] focus:border-[#9c7a2e] focus:outline-none'
+  const field = 'w-full min-w-0 rounded-2xl border border-white/15 bg-black/20 px-4 py-3 text-[15px] text-[#f4ede0] placeholder:text-[#f4ede0]/40 focus:border-[var(--accent)] focus:outline-none'
   return (
     <Reveal i={0}>
-      <div className={cn('overflow-hidden rounded-[22px] border bg-white/75 backdrop-blur-sm transition-colors duration-300', open ? 'border-[#1d1a16]' : 'border-[#e8e0d1] hover:border-[#1d1a16]')}>
+      <div className={cn('overflow-hidden rounded-[20px] border bg-white/[.06] backdrop-blur-xl transition-colors duration-300', open ? 'border-white/35' : 'border-white/12 hover:border-white/30')}>
         <button type="button" aria-expanded={open} onClick={() => { setOpen(!open); if (!open) clicked('newsletter_open') }}
-          className={cn('group flex w-full items-center gap-4 py-3 pr-4 pl-3 text-left', focusRing)}>
-          <span className="grid size-11 shrink-0 place-items-center rounded-full border border-[#e4dac7] bg-[#f8f3ea] text-[#8a6a24]"><Mail className="size-[18px]" /></span>
+          className={cn('flex w-full items-center gap-4 p-2.5 pr-4 text-left', focusRing)}>
+          <Monogram />
           <span className="min-w-0 flex-1">
-            <span className={cn('block text-[15.5px] font-medium', INK)}>Get my money notes</span>
-            <span className={cn('mt-0.5 block text-[13px]', MUTED)}>Mindset, money and legacy, by email</span>
+            <span className="block text-[15.5px] font-medium text-[#f4ede0]">Get my money notes</span>
+            <span className="mt-0.5 block text-[13px] text-[#f4ede0]/55">Mindset, money and legacy, by email</span>
           </span>
-          <Plus className={cn('mr-1.5 size-[18px] text-[#a79c89] transition-transform duration-300', open && 'rotate-45 text-[#1d1a16]')} />
+          <Plus className={cn('size-[18px] text-[#f4ede0]/50 transition-transform duration-300', open && 'rotate-45 text-[#f4ede0]')} strokeWidth={1.6} />
         </button>
         <AnimatePresence initial={false}>
           {open && (
             <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3, ease }}>
-              <div className="px-4 pb-4">
+              <div className="px-3 pb-3">
                 {state === 'done'
-                  ? <p role="status" className="flex items-center gap-2 py-2 text-[15px] text-[#8a6a24]"><Check className="size-5" />{msg || 'You’re on the list.'}</p>
+                  ? <p role="status" className="flex items-center gap-2 px-1 py-2 text-[15px] text-[var(--accent)]"><Check className="size-5" />{msg || 'You’re on the list.'}</p>
                   : <form onSubmit={submit} className="grid gap-2" noValidate>
                       <label className="sr-only" htmlFor="lt-name">First name</label>
                       <input id="lt-name" name="name" autoComplete="given-name" placeholder="First name" className={field} />
                       <label className="sr-only" htmlFor="lt-email">Email</label>
                       <input id="lt-email" name="email" type="email" required autoComplete="email" placeholder="you@email.com" className={field} />
-                      <button type="submit" disabled={state === 'sending'} className={cn('rounded-2xl bg-[#1d1a16] px-6 py-3 text-[15px] font-medium text-[#f6f1e8] transition-opacity hover:opacity-90 disabled:opacity-60', focusRing)}>
+                      <button type="submit" disabled={state === 'sending'} className={cn('rounded-2xl bg-[#f4ede0] px-6 py-3 text-[15px] font-semibold text-[var(--base)] transition-opacity hover:opacity-90 disabled:opacity-60', focusRing)}>
                         {state === 'sending' ? 'Joining…' : 'Sign me up'}
                       </button>
                     </form>}
-                {state === 'error' && <p role="alert" className="mt-2 text-sm text-red-700">{msg}</p>}
-                <p className="mt-2 text-[11.5px] text-[#a79c89]">Unsubscribe anytime. We never sell your information.</p>
+                {state === 'error' && <p role="alert" className="mt-2 px-1 text-sm text-red-300">{msg}</p>}
+                <p className="mt-2 px-1 text-[11.5px] text-[#f4ede0]/45">Unsubscribe anytime. We never sell your information.</p>
               </div>
             </motion.div>
           )}
@@ -234,10 +261,13 @@ function Newsletter() {
 }
 
 /* ---------- page ---------- */
-const wiseMark = <span className="-m-[11px] grid size-11 place-items-center rounded-full bg-[#1d1a16]"><img src="/img/mark.png" alt="" className="size-6 object-contain" /></span>
-
 export default function Links() {
+  const theme = useTheme()
   const [toast, setToast] = useState('')
+  useEffect(() => {
+    document.documentElement.style.background = theme.base
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme.base)
+  }, [theme])
   useEffect(() => { if (!toast) return; const t = setTimeout(() => setToast(''), 2400); return () => clearTimeout(t) }, [toast])
   async function share() {
     clicked('share')
@@ -250,48 +280,50 @@ export default function Links() {
   }
   return (
     <MotionConfig reducedMotion="user">
-      <div aria-hidden className="grain pointer-events-none fixed inset-0 bg-[radial-gradient(120%_50%_at_50%_0%,#efe2c2_0%,rgba(239,226,194,0)_70%)]" />
-      <main className="relative mx-auto w-full max-w-[520px] px-4 pt-[max(1rem,env(safe-area-inset-top))] pb-12">
-        <Hero onShare={share} />
+      <div style={{ '--base': theme.base, '--accent': '#e3c98f' } as React.CSSProperties} className="min-h-svh text-[#f4ede0]">
+        <Backdrop theme={theme} />
+        <main className="relative mx-auto w-full max-w-[520px] px-4 pt-[max(1rem,env(safe-area-inset-top))] pb-12">
+          <Hero onShare={share} />
 
-        <Section label="Work with me">
-          <Consult />
-          <LinkRow i={1} r={{ key: 'career', title: 'Build a career with WISE', note: 'Part-time or full-time · we train you', icon: <Briefcase className="size-[18px]" />,
-            onClick: () => openCalendly(withParams(CAREER_URL, { ...fromHere, utm_campaign: 'careers' })) }} />
-        </Section>
+          <Section label="Work with me">
+            <Consult />
+            <LinkRow i={1} r={{ key: 'career', title: 'Build a career with WISE', note: 'Part-time or full-time · we train you', media: <Photo src={wix(IMG.glennWorking, 160, 160, 't')} pos="top" />,
+              onClick: () => openCalendly(withParams(CAREER_URL, { ...fromHere, utm_campaign: 'careers' })) }} />
+          </Section>
 
-        <Section label="The book">
-          <Book />
-          <LinkRow i={1} r={{ key: 'check_in', title: 'Take the Money Mirror Check-In', note: 'Five questions · two minutes', icon: <BookOpen className="size-[18px]" />, href: site('#check-in') }} />
-        </Section>
+          <Section label="The book">
+            <Book />
+            <LinkRow i={1} r={{ key: 'check_in', title: 'Take the Money Mirror Check-In', note: 'Five questions · two minutes', media: <Photo src="/img/money-mirror.webp" pos="top" />, href: site('#check-in') }} />
+          </Section>
 
-        <Section label="Ventures">
-          <LinkRow i={0} r={{ key: 'website', title: 'WISE Financial Partners', note: 'Wealth · Impact · Strategy · Execution', icon: wiseMark, href: site() }} />
-        </Section>
+          <Section label="Ventures">
+            <LinkRow i={0} r={{ key: 'website', title: 'WISE Financial Partners', note: 'Wealth · Impact · Strategy · Execution', media: <Logo src="/img/mark.png" bg="#0d0d0f" pad="p-2" />, href: site() }} />
+          </Section>
 
-        <Section label="Stay connected">
-          <Newsletter />
-          <LinkRow i={1} r={{ key: 'ig_glenn', title: '@imglennwin', note: 'Instagram', icon: <Instagram className="size-[18px]" />, href: GLENN_IG }} />
-          <LinkRow i={2} r={{ key: 'ig_wise', title: '@wisefinancialpartners', note: 'Instagram', icon: <Instagram className="size-[18px]" />, href: IG_URL }} />
-          <LinkRow i={3} r={{ key: 'linkedin', title: 'Glenn Windom II', note: 'LinkedIn', icon: <Linkedin className="size-4" />, href: GLENN_IN }} />
-        </Section>
+          <Section label="Stay connected">
+            <Newsletter />
+            <LinkRow i={1} r={{ key: 'ig_glenn', title: '@imglennwin', note: 'Instagram', media: <Logo src="/img/brands/instagram.svg" />, href: GLENN_IG }} />
+            <LinkRow i={2} r={{ key: 'ig_wise', title: '@wisefinancialpartners', note: 'Instagram', media: <Logo src="/img/brands/instagram.svg" />, href: IG_URL }} />
+            <LinkRow i={3} r={{ key: 'linkedin', title: 'Glenn Windom II', note: 'LinkedIn', media: <Logo src="/img/brands/linkedin.svg" />, href: GLENN_IN }} />
+          </Section>
 
-        <footer className="mt-14 text-center">
-          <p className={cn('font-serif text-2xl italic', INK)}>Glenn Windom <span className="gold-text-deep">II</span></p>
-          <p className="mx-auto mt-5 max-w-md text-[11px] leading-relaxed text-[#a0968a]">WISE Financial Partners is affiliated with World Financial Group. Insurance and annuity products are offered through World Financial Group Insurance Agency, LLC and its affiliated agencies, and are subject to state availability. Neither World Financial Group nor its agents provide tax, estate planning, or legal advice. CA Insurance License #4359007.</p>
-          <p className="mt-3 flex justify-center gap-4 text-[11.5px] text-[#7a7064]">
-            <a href="/disclosures.html" className="hover:text-[#8a6a24]">Disclosures</a>
-            <a href="/privacy.html" className="hover:text-[#8a6a24]">Privacy</a>
-            <a href="/terms.html" className="hover:text-[#8a6a24]">Terms</a>
-          </p>
-          <p className="mt-2 text-[11px] text-[#a0968a]">© {new Date().getFullYear()} Glenn E. Windom II</p>
-        </footer>
-      </main>
+          <footer className="mt-14 text-center">
+            <p className="font-serif text-2xl text-[#f4ede0] italic">Glenn Windom <span className="gold-text">II</span></p>
+            <p className="mx-auto mt-5 max-w-md text-[11px] leading-relaxed text-[#f4ede0]/45">WISE Financial Partners is affiliated with World Financial Group. Insurance and annuity products are offered through World Financial Group Insurance Agency, LLC and its affiliated agencies, and are subject to state availability. Neither World Financial Group nor its agents provide tax, estate planning, or legal advice. CA Insurance License #4359007.</p>
+            <p className="mt-3 flex justify-center gap-4 text-[11.5px] text-[#f4ede0]/60">
+              <a href="/disclosures.html" className="hover:text-[var(--accent)]">Disclosures</a>
+              <a href="/privacy.html" className="hover:text-[var(--accent)]">Privacy</a>
+              <a href="/terms.html" className="hover:text-[var(--accent)]">Terms</a>
+            </p>
+            <p className="mt-2 text-[11px] text-[#f4ede0]/40">© {new Date().getFullYear()} Glenn E. Windom II</p>
+          </footer>
+        </main>
+      </div>
       <AnimatePresence>
         {toast && (
           <motion.div role="status" className="fixed inset-x-0 bottom-[max(1.25rem,env(safe-area-inset-bottom))] z-50 flex justify-center px-4"
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 20 }}>
-            <span className="inline-flex items-center gap-2 rounded-full bg-[#1d1a16] px-5 py-3 text-sm text-[#f6f1e8] shadow-xl"><Check className="size-4 text-[#e7ce8a]" />{toast}</span>
+            <span className="inline-flex items-center gap-2 rounded-full bg-[#f4ede0] px-5 py-3 text-sm font-medium text-[var(--base)] shadow-xl" style={{ '--base': theme.base } as React.CSSProperties}><Check className="size-4" />{toast}</span>
           </motion.div>
         )}
       </AnimatePresence>
