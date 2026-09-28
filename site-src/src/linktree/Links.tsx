@@ -1,8 +1,8 @@
 // wisefinancialpartners.com/linktree: Glenn's personal link-in-bio. One column of links, but
 // premium: a slow WebGL mesh-gradient backdrop (Paper Shaders, via 21st.dev), Glenn's
 // portrait, Fraunces serif, glass rows that fill ivory on hover, and real imagery (photos,
-// the book, brand logos) instead of line icons. Colorways live in THEMES (?theme=… to preview).
-import { useEffect, useMemo, useState } from 'react'
+// the book, brand logos) instead of line icons.
+import { useEffect, useState } from 'react'
 import { AnimatePresence, MotionConfig, motion, useReducedMotion } from 'motion/react'
 import { MeshGradient } from '@paper-design/shaders-react'
 import { ArrowRight, ArrowUpRight, Check, Contact, Plus, Share2 } from 'lucide-react'
@@ -21,24 +21,11 @@ const ease = [0.2, 0.7, 0.2, 1] as const
 const focusRing = 'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]'
 const clicked = (link: string) => track('linktree_click', { link })
 
-/* ---------- colorways ---------- */
-// accent = labels on dark, deep = labels on the ivory card, glow = halo rgb, soft = avatar/monogram fill.
-// Orange stays burnt/cognac and sits on brown or navy, never on black (no Halloween, no candy corn).
-type Theme = { name: string; base: string; mesh: string[]; accent: string; deep: string; glow: string; soft: [string, string] }
-const copper = { accent: '#f3ab74', deep: '#b04a18', glow: '240,150,95', soft: ['#f6d2b0', '#d98a52'] as [string, string] }
-const THEMES: Record<string, Theme> = {
-  cognac: { name: 'Cognac', base: '#1c0e08', mesh: ['#1c0e08', '#43200f', '#7c3514', '#b85a24'], ...copper },
-  ember: { name: 'Midnight Ember', base: '#0b1522', mesh: ['#0b1522', '#172b4a', '#0e2036', '#9c4418'], ...copper },
-  terracotta: { name: 'Terracotta', base: '#4a1a08', mesh: ['#4a1a08', '#8a3413', '#b9501d', '#6b260c'], ...copper, accent: '#ffcfa3' },
-  navy: { name: 'Midnight', base: '#0b1522', mesh: ['#0b1522', '#1a2f4d', '#0e2036', '#5d4f36'], accent: '#e3c98f', deep: '#8a6a24', glow: '236,220,179', soft: ['#ecdcb3', '#c8ab72'] },
-}
-function useTheme(): Theme {
-  return useMemo(() => {
-    let key = 'cognac'
-    try { key = new URLSearchParams(window.location.search).get('theme') || key } catch { /* default */ }
-    return THEMES[key] || THEMES.cognac
-  }, [])
-}
+/* ---------- colorway: Cognac (Glenn's pick; his favorite color is orange) ----------
+   accent = labels on dark, deep = labels on the ivory card, glow = halo rgb, soft = avatar/monogram fill.
+   Orange stays burnt/cognac on espresso brown, never on black (no Halloween, no candy corn). */
+type Theme = { base: string; mesh: string[]; accent: string; deep: string; glow: string; soft: [string, string] }
+const theme: Theme = { base: '#1c0e08', mesh: ['#1c0e08', '#43200f', '#7c3514', '#b85a24'], accent: '#f3ab74', deep: '#b04a18', glow: '240,150,95', soft: ['#f6d2b0', '#d98a52'] }
 
 function Backdrop({ theme }: { theme: Theme }) {
   const still = useReducedMotion()
@@ -127,7 +114,7 @@ function Hero({ onShare }: { onShare: () => void }) {
   return (
     <header className="relative">
       <div className="flex items-center justify-between">
-        <span className="font-serif text-[13px] tracking-[0.34em] text-[#f4ede0]/70 uppercase">Glenn Windom II</span>
+        <span className="font-serif text-[13px] tracking-[0.34em] text-[#f4ede0]/70 uppercase">Glenn E. Windom II</span>
         <button type="button" onClick={onShare} aria-label="Share this page" className={cn('grid size-10 place-items-center rounded-full border border-white/15 bg-white/[.07] text-[#f4ede0] backdrop-blur-xl hover:bg-white/[.14]', focusRing)}>
           <Share2 className="size-4" strokeWidth={1.7} />
         </button>
@@ -142,9 +129,9 @@ function Hero({ onShare }: { onShare: () => void }) {
       </div>
 
       <div className="relative -mt-4 text-center">
-        <motion.h1 className="display text-[clamp(2.9rem,12vw,3.9rem)] leading-[0.95] text-[#f4ede0]"
+        <motion.h1 className="display text-[clamp(2.1rem,9.6vw,3.5rem)] leading-[0.95] text-balance text-[#f4ede0]"
           initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.25, ease }}>
-          Glenn Windom <em className="accent-text italic">II</em>
+          Glenn E. Windom <em className="accent-text italic">II</em>
         </motion.h1>
         <motion.p className="mt-4 text-[11.5px] font-medium tracking-[0.3em] text-[var(--accent)] uppercase"
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.9, delay: 0.4 }}>
@@ -266,12 +253,7 @@ function Newsletter() {
 
 /* ---------- page ---------- */
 export default function Links() {
-  const theme = useTheme()
   const [toast, setToast] = useState('')
-  useEffect(() => {
-    document.documentElement.style.background = theme.base
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme.base)
-  }, [theme])
   useEffect(() => { if (!toast) return; const t = setTimeout(() => setToast(''), 2400); return () => clearTimeout(t) }, [toast])
   async function share() {
     clicked('share')
