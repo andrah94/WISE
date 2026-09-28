@@ -143,10 +143,10 @@ function Hero({ onShare }: { onShare: () => void }) {
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.9, delay: 0.4 }}>
           Entrepreneur · Author · Founder
         </motion.p>
-        <motion.p className="mx-auto mt-3 max-w-[22rem] font-serif text-[17px] leading-snug text-[#f4ede0]/65 italic"
+        <motion.blockquote className="mx-auto mt-3 max-w-[22rem] font-serif text-[17.5px] leading-snug text-[#f4ede0]/85 italic"
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.9, delay: 0.5 }}>
-          Money isn’t math, it’s mental. Building wealth, impact and legacy.
-        </motion.p>
+          “<span className="text-[var(--accent)] not-italic">Close the gap.</span> Connection is the bridge between where you are and where you’re meant to be.”
+        </motion.blockquote>
         <motion.div className="mt-6 flex flex-wrap items-center justify-center gap-2" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6, ease }}>
           <a href={GLENN_IG} target="_blank" rel="noopener" onClick={() => clicked('ig_glenn_pill')} className={pill}><img src="/img/brands/instagram.svg" alt="" className="size-4" />Instagram</a>
           <a href={GLENN_IN} target="_blank" rel="noopener" onClick={() => clicked('linkedin_pill')} className={pill}><img src="/img/brands/linkedin.svg" alt="" className="size-4 rounded-[3px] bg-white" />LinkedIn</a>
