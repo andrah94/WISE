@@ -25,7 +25,7 @@ const clicked = (link: string) => track('linktree_click', { link })
    accent = labels on dark, deep = labels on the ivory card, glow = halo rgb, soft = avatar/monogram fill.
    Orange stays burnt/cognac on espresso brown, never on black (no Halloween, no candy corn). */
 type Theme = { base: string; mesh: string[]; accent: string; deep: string; glow: string; soft: [string, string] }
-const theme: Theme = { base: '#1c0e08', mesh: ['#1c0e08', '#43200f', '#7c3514', '#b85a24'], accent: '#f3ab74', deep: '#b04a18', glow: '240,150,95', soft: ['#f6d2b0', '#d98a52'] }
+const theme: Theme = { base: '#1c0e08', mesh: ['#1c0e08', '#43200f', '#7c3514', '#b85a24'], accent: '#f3ab74', deep: '#9a3f12', glow: '240,150,95', soft: ['#f6d2b0', '#d98a52'] }
 
 function Backdrop({ theme }: { theme: Theme }) {
   const still = useReducedMotion()
@@ -39,7 +39,12 @@ function Backdrop({ theme }: { theme: Theme }) {
 
 /* ---------- thumbnails: real imagery, never line icons ---------- */
 const thumb = 'relative block size-12 shrink-0 overflow-hidden rounded-[14px] ring-1 ring-white/15'
-const Photo = ({ src, pos = 'center' }: { src: string; pos?: string }) => <span className={thumb}><img src={src} alt="" loading="lazy" className="size-full object-cover" style={{ objectPosition: pos }} /></span>
+// If a photo fails to load (e.g. the old Wix host), fall back to a quiet copper tile rather than a broken image.
+const Photo = ({ src, pos = 'center' }: { src: string; pos?: string }) => (
+  <span className={cn(thumb, 'bg-[linear-gradient(150deg,var(--soft1),var(--soft2))]')}>
+    <img src={src} alt="" loading="lazy" className="size-full object-cover" style={{ objectPosition: pos }} onError={(e) => { e.currentTarget.style.display = 'none' }} />
+  </span>
+)
 const Logo = ({ src, bg = '#fff', pad = 'p-2.5' }: { src: string; bg?: string; pad?: string }) => <span className={cn(thumb, 'grid place-items-center', pad)} style={{ background: bg }}><img src={src} alt="" className="size-full object-contain" /></span>
 const Avatar = ({ dot }: { dot?: boolean }) => (
   <span className="relative size-12 shrink-0">
@@ -55,15 +60,15 @@ const Monogram = () => <span className={cn(thumb, 'grid place-items-center bg-[l
 type Row = { key: string; title: string; note?: string; media: React.ReactNode; href?: string; onClick?: () => void }
 function LinkRow({ r, i }: { r: Row; i: number }) {
   const external = r.href?.startsWith('http')
-  const cls = cn('group relative flex w-full items-center gap-4 overflow-hidden rounded-[20px] border border-white/12 bg-white/[.06] p-2.5 pr-4 text-left backdrop-blur-xl transition-[border-color,transform] duration-500 hover:-translate-y-[1px] hover:border-transparent', focusRing)
+  const cls = cn('group relative flex w-full items-center gap-4 overflow-hidden rounded-[20px] border border-white/12 bg-[rgba(28,14,8,.5)] p-2.5 pr-4 text-left backdrop-blur-xl transition-[border-color,transform] duration-500 hover:-translate-y-[1px] hover:border-transparent', focusRing)
   const inner = <>
     <span aria-hidden className="absolute inset-0 origin-left scale-x-0 bg-[#f4ede0] transition-transform duration-500 ease-[cubic-bezier(.2,.7,.2,1)] group-hover:scale-x-100" />
     <span className="relative">{r.media}</span>
     <span className="relative min-w-0 flex-1">
       <span className="block text-[15.5px] leading-snug font-medium text-[#f4ede0] transition-colors duration-500 group-hover:text-[var(--base)]">{r.title}</span>
-      {r.note && <span className="mt-0.5 block text-[13px] text-[#f4ede0]/55 transition-colors duration-500 group-hover:text-[var(--base)]/60">{r.note}</span>}
+      {r.note && <span className="mt-0.5 block text-[13px] text-[#f4ede0]/75 transition-colors duration-500 group-hover:text-[var(--base)]/75">{r.note}</span>}
     </span>
-    <span className="relative text-[#f4ede0]/45 transition-all duration-500 group-hover:translate-x-0.5 group-hover:text-[var(--base)]">
+    <span className="relative text-[#f4ede0]/70 transition-all duration-500 group-hover:translate-x-0.5 group-hover:text-[var(--base)]">
       {external ? <ArrowUpRight className="size-[18px]" strokeWidth={1.6} /> : <ArrowRight className="size-[18px]" strokeWidth={1.6} />}
     </span>
   </>
@@ -89,7 +94,7 @@ function Section({ label, children }: { label: string; children: React.ReactNode
     <section className="mt-10" aria-label={label}>
       <div className="mb-4 flex items-center gap-4">
         <span className="h-px flex-1 bg-gradient-to-r from-transparent to-white/20" />
-        <h2 className="font-serif text-[12.5px] tracking-[0.34em] text-[var(--accent)] uppercase">{label}</h2>
+        <h2 className="rounded-full bg-[rgba(28,14,8,.5)] px-3.5 py-1.5 font-serif text-[12.5px] tracking-[0.34em] text-[var(--accent)] uppercase backdrop-blur-md">{label}</h2>
         <span className="h-px flex-1 bg-gradient-to-l from-transparent to-white/20" />
       </div>
       <div className="grid gap-3">{children}</div>
@@ -110,12 +115,12 @@ function vCard() {
 }
 
 function Hero({ onShare }: { onShare: () => void }) {
-  const pill = cn('inline-flex h-10 items-center gap-2 rounded-full border border-white/15 bg-white/[.07] px-4 text-[13px] font-medium text-[#f4ede0] backdrop-blur-xl transition-colors hover:border-white/40 hover:bg-white/[.12]', focusRing)
+  const pill = cn('inline-flex h-11 items-center gap-2 rounded-full border border-white/15 bg-[rgba(28,14,8,.5)] px-4 text-[13px] font-medium text-[#f4ede0] backdrop-blur-xl transition-colors hover:border-white/40 hover:bg-[rgba(28,14,8,.62)]', focusRing)
   return (
     <header className="relative">
       <div className="flex items-center justify-between">
-        <span className="font-serif text-[13px] tracking-[0.34em] text-[#f4ede0]/70 uppercase">Glenn E. Windom II</span>
-        <button type="button" onClick={onShare} aria-label="Share this page" className={cn('grid size-10 place-items-center rounded-full border border-white/15 bg-white/[.07] text-[#f4ede0] backdrop-blur-xl hover:bg-white/[.14]', focusRing)}>
+        <span className="rounded-full bg-[rgba(28,14,8,.5)] px-3.5 py-2 font-serif text-[12.5px] tracking-[0.3em] text-[#f4ede0]/90 uppercase backdrop-blur-md">Glenn E. Windom II</span>
+        <button type="button" onClick={onShare} aria-label="Share this page" className={cn('grid size-11 place-items-center rounded-full border border-white/15 bg-[rgba(28,14,8,.5)] text-[#f4ede0] backdrop-blur-xl hover:bg-[rgba(28,14,8,.62)]', focusRing)}>
           <Share2 className="size-4" strokeWidth={1.7} />
         </button>
       </div>
@@ -128,12 +133,13 @@ function Hero({ onShare }: { onShare: () => void }) {
           initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.1, delay: 0.1, ease }} />
       </div>
 
-      <div className="relative -mt-4 text-center">
+      <div className="relative isolate -mt-4 text-center">
+        <div aria-hidden className="absolute -inset-x-4 -inset-y-6 -z-10 bg-[radial-gradient(60%_55%_at_50%_45%,rgba(28,14,8,.55),transparent)]" />
         <motion.h1 className="display text-[clamp(2.1rem,9.6vw,3.5rem)] leading-[0.95] text-balance text-[#f4ede0]"
           initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.25, ease }}>
           Glenn E. Windom <em className="accent-text italic">II</em>
         </motion.h1>
-        <motion.p className="mt-4 text-[11.5px] font-medium tracking-[0.3em] text-[var(--accent)] uppercase"
+        <motion.p className="mt-4 text-[12px] font-medium tracking-[0.3em] text-[var(--accent)] uppercase"
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.9, delay: 0.4 }}>
           Entrepreneur · Author · Founder
         </motion.p>
@@ -161,12 +167,12 @@ function Consult() {
         <span className="relative flex items-center gap-4">
           <Avatar dot />
           <span className="min-w-0 flex-1">
-            <span className="block text-[11px] font-semibold tracking-[0.24em] text-[var(--deep)] uppercase">Free · 30 minutes</span>
+            <span className="block text-[12px] font-semibold tracking-[0.24em] text-[var(--deep)] uppercase">Free · 30 minutes</span>
             <span className="mt-0.5 block font-serif text-[1.55rem] leading-tight text-[var(--base)]">Book a consultation</span>
           </span>
           <span className="grid size-11 shrink-0 place-items-center rounded-full bg-[var(--base)] text-[#f4ede0] transition-transform duration-500 group-hover:-rotate-45"><ArrowRight className="size-[18px]" /></span>
         </span>
-        <span className="relative mt-3 block text-[13px] text-[var(--base)]/60">With WISE Financial Partners · No cost, no obligation</span>
+        <span className="relative mt-3 block text-[13px] text-[var(--base)]/75">With WISE Financial Partners · No cost, no obligation</span>
       </button>
     </Reveal>
   )
@@ -175,18 +181,18 @@ function Consult() {
 function Book() {
   const store = (href: string, key: string, children: React.ReactNode) => (
     <a href={href} target="_blank" rel="noopener" onClick={() => clicked(key)}
-      className={cn('inline-flex h-9 items-center gap-1.5 rounded-full bg-[#f4ede0] px-4 text-[13px] font-semibold text-[var(--base)] transition-transform hover:-translate-y-0.5', focusRing)}>{children}</a>
+      className={cn('inline-flex h-11 items-center gap-1.5 rounded-full bg-[#f4ede0] px-4 text-[13px] font-semibold text-[var(--base)] transition-transform hover:-translate-y-0.5', focusRing)}>{children}</a>
   )
   return (
     <Reveal i={0}>
-      <div className="relative flex items-center gap-5 overflow-hidden rounded-[24px] border border-white/12 bg-white/[.06] p-5 backdrop-blur-xl">
+      <div className="relative flex items-center gap-5 overflow-hidden rounded-[24px] border border-white/12 bg-[rgba(28,14,8,.5)] p-5 backdrop-blur-xl">
         <Tilt rotationFactor={12} className="w-[96px] shrink-0">
           <img src="/img/money-mirror.webp" alt="The Money Mirror by Glenn Windom II" loading="lazy" className="w-full rounded-[4px] shadow-[0_22px_34px_-12px_rgba(0,0,0,.8),0_0_0_1px_rgba(255,255,255,.08)]" />
         </Tilt>
         <div className="min-w-0">
-          <p className="text-[11px] font-medium tracking-[0.28em] text-[var(--accent)] uppercase">My book</p>
+          <p className="text-[12px] font-medium tracking-[0.28em] text-[var(--accent)] uppercase">My book</p>
           <p className="mt-1.5 font-serif text-[1.6rem] leading-tight text-[#f4ede0]">The Money <em className="italic">Mirror</em></p>
-          <p className="mt-0.5 text-[13px] text-[#f4ede0]/55">Money isn’t math, it’s mental.</p>
+          <p className="mt-0.5 text-[13px] text-[#f4ede0]/75">Money isn’t math, it’s mental.</p>
           <div className="mt-3.5 flex flex-wrap gap-2">
             {store(AMAZON, 'book_amazon', <>Amazon<ArrowUpRight className="size-3.5" /></>)}
             {store(APPLE_BOOKS, 'book_apple', <><img src="/img/brands/apple.svg" alt="" className="-mt-0.5 size-3.5" />Books<ArrowUpRight className="size-3.5" /></>)}
@@ -212,16 +218,16 @@ function Newsletter() {
     if (r.ok) { sendToHQ({ kind: 'newsletter', email, name, consent: true }); track('newsletter_signup', { location: 'linktree' }) }
     setState(r.ok ? 'done' : 'error'); setMsg(r.text)
   }
-  const field = 'w-full min-w-0 rounded-2xl border border-white/15 bg-black/20 px-4 py-3 text-[15px] text-[#f4ede0] placeholder:text-[#f4ede0]/40 focus:border-[var(--accent)] focus:outline-none'
+  const field = 'w-full min-w-0 rounded-2xl border border-white/15 bg-black/20 px-4 py-3 text-[15px] text-[#f4ede0] placeholder:text-[#f4ede0]/65 focus:border-[var(--accent)] focus:outline-none'
   return (
     <Reveal i={0}>
-      <div className={cn('overflow-hidden rounded-[20px] border bg-white/[.06] backdrop-blur-xl transition-colors duration-300', open ? 'border-white/35' : 'border-white/12 hover:border-white/30')}>
+      <div className={cn('overflow-hidden rounded-[20px] border bg-[rgba(28,14,8,.5)] backdrop-blur-xl transition-colors duration-300', open ? 'border-white/35' : 'border-white/12 hover:border-white/30')}>
         <button type="button" aria-expanded={open} onClick={() => { setOpen(!open); if (!open) clicked('newsletter_open') }}
           className={cn('flex w-full items-center gap-4 p-2.5 pr-4 text-left', focusRing)}>
           <Monogram />
           <span className="min-w-0 flex-1">
             <span className="block text-[15.5px] font-medium text-[#f4ede0]">Get my money notes</span>
-            <span className="mt-0.5 block text-[13px] text-[#f4ede0]/55">Mindset, money and legacy, by email</span>
+            <span className="mt-0.5 block text-[13px] text-[#f4ede0]/75">Mindset, money and legacy, by email</span>
           </span>
           <Plus className={cn('size-[18px] text-[#f4ede0]/50 transition-transform duration-300', open && 'rotate-45 text-[#f4ede0]')} strokeWidth={1.6} />
         </button>
@@ -241,7 +247,7 @@ function Newsletter() {
                       </button>
                     </form>}
                 {state === 'error' && <p role="alert" className="mt-2 px-1 text-sm text-red-300">{msg}</p>}
-                <p className="mt-2 px-1 text-[11.5px] text-[#f4ede0]/45">Unsubscribe anytime. We never sell your information.</p>
+                <p className="mt-2 px-1 text-[12px] text-[#f4ede0]/70">Unsubscribe anytime. We never sell your information.</p>
               </div>
             </motion.div>
           )}
@@ -266,7 +272,7 @@ export default function Links() {
   }
   return (
     <MotionConfig reducedMotion="user">
-      <div style={{ '--base': theme.base, '--accent': theme.accent, '--deep': theme.deep, '--glow': theme.glow, '--soft1': theme.soft[0], '--soft2': theme.soft[1] } as React.CSSProperties} className="min-h-svh text-[#f4ede0]">
+      <div style={{ '--base': theme.base, '--accent': theme.accent, '--deep': theme.deep, '--glow': theme.glow, '--soft1': theme.soft[0], '--soft2': theme.soft[1] } as React.CSSProperties} className="min-h-svh overflow-x-clip text-[#f4ede0]">
         <Backdrop theme={theme} />
         <main className="relative mx-auto w-full max-w-[520px] px-4 pt-[max(1rem,env(safe-area-inset-top))] pb-12">
           <Hero onShare={share} />
@@ -293,15 +299,15 @@ export default function Links() {
             <LinkRow i={3} r={{ key: 'linkedin', title: 'Glenn Windom II', note: 'LinkedIn', media: <Logo src="/img/brands/linkedin.svg" />, href: GLENN_IN }} />
           </Section>
 
-          <footer className="mt-14 text-center">
+          <footer className="mt-14 rounded-[24px] bg-[rgba(28,14,8,.5)] px-5 py-8 text-center backdrop-blur-md">
             <p className="font-serif text-2xl text-[#f4ede0] italic">Glenn Windom <span className="accent-text">II</span></p>
-            <p className="mx-auto mt-5 max-w-md text-[11px] leading-relaxed text-[#f4ede0]/45">WISE Financial Partners is affiliated with World Financial Group. Insurance and annuity products are offered through World Financial Group Insurance Agency, LLC and its affiliated agencies, and are subject to state availability. Neither World Financial Group nor its agents provide tax, estate planning, or legal advice. CA Insurance License #4359007.</p>
-            <p className="mt-3 flex justify-center gap-4 text-[11.5px] text-[#f4ede0]/60">
-              <a href="/disclosures.html" className="hover:text-[var(--accent)]">Disclosures</a>
-              <a href="/privacy.html" className="hover:text-[var(--accent)]">Privacy</a>
-              <a href="/terms.html" className="hover:text-[var(--accent)]">Terms</a>
+            <p className="mx-auto mt-5 max-w-md text-[12px] leading-relaxed text-[#f4ede0]/70">WISE Financial Partners is affiliated with World Financial Group. Insurance and annuity products are offered through World Financial Group Insurance Agency, LLC and its affiliated agencies, and are subject to state availability. Neither World Financial Group nor its agents provide tax, estate planning, or legal advice. CA Insurance License #4359007.</p>
+            <p className="mt-1 flex justify-center gap-3 text-[12px] text-[#f4ede0]/80">
+              <a href="/disclosures.html" className="inline-block min-w-11 px-1 py-[13px] hover:text-[var(--accent)]">Disclosures</a>
+              <a href="/privacy.html" className="inline-block min-w-11 px-1 py-[13px] hover:text-[var(--accent)]">Privacy</a>
+              <a href="/terms.html" className="inline-block min-w-11 px-1 py-[13px] hover:text-[var(--accent)]">Terms</a>
             </p>
-            <p className="mt-2 text-[11px] text-[#f4ede0]/40">© {new Date().getFullYear()} Glenn E. Windom II</p>
+            <p className="mt-2 text-[12px] text-[#f4ede0]/65">© {new Date().getFullYear()} Glenn E. Windom II</p>
           </footer>
         </main>
       </div>
