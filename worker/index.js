@@ -1,26 +1,18 @@
 // Serves the built site from the repo root (see wrangler.jsonc). The bare domain
 // redirects to www so every visitor, link and search result uses one address.
 //
-// Glenn's personal link page also answers on his own domain, imglennwin.com, so
-// shared links and previews show his name, not WISE's: the home page there is
-// /linktree/, www redirects to the bare domain, and the page's share tags
-// (canonical, og:url, og:image) are rewritten to imglennwin.com.
+// Glenn's personal link page lives on his own domain: imglennwin.com/linktree/.
+// The old wisefinancialpartners.com/linktree address forwards there for good.
+// imglennwin.com itself is kept free for a future landing page, so for now it
+// forwards to /linktree/ with a temporary redirect (easy to replace later).
 const PERSONAL = 'imglennwin.com';
-const WISE_PAGE = 'https://www.wisefinancialpartners.com/linktree/';
-const WISE_ORIGIN = 'https://www.wisefinancialpartners.com';
+const LINKTREE = `https://${PERSONAL}/linktree/`;
+const isLinktree = (path) => path === '/linktree' || path === '/linktree/' || path === '/linktree.html' || path === '/linktree/index.html';
 
-async function personal(request, env, url) {
-  if (url.pathname === '/' || url.pathname === '/linktree' || url.pathname === '/linktree/') {
-    const page = await env.ASSETS.fetch(new Request(new URL('/linktree/', url), request));
-    const toPersonal = (value) => value.replace(WISE_PAGE, `https://${PERSONAL}/`).replace(WISE_ORIGIN, `https://${PERSONAL}`);
-    return new HTMLRewriter()
-      .on('link[rel="canonical"]', { element: (el) => el.setAttribute('href', toPersonal(el.getAttribute('href') || '')) })
-      .on('meta[property^="og:"], meta[name^="twitter:"]', { element: (el) => { const c = el.getAttribute('content'); if (c) el.setAttribute('content', toPersonal(c)); } })
-      .transform(page);
-  }
-  // Scripts, images and fonts are shared with the WISE site; anything else goes to the page.
-  const res = await env.ASSETS.fetch(request);
-  return res.status === 404 ? Response.redirect(`https://${PERSONAL}/`, 302) : res;
+function redirect(to, from, status) {
+  const target = new URL(to);
+  target.search = from.search;
+  return Response.redirect(target.toString(), status);
 }
 
 export default {
@@ -30,7 +22,12 @@ export default {
       url.hostname = PERSONAL;
       return Response.redirect(url.toString(), 301);
     }
-    if (url.hostname === PERSONAL) return personal(request, env, url);
+    if (url.hostname === PERSONAL) {
+      if (url.pathname === '/') return redirect(LINKTREE, url, 302);
+      const res = await env.ASSETS.fetch(request);
+      return res.status === 404 ? redirect(LINKTREE, url, 302) : res;
+    }
+    if (isLinktree(url.pathname)) return redirect(LINKTREE, url, 301);
     if (url.hostname === 'wisefinancialpartners.com') {
       url.hostname = 'www.wisefinancialpartners.com';
       return Response.redirect(url.toString(), 301);

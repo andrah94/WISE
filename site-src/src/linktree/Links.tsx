@@ -14,8 +14,8 @@ import {
 } from '@/data'
 
 const SITE = 'https://www.wisefinancialpartners.com'
-// The page answers on Glenn's own domain and on the WISE site; share whichever address it was opened on.
-const PAGE = typeof location !== 'undefined' && location.hostname.endsWith('imglennwin.com') ? 'https://imglennwin.com/' : `${SITE}/linktree/`
+// Glenn's page lives on his own domain; the old WISE address forwards here (see worker/index.js).
+const PAGE = 'https://imglennwin.com/linktree/'
 const fromHere = { utm_source: 'linktree', utm_medium: 'bio' }
 const site = (hash = '') => withParams(`${SITE}/`, fromHere) + hash
 const ease = [0.2, 0.7, 0.2, 1] as const
