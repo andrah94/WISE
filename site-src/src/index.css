@@ -53,3 +53,11 @@ body {
 .display { font-family: var(--font-serif); font-weight: 300; letter-spacing: -.025em; line-height: 1; }
 .outline-text { -webkit-text-stroke: 1px rgba(231,206,138,.22); color: transparent; }
 @media (prefers-reduced-motion: reduce) { .gold-text { animation: none; } }
+
+/* Linktree: the name's "II" in the page's accent metal (copper, gold…), set by --accent/--deep */
+.accent-text {
+  background: linear-gradient(110deg, var(--deep) 0%, var(--accent) 40%, #fff3e6 52%, var(--accent) 64%, var(--deep) 100%);
+  background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: sheen 8s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) { .accent-text { animation: none; } }

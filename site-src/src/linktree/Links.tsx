@@ -22,17 +22,21 @@ const focusRing = 'focus-visible:outline-2 focus-visible:outline-offset-2 focus-
 const clicked = (link: string) => track('linktree_click', { link })
 
 /* ---------- colorways ---------- */
-type Theme = { name: string; base: string; mesh: string[] }
+// accent = labels on dark, deep = labels on the ivory card, glow = halo rgb, soft = avatar/monogram fill.
+// Orange stays burnt/cognac and sits on brown or navy, never on black (no Halloween, no candy corn).
+type Theme = { name: string; base: string; mesh: string[]; accent: string; deep: string; glow: string; soft: [string, string] }
+const copper = { accent: '#f3ab74', deep: '#b04a18', glow: '240,150,95', soft: ['#f6d2b0', '#d98a52'] as [string, string] }
 const THEMES: Record<string, Theme> = {
-  navy: { name: 'Midnight', base: '#0b1522', mesh: ['#0b1522', '#1a2f4d', '#0e2036', '#5d4f36'] },
-  emerald: { name: 'Emerald', base: '#08201a', mesh: ['#08201a', '#11392f', '#1b4a3d', '#5a5030'] },
-  oxblood: { name: 'Oxblood', base: '#1a0a0e', mesh: ['#1a0a0e', '#3a111a', '#561d27', '#6a5230'] },
+  cognac: { name: 'Cognac', base: '#1c0e08', mesh: ['#1c0e08', '#43200f', '#7c3514', '#b85a24'], ...copper },
+  ember: { name: 'Midnight Ember', base: '#0b1522', mesh: ['#0b1522', '#172b4a', '#0e2036', '#9c4418'], ...copper },
+  terracotta: { name: 'Terracotta', base: '#4a1a08', mesh: ['#4a1a08', '#8a3413', '#b9501d', '#6b260c'], ...copper, accent: '#ffcfa3' },
+  navy: { name: 'Midnight', base: '#0b1522', mesh: ['#0b1522', '#1a2f4d', '#0e2036', '#5d4f36'], accent: '#e3c98f', deep: '#8a6a24', glow: '236,220,179', soft: ['#ecdcb3', '#c8ab72'] },
 }
 function useTheme(): Theme {
   return useMemo(() => {
-    let key = 'navy'
+    let key = 'cognac'
     try { key = new URLSearchParams(window.location.search).get('theme') || key } catch { /* default */ }
-    return THEMES[key] || THEMES.navy
+    return THEMES[key] || THEMES.cognac
   }, [])
 }
 
@@ -41,7 +45,7 @@ function Backdrop({ theme }: { theme: Theme }) {
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0" style={{ background: theme.base }}>
       <MeshGradient className="absolute inset-0 size-full" colors={theme.mesh} distortion={0.9} swirl={0.35} speed={still ? 0 : 0.18} grainOverlay={0.12} />
-      <div className="absolute inset-0 bg-[radial-gradient(80%_50%_at_50%_0%,rgba(227,201,143,.14),transparent_70%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(80%_50%_at_50%_0%,rgba(var(--glow),.16),transparent_70%)]" />
     </div>
   )
 }
@@ -52,13 +56,13 @@ const Photo = ({ src, pos = 'center' }: { src: string; pos?: string }) => <span 
 const Logo = ({ src, bg = '#fff', pad = 'p-2.5' }: { src: string; bg?: string; pad?: string }) => <span className={cn(thumb, 'grid place-items-center', pad)} style={{ background: bg }}><img src={src} alt="" className="size-full object-contain" /></span>
 const Avatar = ({ dot }: { dot?: boolean }) => (
   <span className="relative size-12 shrink-0">
-    <span className={cn(thumb, 'block bg-[linear-gradient(160deg,#ecdcb3,#c8ab72)]')}>
+    <span className={cn(thumb, 'block bg-[linear-gradient(160deg,var(--soft1),var(--soft2))]')}>
       <img src="/img/glenn-cutout.webp" alt="" className="absolute top-[4%] left-1/2 h-[170%] w-auto max-w-none -translate-x-1/2 object-contain object-top" />
     </span>
     {dot && <span className="absolute -right-0.5 -bottom-0.5 size-3.5 rounded-full border-2 border-[var(--base)] bg-emerald-400" />}
   </span>
 )
-const Monogram = () => <span className={cn(thumb, 'grid place-items-center bg-[linear-gradient(150deg,#f1e2b8,#b99155)] font-serif text-lg text-[#2a2012] italic')}>GW</span>
+const Monogram = () => <span className={cn(thumb, 'grid place-items-center bg-[linear-gradient(150deg,var(--soft1),var(--soft2))] font-serif text-lg text-[var(--base)] italic')}>GW</span>
 
 /* ---------- a link row: glass, fills ivory on hover ---------- */
 type Row = { key: string; title: string; note?: string; media: React.ReactNode; href?: string; onClick?: () => void }
@@ -130,7 +134,7 @@ function Hero({ onShare }: { onShare: () => void }) {
       </div>
 
       <div className="relative mx-auto mt-6 h-[min(50svh,400px)] w-full">
-        <motion.div aria-hidden className="absolute bottom-[4%] left-1/2 size-[min(78vw,340px)] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(236,220,179,.5),rgba(236,220,179,.08)_70%,transparent)]"
+        <motion.div aria-hidden className="absolute bottom-[4%] left-1/2 size-[min(78vw,340px)] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(var(--glow),.5),rgba(var(--glow),.08)_70%,transparent)]"
           initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.4, ease }} />
         <motion.img src="/img/glenn-cutout.webp" alt="Glenn Windom II" fetchPriority="high"
           className="absolute bottom-0 left-1/2 h-full w-auto max-w-none -translate-x-1/2 object-contain object-bottom [mask-image:linear-gradient(to_bottom,#000_70%,transparent)]"
@@ -140,7 +144,7 @@ function Hero({ onShare }: { onShare: () => void }) {
       <div className="relative -mt-4 text-center">
         <motion.h1 className="display text-[clamp(2.9rem,12vw,3.9rem)] leading-[0.95] text-[#f4ede0]"
           initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.25, ease }}>
-          Glenn Windom <em className="gold-text italic">II</em>
+          Glenn Windom <em className="accent-text italic">II</em>
         </motion.h1>
         <motion.p className="mt-4 text-[11.5px] font-medium tracking-[0.3em] text-[var(--accent)] uppercase"
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.9, delay: 0.4 }}>
@@ -166,11 +170,11 @@ function Consult() {
     <Reveal i={0}>
       <button type="button" onClick={() => { clicked('book_consult'); openCalendly(withParams(BOOK_URL, { ...fromHere, utm_campaign: 'booking' })) }}
         className={cn('group relative w-full overflow-hidden rounded-[24px] bg-[#f4ede0] p-5 text-left shadow-[0_30px_60px_-30px_rgba(0,0,0,.8)]', focusRing)}>
-        <span aria-hidden className="absolute -top-24 -right-20 size-60 rounded-full bg-[radial-gradient(circle,rgba(201,162,75,.35),transparent_65%)] transition-transform duration-700 group-hover:scale-125" />
+        <span aria-hidden className="absolute -top-24 -right-20 size-60 rounded-full bg-[radial-gradient(circle,rgba(var(--glow),.4),transparent_65%)] transition-transform duration-700 group-hover:scale-125" />
         <span className="relative flex items-center gap-4">
           <Avatar dot />
           <span className="min-w-0 flex-1">
-            <span className="block text-[11px] font-semibold tracking-[0.24em] text-[#8a6a24] uppercase">Free · 30 minutes</span>
+            <span className="block text-[11px] font-semibold tracking-[0.24em] text-[var(--deep)] uppercase">Free · 30 minutes</span>
             <span className="mt-0.5 block font-serif text-[1.55rem] leading-tight text-[var(--base)]">Book a consultation</span>
           </span>
           <span className="grid size-11 shrink-0 place-items-center rounded-full bg-[var(--base)] text-[#f4ede0] transition-transform duration-500 group-hover:-rotate-45"><ArrowRight className="size-[18px]" /></span>
@@ -280,7 +284,7 @@ export default function Links() {
   }
   return (
     <MotionConfig reducedMotion="user">
-      <div style={{ '--base': theme.base, '--accent': '#e3c98f' } as React.CSSProperties} className="min-h-svh text-[#f4ede0]">
+      <div style={{ '--base': theme.base, '--accent': theme.accent, '--deep': theme.deep, '--glow': theme.glow, '--soft1': theme.soft[0], '--soft2': theme.soft[1] } as React.CSSProperties} className="min-h-svh text-[#f4ede0]">
         <Backdrop theme={theme} />
         <main className="relative mx-auto w-full max-w-[520px] px-4 pt-[max(1rem,env(safe-area-inset-top))] pb-12">
           <Hero onShare={share} />
@@ -308,7 +312,7 @@ export default function Links() {
           </Section>
 
           <footer className="mt-14 text-center">
-            <p className="font-serif text-2xl text-[#f4ede0] italic">Glenn Windom <span className="gold-text">II</span></p>
+            <p className="font-serif text-2xl text-[#f4ede0] italic">Glenn Windom <span className="accent-text">II</span></p>
             <p className="mx-auto mt-5 max-w-md text-[11px] leading-relaxed text-[#f4ede0]/45">WISE Financial Partners is affiliated with World Financial Group. Insurance and annuity products are offered through World Financial Group Insurance Agency, LLC and its affiliated agencies, and are subject to state availability. Neither World Financial Group nor its agents provide tax, estate planning, or legal advice. CA Insurance License #4359007.</p>
             <p className="mt-3 flex justify-center gap-4 text-[11.5px] text-[#f4ede0]/60">
               <a href="/disclosures.html" className="hover:text-[var(--accent)]">Disclosures</a>
