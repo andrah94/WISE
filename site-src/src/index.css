@@ -55,4 +55,4 @@ body {
 @media (prefers-reduced-motion: reduce) { .gold-text { animation: none; } }
 
 /* Linktree is a light page: it sets class="light-page" on <html>. */
-html.light-page, html.light-page body { background: #f7f3ec; color: #1b1a17; color-scheme: light; }
+html.light-page, html.light-page body { background: #f6f1e8; color: #1d1a16; color-scheme: light; }
