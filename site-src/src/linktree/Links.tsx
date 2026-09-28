@@ -14,9 +14,10 @@ import {
 } from '@/data'
 
 const SITE = 'https://www.wisefinancialpartners.com'
-const PAGE = `${SITE}/linktree/`
+// The page answers on Glenn's own domain and on the WISE site; share whichever address it was opened on.
+const PAGE = typeof location !== 'undefined' && location.hostname.endsWith('imglennwin.com') ? 'https://imglennwin.com/' : `${SITE}/linktree/`
 const fromHere = { utm_source: 'linktree', utm_medium: 'bio' }
-const site = (hash = '') => withParams('/', fromHere) + hash
+const site = (hash = '') => withParams(`${SITE}/`, fromHere) + hash
 const ease = [0.2, 0.7, 0.2, 1] as const
 const focusRing = 'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]'
 const clicked = (link: string) => track('linktree_click', { link })
@@ -267,7 +268,7 @@ export default function Links() {
       if (navigator.share) { await navigator.share({ title: 'Glenn Windom II', url: PAGE }); return }
       await navigator.clipboard.writeText(PAGE); setToast('Link copied')
     } catch (err) {
-      if ((err as Error)?.name !== 'AbortError') setToast('Copy this link: wisefinancialpartners.com/linktree')
+      if ((err as Error)?.name !== 'AbortError') setToast(`Copy this link: ${PAGE.replace(/^https:\/\/(www\.)?/, '').replace(/\/$/, '')}`)
     }
   }
   return (
@@ -303,9 +304,9 @@ export default function Links() {
             <p className="font-serif text-2xl text-[#f4ede0] italic">Glenn Windom <span className="accent-text">II</span></p>
             <p className="mx-auto mt-5 max-w-md text-[12px] leading-relaxed text-[#f4ede0]/70">WISE Financial Partners is affiliated with World Financial Group. Insurance and annuity products are offered through World Financial Group Insurance Agency, LLC and its affiliated agencies, and are subject to state availability. Neither World Financial Group nor its agents provide tax, estate planning, or legal advice. CA Insurance License #4359007.</p>
             <p className="mt-1 flex justify-center gap-3 text-[12px] text-[#f4ede0]/80">
-              <a href="/disclosures.html" className="inline-block min-w-11 px-1 py-[13px] hover:text-[var(--accent)]">Disclosures</a>
-              <a href="/privacy.html" className="inline-block min-w-11 px-1 py-[13px] hover:text-[var(--accent)]">Privacy</a>
-              <a href="/terms.html" className="inline-block min-w-11 px-1 py-[13px] hover:text-[var(--accent)]">Terms</a>
+              <a href={`${SITE}/disclosures.html`} className="inline-block min-w-11 px-1 py-[13px] hover:text-[var(--accent)]">Disclosures</a>
+              <a href={`${SITE}/privacy.html`} className="inline-block min-w-11 px-1 py-[13px] hover:text-[var(--accent)]">Privacy</a>
+              <a href={`${SITE}/terms.html`} className="inline-block min-w-11 px-1 py-[13px] hover:text-[var(--accent)]">Terms</a>
             </p>
             <p className="mt-2 text-[12px] text-[#f4ede0]/65">© {new Date().getFullYear()} Glenn E. Windom II</p>
           </footer>
