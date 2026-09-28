@@ -301,9 +301,8 @@ export default function Links() {
           </Section>
 
           <footer className="mt-14 rounded-[24px] bg-[rgba(28,14,8,.5)] px-5 py-8 text-center backdrop-blur-md">
-            <p className="font-serif text-2xl text-[#f4ede0] italic">Glenn Windom <span className="accent-text">II</span></p>
-            <p className="mx-auto mt-5 max-w-md text-[12px] leading-relaxed text-[#f4ede0]/70">WISE Financial Partners is affiliated with World Financial Group. Insurance and annuity products are offered through World Financial Group Insurance Agency, LLC and its affiliated agencies, and are subject to state availability. Neither World Financial Group nor its agents provide tax, estate planning, or legal advice. CA Insurance License #4359007.</p>
-            <p className="mt-1 flex justify-center gap-3 text-[12px] text-[#f4ede0]/80">
+            <p className="font-serif text-2xl text-[#f4ede0] italic">Glenn E. Windom <span className="accent-text">II</span></p>
+            <p className="mt-4 flex justify-center gap-3 text-[12px] text-[#f4ede0]/80">
               <a href={`${SITE}/disclosures.html`} className="inline-block min-w-11 px-1 py-[13px] hover:text-[var(--accent)]">Disclosures</a>
               <a href={`${SITE}/privacy.html`} className="inline-block min-w-11 px-1 py-[13px] hover:text-[var(--accent)]">Privacy</a>
               <a href={`${SITE}/terms.html`} className="inline-block min-w-11 px-1 py-[13px] hover:text-[var(--accent)]">Terms</a>
