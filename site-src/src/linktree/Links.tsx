@@ -229,7 +229,7 @@ function Newsletter() {
           <Logo src="/img/mark.png" bg="#0d0d0f" pad="p-2" />
           <span className="min-w-0 flex-1">
             <span className="block text-[15.5px] font-medium text-[#f4ede0]">WISE Reports</span>
-            <span className="mt-0.5 block text-[13px] text-[#f4ede0]/75">Glenn’s monthly newsletter</span>
+            <span className="mt-0.5 block text-[13px] text-[#f4ede0]/75">Change your family tree, one issue at a time.</span>
           </span>
           <Plus className={cn('size-[18px] text-[#f4ede0]/50 transition-transform duration-300', open && 'rotate-45 text-[#f4ede0]')} strokeWidth={1.6} />
         </button>
