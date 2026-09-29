@@ -56,6 +56,8 @@ const Avatar = ({ dot }: { dot?: boolean }) => (
   </span>
 )
 const Monogram = () => <span className={cn(thumb, 'grid place-items-center bg-[linear-gradient(150deg,var(--soft1),var(--soft2))] font-serif text-lg text-[var(--base)] italic')}>GW</span>
+// Press: a quiet serif masthead tile, so a feature reads as editorial rather than another app icon.
+const Masthead = ({ text }: { text: string }) => <span className={cn(thumb, 'grid place-items-center bg-[#f4ede0] font-serif text-[15px] font-semibold tracking-tight text-[var(--base)] italic')}>{text}</span>
 
 /* ---------- a link row: glass, fills ivory on hover ---------- */
 type Row = { key: string; title: string; note?: string; media: React.ReactNode; href?: string; onClick?: () => void }
@@ -287,6 +289,11 @@ export default function Links() {
           <Section label="The book">
             <Book />
             <LinkRow i={1} r={{ key: 'check_in', title: 'Take the Money Mirror Check-In', note: 'Five questions · two minutes', media: <Photo src="/img/money-mirror.webp" pos="top" />, href: site('#check-in') }} />
+          </Section>
+
+          <Section label="Featured">
+            <LinkRow i={0} r={{ key: 'press_voyage_baltimore', title: 'Exploring Life & Business with Glenn Windom II', note: 'Voyage Baltimore · Interview', media: <Masthead text="VB" />,
+              href: 'https://voyagebaltimore.com/interview/exploring-life-business-with-glenn-windom-ii-of-wise-financial-partners/' }} />
           </Section>
 
           <Section label="Ventures">
