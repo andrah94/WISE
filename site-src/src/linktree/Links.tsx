@@ -55,7 +55,6 @@ const Avatar = ({ dot }: { dot?: boolean }) => (
     {dot && <span className="absolute -right-0.5 -bottom-0.5 size-3.5 rounded-full border-2 border-[var(--base)] bg-emerald-400" />}
   </span>
 )
-const Monogram = () => <span className={cn(thumb, 'grid place-items-center bg-[linear-gradient(150deg,var(--soft1),var(--soft2))] font-serif text-lg text-[var(--base)] italic')}>GW</span>
 // Press: a quiet serif masthead tile, so a feature reads as editorial rather than another app icon.
 const Masthead = ({ text }: { text: string }) => <span className={cn(thumb, 'grid place-items-center bg-[#f4ede0] font-serif text-[15px] font-semibold tracking-tight text-[var(--base)] italic')}>{text}</span>
 
@@ -206,7 +205,7 @@ function Book() {
   )
 }
 
-/* Money notes: a row that opens into a small form. Sign-ups also go to WISE HQ. */
+/* WISE Reports, Glenn's monthly WISE newsletter: a row that opens into a small form. Sign-ups also go to WISE HQ. */
 function Newsletter() {
   const [open, setOpen] = useState(false)
   const [state, setState] = useState<'idle' | 'sending' | 'done' | 'error'>('idle')
@@ -227,10 +226,10 @@ function Newsletter() {
       <div className={cn('overflow-hidden rounded-[20px] border bg-[rgba(28,14,8,.5)] backdrop-blur-xl transition-colors duration-300', open ? 'border-white/35' : 'border-white/12 hover:border-white/30')}>
         <button type="button" aria-expanded={open} onClick={() => { setOpen(!open); if (!open) clicked('newsletter_open') }}
           className={cn('flex w-full items-center gap-4 p-2.5 pr-4 text-left', focusRing)}>
-          <Monogram />
+          <Logo src="/img/mark.png" bg="#0d0d0f" pad="p-2" />
           <span className="min-w-0 flex-1">
-            <span className="block text-[15.5px] font-medium text-[#f4ede0]">Get my money notes</span>
-            <span className="mt-0.5 block text-[13px] text-[#f4ede0]/75">Mindset, money and legacy, by email</span>
+            <span className="block text-[15.5px] font-medium text-[#f4ede0]">WISE Reports</span>
+            <span className="mt-0.5 block text-[13px] text-[#f4ede0]/75">Glenn’s monthly newsletter</span>
           </span>
           <Plus className={cn('size-[18px] text-[#f4ede0]/50 transition-transform duration-300', open && 'rotate-45 text-[#f4ede0]')} strokeWidth={1.6} />
         </button>
@@ -246,7 +245,7 @@ function Newsletter() {
                       <label className="sr-only" htmlFor="lt-email">Email</label>
                       <input id="lt-email" name="email" type="email" required autoComplete="email" placeholder="you@email.com" className={field} />
                       <button type="submit" disabled={state === 'sending'} className={cn('rounded-2xl bg-[#f4ede0] px-6 py-3 text-[15px] font-semibold text-[var(--base)] transition-opacity hover:opacity-90 disabled:opacity-60', focusRing)}>
-                        {state === 'sending' ? 'Joining…' : 'Sign me up'}
+                        {state === 'sending' ? 'Subscribing…' : 'Subscribe'}
                       </button>
                     </form>}
                 {state === 'error' && <p role="alert" className="mt-2 px-1 text-sm text-red-300">{msg}</p>}
@@ -298,10 +297,10 @@ export default function Links() {
 
           <Section label="Ventures">
             <LinkRow i={0} r={{ key: 'website', title: 'WISE Financial Partners', note: 'Wealth · Impact · Strategy · Execution', media: <Logo src="/img/mark.png" bg="#0d0d0f" pad="p-2" />, href: site() }} />
+            <Newsletter />
           </Section>
 
           <Section label="Stay connected">
-            <Newsletter />
             <LinkRow i={1} r={{ key: 'ig_glenn', title: '@imglennwin', note: 'Instagram', media: <Logo src="/img/brands/instagram.svg" />, href: GLENN_IG }} />
             <LinkRow i={2} r={{ key: 'ig_wise', title: '@wisefinancialpartners', note: 'Instagram', media: <Logo src="/img/brands/instagram.svg" />, href: IG_URL }} />
             <LinkRow i={3} r={{ key: 'linkedin', title: 'Glenn Windom II', note: 'LinkedIn', media: <Logo src="/img/brands/linkedin.svg" />, href: GLENN_IN }} />
