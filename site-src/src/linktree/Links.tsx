@@ -205,7 +205,7 @@ function Book() {
   )
 }
 
-/* WISE Reports, Glenn's monthly WISE newsletter: a row that opens into a small form. Sign-ups also go to WISE HQ. */
+/* The WISE Report, Glenn's monthly WISE newsletter: a row that opens into a small form. Sign-ups also go to WISE HQ. */
 function Newsletter() {
   const [open, setOpen] = useState(false)
   const [state, setState] = useState<'idle' | 'sending' | 'done' | 'error'>('idle')
@@ -228,7 +228,7 @@ function Newsletter() {
           className={cn('flex w-full items-center gap-4 p-2.5 pr-4 text-left', focusRing)}>
           <Logo src="/img/mark.png" bg="#0d0d0f" pad="p-2" />
           <span className="min-w-0 flex-1">
-            <span className="block text-[15.5px] font-medium text-[#f4ede0]">WISE Reports</span>
+            <span className="block text-[15.5px] font-medium text-[#f4ede0]">The WISE Report</span>
             <span className="mt-0.5 block text-[13px] text-[#f4ede0]/75">The monthly playbook for building a legacy.</span>
           </span>
           <Plus className={cn('size-[18px] text-[#f4ede0]/50 transition-transform duration-300', open && 'rotate-45 text-[#f4ede0]')} strokeWidth={1.6} />
