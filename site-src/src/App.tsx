@@ -218,30 +218,10 @@ function quizForHQ(pattern: PatternKey, answers: Answers) {
     answers: quizQuestions.map((q) => ({ question: q.prompt, answer: answerFor(q) })).filter((a) => (Array.isArray(a.answer) ? a.answer.length : a.answer)) }
 }
 
-function QuizResult({ pattern, answers, onRestart, headingRef }: { pattern: PatternKey; answers: Answers; onRestart: () => void; headingRef: React.RefObject<HTMLHeadingElement | null> }) {
+function QuizResult({ pattern, answers, name, email, onRestart, headingRef }: { pattern: PatternKey; answers: Answers; name: string; email: string; onRestart: () => void; headingRef: React.RefObject<HTMLHeadingElement | null> }) {
   const r = quizResults[pattern]
   const patternQ = quizQuestions.find((q) => q.id === 'pattern')
   const label = patternQ?.kind === 'single' ? patternQ.options.find((o) => o.value === pattern)?.label : ''
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [consent, setConsent] = useState(false)
-  const [share, setShare] = useState(false)
-  const [busy, setBusy] = useState(false)
-  const [msg, setMsg] = useState<{ text: string; ok: boolean } | null>(null)
-  async function submit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    const fd = new FormData(e.currentTarget)
-    if (fd.get('website')) return
-    const em = email.trim()
-    if (!EMAIL_RE.test(em)) { setMsg({ text: 'Please enter a valid email address.', ok: false }); return }
-    if (!consent) { setMsg({ text: 'Please check the box so we know it is okay to email you.', ok: false }); return }
-    setBusy(true); setMsg({ text: 'Sending...', ok: true })
-    const res = await subscribeNewsletter(em, name.trim())
-    // Answers go to Glenn only when the visitor chose to share them.
-    if (share) sendToHQ({ kind: 'quiz', email: em, name: name.trim(), consent: true, quiz: quizForHQ(pattern, answers) })
-    else sendToHQ({ kind: 'newsletter', email: em, name: name.trim(), consent: true })
-    setMsg(res); setBusy(false)
-  }
   function book() {
     track('quiz_book_click', { pattern })
     openCalendly(quizBookUrl(pattern, { name, email }))
@@ -285,32 +265,7 @@ function QuizResult({ pattern, answers, onRestart, headingRef }: { pattern: Patt
         </div>
       </div>
 
-      <form onSubmit={submit} noValidate className="mt-10 grid grid-cols-1 gap-3 border-t border-white/10 pt-8" aria-labelledby="mm-keep">
-        <p id="mm-keep" className="font-serif text-xl text-white">Stay in touch</p>
-        <p className="-mt-1 text-sm text-white/60">Optional. Screenshot or save the tool above. Only your name and email are sent, unless you choose to share your answers with Glenn below.</p>
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          <div>
-            <label className="sr-only" htmlFor="mm-name">First name</label>
-            <input id="mm-name" name="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Your first name" autoComplete="given-name" className={field} />
-          </div>
-          <div>
-            <label className="sr-only" htmlFor="mm-email">Email address</label>
-            <input id="mm-email" name="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Your email address" autoComplete="email" className={field} />
-          </div>
-        </div>
-        <input name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="absolute left-[-9999px] h-px w-px" />
-        <label className="mt-1 flex cursor-pointer items-start gap-3 text-sm leading-relaxed text-white/75">
-          <input type="checkbox" required checked={consent} onChange={(e) => setConsent(e.target.checked)} className={cn('mt-0.5 size-5 shrink-0 accent-[#c9a24b]', focusRing)} />
-          <span>Add me to The WISE Report for occasional insights from Glenn. Unsubscribe anytime.</span>
-        </label>
-        <label className="flex cursor-pointer items-start gap-3 text-sm leading-relaxed text-white/75">
-          <input type="checkbox" checked={share} onChange={(e) => setShare(e.target.checked)} className={cn('mt-0.5 size-5 shrink-0 accent-[#c9a24b]', focusRing)} />
-          <span>Also share my answers with Glenn so he can prepare for our conversation. <span className="text-white/50">Optional.</span></span>
-        </label>
-        <button type="submit" disabled={busy} className={cn('mt-2 rounded-2xl bg-bone py-4 font-medium text-ink transition-colors hover:bg-white disabled:opacity-60', focusRing)}>{busy ? 'Subscribing...' : 'Join The WISE Report'}</button>
-        <p role="status" className={cn('min-h-[1.25rem] text-sm', msg?.ok ? 'text-gold-2' : 'text-red-400')}>{msg?.text}</p>
-        <p className="text-xs text-white/40">By signing up you agree to our <a href="/privacy.html" className="underline">Privacy Policy</a>.</p>
-      </form>
+      <p className="mt-8 text-sm text-white/60">A copy of this reflection is on its way to {email}, along with the chapter tool.</p>
 
       <button type="button" onClick={onRestart} className={cn('mt-8 inline-flex items-center gap-2 rounded-full text-sm text-white/60 underline-offset-4 hover:text-gold-2 hover:underline', focusRing)}>
         <ArrowLeft className="size-3.5" />Start over
@@ -320,10 +275,55 @@ function QuizResult({ pattern, answers, onRestart, headingRef }: { pattern: Patt
   )
 }
 
+// Results are shown after a first name and email: the reflection is worth something, and Glenn gets to follow up.
+// Answers go to HQ with the visitor's consent, given by pressing the button (the terms are printed under it).
+function QuizGate({ pattern, answers, onUnlock, headingRef }: { pattern: PatternKey; answers: Answers; onUnlock: (name: string, email: string) => void; headingRef: React.RefObject<HTMLHeadingElement | null> }) {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [busy, setBusy] = useState(false)
+  const [msg, setMsg] = useState('')
+  async function submit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    const fd = new FormData(e.currentTarget)
+    if (fd.get('website')) return
+    const nm = name.trim(), em = email.trim()
+    if (!nm) { setMsg('Add your first name.'); return }
+    if (!EMAIL_RE.test(em)) { setMsg('Please enter a valid email address.'); return }
+    setBusy(true); setMsg('')
+    track('quiz_unlock', { pattern })
+    sendToHQ({ kind: 'quiz', email: em, name: nm, consent: true, quiz: quizForHQ(pattern, answers) })
+    await subscribeNewsletter(em, nm).catch(() => undefined)
+    setBusy(false)
+    onUnlock(nm, em)
+  }
+  return (
+    <form onSubmit={submit} noValidate className="grid grid-cols-1 gap-4" aria-labelledby="mm-gate">
+      <p className="text-[11px] tracking-[0.24em] text-gold-2 uppercase">One last step</p>
+      <h3 id="mm-gate" ref={headingRef} tabIndex={-1} className="display mt-2 text-[clamp(1.8rem,4vw,2.8rem)] text-white outline-none">Where should Glenn send your reflection?</h3>
+      <p className="-mt-1 text-white/70">Your result appears right here, and a copy with the chapter tool goes to your inbox.</p>
+      <div className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <div>
+          <label className="sr-only" htmlFor="mm-gate-name">First name</label>
+          <input id="mm-gate-name" name="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Your first name" autoComplete="given-name" className={field} />
+        </div>
+        <div>
+          <label className="sr-only" htmlFor="mm-gate-email">Email address</label>
+          <input id="mm-gate-email" name="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Your email address" autoComplete="email" className={field} />
+        </div>
+      </div>
+      <input name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="absolute left-[-9999px] h-px w-px" />
+      <GoldButton type="submit" className={cn('px-6', focusRing)}>{busy ? 'One moment...' : 'Show My Reflection'}</GoldButton>
+      <p role="status" className="min-h-[1.25rem] text-sm text-red-400">{msg}</p>
+      <p className="text-xs leading-relaxed text-white/45">By continuing, Glenn may email you your reflection and occasional insights from The WISE Report. Unsubscribe anytime. <a href="/privacy.html" className="underline">Privacy Policy</a>.</p>
+    </form>
+  )
+}
+
 function CheckIn() {
   const reduce = useReducedMotion()
   const [step, setStep] = useState(-1) // -1 intro, 0..n-1 questions, n result
   const [answers, setAnswers] = useState<Answers>(emptyAnswers)
+  const [lead, setLead] = useState<{ name: string; email: string } | null>(null)
   const [error, setError] = useState('')
   const headingRef = useRef<HTMLHeadingElement>(null)
   const cardRef = useRef<HTMLDivElement>(null)
@@ -338,7 +338,7 @@ function CheckIn() {
   }, [step])
 
   const go = (n: number) => { interacted.current = true; setError(''); setStep(n) }
-  const start = () => { track('quiz_start'); setAnswers(emptyAnswers); go(0) }
+  const start = () => { track('quiz_start'); setAnswers(emptyAnswers); setLead(null); go(0) }
 
   function next(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -435,7 +435,8 @@ function CheckIn() {
                   </form>
                 )}
 
-                {step === total && pattern && <QuizResult pattern={pattern} answers={answers} headingRef={headingRef} onRestart={start} />}
+                {step === total && pattern && !lead && <QuizGate pattern={pattern} answers={answers} headingRef={headingRef} onUnlock={(name, email) => { interacted.current = true; setLead({ name, email }) }} />}
+                {step === total && pattern && lead && <QuizResult pattern={pattern} answers={answers} name={lead.name} email={lead.email} headingRef={headingRef} onRestart={start} />}
               </motion.div>
             </div>
           </FadeUp>
