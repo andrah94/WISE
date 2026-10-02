@@ -5,7 +5,7 @@ export const wix = (id: string, w: number, h: number, al: 'c' | 't' = 'c') =>
 export const unsplash = (id: string, w = 1600) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`
 
-export const BOOK_URL = 'https://calendly.com/gwindom2?utm_source=website&utm_medium=popup&utm_campaign=booking'
+export const BOOK_URL = 'https://calendly.com/gwindom2/30min?utm_source=website&utm_medium=popup&utm_campaign=booking'
 export const CAREER_URL = 'https://calendly.com/gwindom2/partner-with-wise-fp?utm_source=website&utm_medium=popup&utm_campaign=careers'
 export const EMAIL = 'wisefinancialpartners@gmail.com'
 export const IG_URL = 'https://www.instagram.com/wisefinancialpartners?igsh=bGo5a2hxczlmaW81'
