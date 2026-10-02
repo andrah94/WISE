@@ -13,5 +13,7 @@
     "not_found_handling": "none",
     "run_worker_first": true
   },
+  // Non-main branches use Cloudflare previews; production assets stay above.
+  "previews": {},
   "observability": { "enabled": true }
 }
