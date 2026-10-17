@@ -12,8 +12,8 @@ import { Spotlight } from '@/components/ui/spotlight'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { cn } from '@/lib/utils'
 import {
-  AMAZON, APPLE_BOOKS, CAREER_URL, EMAIL, EMAIL_RE, GLENN_IG, GLENN_IN, IMG, VIDEO_HANDSHAKE, VIDEO_SECOND,
-  agentFaqs, careerPath, faqs, openCalendly, providers, services, steps, unsplash, wix,
+  AMAZON, APPLE_BOOKS, EMAIL, EMAIL_RE, GLENN_IG, GLENN_IN, IMG, VIDEO_HANDSHAKE,
+  faqs, openCalendly, providers, services, steps, unsplash, wix,
   isPatternKey, quizBookUrl, quizQuestions, quizResults, sendToHQ, subscribeNewsletter, track, type PatternKey,
 } from '@/data'
 
@@ -56,7 +56,7 @@ function Nav() {
     return () => window.removeEventListener('scroll', on)
   }, [])
   useEffect(() => { document.body.style.overflow = open ? 'hidden' : '' }, [open])
-  const links = [['Products', '#services'], ['How It Works', '#process'], ['Money Mirror', '#check-in'], ['About', '#about'], ['Founder', '#founder'], ['Join WISE', '#careers'], ['FAQ', '#faq']]
+  const links = [['Products', '#services'], ['How It Works', '#process'], ['Money Mirror', '#check-in'], ['About', '#about'], ['Founder', '#founder'], ['FAQ', '#faq']]
   return (
     <>
       <header className={cn('fixed inset-x-0 z-50 transition-all duration-500', scrolled ? 'top-3' : 'top-5')}>
@@ -70,7 +70,6 @@ function Nav() {
               {links.map(([l, h]) => <a key={h} href={h} className="rounded-full px-3 py-2 text-sm whitespace-nowrap text-white/75 transition-colors hover:bg-white/5 hover:text-white xl:px-4">{l}</a>)}
             </nav>
             <div className="flex items-center gap-2">
-              <a href="#careers" className="hidden rounded-full border border-white/20 px-5 py-2.5 text-sm whitespace-nowrap text-white transition-colors hover:border-gold-2 hover:text-gold-2 xl:inline-flex">Join the Team</a>
               <button onClick={() => openCalendly()} className="hidden rounded-full gold-bg px-5 py-2.5 text-sm font-medium whitespace-nowrap text-[#141005] transition-transform hover:-translate-y-0.5 sm:inline-flex">Book a Free Consult</button>
               <button onClick={() => setOpen(true)} className="grid size-11 place-items-center rounded-full border border-white/15 text-white lg:hidden" aria-label="Open menu"><Menu className="size-5" /></button>
             </div>
@@ -86,7 +85,6 @@ function Nav() {
             ))}
             <div className="mt-10 flex flex-col items-start gap-3">
               <GoldButton onClick={() => { setOpen(false); openCalendly() }}>Book a Free Consultation</GoldButton>
-              <GhostButton onClick={() => { setOpen(false); openCalendly(CAREER_URL) }}>Explore a Career with WISE</GhostButton>
             </div>
           </motion.div>
         )}
@@ -138,9 +136,6 @@ function Hero() {
           <GoldButton onClick={() => openCalendly()}>Start Your Wealth Journey</GoldButton>
           <GhostButton href="#services">See Our Products</GhostButton>
         </motion.div>
-        <motion.a href="#careers" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1.3 }} className="group mt-6 inline-flex items-center gap-2 text-sm text-white/65 transition-colors hover:text-gold-2">
-          <span className="h-px w-6 bg-gold-2/70" />Looking to build a career? <span className="text-gold-2">Join the team</span><ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
-        </motion.a>
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1.4 }} className="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-[13px] tracking-wide text-white/68">
           <span className="flex items-center gap-2"><CalendarCheck className="size-4 text-gold-2" />Free 30-minute consultation</span>
           <span className="flex items-center gap-2"><BadgeCheck className="size-4 text-gold-2" />Licensed in multiple states</span>
@@ -579,113 +574,6 @@ function Founder() {
   )
 }
 
-function RotatingWord({ words }: { words: string[] }) {
-  const [i, setI] = useState(0)
-  useEffect(() => { const t = window.setInterval(() => setI((n) => (n + 1) % words.length), 2200); return () => window.clearInterval(t) }, [words.length])
-  return (
-    <span className="relative inline-block h-[1.2em] overflow-hidden align-top">
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.em key={words[i]} className="gold-text inline-block whitespace-nowrap italic" initial={{ y: '105%' }} animate={{ y: '0%' }} exit={{ y: '-105%' }} transition={{ duration: 0.55, ease }}>{words[i]}</motion.em>
-      </AnimatePresence>
-      <span className="sr-only">{words.join(', ')}</span>
-    </span>
-  )
-}
-
-function LitLine({ text, i }: { text: string; i: number }) {
-  const ref = useRef<HTMLLIElement>(null)
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 92%', 'start 55%'] })
-  const opacity = useTransform(scrollYProgress, [0, 1], [0.18, 1])
-  const x = useTransform(scrollYProgress, [0, 1], [-24, 0])
-  const line = useTransform(scrollYProgress, [0, 1], [0, 1])
-  return (
-    <motion.li ref={ref} style={{ opacity }} className="relative py-5">
-      <motion.div style={{ x }} className="flex items-baseline gap-5">
-        <span className="font-serif text-sm text-gold-2/80 italic">0{i + 1}</span>
-        <span className="font-serif text-[clamp(1.5rem,2.6vw,2.2rem)] leading-tight font-light text-white">{text}</span>
-      </motion.div>
-      <motion.span aria-hidden style={{ scaleX: line }} className="absolute inset-x-0 bottom-0 h-px origin-left bg-gradient-to-r from-gold/70 via-white/15 to-transparent" />
-    </motion.li>
-  )
-}
-
-/* ---------- careers / join WISE ---------- */
-function Careers() {
-  const who = ['career changers.', 'entrepreneurs.', 'new grads.', 'parents.', 'side hustlers.', 'future leaders.']
-  const lookFor = ['A willingness to learn', 'A genuine desire to help families', 'Coachable and consistent', 'Integrity in every conversation']
-  const youGet = ['Licensing guidance and ongoing training', 'Mentorship from Glenn and experienced leaders', 'A flexible schedule you control', 'Access to industry-leading products and carriers']
-  return (
-    <section id="careers" className="relative overflow-hidden bg-ink">
-      <div className="relative py-20 md:py-32">
-        <video autoPlay muted loop playsInline preload="none" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover opacity-30">
-          <source src={VIDEO_SECOND} type="video/mp4" />
-        </video>
-        <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-ink via-ink/70 to-ink" />
-        <div className="relative mx-auto max-w-7xl px-6 md:px-10">
-          <div className="max-w-3xl">
-            <span className="eyebrow">Join WISE</span>
-            <div className="max-w-[min(100%,7.4em)] text-[clamp(2.6rem,6vw,5.6rem)]"><Heading className="mt-5">Build a business. <em>Grow with us.</em></Heading></div>
-            <FadeUp delay={0.1}><p className="mt-7 text-lg leading-relaxed text-bone/80">Help families protect what matters and build wealth, while you build a business of your own. No finance background needed. We train you, mentor you, and grow with you.</p></FadeUp>
-            <FadeUp delay={0.15} className="mt-10">
-              <p className="font-serif text-[clamp(1.6rem,3.2vw,2.6rem)] leading-[1.2] text-white/85">Built for <RotatingWord words={who} /></p>
-            </FadeUp>
-          </div>
-
-          {/* path */}
-          <div className="mt-16 md:mt-24">
-            <p className="text-[11px] tracking-[0.24em] text-gold-2 uppercase">Your path</p>
-            <ol className="relative mt-8 grid gap-0 md:grid-cols-5 md:gap-6">
-              <div aria-hidden className="absolute top-5 right-[10%] left-[10%] hidden h-px bg-gradient-to-r from-gold/0 via-gold/50 to-gold/0 md:block" />
-              <div aria-hidden className="absolute top-2 bottom-2 left-5 w-px bg-gradient-to-b from-gold/60 to-gold/0 md:hidden" />
-              {careerPath.map((c, i) => (
-                <FadeUp key={c.title} delay={i * 0.08}>
-                  <li className="relative flex gap-5 pb-8 md:block md:pb-0 md:text-center">
-                    <span className="relative z-10 grid size-10 shrink-0 place-items-center rounded-full gold-bg font-serif text-base text-ink md:mx-auto">{i + 1}</span>
-                    <div className="md:mt-6">
-                      <h3 className="font-serif text-xl text-white">{c.title}</h3>
-                      <p className="mt-2 text-[15px] leading-relaxed text-white/72">{c.desc}</p>
-                    </div>
-                  </li>
-                </FadeUp>
-              ))}
-            </ol>
-          </div>
-        </div>
-      </div>
-
-      {/* expectations */}
-      <div className="relative mx-auto grid max-w-7xl gap-12 px-6 pb-16 md:grid-cols-2 md:gap-16 md:px-10 md:pb-24">
-        {[['What we look for', lookFor], ['What you get', youGet]].map(([t, list]) => (
-          <div key={t as string}>
-            <p className="text-[11px] tracking-[0.24em] text-gold-2 uppercase">{t as string}</p>
-            <ul className="mt-4">
-              {(list as string[]).map((p, i) => <LitLine key={p} i={i} text={p} />)}
-            </ul>
-          </div>
-        ))}
-      </div>
-
-      {/* agent FAQ + CTA */}
-      <div className="relative mx-auto grid max-w-7xl gap-12 border-t border-white/10 px-6 py-16 md:px-10 md:py-24 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
-        <div>
-          <h3 className="display text-[clamp(2.2rem,4vw,3.6rem)] text-white">Ready to <em className="gold-text italic">start?</em></h3>
-          <p className="mt-5 max-w-sm text-bone/75">Book a career conversation with Glenn. We will answer your questions and map out what your first 90 days could look like.</p>
-          <GoldButton className="mt-8" onClick={() => openCalendly(CAREER_URL)}>Book a Career Conversation</GoldButton>
-          <p className="mt-6 max-w-sm text-[11px] leading-relaxed text-white/40">Associates are independent contractors. Earnings depend on individual effort, results, and many other factors. There is no guarantee of income.</p>
-        </div>
-        <Accordion type="single" collapsible className="border-t border-white/10">
-          {agentFaqs.map((f, i) => (
-            <AccordionItem key={f.question} value={`agent-${i}`}>
-              <AccordionTrigger>{f.question}</AccordionTrigger>
-              <AccordionContent>{f.answer}</AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </div>
-    </section>
-  )
-}
-
 /* ---------- faq ---------- */
 function FAQ() {
   return (
@@ -790,7 +678,7 @@ function Contact() {
 
 /* ---------- closing + footer (21st.dev: scrollxui/footer-with-suite adapted) ---------- */
 function Footer() {
-  const nav = [['Products', '#services'], ['How It Works', '#process'], ['Money Mirror', '#check-in'], ['About', '#about'], ['Founder', '#founder'], ['Join WISE', '#careers'], ['FAQ', '#faq'], ['Contact', '#contact']]
+  const nav = [['Products', '#services'], ['How It Works', '#process'], ['Money Mirror', '#check-in'], ['About', '#about'], ['Founder', '#founder'], ['FAQ', '#faq'], ['Contact', '#contact']]
   return (
     <footer className="relative overflow-hidden border-t border-white/10 bg-ink">
       <div className="mx-auto grid max-w-7xl grid-cols-2 gap-10 px-6 pt-16 md:grid-cols-4 md:px-10">
@@ -809,7 +697,6 @@ function Footer() {
           <p className="mb-2 text-[11px] tracking-[0.24em] text-gold-2 uppercase">Contact</p>
           <a href={`mailto:${EMAIL}`} className="text-sm break-all text-white/65 hover:text-white">{EMAIL}</a>
           <button onClick={() => openCalendly()} className="text-left text-sm text-white/65 hover:text-white">Book a free consultation</button>
-          <button onClick={() => openCalendly(CAREER_URL)} className="text-left text-sm text-white/65 hover:text-white">Partner with WISE</button>
         </div>
       </div>
       <p aria-hidden className="gold-text mt-10 text-center font-serif leading-[0.8] font-light tracking-[-0.04em] select-none" style={{ fontSize: 'clamp(5rem, 26vw, 24rem)' }}>WISE</p>
@@ -859,7 +746,6 @@ function Popup() {
             <p className="relative mt-3 text-white/75">Choose how you'd like to begin.</p>
             <div className="relative mt-7 grid gap-3">
               <GoldButton className="justify-center" onClick={() => { setShow(false); openCalendly() }}>Book a Free Consultation</GoldButton>
-              <GhostButton className="justify-center" onClick={() => { setShow(false); openCalendly(CAREER_URL) }}>Explore a Career with WISE</GhostButton>
               <button type="button" className="mt-1 text-sm text-white/50 hover:text-gold-2" onClick={() => { setShow(false); document.getElementById('check-in')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }}>Or take the 2-minute Money Mirror Check-In</button>
             </div>
           </motion.div>
@@ -872,11 +758,8 @@ function Popup() {
 /* ---------- always-visible booking ---------- */
 function StickyCTA() {
   const [show, setShow] = useState(false)
-  const [career, setCareer] = useState(false)
   useEffect(() => {
     const on = () => {
-      const c = document.getElementById('careers')?.getBoundingClientRect()
-      setCareer(!!c && c.top < window.innerHeight * 0.6 && c.bottom > window.innerHeight * 0.4)
       const past = window.scrollY > window.innerHeight * 0.7
       const nearEnd = window.innerHeight + window.scrollY > document.documentElement.scrollHeight - 900
       setShow(past && !nearEnd)
@@ -890,7 +773,7 @@ function StickyCTA() {
         <motion.div initial={{ y: 120, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 120, opacity: 0 }} transition={{ duration: 0.5, ease }}
           className="fixed inset-x-3 bottom-3 z-[55] md:hidden">
           <div className="flex items-center gap-4 rounded-full border border-gold/30 bg-ink/85 py-2 pr-2 pl-5 shadow-[0_20px_60px_-15px_rgba(0,0,0,.8)] backdrop-blur-xl">
-            <button onClick={() => openCalendly(career ? CAREER_URL : undefined)} className="flex-1 rounded-full gold-bg px-6 py-3 text-sm font-semibold whitespace-nowrap text-[#141005]">{career ? 'Book a Career Conversation' : 'Book a Free Consult'}</button>
+            <button onClick={() => openCalendly()} className="flex-1 rounded-full gold-bg px-6 py-3 text-sm font-semibold whitespace-nowrap text-[#141005]">Book a Free Consult</button>
           </div>
         </motion.div>
       )}
@@ -926,7 +809,6 @@ export default function App() {
         <Gallery />
         <Founder />
         <FAQ />
-        <Careers />
         <Contact />
       </main>
       <Footer />

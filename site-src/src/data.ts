@@ -16,7 +16,6 @@ export const APPLE_BOOKS = 'https://books.apple.com/us/book/the-money-mirror/id6
 export const NEWSLETTER_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwbI0yQQoAkw7OywIvSb_ZAdaP70UmXxgOvK3aocQ7Ak60_xR78Sc994sA9_m0fRj6q/exec'
 
 export const VIDEO_HANDSHAKE = 'https://video.wixstatic.com/video/5e8141_3cad640d6a804c4d88c4e00482cbb845/720p/mp4/file.mp4'
-export const VIDEO_SECOND = 'https://video.wixstatic.com/video/5e8141_dac915906c6d4bb0825bc3e5d9f966c8/1080p/mp4/file.mp4'
 
 export const IMG = {
   glennPortrait: '2853e8_30a8c226eaa44f20b55ad1214803ccb5~mv2.png',
@@ -54,21 +53,6 @@ export const steps = [
   { n: '01', title: 'Free consultation', desc: 'A relaxed, 30-minute conversation with a licensed professional about where you are and where you want to go.' },
   { n: '02', title: 'Financial Needs Analysis', desc: 'We look at the full picture: income, protection, debt, savings, and goals, so nothing important gets missed.' },
   { n: '03', title: 'Your custom strategy', desc: 'Clear recommendations that fit your needs and budget, using products from top-rated carriers. Then we stay with you as life changes.' },
-]
-
-export const careerPath = [
-  { title: 'Connect with Glenn', desc: 'A no-pressure conversation about your goals and whether this business is a fit.' },
-  { title: 'Get licensed', desc: 'We guide you through pre-licensing education and your state insurance exam.' },
-  { title: 'Train in the field', desc: 'Learn side by side with an experienced mentor through real client appointments.' },
-  { title: 'Serve your first clients', desc: 'Start helping families with protection, retirement, and legacy strategies.' },
-  { title: 'Build your business', desc: 'Grow at your own pace, full-time or part-time, and develop a team of your own.' },
-]
-
-export const agentFaqs = [
-  { question: 'Do I need a background in finance?', answer: 'No. Many of our associates come from other careers entirely: teaching, sales, the military, healthcare, entrepreneurship. What matters most is a willingness to learn and a desire to help people.' },
-  { question: 'Can I start part-time?', answer: 'Yes. You can build your business part-time around your current schedule, and move to full-time when you are ready.' },
-  { question: 'How do I get licensed?', answer: 'We walk you through pre-licensing education and the state insurance exam. Timelines vary by state and by how much time you put in. There are some out-of-pocket costs for licensing and getting started.' },
-  { question: 'How are associates paid?', answer: 'Associates are independent contractors paid on commission. Earnings depend on individual effort, results, and many other factors, and there is no guarantee of income.' },
 ]
 
 export const igPosts = [
