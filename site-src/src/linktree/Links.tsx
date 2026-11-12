@@ -9,7 +9,7 @@ import { ArrowRight, ArrowUpRight, Check, Contact, Plus, Share2 } from 'lucide-r
 import { Tilt } from '@/components/ui/tilt'
 import { cn } from '@/lib/utils'
 import {
-  AMAZON, APPLE_BOOKS, BOOK_URL, CAREER_URL, EMAIL, EMAIL_RE, GLENN_IG, GLENN_IN, IG_URL, IMG,
+  AMAZON, APPLE_BOOKS, BOOK_URL, CAREER_URL, EMAIL, EMAIL_RE, GLENN_IG, GLENN_IN, IMG,
   STILL_VISION_STORE, TIKTOK_ASK_GROW_WONDER, TIKTOK_MONEY_MIRROR, WORD_SEARCH_BOOK,
   openCalendly, sendToHQ, subscribeNewsletter, track, wix, withParams,
 } from '@/data'
@@ -94,7 +94,7 @@ function Reveal({ i, children }: { i: number; children: React.ReactNode }) {
 
 function Section({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <section className="mt-10" aria-label={label}>
+    <section className="mt-8" aria-label={label}>
       <div className="mb-4 flex items-center gap-4">
         <span className="h-px flex-1 bg-gradient-to-r from-transparent to-white/20" />
         <h2 className="rounded-full bg-[rgba(28,14,8,.5)] px-3.5 py-1.5 font-serif text-[12.5px] tracking-[0.34em] text-[var(--accent)] uppercase backdrop-blur-md">{label}</h2>
@@ -119,6 +119,7 @@ function vCard() {
 
 function Hero({ onShare }: { onShare: () => void }) {
   const pill = cn('inline-flex h-11 items-center gap-2 rounded-full border border-white/15 bg-[rgba(28,14,8,.5)] px-4 text-[13px] font-medium text-[#f4ede0] backdrop-blur-xl transition-colors hover:border-white/40 hover:bg-[rgba(28,14,8,.62)]', focusRing)
+  const icon = cn('grid size-11 place-items-center rounded-full border border-white/15 bg-[rgba(28,14,8,.5)] backdrop-blur-xl transition-colors hover:border-white/40 hover:bg-[rgba(28,14,8,.62)]', focusRing)
   return (
     <header className="relative">
       <div className="flex items-center justify-between">
@@ -128,8 +129,8 @@ function Hero({ onShare }: { onShare: () => void }) {
         </button>
       </div>
 
-      <div className="relative mx-auto mt-6 h-[min(50svh,400px)] w-full">
-        <motion.div aria-hidden className="absolute bottom-[4%] left-1/2 size-[min(78vw,340px)] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(var(--glow),.5),rgba(var(--glow),.08)_70%,transparent)]"
+      <div className="relative mx-auto mt-2 h-[min(30svh,240px)] w-full">
+        <motion.div aria-hidden className="absolute bottom-[4%] left-1/2 size-[min(56vw,220px)] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(var(--glow),.5),rgba(var(--glow),.08)_70%,transparent)]"
           initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.4, ease }} />
         <motion.img src="/img/glenn-cutout.webp" alt="Glenn Windom II" fetchPriority="high"
           className="absolute bottom-0 left-1/2 h-full w-auto max-w-none -translate-x-1/2 object-contain object-bottom [mask-image:linear-gradient(to_bottom,#000_70%,transparent)]"
@@ -146,13 +147,14 @@ function Hero({ onShare }: { onShare: () => void }) {
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.9, delay: 0.4 }}>
           Entrepreneur · Author · Founder
         </motion.p>
-        <motion.blockquote className="mx-auto mt-3 max-w-[22rem] font-serif text-[17.5px] leading-snug text-[#f4ede0]/85 italic"
+        <motion.blockquote className="mx-auto mt-2.5 max-w-[22rem] font-serif text-[17px] leading-snug text-[#f4ede0]/85 italic"
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.9, delay: 0.5 }}>
-          “<span className="text-[var(--accent)] not-italic">Close the gap.</span> Connection is the bridge between where you are and where you’re meant to be.”
+          “Close the gap.”
         </motion.blockquote>
-        <motion.div className="mt-6 flex flex-wrap items-center justify-center gap-2" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6, ease }}>
-          <a href={GLENN_IG} target="_blank" rel="noopener" onClick={() => clicked('ig_glenn_pill')} className={pill}><img src="/img/brands/instagram.svg" alt="" className="size-4" />Instagram</a>
-          <a href={GLENN_IN} target="_blank" rel="noopener" onClick={() => clicked('linkedin_pill')} className={pill}><img src="/img/brands/linkedin.svg" alt="" className="size-4 rounded-[3px] bg-white" />LinkedIn</a>
+        <motion.div className="mt-4 flex items-center justify-center gap-2.5" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6, ease }}>
+          <a href={GLENN_IG} target="_blank" rel="noopener" aria-label="Instagram" onClick={() => clicked('ig_glenn_pill')} className={icon}><img src="/img/brands/instagram.svg" alt="" className="size-[18px]" /></a>
+          <a href={GLENN_IN} target="_blank" rel="noopener" aria-label="LinkedIn" onClick={() => clicked('linkedin_pill')} className={icon}><img src="/img/brands/linkedin.svg" alt="" className="size-[18px] rounded-[3px] bg-white" /></a>
+          <a href={TIKTOK_MONEY_MIRROR} target="_blank" rel="noopener" aria-label="TikTok" onClick={() => clicked('tiktok_pill')} className={icon}><img src="/img/brands/tiktok.svg" alt="" className="size-[17px] invert" /></a>
           <button type="button" onClick={vCard} className={pill}><Contact className="size-4" strokeWidth={1.7} />Save contact</button>
         </motion.div>
       </div>
@@ -184,19 +186,19 @@ function Consult() {
 function Book() {
   const store = (href: string, key: string, children: React.ReactNode) => (
     <a href={href} target="_blank" rel="noopener" onClick={() => clicked(key)}
-      className={cn('inline-flex h-11 items-center gap-1.5 rounded-full bg-[#f4ede0] px-4 text-[13px] font-semibold text-[var(--base)] transition-transform hover:-translate-y-0.5', focusRing)}>{children}</a>
+      className={cn('inline-flex h-11 items-center gap-1.5 rounded-full bg-[#f4ede0] px-3.5 text-[13px] font-semibold text-[var(--base)] transition-transform hover:-translate-y-0.5', focusRing)}>{children}</a>
   )
   return (
     <Reveal i={0}>
-      <div className="relative flex items-center gap-5 overflow-hidden rounded-[24px] border border-white/12 bg-[rgba(28,14,8,.5)] p-5 backdrop-blur-xl">
-        <Tilt rotationFactor={12} className="w-[96px] shrink-0">
+      <div className="relative flex items-center gap-4 overflow-hidden rounded-[24px] border border-white/12 bg-[rgba(28,14,8,.5)] p-4 backdrop-blur-xl">
+        <Tilt rotationFactor={12} className="w-[76px] shrink-0">
           <img src="/img/money-mirror.webp" alt="The Money Mirror by Glenn Windom II" loading="lazy" className="w-full rounded-[4px] shadow-[0_22px_34px_-12px_rgba(0,0,0,.8),0_0_0_1px_rgba(255,255,255,.08)]" />
         </Tilt>
         <div className="min-w-0">
           <p className="text-[12px] font-medium tracking-[0.28em] text-[var(--accent)] uppercase">My book</p>
-          <p className="mt-1.5 font-serif text-[1.6rem] leading-tight text-[#f4ede0]">The Money <em className="italic">Mirror</em></p>
+          <p className="mt-1 font-serif text-[1.4rem] leading-tight text-[#f4ede0]">The Money <em className="italic">Mirror</em></p>
           <p className="mt-0.5 text-[13px] text-[#f4ede0]/75">Money isn’t math, it’s mental.</p>
-          <div className="mt-3.5 flex flex-wrap gap-2">
+          <div className="mt-3 flex gap-2">
             {store(AMAZON, 'book_amazon', <>Amazon<ArrowUpRight className="size-3.5" /></>)}
             {store(APPLE_BOOKS, 'book_apple', <><img src="/img/brands/apple.svg" alt="" className="-mt-0.5 size-3.5" />Books<ArrowUpRight className="size-3.5" /></>)}
           </div>
@@ -230,7 +232,7 @@ function Newsletter() {
           <Logo src="/img/mark.png" bg="#0d0d0f" pad="p-2" />
           <span className="min-w-0 flex-1">
             <span className="block text-[15.5px] font-medium text-[#f4ede0]">The WISE Report</span>
-            <span className="mt-0.5 block text-[13px] text-[#f4ede0]/75">The monthly playbook for building a legacy.</span>
+            <span className="mt-0.5 block text-[13px] text-[#f4ede0]/75">Monthly playbook for building a legacy</span>
           </span>
           <Plus className={cn('size-[18px] text-[#f4ede0]/50 transition-transform duration-300', open && 'rotate-45 text-[#f4ede0]')} strokeWidth={1.6} />
         </button>
@@ -286,35 +288,23 @@ export default function Links() {
               onClick: () => openCalendly(withParams(CAREER_URL, { ...fromHere, utm_campaign: 'careers' })) }} />
           </Section>
 
-          <Section label="The book">
+          <Section label="Books and shop">
             <Book />
-            <LinkRow i={1} r={{ key: 'check_in', title: 'Take the Money Mirror Check-In', note: 'Five questions · two minutes', media: <Photo src="/img/money-mirror.webp" pos="top" />, href: site('#check-in') }} />
-            <LinkRow i={2} r={{ key: 'tiktok_money_mirror', title: 'The Money Mirror on TikTok', note: 'Short videos on the mindset side of money', media: <Logo src="/img/brands/tiktok.svg" />, href: TIKTOK_MONEY_MIRROR }} />
-          </Section>
-
-          <Section label="More from me">
-            <LinkRow i={0} r={{ key: 'tiktok_ask_grow_wonder', title: 'Ask Grow Wonder', note: 'TikTok · Fun learning for curious kids and families', media: <Logo src="/img/brands/tiktok.svg" />, href: TIKTOK_ASK_GROW_WONDER }} />
-            <LinkRow i={1} r={{ key: 'word_search_book', title: 'Large Print Word Search, Volume 1', note: 'Everkeen Press · 60 gentle puzzles on Amazon', media: <Masthead text="EP" />, href: WORD_SEARCH_BOOK }} />
+            <LinkRow i={1} r={{ key: 'word_search_book', title: 'Large Print Word Search', note: '60 puzzles · Amazon', media: <Masthead text="EP" />, href: WORD_SEARCH_BOOK }} />
             <LinkRow i={2} r={{ key: 'still_vision_store', title: 'Still Vision Store', note: 'Shop the collection', media: <Masthead text="SV" />, href: STILL_VISION_STORE }} />
           </Section>
 
-          <Section label="Featured">
-            <LinkRow i={0} r={{ key: 'press_voyage_baltimore', title: 'Exploring Life & Business with Glenn Windom II', note: 'Voyage Baltimore · Interview', media: <Masthead text="VB" />,
+          <Section label="More">
+            <LinkRow i={0} r={{ key: 'tiktok_ask_grow_wonder', title: 'Ask Grow Wonder', note: 'TikTok · For curious kids and families', media: <Logo src="/img/brands/tiktok.svg" />, href: TIKTOK_ASK_GROW_WONDER }} />
+            <LinkRow i={1} r={{ key: 'tiktok_money_mirror', title: 'The Money Mirror', note: 'TikTok · The mindset side of money', media: <Logo src="/img/brands/tiktok.svg" />, href: TIKTOK_MONEY_MIRROR }} />
+            <LinkRow i={2} r={{ key: 'check_in', title: 'Money Mirror Check-In', note: 'Five questions · two minutes', media: <Photo src="/img/money-mirror.webp" pos="top" />, href: site('#check-in') }} />
+            <LinkRow i={3} r={{ key: 'press_voyage_baltimore', title: 'Voyage Baltimore interview', note: 'Life and business with Glenn', media: <Masthead text="VB" />,
               href: 'https://voyagebaltimore.com/interview/exploring-life-business-with-glenn-windom-ii-of-wise-financial-partners/' }} />
-          </Section>
-
-          <Section label="Ventures">
-            <LinkRow i={0} r={{ key: 'website', title: 'WISE Financial Partners', note: 'Wealth · Impact · Strategy · Execution', media: <Logo src="/img/mark.png" bg="#0d0d0f" pad="p-2" />, href: site() }} />
+            <LinkRow i={4} r={{ key: 'website', title: 'WISE Financial Partners', note: 'Wealth · Impact · Strategy · Execution', media: <Logo src="/img/mark.png" bg="#0d0d0f" pad="p-2" />, href: site() }} />
             <Newsletter />
           </Section>
 
-          <Section label="Stay connected">
-            <LinkRow i={1} r={{ key: 'ig_glenn', title: '@imglennwin', note: 'Instagram', media: <Logo src="/img/brands/instagram.svg" />, href: GLENN_IG }} />
-            <LinkRow i={2} r={{ key: 'ig_wise', title: '@wisefinancialpartners', note: 'Instagram', media: <Logo src="/img/brands/instagram.svg" />, href: IG_URL }} />
-            <LinkRow i={3} r={{ key: 'linkedin', title: 'Glenn Windom II', note: 'LinkedIn', media: <Logo src="/img/brands/linkedin.svg" />, href: GLENN_IN }} />
-          </Section>
-
-          <footer className="mt-14 rounded-[24px] bg-[rgba(28,14,8,.5)] px-5 py-8 text-center backdrop-blur-md">
+          <footer className="mt-10 rounded-[24px] bg-[rgba(28,14,8,.5)] px-5 py-8 text-center backdrop-blur-md">
             <p className="font-serif text-2xl text-[#f4ede0] italic">Glenn E. Windom <span className="accent-text">II</span></p>
             <p className="mt-4 flex justify-center gap-3 text-[12px] text-[#f4ede0]/80">
               <a href={`${SITE}/disclosures.html`} className="inline-block min-w-11 px-1 py-[13px] hover:text-[var(--accent)]">Disclosures</a>
