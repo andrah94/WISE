@@ -183,25 +183,24 @@ function Consult() {
   )
 }
 
-function Book() {
-  const store = (href: string, key: string, children: React.ReactNode) => (
-    <a href={href} target="_blank" rel="noopener" onClick={() => clicked(key)}
-      className={cn('inline-flex h-11 items-center gap-1.5 rounded-full bg-[#f4ede0] px-3.5 text-[13px] font-semibold text-[var(--base)] transition-transform hover:-translate-y-0.5', focusRing)}>{children}</a>
-  )
+const storeBtn = (href: string, key: string, children: React.ReactNode) => (
+  <a href={href} target="_blank" rel="noopener" onClick={() => clicked(key)}
+    className={cn('inline-flex h-11 items-center gap-1.5 rounded-full bg-[#f4ede0] px-3.5 text-[13px] font-semibold text-[var(--base)] transition-transform hover:-translate-y-0.5', focusRing)}>{children}</a>
+)
+
+// A book gets its cover, not a thumbnail: people recognize a book by its cover.
+function BookCard({ i, cover, alt, label, title, tagline, children }: { i: number; cover: string; alt: string; label: string; title: React.ReactNode; tagline: string; children: React.ReactNode }) {
   return (
-    <Reveal i={0}>
+    <Reveal i={i}>
       <div className="relative flex items-center gap-4 overflow-hidden rounded-[24px] border border-white/12 bg-[rgba(28,14,8,.5)] p-4 backdrop-blur-xl">
         <Tilt rotationFactor={12} className="w-[76px] shrink-0">
-          <img src="/img/money-mirror.webp" alt="The Money Mirror by Glenn Windom II" loading="lazy" className="w-full rounded-[4px] shadow-[0_22px_34px_-12px_rgba(0,0,0,.8),0_0_0_1px_rgba(255,255,255,.08)]" />
+          <img src={cover} alt={alt} loading="lazy" className="w-full rounded-[4px] shadow-[0_22px_34px_-12px_rgba(0,0,0,.8),0_0_0_1px_rgba(255,255,255,.08)]" />
         </Tilt>
         <div className="min-w-0">
-          <p className="text-[12px] font-medium tracking-[0.28em] text-[var(--accent)] uppercase">My book</p>
-          <p className="mt-1 font-serif text-[1.4rem] leading-tight text-[#f4ede0]">The Money <em className="italic">Mirror</em></p>
-          <p className="mt-0.5 text-[13px] text-[#f4ede0]/75">Money isn’t math, it’s mental.</p>
-          <div className="mt-3 flex gap-2">
-            {store(AMAZON, 'book_amazon', <>Amazon<ArrowUpRight className="size-3.5" /></>)}
-            {store(APPLE_BOOKS, 'book_apple', <><img src="/img/brands/apple.svg" alt="" className="-mt-0.5 size-3.5" />Books<ArrowUpRight className="size-3.5" /></>)}
-          </div>
+          <p className="text-[12px] font-medium tracking-[0.28em] text-[var(--accent)] uppercase">{label}</p>
+          <p className="mt-1 font-serif text-[1.4rem] leading-tight text-[#f4ede0]">{title}</p>
+          <p className="mt-0.5 text-[13px] text-[#f4ede0]/75">{tagline}</p>
+          <div className="mt-3 flex gap-2">{children}</div>
         </div>
       </div>
     </Reveal>
@@ -289,9 +288,14 @@ export default function Links() {
           </Section>
 
           <Section label="Books and shop">
-            <Book />
-            <LinkRow i={1} r={{ key: 'word_search_book', title: 'Large Print Word Search', note: '60 puzzles · Amazon', media: <Masthead text="EP" />, href: WORD_SEARCH_BOOK }} />
-            <LinkRow i={2} r={{ key: 'still_vision_store', title: 'Still Vision Store', note: 'Shop the collection', media: <Masthead text="SV" />, href: STILL_VISION_STORE }} />
+            <BookCard i={0} cover="/img/money-mirror.webp" alt="The Money Mirror by Glenn Windom II" label="My book" title={<>The Money <em className="italic">Mirror</em></>} tagline="Money isn’t math, it’s mental.">
+              {storeBtn(AMAZON, 'book_amazon', <>Amazon<ArrowUpRight className="size-3.5" /></>)}
+              {storeBtn(APPLE_BOOKS, 'book_apple', <><img src="/img/brands/apple.svg" alt="" className="-mt-0.5 size-3.5" />Books<ArrowUpRight className="size-3.5" /></>)}
+            </BookCard>
+            <BookCard i={1} cover="/img/word-search.webp" alt="Large Print Word Search, Volume 1, by Everkeen Press" label="Everkeen Press" title="Large Print Word Search" tagline="60 gentle puzzles in big, easy print.">
+              {storeBtn(WORD_SEARCH_BOOK, 'word_search_book', <>Amazon<ArrowUpRight className="size-3.5" /></>)}
+            </BookCard>
+            <LinkRow i={2} r={{ key: 'still_vision_store', title: 'Still Vision Store', note: 'Hoodies, tees and caps', media: <Logo src="/img/still-vision-hoodie.webp" bg="#f4ede0" pad="p-0.5" />, href: STILL_VISION_STORE }} />
           </Section>
 
           <Section label="More">
