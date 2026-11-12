@@ -10,6 +10,7 @@ import { Tilt } from '@/components/ui/tilt'
 import { cn } from '@/lib/utils'
 import {
   AMAZON, APPLE_BOOKS, BOOK_URL, CAREER_URL, EMAIL, EMAIL_RE, GLENN_IG, GLENN_IN, IG_URL, IMG,
+  STILL_VISION_STORE, TIKTOK_ASK_GROW_WONDER, TIKTOK_MONEY_MIRROR, WORD_SEARCH_BOOK,
   openCalendly, sendToHQ, subscribeNewsletter, track, wix, withParams,
 } from '@/data'
 
@@ -288,6 +289,13 @@ export default function Links() {
           <Section label="The book">
             <Book />
             <LinkRow i={1} r={{ key: 'check_in', title: 'Take the Money Mirror Check-In', note: 'Five questions · two minutes', media: <Photo src="/img/money-mirror.webp" pos="top" />, href: site('#check-in') }} />
+            <LinkRow i={2} r={{ key: 'tiktok_money_mirror', title: 'The Money Mirror on TikTok', note: 'Short videos on the mindset side of money', media: <Logo src="/img/brands/tiktok.svg" />, href: TIKTOK_MONEY_MIRROR }} />
+          </Section>
+
+          <Section label="More from me">
+            <LinkRow i={0} r={{ key: 'tiktok_ask_grow_wonder', title: 'Ask Grow Wonder', note: 'TikTok · Fun learning for curious kids and families', media: <Logo src="/img/brands/tiktok.svg" />, href: TIKTOK_ASK_GROW_WONDER }} />
+            <LinkRow i={1} r={{ key: 'word_search_book', title: 'Large Print Word Search, Volume 1', note: 'Everkeen Press · 60 gentle puzzles on Amazon', media: <Masthead text="EP" />, href: WORD_SEARCH_BOOK }} />
+            <LinkRow i={2} r={{ key: 'still_vision_store', title: 'Still Vision Store', note: 'Shop the collection', media: <Masthead text="SV" />, href: STILL_VISION_STORE }} />
           </Section>
 
           <Section label="Featured">

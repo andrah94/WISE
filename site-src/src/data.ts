@@ -13,6 +13,11 @@ export const GLENN_IG = 'https://www.instagram.com/imglennwin?igsh=MWd0Z24zbWdrb
 export const GLENN_IN = 'https://www.linkedin.com/in/gwindom2'
 export const AMAZON = 'https://a.co/d/aTH4fPE'
 export const APPLE_BOOKS = 'https://books.apple.com/us/book/the-money-mirror/id6746219698'
+// Glenn's other projects, shown on his link page.
+export const TIKTOK_MONEY_MIRROR = 'https://www.tiktok.com/@moneyisntmathitsmental'
+export const TIKTOK_ASK_GROW_WONDER = 'https://www.tiktok.com/@askgrowwonder'
+export const WORD_SEARCH_BOOK = 'https://www.amazon.com/dp/B0HRBB52XY'
+export const STILL_VISION_STORE = 'https://still-vision.printful.me'
 export const NEWSLETTER_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwbI0yQQoAkw7OywIvSb_ZAdaP70UmXxgOvK3aocQ7Ak60_xR78Sc994sA9_m0fRj6q/exec'
 
 export const VIDEO_HANDSHAKE = 'https://video.wixstatic.com/video/5e8141_3cad640d6a804c4d88c4e00482cbb845/720p/mp4/file.mp4'
