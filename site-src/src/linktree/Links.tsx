@@ -10,7 +10,7 @@ import { Tilt } from '@/components/ui/tilt'
 import { cn } from '@/lib/utils'
 import {
   AMAZON, APPLE_BOOKS, BOOK_URL, CAREER_URL, EMAIL, EMAIL_RE, GLENN_IG, GLENN_IN, IMG,
-  EVERKEEN_KIDS_SERIES, STILL_VISION_ANTHEM, STILL_VISION_STORE, TIKTOK_ASK_GROW_WONDER, TIKTOK_MONEY_MIRROR, TOOLKIT, WORD_SEARCH_BOOK,
+  EVERKEEN_KIDS_SERIES, EVERKEEN_PUZZLES_SERIES, STILL_VISION_ANTHEM, STILL_VISION_STORE, TIKTOK_ASK_GROW_WONDER, TIKTOK_MONEY_MIRROR, TOOLKIT,
   openCalendly, sendToHQ, subscribeNewsletter, track, wix, withParams,
 } from '@/data'
 
@@ -288,9 +288,7 @@ export default function Links() {
               {storeBtn(TOOLKIT, 'toolkit', <>Toolkit<ArrowUpRight className="size-3.5" /></>)}
             </BookCard>
             <LinkRow i={1} r={{ key: 'check_in', title: 'Money Mirror Check-In', note: 'Five questions · two minutes', media: <Photo src="/img/money-mirror.webp" pos="top" />, href: site('#check-in') }} />
-            <BookCard i={2} cover="/img/word-search.webp" alt="Large Print Word Search, Volume 1, by Everkeen Press" label="Everkeen Press" title="Large Print Word Search" tagline="60 gentle puzzles in big, easy print.">
-              {storeBtn(WORD_SEARCH_BOOK, 'word_search_book', <>Amazon<ArrowUpRight className="size-3.5" /></>)}
-            </BookCard>
+            <LinkRow i={2} r={{ key: 'everkeen_puzzles_series', title: 'Everkeen Large Print Puzzles', note: 'Large print puzzle series · Word Search and Hidden in the Word', media: <Masthead text="EK" />, href: EVERKEEN_PUZZLES_SERIES }} />
             <LinkRow i={3} r={{ key: 'everkeen_kids_series', title: 'Everkeen Kids Story Books', note: "Children's series · Puff, Maple and Lulu", media: <Masthead text="EK" />, href: EVERKEEN_KIDS_SERIES }} />
             <LinkRow i={4} r={{ key: 'still_vision_store', title: 'Still Vision Store', note: 'Hoodies, tees and caps', media: <Logo src="/img/still-vision-hoodie.webp" bg="#f4ede0" pad="p-0.5" />, href: STILL_VISION_STORE }} />
             <LinkRow i={5} r={{ key: 'still_vision_anthem', title: 'Still Vision (The Anthem)', note: 'Listen now · Spotify, Apple Music and iTunes', media: <Masthead text="SV" />, href: STILL_VISION_ANTHEM }} />
