@@ -185,7 +185,7 @@ function Consult() {
 
 const storeBtn = (href: string, key: string, children: React.ReactNode) => (
   <a href={href} target="_blank" rel="noopener" onClick={() => clicked(key)}
-    className={cn('inline-flex h-11 items-center gap-1.5 rounded-full bg-[#f4ede0] px-3.5 text-[13px] font-semibold text-[var(--base)] transition-transform hover:-translate-y-0.5', focusRing)}>{children}</a>
+    className={cn('inline-flex h-11 items-center gap-1.5 rounded-full bg-[#f4ede0] px-3 text-[13px] font-semibold whitespace-nowrap text-[var(--base)] transition-transform hover:-translate-y-0.5', focusRing)}>{children}</a>
 )
 
 // A book gets its cover, not a thumbnail: people recognize a book by its cover.
@@ -196,11 +196,11 @@ function BookCard({ i, cover, alt, label, title, tagline, children }: { i: numbe
         <Tilt rotationFactor={12} className="w-[76px] shrink-0">
           <img src={cover} alt={alt} loading="lazy" className="w-full rounded-[4px] shadow-[0_22px_34px_-12px_rgba(0,0,0,.8),0_0_0_1px_rgba(255,255,255,.08)]" />
         </Tilt>
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1">
           <p className="text-[12px] font-medium tracking-[0.28em] text-[var(--accent)] uppercase">{label}</p>
           <p className="mt-1 font-serif text-[1.4rem] leading-tight text-[#f4ede0]">{title}</p>
           <p className="mt-0.5 text-[13px] text-[#f4ede0]/75">{tagline}</p>
-          <div className="mt-3 flex gap-2">{children}</div>
+          <div className="mt-3 flex flex-wrap gap-2">{children}</div>
         </div>
       </div>
     </Reveal>
