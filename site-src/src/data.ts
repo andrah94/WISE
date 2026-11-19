@@ -16,7 +16,7 @@ export const APPLE_BOOKS = 'https://books.apple.com/us/book/the-money-mirror/id6
 // Glenn's other projects, shown on his link page.
 export const TIKTOK_MONEY_MIRROR = 'https://www.tiktok.com/@moneyisntmathitsmental'
 export const TIKTOK_ASK_GROW_WONDER = 'https://www.tiktok.com/@askgrowwonder'
-export const WORD_SEARCH_BOOK = 'https://www.amazon.com/dp/B0HRBB52XY'
+export const EVERKEEN_PUZZLES_SERIES = 'https://www.amazon.com/dp/B0HS7DDMS4'
 export const TOOLKIT = 'https://payhip.com/b/RWLFg'
 export const EVERKEEN_KIDS_SERIES = 'https://www.amazon.com/dp/B0HRT4V296'
 export const STILL_VISION_STORE = 'https://still-vision.printful.me'
