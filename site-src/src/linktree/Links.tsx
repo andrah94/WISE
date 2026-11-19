@@ -10,7 +10,7 @@ import { Tilt } from '@/components/ui/tilt'
 import { cn } from '@/lib/utils'
 import {
   AMAZON, APPLE_BOOKS, BOOK_URL, CAREER_URL, EMAIL, EMAIL_RE, GLENN_IG, GLENN_IN, IMG,
-  STILL_VISION_STORE, TIKTOK_ASK_GROW_WONDER, TIKTOK_MONEY_MIRROR, WORD_SEARCH_BOOK,
+  EVERKEEN_KIDS_SERIES, STILL_VISION_STORE, TIKTOK_ASK_GROW_WONDER, TIKTOK_MONEY_MIRROR, TOOLKIT, WORD_SEARCH_BOOK,
   openCalendly, sendToHQ, subscribeNewsletter, track, wix, withParams,
 } from '@/data'
 
@@ -291,11 +291,13 @@ export default function Links() {
             <BookCard i={0} cover="/img/money-mirror.webp" alt="The Money Mirror by Glenn Windom II" label="My book" title={<>The Money <em className="italic">Mirror</em></>} tagline="Money isn’t math, it’s mental.">
               {storeBtn(AMAZON, 'book_amazon', <>Amazon<ArrowUpRight className="size-3.5" /></>)}
               {storeBtn(APPLE_BOOKS, 'book_apple', <><img src="/img/brands/apple.svg" alt="" className="-mt-0.5 size-3.5" />Books<ArrowUpRight className="size-3.5" /></>)}
+              {storeBtn(TOOLKIT, 'toolkit', <>Toolkit<ArrowUpRight className="size-3.5" /></>)}
             </BookCard>
             <BookCard i={1} cover="/img/word-search.webp" alt="Large Print Word Search, Volume 1, by Everkeen Press" label="Everkeen Press" title="Large Print Word Search" tagline="60 gentle puzzles in big, easy print.">
               {storeBtn(WORD_SEARCH_BOOK, 'word_search_book', <>Amazon<ArrowUpRight className="size-3.5" /></>)}
             </BookCard>
-            <LinkRow i={2} r={{ key: 'still_vision_store', title: 'Still Vision Store', note: 'Hoodies, tees and caps', media: <Logo src="/img/still-vision-hoodie.webp" bg="#f4ede0" pad="p-0.5" />, href: STILL_VISION_STORE }} />
+            <LinkRow i={2} r={{ key: 'everkeen_kids_series', title: 'Everkeen Kids Story Books', note: "Children's series · Puff, Maple and Lulu", media: <Masthead text="EK" />, href: EVERKEEN_KIDS_SERIES }} />
+            <LinkRow i={3} r={{ key: 'still_vision_store', title: 'Still Vision Store', note: 'Hoodies, tees and caps', media: <Logo src="/img/still-vision-hoodie.webp" bg="#f4ede0" pad="p-0.5" />, href: STILL_VISION_STORE }} />
           </Section>
 
           <Section label="More">
