@@ -17,6 +17,8 @@ export const APPLE_BOOKS = 'https://books.apple.com/us/book/the-money-mirror/id6
 export const TIKTOK_MONEY_MIRROR = 'https://www.tiktok.com/@moneyisntmathitsmental'
 export const TIKTOK_ASK_GROW_WONDER = 'https://www.tiktok.com/@askgrowwonder'
 export const WORD_SEARCH_BOOK = 'https://www.amazon.com/dp/B0HRBB52XY'
+export const TOOLKIT = 'https://payhip.com/b/RWLFg'
+export const EVERKEEN_KIDS_SERIES = 'https://www.amazon.com/dp/B0HRT4V296'
 export const STILL_VISION_STORE = 'https://still-vision.printful.me'
 export const NEWSLETTER_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwbI0yQQoAkw7OywIvSb_ZAdaP70UmXxgOvK3aocQ7Ak60_xR78Sc994sA9_m0fRj6q/exec'
 
