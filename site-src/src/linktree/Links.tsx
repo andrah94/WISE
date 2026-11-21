@@ -296,16 +296,16 @@ export default function Links() {
               {storeBtn(TOOLKIT, 'toolkit', <>Toolkit<ArrowUpRight className="size-3.5" /></>)}
             </BookCard>
             <LinkRow i={1} r={{ key: 'check_in', title: 'Money Mirror Check-In', note: 'Five questions · two minutes', media: <Photo src="/img/money-mirror.webp" pos="top" />, href: site('#check-in') }} />
-            <LinkRow i={2} r={{ key: 'everkeen_puzzles_series', title: 'Everkeen Large Print Puzzles', note: 'Large print puzzle series · Word Search and Hidden in the Word', media: <Masthead text="EK" />, href: EVERKEEN_PUZZLES_SERIES }} />
-            <LinkRow i={3} r={{ key: 'everkeen_kids_series', title: 'Everkeen Kids Story Books', note: "Children's series · Puff, Maple and Lulu", media: <Masthead text="EK" />, href: EVERKEEN_KIDS_SERIES }} />
-            <LinkRow i={4} r={{ key: 'still_vision_store', title: 'Still Vision Store', note: 'Hoodies, tees and caps', media: <Logo src="/img/still-vision-hoodie.webp" bg="#f4ede0" pad="p-0.5" />, href: STILL_VISION_STORE }} />
-            <LinkRow i={5} r={{ key: 'still_vision_anthem', title: 'Still Vision (The Anthem)', note: 'Listen now · Spotify, Apple Music and iTunes', media: <Masthead text="SV" />, href: STILL_VISION_ANTHEM }} />
+            <LinkRow i={2} r={{ key: 'tiktok_money_mirror', title: 'The Money Mirror', note: 'TikTok · The mindset side of money', media: <Logo src="/img/brands/tiktok.svg" />, href: TIKTOK_MONEY_MIRROR }} />
+            <LinkRow i={3} r={{ key: 'everkeen_puzzles_series', title: 'Everkeen Large Print Puzzles', note: 'Large print puzzle series · Word Search and Hidden in the Word', media: <Masthead text="EK" />, href: EVERKEEN_PUZZLES_SERIES }} />
+            <LinkRow i={4} r={{ key: 'everkeen_kids_series', title: 'Everkeen Kids Story Books', note: "Children's series · Puff, Maple and Lulu", media: <Masthead text="EK" />, href: EVERKEEN_KIDS_SERIES }} />
+            <LinkRow i={5} r={{ key: 'still_vision_store', title: 'Still Vision Store', note: 'Hoodies, tees and caps', media: <Logo src="/img/still-vision-hoodie.webp" bg="#f4ede0" pad="p-0.5" />, href: STILL_VISION_STORE }} />
+            <LinkRow i={6} r={{ key: 'still_vision_anthem', title: 'Still Vision (The Anthem)', note: 'Listen now · Spotify, Apple Music and iTunes', media: <Masthead text="SV" />, href: STILL_VISION_ANTHEM }} />
           </Section>
 
           <Section label="Watch and follow">
             <LinkRow i={0} r={{ key: 'tiktok_ask_grow_wonder', title: 'Ask Grow Wonder', note: 'TikTok · For curious kids and families', media: <Logo src="/img/brands/tiktok.svg" />, href: TIKTOK_ASK_GROW_WONDER }} />
             <LinkRow i={1} r={{ key: 'wonder_cards', title: 'Dinner Table Wonder Cards', note: '24 questions kids actually ask · Ask Grow Wonder · $9', media: <Masthead text="WC" />, href: WONDER_CARDS }} />
-            <LinkRow i={2} r={{ key: 'tiktok_money_mirror', title: 'The Money Mirror', note: 'TikTok · The mindset side of money', media: <Logo src="/img/brands/tiktok.svg" />, href: TIKTOK_MONEY_MIRROR }} />
           </Section>
 
           <Section label="About and community">
