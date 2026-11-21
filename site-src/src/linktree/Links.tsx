@@ -281,40 +281,40 @@ export default function Links() {
         <main className="relative mx-auto w-full max-w-[520px] px-4 pt-[max(1rem,env(safe-area-inset-top))] pb-12">
           <Hero onShare={share} />
 
+          <Section label="WISE Financial Partners">
+            <Consult />
+            <LinkRow i={1} r={{ key: 'career', title: 'Build a career with WISE', note: 'Part-time or full-time · we train you', media: <Photo src={wix(IMG.glennWorking, 160, 160, 't')} pos="top" />,
+              onClick: () => openCalendly(withParams(CAREER_URL, { ...fromHere, utm_campaign: 'careers' })) }} />
+            <LinkRow i={2} r={{ key: 'website', title: 'WISE Financial Partners', note: 'Wealth · Impact · Strategy · Execution', media: <Logo src="/img/mark.png" bg="#0d0d0f" pad="p-2" />, href: site() }} />
+            <Newsletter />
+          </Section>
+
           <Section label="Books and tools">
             <BookCard i={0} cover="/img/money-mirror.webp" alt="The Money Mirror by Glenn Windom II" label="My book" title={<>The Money <em className="italic">Mirror</em></>} tagline="Money isn’t math, it’s mental.">
               {storeBtn(AMAZON, 'book_amazon', <>Amazon<ArrowUpRight className="size-3.5" /></>)}
               {storeBtn(APPLE_BOOKS, 'book_apple', <><img src="/img/brands/apple.svg" alt="" className="-mt-0.5 size-3.5" />Books<ArrowUpRight className="size-3.5" /></>)}
               {storeBtn(TOOLKIT, 'toolkit', <>Toolkit<ArrowUpRight className="size-3.5" /></>)}
             </BookCard>
-            <LinkRow i={1} r={{ key: 'turnover_kit', title: 'Vacation Rental Turnover Kit', note: 'The complete turnover system for rental hosts · $19', media: <Masthead text="TK" />, href: TURNOVER_KIT }} />
-            <LinkRow i={2} r={{ key: 'family_flight_planner', title: 'The Family Flight Planner', note: 'Plan the whole family trip in one place · $12', media: <Masthead text="FP" />, href: FAMILY_FLIGHT_PLANNER }} />
-            <LinkRow i={3} r={{ key: 'wonder_cards', title: 'Dinner Table Wonder Cards', note: '24 questions kids actually ask · Ask Grow Wonder · $9', media: <Masthead text="WC" />, href: WONDER_CARDS }} />
-            <LinkRow i={4} r={{ key: 'check_in', title: 'Money Mirror Check-In', note: 'Five questions · two minutes', media: <Photo src="/img/money-mirror.webp" pos="top" />, href: site('#check-in') }} />
-            <LinkRow i={5} r={{ key: 'everkeen_puzzles_series', title: 'Everkeen Large Print Puzzles', note: 'Large print puzzle series · Word Search and Hidden in the Word', media: <Masthead text="EK" />, href: EVERKEEN_PUZZLES_SERIES }} />
-            <LinkRow i={6} r={{ key: 'everkeen_kids_series', title: 'Everkeen Kids Story Books', note: "Children's series · Puff, Maple and Lulu", media: <Masthead text="EK" />, href: EVERKEEN_KIDS_SERIES }} />
-            <LinkRow i={7} r={{ key: 'still_vision_store', title: 'Still Vision Store', note: 'Hoodies, tees and caps', media: <Logo src="/img/still-vision-hoodie.webp" bg="#f4ede0" pad="p-0.5" />, href: STILL_VISION_STORE }} />
-            <LinkRow i={8} r={{ key: 'still_vision_anthem', title: 'Still Vision (The Anthem)', note: 'Listen now · Spotify, Apple Music and iTunes', media: <Masthead text="SV" />, href: STILL_VISION_ANTHEM }} />
-          </Section>
-
-          <Section label="Work with me">
-            <Consult />
-            <LinkRow i={1} r={{ key: 'career', title: 'Build a career with WISE', note: 'Part-time or full-time · we train you', media: <Photo src={wix(IMG.glennWorking, 160, 160, 't')} pos="top" />,
-              onClick: () => openCalendly(withParams(CAREER_URL, { ...fromHere, utm_campaign: 'careers' })) }} />
-            <LinkRow i={2} r={{ key: 'agent_reels', title: 'Agent Reels', note: 'Done-for-you short videos for agents · Book a call to start', media: <Masthead text="AR" />,
-              onClick: () => openCalendly(withParams(BOOK_URL, { ...fromHere, utm_campaign: 'agent_reels' })) }} />
+            <LinkRow i={1} r={{ key: 'check_in', title: 'Money Mirror Check-In', note: 'Five questions · two minutes', media: <Photo src="/img/money-mirror.webp" pos="top" />, href: site('#check-in') }} />
+            <LinkRow i={2} r={{ key: 'everkeen_puzzles_series', title: 'Everkeen Large Print Puzzles', note: 'Large print puzzle series · Word Search and Hidden in the Word', media: <Masthead text="EK" />, href: EVERKEEN_PUZZLES_SERIES }} />
+            <LinkRow i={3} r={{ key: 'everkeen_kids_series', title: 'Everkeen Kids Story Books', note: "Children's series · Puff, Maple and Lulu", media: <Masthead text="EK" />, href: EVERKEEN_KIDS_SERIES }} />
+            <LinkRow i={4} r={{ key: 'still_vision_store', title: 'Still Vision Store', note: 'Hoodies, tees and caps', media: <Logo src="/img/still-vision-hoodie.webp" bg="#f4ede0" pad="p-0.5" />, href: STILL_VISION_STORE }} />
+            <LinkRow i={5} r={{ key: 'still_vision_anthem', title: 'Still Vision (The Anthem)', note: 'Listen now · Spotify, Apple Music and iTunes', media: <Masthead text="SV" />, href: STILL_VISION_ANTHEM }} />
           </Section>
 
           <Section label="Watch and follow">
             <LinkRow i={0} r={{ key: 'tiktok_ask_grow_wonder', title: 'Ask Grow Wonder', note: 'TikTok · For curious kids and families', media: <Logo src="/img/brands/tiktok.svg" />, href: TIKTOK_ASK_GROW_WONDER }} />
-            <LinkRow i={1} r={{ key: 'tiktok_money_mirror', title: 'The Money Mirror', note: 'TikTok · The mindset side of money', media: <Logo src="/img/brands/tiktok.svg" />, href: TIKTOK_MONEY_MIRROR }} />
-            <Newsletter />
+            <LinkRow i={1} r={{ key: 'wonder_cards', title: 'Dinner Table Wonder Cards', note: '24 questions kids actually ask · Ask Grow Wonder · $9', media: <Masthead text="WC" />, href: WONDER_CARDS }} />
+            <LinkRow i={2} r={{ key: 'tiktok_money_mirror', title: 'The Money Mirror', note: 'TikTok · The mindset side of money', media: <Logo src="/img/brands/tiktok.svg" />, href: TIKTOK_MONEY_MIRROR }} />
           </Section>
 
           <Section label="About and community">
-            <LinkRow i={0} r={{ key: 'press_voyage_baltimore', title: 'Voyage Baltimore interview', note: 'Life and business with Glenn', media: <Masthead text="VB" />,
+            <LinkRow i={0} r={{ key: 'turnover_kit', title: 'Vacation Rental Turnover Kit', note: 'The complete turnover system for rental hosts · $19', media: <Masthead text="TK" />, href: TURNOVER_KIT }} />
+            <LinkRow i={1} r={{ key: 'family_flight_planner', title: 'The Family Flight Planner', note: 'Plan the whole family trip in one place · $12', media: <Masthead text="FP" />, href: FAMILY_FLIGHT_PLANNER }} />
+            <LinkRow i={2} r={{ key: 'agent_reels', title: 'Agent Reels', note: 'Done-for-you short videos for agents · Book a call to start', media: <Masthead text="AR" />,
+              onClick: () => openCalendly(withParams(BOOK_URL, { ...fromHere, utm_campaign: 'agent_reels' })) }} />
+            <LinkRow i={3} r={{ key: 'press_voyage_baltimore', title: 'Voyage Baltimore interview', note: 'Life and business with Glenn', media: <Masthead text="VB" />,
               href: 'https://voyagebaltimore.com/interview/exploring-life-business-with-glenn-windom-ii-of-wise-financial-partners/' }} />
-            <LinkRow i={1} r={{ key: 'website', title: 'WISE Financial Partners', note: 'Wealth · Impact · Strategy · Execution', media: <Logo src="/img/mark.png" bg="#0d0d0f" pad="p-2" />, href: site() }} />
           </Section>
 
           <footer className="mt-10 rounded-[24px] bg-[rgba(28,14,8,.5)] px-5 py-8 text-center backdrop-blur-md">
