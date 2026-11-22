@@ -300,7 +300,7 @@ export default function Links() {
             <LinkRow i={3} r={{ key: 'everkeen_puzzles_series', title: 'Everkeen Large Print Puzzles', note: 'Large print puzzle series · Word Search and Hidden in the Word', media: <Masthead text="EK" />, href: EVERKEEN_PUZZLES_SERIES }} />
             <LinkRow i={4} r={{ key: 'everkeen_kids_series', title: 'Everkeen Kids Story Books', note: "Children's series · Puff, Maple and Lulu", media: <Masthead text="EK" />, href: EVERKEEN_KIDS_SERIES }} />
             <LinkRow i={5} r={{ key: 'still_vision_store', title: 'Still Vision Store', note: 'Hoodies, tees and caps', media: <Logo src="/img/still-vision-hoodie.webp" bg="#f4ede0" pad="p-0.5" />, href: STILL_VISION_STORE }} />
-            <LinkRow i={6} r={{ key: 'still_vision_anthem', title: 'Still Vision (The Anthem)', note: 'Listen now · Spotify, Apple Music and iTunes', media: <Masthead text="SV" />, href: STILL_VISION_ANTHEM }} />
+            <LinkRow i={6} r={{ key: 'still_vision_anthem', title: 'Still Vision (The Anthem)', note: 'Listen now · Spotify, Apple Music, iTunes and Amazon Music', media: <Masthead text="SV" />, href: STILL_VISION_ANTHEM }} />
           </Section>
 
           <Section label="Watch and follow">
