@@ -10,7 +10,7 @@ import { Tilt } from '@/components/ui/tilt'
 import { cn } from '@/lib/utils'
 import {
   AMAZON, APPLE_BOOKS, BOOK_URL, CAREER_URL, EMAIL, EMAIL_RE, GLENN_IG, GLENN_IN, IMG,
-  EVERKEEN_KIDS_SERIES, EVERKEEN_PUZZLES_SERIES, FAMILY_FLIGHT_PLANNER, STILL_VISION_ANTHEM, STILL_VISION_STORE, TIKTOK_ASK_GROW_WONDER, TIKTOK_MONEY_MIRROR, TOOLKIT, TURNOVER_KIT, WONDER_CARDS,
+  CREWXSCAPE_STORE, EVERKEEN_KIDS_SERIES, EVERKEEN_PUZZLES_SERIES, FAMILY_FLIGHT_PLANNER, NOVELTY_STORE, STILL_VISION_ANTHEM, STILL_VISION_STORE, TIKTOK_ASK_GROW_WONDER, TIKTOK_MONEY_MIRROR, TOOLKIT, TURNOVER_KIT, WONDER_CARDS,
   openCalendly, sendToHQ, subscribeNewsletter, track, wix, withParams,
 } from '@/data'
 
@@ -309,11 +309,13 @@ export default function Links() {
           </Section>
 
           <Section label="About and community">
-            <LinkRow i={0} r={{ key: 'turnover_kit', title: 'Vacation Rental Turnover Kit', note: 'The complete turnover system for rental hosts · $19', media: <Masthead text="TK" />, href: TURNOVER_KIT }} />
-            <LinkRow i={1} r={{ key: 'family_flight_planner', title: 'The Family Flight Planner', note: 'Plan the whole family trip in one place · $12', media: <Masthead text="FP" />, href: FAMILY_FLIGHT_PLANNER }} />
-            <LinkRow i={2} r={{ key: 'agent_reels', title: 'Agent Reels', note: 'Done-for-you short videos for agents · Book a call to start', media: <Masthead text="AR" />,
+            <LinkRow i={0} r={{ key: 'novelty_store', title: 'Novelty Exclusive Apparel', note: 'Tees, crew necks, hoodies and caps', media: <Masthead text="NEA" />, href: NOVELTY_STORE }} />
+            <LinkRow i={1} r={{ key: 'crewxscape_store', title: 'CrewXscape', note: 'Tees, hoodies, crew necks and caps', media: <Masthead text="CX" />, href: CREWXSCAPE_STORE }} />
+            <LinkRow i={2} r={{ key: 'turnover_kit', title: 'Vacation Rental Turnover Kit', note: 'The complete turnover system for rental hosts · $19', media: <Masthead text="TK" />, href: TURNOVER_KIT }} />
+            <LinkRow i={3} r={{ key: 'family_flight_planner', title: 'The Family Flight Planner', note: 'Plan the whole family trip in one place · $12', media: <Masthead text="FP" />, href: FAMILY_FLIGHT_PLANNER }} />
+            <LinkRow i={4} r={{ key: 'agent_reels', title: 'Agent Reels', note: 'Done-for-you short videos for agents · Book a call to start', media: <Masthead text="AR" />,
               onClick: () => openCalendly(withParams(BOOK_URL, { ...fromHere, utm_campaign: 'agent_reels' })) }} />
-            <LinkRow i={3} r={{ key: 'press_voyage_baltimore', title: 'Voyage Baltimore interview', note: 'Life and business with Glenn', media: <Masthead text="VB" />,
+            <LinkRow i={5} r={{ key: 'press_voyage_baltimore', title: 'Voyage Baltimore interview', note: 'Life and business with Glenn', media: <Masthead text="VB" />,
               href: 'https://voyagebaltimore.com/interview/exploring-life-business-with-glenn-windom-ii-of-wise-financial-partners/' }} />
           </Section>
 
