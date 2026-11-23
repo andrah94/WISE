@@ -24,6 +24,8 @@ export const WONDER_CARDS = 'https://payhip.com/b/08BYs'
 export const EVERKEEN_KIDS_SERIES = 'https://www.amazon.com/dp/B0HRT4V296'
 export const STILL_VISION_STORE = 'https://still-vision.printful.me'
 export const STILL_VISION_ANTHEM = 'https://distrokid.com/hyperfollow/imglennwin/still-vision-the-anthem'
+export const NOVELTY_STORE = 'https://noveltyexclusiveapparel.printful.me/'
+export const CREWXSCAPE_STORE = 'https://crewxscape.printful.me/'
 export const NEWSLETTER_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwbI0yQQoAkw7OywIvSb_ZAdaP70UmXxgOvK3aocQ7Ak60_xR78Sc994sA9_m0fRj6q/exec'
 
 export const VIDEO_HANDSHAKE = 'https://video.wixstatic.com/video/5e8141_3cad640d6a804c4d88c4e00482cbb845/720p/mp4/file.mp4'
