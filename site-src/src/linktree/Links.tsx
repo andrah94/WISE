@@ -290,10 +290,10 @@ export default function Links() {
           </Section>
 
           <Section label="Books and tools">
-            <LinkRow i={0} r={{ key: 'still_vision_founding_50', title: 'Still Vision: Founding 50', note: 'Signed and numbered paperback · $30', media: <Masthead text="SV" />, href: STILL_VISION_FOUNDING_50 }} />
-            <LinkRow i={1} r={{ key: 'still_vision_kindle', title: 'Still Vision', note: 'Kindle pre-order · Delivers January 8, 2027', media: <Masthead text="SV" />, href: STILL_VISION_KINDLE }} />
+            <LinkRow i={0} r={{ key: 'still_vision_founding_50', title: 'Still Vision: Founding 50', note: 'Signed and numbered paperback · $30', media: <Photo src="/img/still-vision-cover.svg" pos="top" />, href: STILL_VISION_FOUNDING_50 }} />
+            <LinkRow i={1} r={{ key: 'still_vision_kindle', title: 'Still Vision', note: 'Kindle pre-order · Delivers January 8, 2027', media: <Photo src="/img/still-vision-cover.svg" pos="top" />, href: STILL_VISION_KINDLE }} />
             <LinkRow i={2} r={{ key: 'still_vision_store', title: 'Still Vision Store', note: 'Hoodies, tees and caps', media: <Logo src="/img/still-vision-hoodie.webp" bg="#f4ede0" pad="p-0.5" />, href: STILL_VISION_STORE }} />
-            <LinkRow i={3} r={{ key: 'still_vision_anthem', title: 'Still Vision (The Anthem)', note: 'Listen now · Spotify, Apple Music, iTunes and Amazon Music', media: <Masthead text="SV" />, href: STILL_VISION_ANTHEM }} />
+            <LinkRow i={3} r={{ key: 'still_vision_anthem', title: 'Still Vision (The Anthem)', note: 'Listen now · Spotify, Apple Music, iTunes and Amazon Music', media: <Photo src="/img/still-vision-anthem-cover.svg" />, href: STILL_VISION_ANTHEM }} />
             <BookCard i={4} cover="/img/money-mirror.webp" alt="The Money Mirror by Glenn Windom II" label="My book" title={<>The Money <em className="italic">Mirror</em></>} tagline="Money isn’t math, it’s mental.">
               {storeBtn(AMAZON, 'book_amazon', <>Amazon<ArrowUpRight className="size-3.5" /></>)}
               {storeBtn(APPLE_BOOKS, 'book_apple', <><img src="/img/brands/apple.svg" alt="" className="-mt-0.5 size-3.5" />Books<ArrowUpRight className="size-3.5" /></>)}
