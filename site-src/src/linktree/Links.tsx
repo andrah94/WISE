@@ -290,20 +290,20 @@ export default function Links() {
           </Section>
 
           <Section label="Books and tools">
-            <BookCard i={0} cover="/img/money-mirror.webp" alt="The Money Mirror by Glenn Windom II" label="My book" title={<>The Money <em className="italic">Mirror</em></>} tagline="Money isn’t math, it’s mental.">
+            <LinkRow i={0} r={{ key: 'still_vision_founding_50', title: 'Still Vision: Founding 50', note: 'Signed and numbered paperback · $30', media: <Masthead text="SV" />, href: STILL_VISION_FOUNDING_50 }} />
+            <LinkRow i={1} r={{ key: 'still_vision_kindle', title: 'Still Vision', note: 'Kindle pre-order · Delivers January 8, 2027', media: <Masthead text="SV" />, href: STILL_VISION_KINDLE }} />
+            <LinkRow i={2} r={{ key: 'still_vision_store', title: 'Still Vision Store', note: 'Hoodies, tees and caps', media: <Logo src="/img/still-vision-hoodie.webp" bg="#f4ede0" pad="p-0.5" />, href: STILL_VISION_STORE }} />
+            <LinkRow i={3} r={{ key: 'still_vision_anthem', title: 'Still Vision (The Anthem)', note: 'Listen now · Spotify, Apple Music, iTunes and Amazon Music', media: <Masthead text="SV" />, href: STILL_VISION_ANTHEM }} />
+            <BookCard i={4} cover="/img/money-mirror.webp" alt="The Money Mirror by Glenn Windom II" label="My book" title={<>The Money <em className="italic">Mirror</em></>} tagline="Money isn’t math, it’s mental.">
               {storeBtn(AMAZON, 'book_amazon', <>Amazon<ArrowUpRight className="size-3.5" /></>)}
               {storeBtn(APPLE_BOOKS, 'book_apple', <><img src="/img/brands/apple.svg" alt="" className="-mt-0.5 size-3.5" />Books<ArrowUpRight className="size-3.5" /></>)}
               {storeBtn(TOOLKIT, 'toolkit', <>Toolkit<ArrowUpRight className="size-3.5" /></>)}
             </BookCard>
-            <LinkRow i={1} r={{ key: 'check_in', title: 'Money Mirror Check-In', note: 'Five questions · two minutes', media: <Photo src="/img/money-mirror.webp" pos="top" />, href: site('#check-in') }} />
-            <LinkRow i={2} r={{ key: 'spending_trigger_tracker', title: 'Spending Trigger Tracker', note: 'Free sample from The Money Mirror Toolkit', media: <Masthead text="MM" />, href: SPENDING_TRIGGER_TRACKER }} />
-            <LinkRow i={3} r={{ key: 'tiktok_money_mirror', title: 'The Money Mirror', note: 'TikTok · The mindset side of money', media: <Logo src="/img/brands/tiktok.svg" />, href: TIKTOK_MONEY_MIRROR }} />
-            <LinkRow i={4} r={{ key: 'everkeen_puzzles_series', title: 'Everkeen Large Print Puzzles', note: 'Large print puzzle series · Word Search and Hidden in the Word', media: <Masthead text="EK" />, href: EVERKEEN_PUZZLES_SERIES }} />
-            <LinkRow i={5} r={{ key: 'everkeen_kids_series', title: 'Everkeen Kids Story Books', note: "Children's series · Puff, Maple and Lulu", media: <Masthead text="EK" />, href: EVERKEEN_KIDS_SERIES }} />
-            <LinkRow i={6} r={{ key: 'still_vision_founding_50', title: 'Still Vision: Founding 50', note: 'Signed and numbered paperback · $30', media: <Masthead text="SV" />, href: STILL_VISION_FOUNDING_50 }} />
-            <LinkRow i={7} r={{ key: 'still_vision_kindle', title: 'Still Vision', note: 'Kindle pre-order · Delivers January 8, 2027', media: <Masthead text="SV" />, href: STILL_VISION_KINDLE }} />
-            <LinkRow i={8} r={{ key: 'still_vision_store', title: 'Still Vision Store', note: 'Hoodies, tees and caps', media: <Logo src="/img/still-vision-hoodie.webp" bg="#f4ede0" pad="p-0.5" />, href: STILL_VISION_STORE }} />
-            <LinkRow i={9} r={{ key: 'still_vision_anthem', title: 'Still Vision (The Anthem)', note: 'Listen now · Spotify, Apple Music, iTunes and Amazon Music', media: <Masthead text="SV" />, href: STILL_VISION_ANTHEM }} />
+            <LinkRow i={5} r={{ key: 'check_in', title: 'Money Mirror Check-In', note: 'Five questions · two minutes', media: <Photo src="/img/money-mirror.webp" pos="top" />, href: site('#check-in') }} />
+            <LinkRow i={6} r={{ key: 'tiktok_money_mirror', title: 'The Money Mirror', note: 'TikTok · The mindset side of money', media: <Logo src="/img/brands/tiktok.svg" />, href: TIKTOK_MONEY_MIRROR }} />
+            <LinkRow i={7} r={{ key: 'spending_trigger_tracker', title: 'Spending Trigger Tracker', note: 'Free sample from The Money Mirror Toolkit', media: <Masthead text="MM" />, href: SPENDING_TRIGGER_TRACKER }} />
+            <LinkRow i={8} r={{ key: 'everkeen_puzzles_series', title: 'Everkeen Large Print Puzzles', note: 'Large print puzzle series · Word Search and Hidden in the Word', media: <Masthead text="EK" />, href: EVERKEEN_PUZZLES_SERIES }} />
+            <LinkRow i={9} r={{ key: 'everkeen_kids_series', title: 'Everkeen Kids Story Books', note: "Children's series · Puff, Maple and Lulu", media: <Masthead text="EK" />, href: EVERKEEN_KIDS_SERIES }} />
           </Section>
 
           <Section label="Watch and follow">
