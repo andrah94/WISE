@@ -10,7 +10,7 @@ import { Tilt } from '@/components/ui/tilt'
 import { cn } from '@/lib/utils'
 import {
   AMAZON, APPLE_BOOKS, BOOK_URL, CAREER_URL, EMAIL, EMAIL_RE, GLENN_IG, GLENN_IN, IMG,
-  BOOKS_PAGE, CREWXSCAPE_STORE, NOVELTY_STORE, SPENDING_TRIGGER_TRACKER, STILL_VISION_ANTHEM, STILL_VISION_FOUNDING_50, STILL_VISION_STORE, TIKTOK_ASK_GROW_WONDER, TIKTOK_MONEY_MIRROR, TOOLKIT, WONDER_CARDS,
+  BOOKS_PAGE, CREWXSCAPE_STORE, NOVELTY_STORE, SPENDING_TRIGGER_TRACKER, STILL_VISION_FOUNDING_50, STILL_VISION_PAGE, STILL_VISION_STORE, TIKTOK_ASK_GROW_WONDER, TIKTOK_MONEY_MIRROR, TOOLKIT, WONDER_CARDS,
   openCalendly, sendToHQ, subscribeNewsletter, track, wix, withParams,
 } from '@/data'
 
@@ -291,9 +291,9 @@ export default function Links() {
 
           <Section label="Books and tools">
             <LinkRow i={0} r={{ key: 'still_vision_founding_50', title: 'Still Vision: Founding 50', note: 'Signed and numbered paperback · $30', media: <Photo src="/img/still-vision-cover.svg" pos="top" />, href: STILL_VISION_FOUNDING_50 }} />
-            <LinkRow i={1} r={{ key: 'all_books', title: 'All books', note: 'Every book by Glenn E. Windom II in one place', media: <Photo src="/img/money-mirror.webp" pos="top" />, href: BOOKS_PAGE }} />
-            <LinkRow i={2} r={{ key: 'still_vision_store', title: 'Still Vision Store', note: 'Hoodies, tees and caps', media: <Logo src="/img/still-vision-hoodie.webp" bg="#f4ede0" pad="p-0.5" />, href: STILL_VISION_STORE }} />
-            <LinkRow i={3} r={{ key: 'still_vision_anthem', title: 'Still Vision (The Anthem)', note: 'Listen now · Spotify, Apple Music, iTunes and Amazon Music', media: <Photo src="/img/still-vision-anthem-cover.svg" />, href: STILL_VISION_ANTHEM }} />
+            <LinkRow i={1} r={{ key: 'discover_still_vision', title: 'Discover Still Vision', note: 'The anthem and the book in one place', media: <Photo src="/img/still-vision-cover.svg" pos="top" />, href: STILL_VISION_PAGE }} />
+            <LinkRow i={2} r={{ key: 'all_books', title: 'All books', note: 'Every book by Glenn E. Windom II in one place', media: <Photo src="/img/money-mirror.webp" pos="top" />, href: BOOKS_PAGE }} />
+            <LinkRow i={3} r={{ key: 'still_vision_store', title: 'Still Vision Store', note: 'Hoodies, tees and caps', media: <Logo src="/img/still-vision-hoodie.webp" bg="#f4ede0" pad="p-0.5" />, href: STILL_VISION_STORE }} />
             <BookCard i={4} cover="/img/money-mirror.webp" alt="The Money Mirror by Glenn Windom II" label="My book" title={<>The Money <em className="italic">Mirror</em></>} tagline="Money isn’t math, it’s mental.">
               {storeBtn(AMAZON, 'book_amazon', <>Amazon<ArrowUpRight className="size-3.5" /></>)}
               {storeBtn(APPLE_BOOKS, 'book_apple', <><img src="/img/brands/apple.svg" alt="" className="-mt-0.5 size-3.5" />Books<ArrowUpRight className="size-3.5" /></>)}
